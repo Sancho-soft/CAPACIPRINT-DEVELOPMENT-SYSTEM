@@ -195,6 +195,28 @@
                 </a>
             @endif
 
+            {{-- ROLE 7: SYSTEM ADMINISTRATOR / SUPER ADMIN --}}
+            @if(auth()->user()->isAdmin() || auth()->user()->role === 'superadmin')
+                <p class="px-3 text-[10px] uppercase font-extrabold text-slate-400 tracking-wider mb-2">System Administration</p>
+
+                <a href="{{ route('admin.dashboard') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('admin.dashboard') ? 'bg-brand-500 text-white font-bold shadow-md shadow-brand-500/20' : 'hover:bg-navy-800 hover:text-white' }}">
+                    <i class="fa-solid fa-gauge w-5 text-center"></i> Overview
+                </a>
+                <a href="{{ route('admin.users.index') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('admin.users.*') ? 'bg-brand-500 text-white font-bold shadow-md shadow-brand-500/20' : 'hover:bg-navy-800 hover:text-white' }}">
+                    <i class="fa-solid fa-users-gear w-5 text-center"></i> User &amp; Access Mgmt
+                </a>
+                <a href="{{ route('admin.branches.index') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('admin.branches.*') ? 'bg-brand-500 text-white font-bold shadow-md shadow-brand-500/20' : 'hover:bg-navy-800 hover:text-white' }}">
+                    <i class="fa-solid fa-network-wired w-5 text-center"></i> Branch Management
+                </a>
+                <a href="{{ route('admin.employees.index') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('admin.employees.*') ? 'bg-brand-500 text-white font-bold shadow-md shadow-brand-500/20' : 'hover:bg-navy-800 hover:text-white' }}">
+                    <i class="fa-solid fa-id-card-clip w-5 text-center"></i> Staff &amp; Employees
+                </a>
+            @endif
+
         </nav>
 
         {{-- User Footer / Logout --}}

@@ -232,7 +232,17 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
     return redirect()->back();
 })->name('demo.switch-role');
 
+// ── Admin Controllers ─────────────────────────────────────────────
+use App\Http\Controllers\Admin\UserController as AdminUser;
+use App\Http\Controllers\Admin\BranchController as AdminBranch;
+use App\Http\Controllers\Admin\EmployeeController as AdminEmployee;
+
 // ─────────────────────────────────────────────────────────────────
-// ADMIN PLACEHOLDER
+// ADMIN / SUPER ADMIN (role: admin, superadmin)
 // ─────────────────────────────────────────────────────────────────
-Route::middleware('auth')->get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::resource('users', AdminUser::class);
+    Route::resource('branches', AdminBranch::class);
+    Route::resource('employees', AdminEmployee::class);
+});
