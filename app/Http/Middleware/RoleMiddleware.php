@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RoleMiddleware
 {
     /**
-     * Handle an incoming request.
+     * Handle an incoming request with role hierarchy support.
      * Usage: Route::middleware(['auth', 'role:staff,manager'])
      */
     public function handle(Request $request, Closure $next, string ...$roles): Response
@@ -20,18 +20,27 @@ class RoleMiddleware
 
         $userRole = auth()->user()->role;
 
-        // Map alias roles to allowed base roles
-        $effectiveRoles = match ($userRole) {
-            'superadmin', 'sysadmin' => ['admin', 'superadmin', 'sysadmin'],
-            'owner'                  => ['management', 'owner'],
-            'production_officer'     => ['manager', 'production_officer'],
-            'cs'                     => ['staff', 'cs'],
-            'designer'               => ['staff', 'designer', 'production'],
-            'operator'               => ['production', 'operator'],
-            default                  => [$userRole],
-        };
+        // Super Admin has universal access
+        if ($userRole === 'super_admin') {
+            return $next($request);
+        }
 
-        if (! array_intersect($effectiveRoles, $roles)) {
+        // Owner maps to management
+        if ($userRole === 'owner' && in_array('management', $roles)) {
+            return $next($request);
+        }
+
+        // Production Officer maps to manager
+        if ($userRole === 'production_officer' && (in_array('manager', $roles) || in_array('production', $roles))) {
+            return $next($request);
+        }
+
+        // Layout Designer maps to staff
+        if ($userRole === 'designer' && (in_array('staff', $roles) || in_array('production', $roles))) {
+            return $next($request);
+        }
+
+        if (! in_array($userRole, $roles)) {
             abort(403, 'You do not have permission to access this area.');
         }
 

@@ -4,157 +4,74 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Branch;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of users with search and role filters.
-     */
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::with('branch');
 
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
-            });
+        if ($role = $request->get('role')) {
+            $query->where('role', $role);
         }
 
-        if ($request->filled('role')) {
-            $query->where('role', $request->input('role'));
-        }
+        $users = $query->latest()->paginate(20);
+        $branches = Branch::all();
 
-        $users = $query->latest()->paginate(10)->withQueryString();
-        
-        $roles = [
-            'superadmin'  => 'Super Admin',
-            'admin'       => 'System Admin',
-            'management'  => 'Owner / Management',
-            'manager'     => 'Branch Manager',
-            'planner'     => 'Production Officer',
-            'staff'       => 'Customer Service / Sales',
-            'designer'    => 'Layout Designer',
-            'production'  => 'Production Operator',
-            'inventory'   => 'Inventory Staff',
-            'customer'    => 'Customer',
-        ];
-
-        return view('admin.users.index', compact('users', 'roles'));
+        return view('admin.users.index', compact('users', 'branches'));
     }
 
-    /**
-     * Show the form for creating a new user.
-     */
-    public function create()
-    {
-        $roles = [
-            'superadmin'  => 'Super Admin',
-            'admin'       => 'System Admin',
-            'management'  => 'Owner / Management',
-            'manager'     => 'Branch Manager',
-            'planner'     => 'Production Officer',
-            'staff'       => 'Customer Service / Sales',
-            'designer'    => 'Layout Designer',
-            'production'  => 'Production Operator',
-            'inventory'   => 'Inventory Staff',
-            'customer'    => 'Customer',
-        ];
-
-        return view('admin.users.create', compact('roles'));
-    }
-
-    /**
-     * Store a newly created user in storage.
-     */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users',
-            'role'     => 'required|string|max:50',
-            'phone'    => 'nullable|string|max:50',
-            'address'  => 'nullable|string|max:500',
-            'password' => 'required|string|min:8|confirmed',
+        $data = $request->validate([
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role'      => ['required', 'string', 'in:customer,staff,manager,production,inventory,management,admin'],
+            'branch_id' => ['nullable', 'exists:branches,id'],
+            'password'  => ['required', 'string', 'min:8'],
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
-
-        User::create($validated);
-
-        return redirect()->route('admin.users.index')->with('success', 'User account created successfully.');
-    }
-
-    /**
-     * Display the specified user.
-     */
-    public function show(User $user)
-    {
-        return view('admin.users.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified user.
-     */
-    public function edit(User $user)
-    {
-        $roles = [
-            'superadmin'  => 'Super Admin',
-            'admin'       => 'System Admin',
-            'management'  => 'Owner / Management',
-            'manager'     => 'Branch Manager',
-            'planner'     => 'Production Officer',
-            'staff'       => 'Customer Service / Sales',
-            'designer'    => 'Layout Designer',
-            'production'  => 'Production Operator',
-            'inventory'   => 'Inventory Staff',
-            'customer'    => 'Customer',
-        ];
-
-        return view('admin.users.edit', compact('user', 'roles'));
-    }
-
-    /**
-     * Update the specified user in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'role'     => 'required|string|max:50',
-            'phone'    => 'nullable|string|max:50',
-            'address'  => 'nullable|string|max:500',
-            'password' => 'nullable|string|min:8|confirmed',
+        $user = User::create([
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'role'      => $data['role'],
+            'branch_id' => $data['branch_id'] ?? null,
+            'password'  => Hash::make($data['password']),
         ]);
 
-        if (!empty($validated['password'])) {
-            $validated['password'] = Hash::make($validated['password']);
-        } else {
-            unset($validated['password']);
-        }
+        AuditLog::record(
+            'User Account Created',
+            'User Management',
+            "Created user account {$user->name} ({$user->email}) with role {$user->role}",
+            null,
+            $user->toArray()
+        );
 
-        $user->update($validated);
-
-        return redirect()->route('admin.users.index')->with('success', 'User account updated successfully.');
+        return redirect()->back()->with('success', "User account {$user->name} created successfully.");
     }
 
-    /**
-     * Remove the specified user from storage.
-     */
-    public function destroy(User $user)
+    public function updateRole(Request $request, User $user)
     {
-        if (auth()->id() === $user->id) {
-            return redirect()->route('admin.users.index')->with('error', 'You cannot delete your own account.');
-        }
+        $data = $request->validate([
+            'role'      => ['required', 'string', 'in:customer,staff,manager,production,inventory,management,admin'],
+            'branch_id' => ['nullable', 'exists:branches,id'],
+        ]);
 
-        $user->delete();
+        $old = ['role' => $user->role, 'branch_id' => $user->branch_id];
+        $user->update($data);
 
-        return redirect()->route('admin.users.index')->with('success', 'User account deleted successfully.');
+        AuditLog::record(
+            'User Access Level Updated',
+            'User Management',
+            "Updated role for {$user->name} to {$user->role}",
+            $old,
+            $data
+        );
+
+        return redirect()->back()->with('success', "User {$user->name} access updated.");
     }
 }

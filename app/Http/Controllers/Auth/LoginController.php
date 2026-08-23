@@ -54,19 +54,23 @@ class LoginController extends Controller
     }
 
     /**
-     * Redirect to appropriate dashboard based on role.
+     * Redirect to appropriate dashboard based on role for all 9 actors.
      */
     private function redirectAfterLogin($user)
     {
         return match ($user->role) {
-            'superadmin', 'admin', 'sysadmin'            => redirect()->route('admin.dashboard'),
-            'management', 'owner'                        => redirect()->route('management.dashboard'),
-            'manager', 'production_officer'              => redirect()->route('manager.dashboard'),
-            'staff', 'cs'                                => redirect()->route('staff.dashboard'),
-            'designer'                                   => redirect()->route('staff.print-requests.index'),
-            'production', 'operator'                     => redirect()->route('production.dashboard'),
-            'inventory'                                  => redirect()->route('inventory.dashboard'),
-            default                                      => redirect()->route('customer.dashboard'),
+            'super_admin'        => redirect()->route('admin.dashboard'),
+            'owner'              => redirect()->route('management.dashboard'),
+            'management'         => redirect()->route('management.dashboard'),
+            'admin'              => redirect()->route('admin.dashboard'),
+            'manager'            => redirect()->route('manager.dashboard'),
+            'production_officer' => redirect()->route('manager.production-planning.index'),
+            'staff'              => redirect()->route('staff.dashboard'),
+            'designer'           => redirect()->route('staff.print-requests.index'),
+            'production'         => redirect()->route('production.dashboard'),
+            'inventory'          => redirect()->route('inventory.dashboard'),
+            'customer'           => redirect()->route('customer.dashboard'),
+            default              => redirect()->route('customer.dashboard'),
         };
     }
 }

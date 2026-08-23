@@ -19,6 +19,9 @@ class PrintRequest extends Model
         'design_file_path',
         'design_file_name',
         'design_file_size',
+        'proof_file_path',
+        'proof_status',
+        'proof_notes',
         'collection_mode',
         'status',
     ];

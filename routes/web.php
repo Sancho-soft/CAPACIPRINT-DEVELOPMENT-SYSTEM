@@ -156,6 +156,9 @@ Route::middleware(['auth', 'role:manager'])->prefix('manager')->name('manager.')
     Route::get('/reports',                                  [MgrReport::class,          'index'])->name('reports.index');
     Route::get('/reports/production',                       [MgrReport::class,          'production'])->name('reports.production');
     Route::get('/reports/capacity',                         [MgrReport::class,          'capacity'])->name('reports.capacity');
+    Route::get('/purchasing',                               [\App\Http\Controllers\Manager\ProcurementController::class, 'index'])->name('purchasing.index');
+    Route::post('/purchasing',                              [\App\Http\Controllers\Manager\ProcurementController::class, 'store'])->name('purchasing.store');
+    Route::post('/purchasing/{purchaseRequest}/receive',    [\App\Http\Controllers\Manager\ProcurementController::class, 'markReceived'])->name('purchasing.receive');
 });
 
 // ─────────────────────────────────────────────────────────────────
@@ -167,6 +170,8 @@ Route::middleware(['auth', 'role:production'])->prefix('production')->name('prod
     Route::get('/jobs/{productionJob}',         [ProdJob::class,         'show'])->name('jobs.show');
     Route::get('/jobs/{productionJob}/status',  [ProdJob::class,         'statusForm'])->name('jobs.status-form');
     Route::post('/jobs/{productionJob}/status', [ProdJob::class,         'updateStatus'])->name('jobs.update-status');
+    Route::get('/machines',                     [\App\Http\Controllers\Production\MachineLogController::class, 'index'])->name('machines.index');
+    Route::post('/machines',                    [\App\Http\Controllers\Production\MachineLogController::class, 'store'])->name('machines.store');
     Route::get('/notifications',                [ProdNotification::class,'index'])->name('notifications.index');
     Route::post('/notifications/{id}/read',     [ProdNotification::class,'markRead'])->name('notifications.markRead');
 });
@@ -203,6 +208,10 @@ Route::middleware(['auth', 'role:management'])->prefix('management')->name('mana
     Route::get('/capacity',    fn() => view('management.capacity'))->name('capacity');
     Route::get('/production',  [MgmtProduction::class,  'index'])->name('production.index');
     Route::get('/inventory',   [MgmtInventory::class,   'index'])->name('inventory.index');
+    Route::get('/purchasing',  [\App\Http\Controllers\Management\ProcurementController::class, 'index'])->name('purchasing.index');
+    Route::post('/purchasing/{purchaseRequest}/approve', [\App\Http\Controllers\Management\ProcurementController::class, 'approve'])->name('purchasing.approve');
+    Route::post('/purchasing/{purchaseRequest}/reject',  [\App\Http\Controllers\Management\ProcurementController::class, 'reject'])->name('purchasing.reject');
+    Route::get('/audit-logs',  [\App\Http\Controllers\Management\AuditLogController::class, 'index'])->name('audit-logs.index');
     Route::get('/reports',     [MgmtReport::class,      'index'])->name('reports.index');
     Route::get('/reports/orders',      [MgmtReport::class, 'orders'])->name('reports.orders');
     Route::get('/reports/production',  [MgmtReport::class, 'production'])->name('reports.production');
@@ -211,40 +220,36 @@ Route::middleware(['auth', 'role:management'])->prefix('management')->name('mana
 });
 
 // ─────────────────────────────────────────────────────────────────
+// ADMIN & SYSTEM MANAGEMENT
+// ─────────────────────────────────────────────────────────────────
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/users',     [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+    Route::post('/users',    [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{user}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.update-role');
+});
+
+// ─────────────────────────────────────────────────────────────────
 // DEMO ROLE SWITCHER (For Testing & Presentation)
 // ─────────────────────────────────────────────────────────────────
 Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
-    $validRoles = ['customer', 'staff', 'cs', 'manager', 'production_officer', 'designer', 'production', 'inventory', 'management', 'owner', 'admin', 'superadmin'];
-    if (in_array($role, $validRoles)) {
+    if (in_array($role, ['super_admin', 'owner', 'admin', 'manager', 'production_officer', 'staff', 'designer', 'production', 'customer'])) {
         $user = \App\Models\User::where('role', $role)->first();
         if ($user) {
             auth()->login($user);
             return redirect()->to(match($role) {
-                'customer'                       => route('customer.dashboard'),
-                'staff', 'cs'                    => route('staff.dashboard'),
-                'manager', 'production_officer'  => route('manager.dashboard'),
-                'designer'                       => route('staff.print-requests.index'),
-                'production'                     => route('production.dashboard'),
-                'inventory'                      => route('inventory.dashboard'),
-                'management', 'owner'            => route('management.dashboard'),
-                default                          => route('admin.dashboard')
+                'customer'           => route('customer.dashboard'),
+                'staff'              => route('staff.dashboard'),
+                'designer'           => route('staff.print-requests.index'),
+                'manager'            => route('manager.dashboard'),
+                'production_officer' => route('manager.production-planning.index'),
+                'production'         => route('production.dashboard'),
+                'inventory'          => route('inventory.dashboard'),
+                'owner'              => route('management.dashboard'),
+                'super_admin'        => route('admin.dashboard'),
+                default              => route('admin.dashboard')
             });
         }
     }
     return redirect()->back();
 })->name('demo.switch-role');
-
-// ── Admin Controllers ─────────────────────────────────────────────
-use App\Http\Controllers\Admin\UserController as AdminUser;
-use App\Http\Controllers\Admin\BranchController as AdminBranch;
-use App\Http\Controllers\Admin\EmployeeController as AdminEmployee;
-
-// ─────────────────────────────────────────────────────────────────
-// ADMIN / SUPER ADMIN (role: admin, superadmin)
-// ─────────────────────────────────────────────────────────────────
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
-    Route::resource('users', AdminUser::class);
-    Route::resource('branches', AdminBranch::class);
-    Route::resource('employees', AdminEmployee::class);
-});
