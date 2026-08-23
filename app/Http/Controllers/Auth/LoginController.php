@@ -66,7 +66,7 @@ class LoginController extends Controller
             'manager'            => redirect()->route('manager.dashboard'),
             'production_officer' => redirect()->route('manager.production-planning.index'),
             'staff'              => redirect()->route('staff.dashboard'),
-            'designer'           => redirect()->route('staff.print-requests.index'),
+            'designer'           => redirect()->route('designer.dashboard'),
             'production'         => redirect()->route('production.dashboard'),
             'inventory'          => redirect()->route('inventory.dashboard'),
             'customer'           => redirect()->route('customer.dashboard'),

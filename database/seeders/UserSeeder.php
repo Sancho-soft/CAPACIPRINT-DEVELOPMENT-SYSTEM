@@ -64,11 +64,11 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'manager@capaciprint.com'],
             [
-                'name'     => 'John Supervisor (Branch Manager)',
+                'name'     => 'Branch Manager',
                 'password' => Hash::make('password'),
                 'role'     => 'manager',
                 'phone'    => '+63 919 345 6789',
-                'address'  => 'Main Printing Hub QC',
+                'address'  => 'Main Printing Hub',
             ]
         );
 
@@ -92,7 +92,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role'     => 'staff',
                 'phone'    => '+63 918 234 5678',
-                'address'  => 'Quezon City Main Office',
+                'address'  => 'Main Customer Desk',
             ]
         );
 
@@ -128,7 +128,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role'     => 'customer',
                 'phone'    => '+63 912 345 6789',
-                'address'  => '123 Main Street, Quezon City',
+                'address'  => 'Client Address',
             ]
         );
     }

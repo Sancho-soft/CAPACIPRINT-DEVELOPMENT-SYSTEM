@@ -19,6 +19,7 @@ class User extends Authenticatable
         'role',
         'phone',
         'address',
+        'branch_id',
     ];
 
     protected $hidden = [
@@ -71,6 +72,11 @@ class User extends Authenticatable
     }
 
     // ── Relationships ─────────────────────────────────────────
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function printRequests()
     {
         return $this->hasMany(PrintRequest::class);

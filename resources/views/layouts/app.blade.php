@@ -65,6 +65,14 @@
         .sidebar-section {
             @apply text-[10px] uppercase tracking-widest font-bold text-navy-400 px-3 pt-5 pb-1;
         }
+        /* Hide scrollbars for clean navigation appearance */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 
     @yield('head')

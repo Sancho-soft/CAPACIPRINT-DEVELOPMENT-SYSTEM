@@ -230,10 +230,16 @@ Route::middleware(['auth', 'role:management'])->prefix('management')->name('mana
 // ADMIN & SYSTEM MANAGEMENT
 // ─────────────────────────────────────────────────────────────────
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users',     [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::post('/users',    [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
     Route::put('/users/{user}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.update-role');
+    Route::get('/branches',         [\App\Http\Controllers\Admin\BranchController::class,   'index'])->name('branches.index');
+    Route::get('/branches/create',  [\App\Http\Controllers\Admin\BranchController::class,   'create'])->name('branches.create');
+    Route::post('/branches',        [\App\Http\Controllers\Admin\BranchController::class,   'store'])->name('branches.store');
+    Route::get('/branches/{branch}/edit', [\App\Http\Controllers\Admin\BranchController::class, 'edit'])->name('branches.edit');
+    Route::put('/branches/{branch}',      [\App\Http\Controllers\Admin\BranchController::class, 'update'])->name('branches.update');
+    Route::get('/employees',        [\App\Http\Controllers\Admin\EmployeeController::class, 'index'])->name('employees.index');
 });
 
 // ─────────────────────────────────────────────────────────────────
