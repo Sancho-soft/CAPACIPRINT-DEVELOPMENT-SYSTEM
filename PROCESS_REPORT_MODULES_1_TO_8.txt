@@ -1,0 +1,262 @@
+================================================================================
+          CAPACIPRINT SYSTEM — SYSTEM PROCESS & IMPLEMENTATION REPORT
+                          MODULES 1 TO 8 COMPREHENSIVE GUIDE
+================================================================================
+Generated Date: August 23, 2026
+System: CapaciPrint (Multi-Branch Printing Management & Production System)
+Database: MySQL (`project` database)
+Architecture: Laravel 12 / MVC / Role-Based Access Control (RBAC) / Blade / TailwindCSS
+
+--------------------------------------------------------------------------------
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+1. Executive Summary & Actor Roles
+2. Detailed Breakdown of Completed Modules (Modules 1 to 6)
+   - Module 1: Authentication & Account Access
+   - Module 2: User & Access Management
+   - Module 3: Branch Management
+   - Module 4: Employee & Staff Management
+   - Module 5: Customer Management / CRM
+   - Module 6: Print Request Management
+3. Detailed Breakdown of Production Modules (Modules 7 to 8)
+   - Module 7: Quotation & Estimation
+   - Module 8: Print Job Management & Execution
+4. End-to-End Workflow & Data Lifecycle
+5. File Mapping & Controller Directory
+
+================================================================================
+1. EXECUTIVE SUMMARY & ACTOR ROLES
+================================================================================
+CapaciPrint integrates multi-branch printing shop operations into a unified 
+digital workflow. The system coordinates 9 distinct user actors across 20 modules:
+
+  1. Super Admin       : Full system control, role permissions, emergency recovery.
+  2. Owner / Executive : Financial dashboards, branch performance, procurement approvals.
+  3. System Admin      : User accounts, branch infrastructure, machine catalogs.
+  4. Branch Manager    : Capacity scheduling, branch workload, employee management.
+  5. Production Officer: Production planning, multi-branch job scheduling.
+  6. Customer Service  : Customer CRM, request intake, quotation, payments, claiming.
+  7. Layout Designer   : Artwork preparation, layout proofs, revision approvals.
+  8. Production Tech   : Job execution, machine operations, material deductions.
+  9. Customer          : Request wizard, quote approval, order tracking, claiming.
+
+================================================================================
+2. DETAILED BREAKDOWN OF COMPLETED MODULES (MODULES 1 TO 6)
+================================================================================
+
+--------------------------------------------------------------------------------
+MODULE 1: AUTHENTICATION & ACCOUNT ACCESS
+--------------------------------------------------------------------------------
+- Purpose: Secure user authentication, session control, and role redirection.
+- Key Actors: All Users.
+- Implementation Details:
+  * Handled via App\Http\Controllers\Auth\LoginController & RegisterController.
+  * Checks encrypted credentials (bcrypt) and verifies user status.
+  * Role Redirection: Upon successful login, the system automatically redirects
+    the user to their designated dashboard:
+      - Admin / Super Admin -> /admin/dashboard
+      - Customer            -> /customer/dashboard
+      - Customer Service    -> /staff/dashboard
+      - Branch Manager      -> /manager/dashboard
+      - Production Staff    -> /production/dashboard
+      - Inventory Staff     -> /inventory/dashboard
+      - Management / Owner  -> /management/dashboard
+  * Fast Role Switcher (/switch-role/{role}) included for rapid testing and presentations.
+
+--------------------------------------------------------------------------------
+MODULE 2: USER & ACCESS MANAGEMENT
+--------------------------------------------------------------------------------
+- Purpose: Full administrative lifecycle of system user accounts and permissions.
+- Key Actors: Super Admin, System Admin.
+- Implementation Details:
+  * Handled via App\Http\Controllers\Admin\UserController.
+  * Features:
+    1. Dynamic Search: Live filtering by Name, Email, or Phone Number.
+    2. Role Filtering: Filter users across all 9 roles.
+    3. User Account CRUD: Create, View, Edit, and Delete accounts.
+    4. Data Security: Automatic password hashing, unique email validation, and
+       self-deletion prevention.
+  * Views Created:
+    - resources/views/admin/users/index.blade.php
+    - resources/views/admin/users/create.blade.php
+    - resources/views/admin/users/edit.blade.php
+
+--------------------------------------------------------------------------------
+MODULE 3: BRANCH MANAGEMENT
+--------------------------------------------------------------------------------
+- Purpose: Managing multi-branch locations, physical infrastructure, and capacity.
+- Key Actors: System Admin, Branch Manager.
+- Implementation Details:
+  * Handled via App\Http\Controllers\Admin\BranchController.
+  * Branch Properties Configured:
+    - Name, City/Location, Physical Address, Contact Phone, Assigned Manager.
+    - Max Daily Jobs: Sets the theoretical daily throughput threshold.
+    - Status: Active (accepting jobs), Maintenance, or Inactive.
+  * Real-Time Status Computation:
+    - Calculates active staff assigned to the branch.
+    - Counts available vs offline machines.
+    - Calculates real-time Workload %: (Active Jobs / Max Capacity) * 100.
+  * Views Created:
+    - resources/views/admin/branches/index.blade.php
+    - resources/views/admin/branches/create.blade.php
+    - resources/views/admin/branches/edit.blade.php
+    - resources/views/admin/branches/show.blade.php
+
+--------------------------------------------------------------------------------
+MODULE 4: EMPLOYEE & STAFF MANAGEMENT
+--------------------------------------------------------------------------------
+- Purpose: Staff branch assignments, job roles, and operational shift availability.
+- Key Actors: System Admin, Branch Manager.
+- Implementation Details:
+  * Handled via App\Http\Controllers\Admin\EmployeeController.
+  * Features:
+    1. Employee Registration & Branch Association: Assigns employees directly
+       to branch locations.
+    2. System User Linking: Optionally binds employee profiles to existing login accounts.
+    3. Availability States: Tracks real-time states ('available', 'on_leave', 'off_duty')
+       to feed the capacity evaluation algorithm.
+  * Views Created:
+    - resources/views/admin/employees/index.blade.php
+    - resources/views/admin/employees/create.blade.php
+    - resources/views/admin/employees/edit.blade.php
+
+--------------------------------------------------------------------------------
+MODULE 5: CUSTOMER MANAGEMENT / CRM
+--------------------------------------------------------------------------------
+- Purpose: Customer relationship management, client directory, and history tracking.
+- Key Actors: Customer Service / Sales, Customer.
+- Implementation Details:
+  * Handled via App\Http\Controllers\Staff\CustomerController.
+  * Features:
+    1. Customer Directory: Searchable directory with lifetime order counts and request totals.
+    2. Comprehensive Customer Profile: View customer contact info, complete order
+       history, and current active print requests.
+    3. Customer Self-Service: Customers manage their profile and security via
+       Customer\ProfileController.
+
+--------------------------------------------------------------------------------
+MODULE 6: PRINT REQUEST MANAGEMENT
+--------------------------------------------------------------------------------
+- Purpose: Print job specification intake, artwork uploading, and staff verification.
+- Key Actors: Customer, Customer Service.
+- Implementation Details:
+  * Handled via App\Http\Controllers\Customer\PrintRequestController and 
+    App\Http\Controllers\Staff\PrintRequestController.
+  * 5-Step Customer Request Wizard:
+      Step 1: Service Selection (Digital, Offset, Large Format, Booklet, Cards, Stickers).
+      Step 2: Print Specifications (Quantity, Dimensions/Size, Paper Material, Finishing).
+      Step 3: Artwork Upload (Support for PDF, EPS, TIFF, AI, PNG, JPG).
+      Step 4: Fulfillment & Branch (Pickup vs. Shipping, Preferred Branch, Required Deadline).
+      Step 5: Review & Confirmation.
+  * Staff Intake & Verification:
+    - Staff reviews technical specifications and downloads artwork proofs.
+    - Staff marks request as 'verified' to advance it directly to quotation.
+
+================================================================================
+3. DETAILED BREAKDOWN OF PRODUCTION MODULES (MODULES 7 TO 8)
+================================================================================
+
+--------------------------------------------------------------------------------
+MODULE 7: QUOTATION & ESTIMATION
+--------------------------------------------------------------------------------
+- Purpose: Accurate cost calculation, quotation generation, sending, and approval.
+- Key Actors: Customer Service / Sales, Customer.
+- Implementation Details:
+  * Controllers: 
+    - App\Http\Controllers\Staff\QuotationController
+    - App\Http\Controllers\Customer\QuotationController
+  * Step-by-Step Process:
+    1. Pricing Matrix Evaluation: Staff references PricingRule model to automatically
+       derive base cost, material rate, and finishing surcharges based on quantity and size.
+    2. Quotation Generation: System generates a unique quotation number (QT-XXXXXX),
+       sets an expiration date (valid_until), and stores the financial breakdown.
+    3. Customer Notification: Automated customer notification is logged in the database.
+    4. Customer Decision:
+       - Confirm: Customer accepts the quote, advancing the request to the payment stage.
+       - Decline: Customer rejects the quote with feedback.
+       - Download: Printable/downloadable summary for customer records.
+
+--------------------------------------------------------------------------------
+MODULE 8: PRINT JOB MANAGEMENT & EXECUTION
+--------------------------------------------------------------------------------
+- Purpose: Order conversion, branch production scheduling, shop-floor execution,
+  and automated inventory consumption.
+- Key Actors: Customer Service, Branch Manager, Production Operator, Customer.
+- Implementation Details:
+  * Controllers:
+    - App\Http\Controllers\Staff\OrderController
+    - App\Http\Controllers\Manager\ProductionPlanningController
+    - App\Http\Controllers\Production\JobController
+  * Step-by-Step Process:
+    1. Order Creation & Payment Verification: Once payment is submitted by customer,
+       staff verifies payment and creates the official Order (#ORD-XXXXX).
+    2. Production Job Initialization: Staff converts the order into a Production Job
+       (#JOB-XXXXXX) with priority tags ('normal', 'rush', 'urgent').
+    3. Multi-Branch Planning & Machine Assignment: Branch Manager assigns the job
+       to an active production technician and an available branch machine.
+    4. Shop-Floor Production:
+       - Operator changes status: 'assigned' -> 'in_production' -> 'completed'.
+       - Automatic Material Deduction: Upon starting production, the system automatically
+         deducts required paper/material units from BranchInventory and logs a
+         StockMovement (Stock Out) record with job reference.
+       - Delay Handling: If delayed, reasons are logged and alerts are sent to managers.
+    5. Order Completion & Claim Generation:
+       - When production completes, a ClaimReference is generated with a unique QR code.
+       - Staff uses the Claim Scanner (/staff/claim-scanner) to verify QR code upon pickup.
+
+================================================================================
+4. END-TO-END WORKFLOW & DATA LIFECYCLE SUMMARY
+================================================================================
+
+[Customer submits Print Request]
+               │
+               ▼
+[Staff verifies Specifications] ──► [Staff prepares Quotation (QT-XXXXXX)]
+                                                      │
+                                                      ▼
+[Staff confirms Payment] ◄── [Customer approves Quotation & pays]
+          │
+          ▼
+[Order Created (#ORD-XXXXX)] ──► [Production Job Initialized (#JOB-XXXXX)]
+                                                      │
+                                                      ▼
+                                   [Manager assigns Branch & Machine]
+                                                      │
+                                                      ▼
+                                   [Operator executes Job & auto-deducts Stock]
+                                                      │
+                                                      ▼
+                                   [Job Completed -> QR Claim Issued -> Customer Pickup]
+
+================================================================================
+5. FILE MAPPING & DIRECTORY REFERENCE
+================================================================================
+
+ADMIN & MANAGEMENT:
+- app/Http/Controllers/Admin/UserController.php
+- app/Http/Controllers/Admin/BranchController.php
+- app/Http/Controllers/Admin/EmployeeController.php
+- resources/views/admin/dashboard.blade.php
+- resources/views/admin/users/ (index, create, edit)
+- resources/views/admin/branches/ (index, create, edit, show)
+- resources/views/admin/employees/ (index, create, edit)
+
+CUSTOMER PORTAL:
+- app/Http/Controllers/Customer/PrintRequestController.php
+- app/Http/Controllers/Customer/QuotationController.php
+- app/Http/Controllers/Customer/OrderController.php
+- resources/views/customer/print-requests/ (create, index, show)
+- resources/views/customer/quotations/ (index, show, download)
+- resources/views/customer/orders/ (index, show, tracking)
+
+STAFF & PRODUCTION:
+- app/Http/Controllers/Staff/CustomerController.php
+- app/Http/Controllers/Staff/PrintRequestController.php
+- app/Http/Controllers/Staff/QuotationController.php
+- app/Http/Controllers/Staff/OrderController.php
+- app/Http/Controllers/Manager/ProductionPlanningController.php
+- app/Http/Controllers/Production/JobController.php
+
+================================================================================
+                              END OF PROCESS REPORT
+================================================================================

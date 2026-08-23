@@ -113,6 +113,16 @@
                 </a>
             @endif
 
+            {{-- ROLE: LAYOUT DESIGNER / PRE-PRESS --}}
+            @if(auth()->user()->isDesigner() || auth()->user()->isStaff() || auth()->user()->isAdmin())
+                <p class="px-3 text-[10px] uppercase font-extrabold text-slate-400 tracking-wider mb-2">Design &amp; Layout</p>
+
+                <a href="{{ route('designer.index') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('designer.*') ? 'bg-pink-600 text-white font-bold shadow-md shadow-pink-600/20' : 'hover:bg-navy-800 hover:text-white' }}">
+                    <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i> Design Workspace
+                </a>
+            @endif
+
             {{-- ROLE 4: PRODUCTION STAFF --}}
             @if(auth()->user()->isProduction() || auth()->user()->isAdmin())
                 <p class="px-3 text-[10px] uppercase font-extrabold text-slate-400 tracking-wider mb-2">Production</p>

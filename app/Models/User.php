@@ -36,8 +36,9 @@ class User extends Authenticatable
 
     // ── Role helpers ──────────────────────────────────────────
     public function isCustomer(): bool   { return $this->role === 'customer'; }
-    public function isAdmin(): bool      { return $this->role === 'admin'; }
+    public function isAdmin(): bool      { return in_array($this->role, ['admin', 'superadmin']); }
     public function isStaff(): bool      { return $this->role === 'staff'; }
+    public function isDesigner(): bool   { return $this->role === 'designer'; }
     public function isManager(): bool    { return $this->role === 'manager'; }
     public function isProduction(): bool { return $this->role === 'production'; }
     public function isInventory(): bool  { return $this->role === 'inventory'; }
@@ -45,7 +46,7 @@ class User extends Authenticatable
 
     public function isInternal(): bool
     {
-        return in_array($this->role, ['staff','manager','production','inventory','management','admin']);
+        return in_array($this->role, ['staff','designer','manager','planner','production','inventory','management','admin','superadmin']);
     }
 
     public function getRoleLabelAttribute(): string

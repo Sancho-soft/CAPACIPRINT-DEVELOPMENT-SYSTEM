@@ -52,6 +52,16 @@ class PrintRequest extends Model
         return $this->hasOne(Order::class);
     }
 
+    public function designProofs()
+    {
+        return $this->hasMany(DesignProof::class);
+    }
+
+    public function latestProof()
+    {
+        return $this->hasOne(DesignProof::class)->latestOfMany();
+    }
+
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
