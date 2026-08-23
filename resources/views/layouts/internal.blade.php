@@ -6,7 +6,9 @@
     {{-- Mobile Overlay & Sidebar Toggle --}}
     <div class="md:hidden bg-navy-900 text-white px-4 py-3 flex items-center justify-between shadow-md sticky top-0 z-40">
         <div class="flex items-center gap-3">
-            <img src="{{ asset('images/caplogo.png') }}" class="h-7 w-auto brightness-0 invert" alt="Logo">
+            <div class="h-8 w-8 rounded-lg bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
+                <img src="{{ asset('images/caplogo.png') }}" class="h-full w-auto object-contain mix-blend-multiply" alt="Logo">
+            </div>
             <span class="font-bold text-sm tracking-wide font-display">MORNING STAR</span>
         </div>
         <button @click="sidebarOpen = !sidebarOpen" class="text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none">
@@ -19,9 +21,11 @@
            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
         {{-- Sidebar Brand --}}
-        <div class="p-6 border-b border-navy-800 flex items-center justify-between">
+        <div class="p-5 border-b border-navy-800 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="{{ asset('images/caplogo.png') }}" class="h-9 w-auto brightness-0 invert" alt="CAPACIPRINT">
+                <div class="h-10 w-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
+                    <img src="{{ asset('images/caplogo.png') }}" class="h-full w-auto object-contain mix-blend-multiply" alt="CAPACIPRINT">
+                </div>
                 <div>
                     <h1 class="font-black text-white text-base font-display tracking-tight leading-none">CAPACIPRINT</h1>
                     <span class="text-[10px] text-brand-400 font-semibold tracking-wider uppercase block mt-1">Production Planning</span>
@@ -131,7 +135,17 @@
                 </a>
             @endif
 
-            {{-- ROLE 4: PRODUCTION STAFF --}}
+            {{-- ROLE 4: LAYOUT DESIGNER --}}
+            @if(auth()->user()->isDesigner() || auth()->user()->isAdmin())
+                <p class="px-3 text-[10px] uppercase font-extrabold text-slate-400 tracking-wider mb-2">Pre-Press & Design</p>
+
+                <a href="{{ route('designer.dashboard') }}"
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition {{ request()->routeIs('designer.*') ? 'bg-brand-500 text-white font-bold shadow-md shadow-brand-500/20' : 'hover:bg-navy-800 hover:text-white' }}">
+                    <i class="fa-solid fa-palette w-5 text-center"></i> Studio Workspace
+                </a>
+            @endif
+
+            {{-- ROLE 5: PRODUCTION STAFF --}}
             @if(auth()->user()->isProduction() || auth()->user()->isAdmin())
                 <p class="px-3 text-[10px] uppercase font-extrabold text-slate-400 tracking-wider mb-2">Production</p>
 
@@ -257,7 +271,7 @@
         <header class="bg-white border-b border-slate-200/80 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
             <div>
                 <h1 class="text-lg font-bold text-navy-900 font-display">@yield('page-title', 'Portal')</h1>
-                <p class="text-xs text-slate-500">Morning Star Printing Press &middot; Capacity Planning System</p>
+                <p class="text-xs text-slate-500">CapaciPrint &middot; Capacity Planning System</p>
             </div>
 
             <div class="flex items-center gap-4">

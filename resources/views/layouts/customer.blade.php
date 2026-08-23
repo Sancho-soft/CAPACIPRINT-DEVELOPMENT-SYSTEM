@@ -7,7 +7,7 @@
     <div class="md:hidden bg-navy-900 text-white px-4 py-3 flex items-center justify-between shadow-md sticky top-0 z-40">
         <div class="flex items-center gap-3">
             <div class="h-8 w-8 rounded-lg bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
-                <img src="{{ asset('images/caplogo.png') }}" class="h-full w-full object-contain" alt="Logo">
+                <img src="{{ asset('images/caplogo.png') }}" class="h-full w-full object-contain mix-blend-multiply" alt="Logo">
             </div>
             <span class="font-bold text-sm tracking-wide font-display text-white">CAPACIPRINT</span>
         </div>
@@ -23,8 +23,8 @@
         {{-- Sidebar Brand --}}
         <div class="p-6 border-b border-navy-800 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="h-9 w-9 rounded-xl bg-white p-1.5 flex items-center justify-center shrink-0 shadow-sm">
-                    <img src="{{ asset('images/caplogo.png') }}" class="h-full w-full object-contain" alt="CAPACIPRINT">
+                <div class="h-10 w-10 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
+                    <img src="{{ asset('images/caplogo.png') }}" class="h-full w-full object-contain mix-blend-multiply" alt="CAPACIPRINT">
                 </div>
                 <div>
                     <h1 class="font-black text-white text-base font-display tracking-tight leading-none">CAPACIPRINT</h1>
@@ -123,7 +123,7 @@
         <header class="bg-white border-b border-slate-200/80 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
             <div>
                 <h1 class="text-lg font-bold text-navy-900 font-display">@yield('page-title', 'Dashboard')</h1>
-                <p class="text-xs text-slate-500">Morning Star Printing Press &middot; Capacity Planning System</p>
+                <p class="text-xs text-slate-500">CapaciPrint &middot; Capacity Planning System</p>
             </div>
 
             <div class="flex items-center gap-4">
