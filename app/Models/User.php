@@ -35,12 +35,11 @@ class User extends Authenticatable
         ];
     }
 
-    // ── Role helpers ──────────────────────────────────────────
-    public function isSuperAdmin(): bool        { return $this->role === 'super_admin'; }
-    public function isOwner(): bool             { return $this->role === 'owner' || $this->role === 'management'; }
-    public function isAdmin(): bool             { return $this->role === 'admin' || $this->role === 'super_admin'; }
+    public function isSuperAdmin(): bool        { return in_array($this->role, ['super_admin', 'superadmin']); }
+    public function isOwner(): bool             { return in_array($this->role, ['owner', 'management']); }
+    public function isAdmin(): bool             { return in_array($this->role, ['admin', 'super_admin', 'superadmin']); }
     public function isManager(): bool           { return $this->role === 'manager'; }
-    public function isProductionOfficer(): bool { return $this->role === 'production_officer'; }
+    public function isProductionOfficer(): bool { return in_array($this->role, ['production_officer', 'planner']); }
     public function isStaff(): bool             { return $this->role === 'staff'; }
     public function isDesigner(): bool          { return $this->role === 'designer'; }
     public function isProduction(): bool        { return $this->role === 'production'; }
@@ -50,7 +49,7 @@ class User extends Authenticatable
 
     public function isInternal(): bool
     {
-        return in_array($this->role, ['super_admin', 'owner', 'admin', 'manager', 'production_officer', 'staff', 'designer', 'production', 'inventory', 'management']);
+        return in_array($this->role, ['super_admin', 'superadmin', 'owner', 'admin', 'manager', 'production_officer', 'planner', 'staff', 'designer', 'production', 'inventory', 'management']);
     }
 
     public function getRoleLabelAttribute(): string

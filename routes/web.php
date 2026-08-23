@@ -266,3 +266,24 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
     }
     return redirect()->back();
 })->name('demo.switch-role');
+
+// ── Designer Controllers ──────────────────────────────────────────
+use App\Http\Controllers\Designer\DesignController as DesignerController;
+
+// ── Admin Controllers ─────────────────────────────────────────────
+use App\Http\Controllers\Admin\UserController as AdminUser;
+use App\Http\Controllers\Admin\BranchController as AdminBranch;
+use App\Http\Controllers\Admin\EmployeeController as AdminEmployee;
+
+// ─────────────────────────────────────────────────────────────────
+// DESIGN & LAYOUT MANAGEMENT (role: designer, staff, admin, superadmin)
+// ─────────────────────────────────────────────────────────────────
+Route::middleware(['auth'])->prefix('designer')->name('designer.')->group(function () {
+    Route::get('/',                                    [DesignerController::class, 'index'])->name('index');
+    Route::get('/{printRequest}',                      [DesignerController::class, 'show'])->name('show');
+    Route::post('/{printRequest}/proofs',              [DesignerController::class, 'storeProof'])->name('storeProof');
+    Route::post('/proofs/{designProof}/production-file',[DesignerController::class, 'uploadProductionFile'])->name('uploadProductionFile');
+});
+
+// Customer Proof Review Route
+Route::middleware(['auth'])->post('/customer/proofs/{designProof}/review', [DesignerController::class, 'customerReview'])->name('customer.proof.review');
