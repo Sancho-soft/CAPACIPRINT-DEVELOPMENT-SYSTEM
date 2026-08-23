@@ -35,30 +35,41 @@ class User extends Authenticatable
     }
 
     // ── Role helpers ──────────────────────────────────────────
-    public function isCustomer(): bool   { return $this->role === 'customer'; }
-    public function isAdmin(): bool      { return $this->role === 'admin'; }
-    public function isStaff(): bool      { return $this->role === 'staff'; }
-    public function isManager(): bool    { return $this->role === 'manager'; }
-    public function isProduction(): bool { return $this->role === 'production'; }
-    public function isInventory(): bool  { return $this->role === 'inventory'; }
-    public function isManagement(): bool { return $this->role === 'management'; }
+    public function isCustomer(): bool          { return $this->role === 'customer'; }
+    public function isSuperAdmin(): bool        { return in_array($this->role, ['superadmin', 'admin']); }
+    public function isOwner(): bool             { return in_array($this->role, ['owner', 'management']); }
+    public function isSysAdmin(): bool          { return in_array($this->role, ['sysadmin', 'admin']); }
+    public function isBranchManager(): bool     { return in_array($this->role, ['manager', 'branch_manager']); }
+    public function isProductionOfficer(): bool { return in_array($this->role, ['production_officer', 'manager']); }
+    public function isCustomerService(): bool   { return in_array($this->role, ['staff', 'cs']); }
+    public function isLayoutDesigner(): bool    { return in_array($this->role, ['designer', 'layout_designer']); }
+    public function isProductionOperator(): bool{ return in_array($this->role, ['production', 'operator']); }
+    public function isAdmin(): bool             { return in_array($this->role, ['admin', 'superadmin', 'sysadmin']); }
+    public function isStaff(): bool             { return in_array($this->role, ['staff', 'cs']); }
+    public function isManager(): bool           { return in_array($this->role, ['manager', 'branch_manager', 'production_officer']); }
+    public function isProduction(): bool        { return in_array($this->role, ['production', 'operator']); }
+    public function isInventory(): bool         { return $this->role === 'inventory'; }
+    public function isManagement(): bool        { return in_array($this->role, ['management', 'owner']); }
 
     public function isInternal(): bool
     {
-        return in_array($this->role, ['staff','manager','production','inventory','management','admin']);
+        return $this->role !== 'customer';
     }
 
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'customer'   => 'Customer',
-            'staff'      => 'Sales / Customer Service',
-            'manager'    => 'Branch Manager / Supervisor',
-            'production' => 'Production Staff',
-            'inventory'  => 'Inventory Staff',
-            'management' => 'Owner / Management',
-            'admin'      => 'System Administrator',
-            default      => ucfirst($this->role),
+            'superadmin'         => 'Super Admin',
+            'management', 'owner'=> 'Owner (Executive)',
+            'admin', 'sysadmin'  => 'System Admin',
+            'manager'            => 'Branch Manager',
+            'production_officer' => 'Production Officer',
+            'staff', 'cs'        => 'Customer Service (CS)',
+            'designer'           => 'Layout Designer',
+            'production'         => 'Production Operator',
+            'inventory'          => 'Inventory Staff',
+            'customer'           => 'Customer',
+            default              => ucfirst($this->role),
         };
     }
 

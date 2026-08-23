@@ -13,35 +13,47 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Customer
+        // 1. Super Admin
         User::updateOrCreate(
-            ['email' => 'customer@capaciprint.com'],
+            ['email' => 'superadmin@capaciprint.com'],
             [
-                'name'     => 'Demo Customer',
+                'name'     => 'Alex Mercer (Super Admin)',
                 'password' => Hash::make('password'),
-                'role'     => 'customer',
-                'phone'    => '+63 912 345 6789',
-                'address'  => '123 Main Street, Quezon City',
+                'role'     => 'superadmin',
+                'phone'    => '+63 900 000 0001',
+                'address'  => 'CapaciPrint Global Operations HQ',
             ]
         );
 
-        // 2. Sales / Customer Service Staff
+        // 2. Owner
         User::updateOrCreate(
-            ['email' => 'staff@capaciprint.com'],
+            ['email' => 'management@capaciprint.com'],
             [
-                'name'     => 'Maria Santos (Sales)',
+                'name'     => 'Director Morningstar (Owner)',
                 'password' => Hash::make('password'),
-                'role'     => 'staff',
-                'phone'    => '+63 918 234 5678',
-                'address'  => 'Quezon City Main Office',
+                'role'     => 'management',
+                'phone'    => '+63 922 678 9012',
+                'address'  => 'Executive Headquarters',
             ]
         );
 
-        // 3. Branch Manager / Production Supervisor
+        // 3. System Admin
+        User::updateOrCreate(
+            ['email' => 'admin@capaciprint.com'],
+            [
+                'name'     => 'System Admin (IT)',
+                'password' => Hash::make('password'),
+                'role'     => 'admin',
+                'phone'    => '+63 911 111 2222',
+                'address'  => 'IT Operations Hub',
+            ]
+        );
+
+        // 4. Branch Manager
         User::updateOrCreate(
             ['email' => 'manager@capaciprint.com'],
             [
-                'name'     => 'John Supervisor (Manager)',
+                'name'     => 'John Manager (Branch Manager)',
                 'password' => Hash::make('password'),
                 'role'     => 'manager',
                 'phone'    => '+63 919 345 6789',
@@ -49,7 +61,43 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 4. Production Staff
+        // 5. Production Officer
+        User::updateOrCreate(
+            ['email' => 'officer@capaciprint.com'],
+            [
+                'name'     => 'Robert Planner (Production Officer)',
+                'password' => Hash::make('password'),
+                'role'     => 'production_officer',
+                'phone'    => '+63 919 999 8888',
+                'address'  => 'QC Operations Planning Center',
+            ]
+        );
+
+        // 6. Customer Service (CS)
+        User::updateOrCreate(
+            ['email' => 'staff@capaciprint.com'],
+            [
+                'name'     => 'Maria Santos (Customer Service)',
+                'password' => Hash::make('password'),
+                'role'     => 'staff',
+                'phone'    => '+63 918 234 5678',
+                'address'  => 'Quezon City Main Office',
+            ]
+        );
+
+        // 7. Layout Designer
+        User::updateOrCreate(
+            ['email' => 'designer@capaciprint.com'],
+            [
+                'name'     => 'Carlos Creative (Layout Designer)',
+                'password' => Hash::make('password'),
+                'role'     => 'designer',
+                'phone'    => '+63 917 777 6666',
+                'address'  => 'Pre-Press & Creative Studio',
+            ]
+        );
+
+        // 8. Production Operator
         User::updateOrCreate(
             ['email' => 'production@capaciprint.com'],
             [
@@ -61,7 +109,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 5. Inventory Staff
+        // 9. Inventory Staff
         User::updateOrCreate(
             ['email' => 'inventory@capaciprint.com'],
             [
@@ -73,25 +121,15 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 6. Owner / Management
+        // 10. Customer
         User::updateOrCreate(
-            ['email' => 'management@capaciprint.com'],
+            ['email' => 'customer@capaciprint.com'],
             [
-                'name'     => 'Director Morningstar (Executive)',
+                'name'     => 'Demo Customer',
                 'password' => Hash::make('password'),
-                'role'     => 'management',
-                'phone'    => '+63 922 678 9012',
-                'address'  => 'Executive Headquarters',
-            ]
-        );
-
-        // Admin
-        User::updateOrCreate(
-            ['email' => 'admin@capaciprint.com'],
-            [
-                'name'     => 'System Admin',
-                'password' => Hash::make('password'),
-                'role'     => 'admin',
+                'role'     => 'customer',
+                'phone'    => '+63 912 345 6789',
+                'address'  => '123 Main Street, Quezon City',
             ]
         );
     }

@@ -214,18 +214,20 @@ Route::middleware(['auth', 'role:management'])->prefix('management')->name('mana
 // DEMO ROLE SWITCHER (For Testing & Presentation)
 // ─────────────────────────────────────────────────────────────────
 Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
-    if (in_array($role, ['customer', 'staff', 'manager', 'production', 'inventory', 'management', 'admin'])) {
+    $validRoles = ['customer', 'staff', 'cs', 'manager', 'production_officer', 'designer', 'production', 'inventory', 'management', 'owner', 'admin', 'superadmin'];
+    if (in_array($role, $validRoles)) {
         $user = \App\Models\User::where('role', $role)->first();
         if ($user) {
             auth()->login($user);
             return redirect()->to(match($role) {
-                'customer'   => route('customer.dashboard'),
-                'staff'      => route('staff.dashboard'),
-                'manager'    => route('manager.dashboard'),
-                'production' => route('production.dashboard'),
-                'inventory'  => route('inventory.dashboard'),
-                'management' => route('management.dashboard'),
-                default      => route('admin.dashboard')
+                'customer'                       => route('customer.dashboard'),
+                'staff', 'cs'                    => route('staff.dashboard'),
+                'manager', 'production_officer'  => route('manager.dashboard'),
+                'designer'                       => route('staff.print-requests.index'),
+                'production'                     => route('production.dashboard'),
+                'inventory'                      => route('inventory.dashboard'),
+                'management', 'owner'            => route('management.dashboard'),
+                default                          => route('admin.dashboard')
             });
         }
     }
