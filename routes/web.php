@@ -53,7 +53,22 @@ use App\Http\Controllers\Management\ReportController as MgmtReport;
 use Illuminate\Support\Facades\Route;
 
 // ─────────────────────────────────────────────────────────────────
-Route::redirect('/', '/login');
+Route::get('/', function () {
+    if (auth()->check()) {
+        return match(auth()->user()->role) {
+            'super_admin', 'admin' => redirect()->route('admin.dashboard'),
+            'owner', 'management'  => redirect()->route('management.dashboard'),
+            'manager'              => redirect()->route('manager.dashboard'),
+            'production_officer'   => redirect()->route('manager.production-planning.index'),
+            'staff'                => redirect()->route('staff.dashboard'),
+            'designer'             => redirect()->route('designer.dashboard'),
+            'production'           => redirect()->route('production.dashboard'),
+            'inventory'            => redirect()->route('inventory.dashboard'),
+            default                => redirect()->route('customer.dashboard'),
+        };
+    }
+    return redirect()->route('login');
+});
 
 // ─────────────────────────────────────────────────────────────────
 // GUEST ONLY — Auth
