@@ -59,13 +59,14 @@ class LoginController extends Controller
     private function redirectAfterLogin($user)
     {
         return match ($user->role) {
-            'staff'      => redirect()->route('staff.dashboard'),
-            'manager'    => redirect()->route('manager.dashboard'),
-            'production' => redirect()->route('production.dashboard'),
-            'inventory'  => redirect()->route('inventory.dashboard'),
-            'management' => redirect()->route('management.dashboard'),
-            'admin'      => redirect()->route('admin.dashboard'),
-            default      => redirect()->route('customer.dashboard'),
+            'superadmin', 'admin', 'sysadmin'            => redirect()->route('admin.dashboard'),
+            'management', 'owner'                        => redirect()->route('management.dashboard'),
+            'manager', 'production_officer'              => redirect()->route('manager.dashboard'),
+            'staff', 'cs'                                => redirect()->route('staff.dashboard'),
+            'designer'                                   => redirect()->route('staff.print-requests.index'),
+            'production', 'operator'                     => redirect()->route('production.dashboard'),
+            'inventory'                                  => redirect()->route('inventory.dashboard'),
+            default                                      => redirect()->route('customer.dashboard'),
         };
     }
 }
