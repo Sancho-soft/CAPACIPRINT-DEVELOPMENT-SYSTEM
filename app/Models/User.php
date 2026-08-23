@@ -19,6 +19,7 @@ class User extends Authenticatable
         'role',
         'phone',
         'address',
+        'branch_id',
     ];
 
     protected $hidden = [
@@ -34,36 +35,47 @@ class User extends Authenticatable
         ];
     }
 
-    // ── Role helpers ──────────────────────────────────────────
-    public function isCustomer(): bool   { return $this->role === 'customer'; }
-    public function isAdmin(): bool      { return in_array($this->role, ['admin', 'superadmin']); }
-    public function isStaff(): bool      { return $this->role === 'staff'; }
-    public function isDesigner(): bool   { return $this->role === 'designer'; }
-    public function isManager(): bool    { return $this->role === 'manager'; }
-    public function isProduction(): bool { return $this->role === 'production'; }
-    public function isInventory(): bool  { return $this->role === 'inventory'; }
-    public function isManagement(): bool { return $this->role === 'management'; }
+    public function isSuperAdmin(): bool        { return in_array($this->role, ['super_admin', 'superadmin']); }
+    public function isOwner(): bool             { return in_array($this->role, ['owner', 'management']); }
+    public function isAdmin(): bool             { return in_array($this->role, ['admin', 'super_admin', 'superadmin']); }
+    public function isManager(): bool           { return $this->role === 'manager'; }
+    public function isProductionOfficer(): bool { return in_array($this->role, ['production_officer', 'planner']); }
+    public function isStaff(): bool             { return $this->role === 'staff'; }
+    public function isDesigner(): bool          { return $this->role === 'designer'; }
+    public function isProduction(): bool        { return $this->role === 'production'; }
+    public function isInventory(): bool         { return $this->role === 'inventory'; }
+    public function isCustomer(): bool          { return $this->role === 'customer'; }
+    public function isManagement(): bool        { return $this->isOwner(); }
 
     public function isInternal(): bool
     {
-        return in_array($this->role, ['staff','designer','manager','planner','production','inventory','management','admin','superadmin']);
+        return in_array($this->role, ['super_admin', 'superadmin', 'owner', 'admin', 'manager', 'production_officer', 'planner', 'staff', 'designer', 'production', 'inventory', 'management']);
     }
 
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'customer'   => 'Customer',
-            'staff'      => 'Sales / Customer Service',
-            'manager'    => 'Branch Manager / Supervisor',
-            'production' => 'Production Staff',
-            'inventory'  => 'Inventory Staff',
-            'management' => 'Owner / Management',
-            'admin'      => 'System Administrator',
-            default      => ucfirst($this->role),
+            'super_admin'        => 'Super Admin',
+            'owner'              => 'Owner (Executive)',
+            'admin'              => 'System Admin',
+            'manager'            => 'Branch Manager',
+            'production_officer' => 'Production Officer',
+            'staff'              => 'Customer Service (CS)',
+            'designer'           => 'Layout Designer',
+            'production'         => 'Production Operator',
+            'inventory'          => 'Inventory Staff',
+            'customer'           => 'Customer',
+            'management'         => 'Owner (Executive)',
+            default              => ucfirst($this->role),
         };
     }
 
     // ── Relationships ─────────────────────────────────────────
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function printRequests()
     {
         return $this->hasMany(PrintRequest::class);

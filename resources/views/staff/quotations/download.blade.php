@@ -30,10 +30,10 @@
             {{-- Header --}}
             <div class="flex items-start justify-between border-b border-slate-200 pb-6">
                 <div class="space-y-1">
-                    <h1 class="text-2xl font-black text-navy-900 tracking-tight font-display">MORNING STAR</h1>
-                    <p class="text-xs font-bold text-brand-600 uppercase tracking-widest">Printing Press Co.</p>
-                    <p class="text-xs text-slate-500">123 E. Rodriguez Sr. Ave, Quezon City, Metro Manila</p>
-                    <p class="text-xs text-slate-500">Tel: (02) 8123-4567 | Email: sales@capaciprint.com</p>
+                    <h1 class="text-2xl font-black text-navy-900 tracking-tight font-display">CAPACIPRINT</h1>
+                    <p class="text-xs font-bold text-brand-600 uppercase tracking-widest">Capacity Planning System</p>
+                    <p class="text-xs text-slate-500">Main Printing Hub &middot; Official Operations Portal</p>
+                    <p class="text-xs text-slate-500">Email: sales@capaciprint.com</p>
                 </div>
                 <div class="text-right">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Official Quotation</span>

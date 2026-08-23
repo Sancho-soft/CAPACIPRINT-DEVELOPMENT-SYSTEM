@@ -135,6 +135,14 @@ class JobController extends Controller
 
         $productionJob->update($updates);
 
+        \App\Models\AuditLog::record(
+            'Job Status Updated',
+            'Production Queue',
+            "Job #{$productionJob->job_number} status updated to {$productionJob->status}",
+            ['status' => $productionJob->getOriginal('status')],
+            ['status' => $productionJob->status]
+        );
+
         return redirect()->route('production.jobs.show', $productionJob)
             ->with('success', 'Job status updated to: ' . $productionJob->fresh()->status_label);
     }

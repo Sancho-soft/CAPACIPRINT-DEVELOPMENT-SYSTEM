@@ -24,19 +24,19 @@ class OperationalSeeder extends Seeder
     public function run(): void
     {
         // 1. Create Branches
-        $mainBranch = Branch::firstOrCreate(
+        $mainBranch = Branch::updateOrCreate(
             ['name' => 'Main Printing Hub'],
-            ['location' => 'Quezon City', 'address' => '123 E. Rodriguez Sr. Ave, Quezon City', 'phone' => '0917-111-2233', 'manager_name' => 'John Supervisor', 'status' => 'active', 'max_daily_jobs' => 25]
+            ['location' => 'Branch A', 'address' => 'Main Branch Address', 'phone' => '0917-111-2233', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 25]
         );
 
-        $northBranch = Branch::firstOrCreate(
+        $northBranch = Branch::updateOrCreate(
             ['name' => 'North Press Branch'],
-            ['location' => 'Caloocan', 'address' => '456 Rizal Ave Ext, Caloocan City', 'phone' => '0917-222-3344', 'manager_name' => 'Sarah Manager', 'status' => 'active', 'max_daily_jobs' => 15]
+            ['location' => 'Branch B', 'address' => 'North Branch Address', 'phone' => '0917-222-3344', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 15]
         );
 
-        $southBranch = Branch::firstOrCreate(
+        $southBranch = Branch::updateOrCreate(
             ['name' => 'South Digital Hub'],
-            ['location' => 'Makati', 'address' => '789 Chino Roces Ave, Makati City', 'phone' => '0917-333-4455', 'manager_name' => 'Mark Supervisor', 'status' => 'active', 'max_daily_jobs' => 20]
+            ['location' => 'Branch C', 'address' => 'South Branch Address', 'phone' => '0917-333-4455', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 20]
         );
 
         // 2. Create Machines

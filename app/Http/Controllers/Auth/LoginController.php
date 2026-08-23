@@ -54,18 +54,23 @@ class LoginController extends Controller
     }
 
     /**
-     * Redirect to appropriate dashboard based on role.
+     * Redirect to appropriate dashboard based on role for all 9 actors.
      */
     private function redirectAfterLogin($user)
     {
         return match ($user->role) {
-            'staff'      => redirect()->route('staff.dashboard'),
-            'manager'    => redirect()->route('manager.dashboard'),
-            'production' => redirect()->route('production.dashboard'),
-            'inventory'  => redirect()->route('inventory.dashboard'),
-            'management' => redirect()->route('management.dashboard'),
-            'admin'      => redirect()->route('admin.dashboard'),
-            default      => redirect()->route('customer.dashboard'),
+            'super_admin'        => redirect()->route('admin.dashboard'),
+            'owner'              => redirect()->route('management.dashboard'),
+            'management'         => redirect()->route('management.dashboard'),
+            'admin'              => redirect()->route('admin.dashboard'),
+            'manager'            => redirect()->route('manager.dashboard'),
+            'production_officer' => redirect()->route('manager.production-planning.index'),
+            'staff'              => redirect()->route('staff.dashboard'),
+            'designer'           => redirect()->route('designer.dashboard'),
+            'production'         => redirect()->route('production.dashboard'),
+            'inventory'          => redirect()->route('inventory.dashboard'),
+            'customer'           => redirect()->route('customer.dashboard'),
+            default              => redirect()->route('customer.dashboard'),
         };
     }
 }

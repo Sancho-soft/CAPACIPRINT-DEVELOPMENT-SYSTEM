@@ -18,10 +18,24 @@ class CustomerMiddleware
             return redirect()->route('login');
         }
 
-        if (auth()->user()->role !== 'customer') {
-            abort(403, 'Access denied. This area is for customers only.');
+        $user = auth()->user();
+
+        // Allow super_admin or customer
+        if ($user->role === 'customer' || $user->role === 'super_admin') {
+            return $next($request);
         }
 
-        return $next($request);
+        // Redirect other internal roles to their respective dashboards
+        return match ($user->role) {
+            'owner', 'management' => redirect()->route('management.dashboard'),
+            'admin'               => redirect()->route('admin.dashboard'),
+            'manager'             => redirect()->route('manager.dashboard'),
+            'production_officer'  => redirect()->route('manager.production-planning.index'),
+            'staff'               => redirect()->route('staff.dashboard'),
+            'designer'            => redirect()->route('designer.dashboard'),
+            'production'          => redirect()->route('production.dashboard'),
+            'inventory'           => redirect()->route('inventory.dashboard'),
+            default               => redirect()->route('staff.dashboard'),
+        };
     }
 }

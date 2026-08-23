@@ -9,51 +9,110 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     /**
-     * Seed demo accounts for testing.
+     * Seed demo accounts for all 9 system roles.
      */
     public function run(): void
     {
-        // 1. Customer
+        // 1. Super Admin
         User::updateOrCreate(
-            ['email' => 'customer@capaciprint.com'],
+            ['email' => 'superadmin@capaciprint.com'],
             [
-                'name'     => 'Demo Customer',
+                'name'     => 'Super Admin (Chief Architect)',
                 'password' => Hash::make('password'),
-                'role'     => 'customer',
-                'phone'    => '+63 912 345 6789',
-                'address'  => '123 Main Street, Quezon City',
+                'role'     => 'super_admin',
+                'phone'    => '+63 900 000 0001',
+                'address'  => 'CapaciPrint Technical Center',
             ]
         );
 
-        // 2. Sales / Customer Service Staff
+        // 2. Owner
         User::updateOrCreate(
-            ['email' => 'staff@capaciprint.com'],
+            ['email' => 'owner@capaciprint.com'],
             [
-                'name'     => 'Maria Santos (Sales)',
+                'name'     => 'Director Morningstar (Owner)',
                 'password' => Hash::make('password'),
-                'role'     => 'staff',
-                'phone'    => '+63 918 234 5678',
-                'address'  => 'Quezon City Main Office',
+                'role'     => 'owner',
+                'phone'    => '+63 922 678 9012',
+                'address'  => 'Executive Headquarters',
+            ]
+        );
+        // Alias for management role
+        User::updateOrCreate(
+            ['email' => 'management@capaciprint.com'],
+            [
+                'name'     => 'Director Morningstar (Owner)',
+                'password' => Hash::make('password'),
+                'role'     => 'owner',
+                'phone'    => '+63 922 678 9012',
+                'address'  => 'Executive Headquarters',
             ]
         );
 
-        // 3. Branch Manager / Production Supervisor
+        // 3. System Admin
+        User::updateOrCreate(
+            ['email' => 'admin@capaciprint.com'],
+            [
+                'name'     => 'System Admin (IT Ops)',
+                'password' => Hash::make('password'),
+                'role'     => 'admin',
+                'phone'    => '+63 900 000 0002',
+                'address'  => 'System Operations HQ',
+            ]
+        );
+
+        // 4. Branch Manager
         User::updateOrCreate(
             ['email' => 'manager@capaciprint.com'],
             [
-                'name'     => 'John Supervisor (Manager)',
+                'name'     => 'Branch Manager',
                 'password' => Hash::make('password'),
                 'role'     => 'manager',
                 'phone'    => '+63 919 345 6789',
-                'address'  => 'Main Printing Hub QC',
+                'address'  => 'Main Printing Hub',
             ]
         );
 
-        // 4. Production Staff
+        // 5. Production Officer
+        User::updateOrCreate(
+            ['email' => 'officer@capaciprint.com'],
+            [
+                'name'     => 'Alex Planner (Production Officer)',
+                'password' => Hash::make('password'),
+                'role'     => 'production_officer',
+                'phone'    => '+63 919 444 5555',
+                'address'  => 'Operations Planning Hub',
+            ]
+        );
+
+        // 6. Customer Service (CS)
+        User::updateOrCreate(
+            ['email' => 'staff@capaciprint.com'],
+            [
+                'name'     => 'Maria Santos (Customer Service)',
+                'password' => Hash::make('password'),
+                'role'     => 'staff',
+                'phone'    => '+63 918 234 5678',
+                'address'  => 'Main Customer Desk',
+            ]
+        );
+
+        // 7. Layout Designer
+        User::updateOrCreate(
+            ['email' => 'designer@capaciprint.com'],
+            [
+                'name'     => 'Rafael Creative (Layout Designer)',
+                'password' => Hash::make('password'),
+                'role'     => 'designer',
+                'phone'    => '+63 917 888 9999',
+                'address'  => 'Pre-Press Studio',
+            ]
+        );
+
+        // 8. Production Operator
         User::updateOrCreate(
             ['email' => 'production@capaciprint.com'],
             [
-                'name'     => 'Pedro Operator (Production)',
+                'name'     => 'Pedro Operator (Production Operator)',
                 'password' => Hash::make('password'),
                 'role'     => 'production',
                 'phone'    => '+63 920 456 7890',
@@ -61,37 +120,15 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 5. Inventory Staff
+        // 9. Customer
         User::updateOrCreate(
-            ['email' => 'inventory@capaciprint.com'],
+            ['email' => 'customer@capaciprint.com'],
             [
-                'name'     => 'Elena Stock (Inventory)',
+                'name'     => 'Demo Customer (Client)',
                 'password' => Hash::make('password'),
-                'role'     => 'inventory',
-                'phone'    => '+63 921 567 8901',
-                'address'  => 'Central Warehouse, Manila',
-            ]
-        );
-
-        // 6. Owner / Management
-        User::updateOrCreate(
-            ['email' => 'management@capaciprint.com'],
-            [
-                'name'     => 'Director Morningstar (Executive)',
-                'password' => Hash::make('password'),
-                'role'     => 'management',
-                'phone'    => '+63 922 678 9012',
-                'address'  => 'Executive Headquarters',
-            ]
-        );
-
-        // Admin
-        User::updateOrCreate(
-            ['email' => 'admin@capaciprint.com'],
-            [
-                'name'     => 'System Admin',
-                'password' => Hash::make('password'),
-                'role'     => 'admin',
+                'role'     => 'customer',
+                'phone'    => '+63 912 345 6789',
+                'address'  => 'Client Address',
             ]
         );
     }
