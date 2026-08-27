@@ -7,41 +7,49 @@
 
     {{-- Executive Summary Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-folder-tree"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-folder-tree"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">Total Orders</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase">Total Orders</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $totalOrders }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalOrders }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-industry"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-industry"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">In Production</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase">In Production</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $inProduction }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $inProduction }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-circle-check"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">Completed / Claimed</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase">Completed / Claimed</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $completedOrders }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $completedOrders }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-boxes-stacked"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">Inventory Warnings</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase">Inventory Warnings</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $lowStockCount }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $lowStockCount }}</h3>
         </div>
     </div>
 

@@ -7,41 +7,49 @@
 
     {{-- Metrics Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-file-circle-plus"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">New Requests</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">New Requests</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $newRequestsCount }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $newRequestsCount }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-file-invoice-dollar"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">Pending Quotations</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Pending Quotations</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $pendingQuotesCount }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $pendingQuotesCount }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-credit-card"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide leading-tight">Pending Payment Confirmations</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Pending Payment Confirmations</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $pendingPaymentOrders->count() }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $pendingPaymentOrders->count() }}</h3>
         </div>
-        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-4">
-            <div class="h-12 w-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-boxes-stacked"></i>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">Active Orders</p>
+                </div>
             </div>
-            <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Active Orders</p>
-                <h3 class="text-2xl font-black text-navy-900 font-display mt-0.5">{{ $activeOrdersCount }}</h3>
-            </div>
+            <h3 class="text-2xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $activeOrdersCount }}</h3>
         </div>
     </div>
 

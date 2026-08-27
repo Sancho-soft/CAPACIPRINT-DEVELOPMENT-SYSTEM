@@ -21,10 +21,6 @@
                     <i class="fa-solid fa-shield-halved text-brand-300"></i>
                 </div>
                 <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="px-2.5 py-0.5 rounded-lg bg-brand-500/30 border border-brand-400/30 text-brand-200 text-[10px] font-extrabold uppercase tracking-widest">Root Access</span>
-                        <span class="px-2.5 py-0.5 rounded-lg bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[10px] font-extrabold uppercase tracking-widest"><i class="fa-solid fa-circle text-[6px] mr-1 align-middle"></i>System Online</span>
-                    </div>
                     <h2 class="text-2xl font-black font-display tracking-tight">Super Admin Control Center</h2>
                     <p class="text-xs text-slate-300 mt-0.5">Full system authority — users, roles, branches, machines, audit trails, and disaster recovery.</p>
                 </div>
@@ -45,51 +41,60 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {{-- Total Users --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center gap-4 group hover:shadow-md transition">
-            <div class="h-13 w-13 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-users"></i>
+        {{-- Total Users --}}
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-navy-900 truncate">Registered Users</div>
+                    <div class="text-[10px] text-indigo-500 font-bold mt-0.5">All 9 Roles</div>
+                </div>
             </div>
-            <div>
-                <div class="text-3xl font-black text-navy-900 font-display leading-none">{{ $totalUsers }}</div>
-                <div class="text-[11px] text-slate-400 font-semibold mt-1">Registered Users</div>
-                <div class="text-[10px] text-indigo-500 font-bold mt-0.5">All 9 Roles</div>
-            </div>
+            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalUsers }}</div>
         </div>
 
         {{-- Active Branches --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center gap-4 group hover:shadow-md transition">
-            <div class="h-13 w-13 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-store"></i>
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-navy-900 truncate">Active Branches</div>
+                    <div class="text-[10px] text-blue-500 font-bold mt-0.5">Network Nodes</div>
+                </div>
             </div>
-            <div>
-                <div class="text-3xl font-black text-navy-900 font-display leading-none">{{ $totalBranches }}</div>
-                <div class="text-[11px] text-slate-400 font-semibold mt-1">Active Branches</div>
-                <div class="text-[10px] text-blue-500 font-bold mt-0.5">Network Nodes</div>
-            </div>
+            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalBranches }}</div>
         </div>
 
         {{-- Print Requests --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center gap-4 group hover:shadow-md transition">
-            <div class="h-13 w-13 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-file-lines"></i>
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-navy-900 truncate">Print Requests</div>
+                    <div class="text-[10px] text-emerald-500 font-bold mt-0.5">{{ $pendingRequests }} Pending</div>
+                </div>
             </div>
-            <div>
-                <div class="text-3xl font-black text-navy-900 font-display leading-none">{{ $totalRequests }}</div>
-                <div class="text-[11px] text-slate-400 font-semibold mt-1">Print Requests</div>
-                <div class="text-[10px] text-emerald-500 font-bold mt-0.5">{{ $pendingRequests }} Pending</div>
-            </div>
+            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalRequests }}</div>
         </div>
 
         {{-- Total Orders --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center gap-4 group hover:shadow-md transition">
-            <div class="h-13 w-13 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-cart-shopping"></i>
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-12 w-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="text-xs font-bold text-navy-900 truncate">Total Orders</div>
+                    <div class="text-[10px] text-purple-500 font-bold mt-0.5">{{ $activeJobs }} In Production</div>
+                </div>
             </div>
-            <div>
-                <div class="text-3xl font-black text-navy-900 font-display leading-none">{{ $totalOrders }}</div>
-                <div class="text-[11px] text-slate-400 font-semibold mt-1">Total Orders</div>
-                <div class="text-[10px] text-purple-500 font-bold mt-0.5">{{ $activeJobs }} In Production</div>
-            </div>
+            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalOrders }}</div>
         </div>
     </div>
 
@@ -113,8 +118,9 @@
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-50/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-100">
                         <tr>
-                            <th class="px-5 py-3">#</th>
-                            <th class="px-5 py-3">Name & Email</th>
+                            <th class="px-5 py-3">ID</th>
+                            <th class="px-5 py-3">Name</th>
+                            <th class="px-5 py-3">Email</th>
                             <th class="px-5 py-3">Role</th>
                             <th class="px-5 py-3">Joined</th>
                         </tr>
@@ -122,18 +128,16 @@
                     <tbody class="divide-y divide-slate-50">
                         @forelse($recentUsers as $u)
                         <tr class="hover:bg-slate-50/70 transition">
-                            <td class="px-5 py-3.5 font-mono text-slate-300 text-[10px]">{{ str_pad($u->id, 4, '0', STR_PAD_LEFT) }}</td>
+                            <td class="px-5 py-3.5 font-mono text-slate-500 font-bold text-xs">{{ $u->id }}</td>
                             <td class="px-5 py-3.5">
                                 <div class="flex items-center gap-2.5">
                                     <div class="h-7 w-7 rounded-full bg-gradient-to-br from-brand-400 to-indigo-500 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
                                         {{ strtoupper(substr($u->name, 0, 1)) }}
                                     </div>
-                                    <div>
-                                        <p class="font-bold text-navy-900 truncate max-w-[140px]">{{ $u->name }}</p>
-                                        <p class="text-[10px] text-slate-400 truncate max-w-[140px]">{{ $u->email }}</p>
-                                    </div>
+                                    <p class="font-bold text-navy-900 truncate max-w-[160px]">{{ $u->name }}</p>
                                 </div>
                             </td>
+                            <td class="px-5 py-3.5 text-slate-500 text-xs truncate max-w-[180px]">{{ $u->email }}</td>
                             <td class="px-5 py-3.5">
                                 @php
                                     $roleColors = [
@@ -159,7 +163,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-5 py-6 text-center text-slate-400">No users registered yet.</td>
+                            <td colspan="5" class="px-5 py-6 text-center text-slate-400">No users registered yet.</td>
                         </tr>
                         @endforelse
                     </tbody>

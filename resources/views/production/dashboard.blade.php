@@ -45,50 +45,56 @@
 
     {{-- Metrics Grid --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Assigned Jobs</p>
-                <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shrink-0">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-list-check"></i>
                 </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Assigned Jobs</p>
+                    <p class="text-[11px] text-slate-500 mt-0.5 truncate">Pending setup</p>
+                </div>
             </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ $assignedCount }}</h3>
-            <p class="text-[11px] text-slate-500 mt-1">Pending setup or execution</p>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $assignedCount }}</h3>
         </div>
 
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition relative overflow-hidden">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">In Production</p>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between group">
+            <div class="flex items-center gap-3.5 min-w-0">
                 <div class="h-10 w-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg shrink-0 animate-pulse">
                     <i class="fa-solid fa-gears"></i>
                 </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">In Production</p>
+                    <p class="text-[11px] text-cyan-600 font-semibold mt-0.5 truncate">Active on press</p>
+                </div>
             </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ $inProductionCount }}</h3>
-            <p class="text-[11px] text-cyan-600 font-semibold mt-1 flex items-center gap-1">
-                <span class="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-ping"></span> Active on press
-            </p>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $inProductionCount }}</h3>
         </div>
 
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Completed Jobs</p>
-                <div class="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-            </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ $completedCount }}</h3>
-            <p class="text-[11px] text-emerald-600 font-semibold mt-1">Ready for inspection/dispatch</p>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Delayed / Priority</p>
-                <div class="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Completed Jobs</p>
+                    <p class="text-[11px] text-emerald-600 font-semibold mt-0.5 truncate">Ready for dispatch</p>
                 </div>
             </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ $delayedCount }}</h3>
-            <p class="text-[11px] text-amber-600 font-semibold mt-1">Requires immediate attention</p>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $completedCount }}</h3>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex items-center justify-between group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Delayed / Priority</p>
+                    <p class="text-[11px] text-amber-600 font-semibold mt-0.5 truncate">Requires attention</p>
+                </div>
+            </div>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $delayedCount }}</h3>
         </div>
     </div>
 

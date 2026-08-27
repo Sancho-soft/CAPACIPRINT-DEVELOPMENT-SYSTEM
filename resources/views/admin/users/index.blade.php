@@ -25,7 +25,8 @@
             <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
                 <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 uppercase font-semibold text-xs tracking-wider border-b border-slate-200 dark:border-slate-800">
                     <tr>
-                        <th class="px-6 py-4">User</th>
+                        <th class="px-6 py-4">ID</th>
+                        <th class="px-6 py-4">Name</th>
                         <th class="px-6 py-4">Email</th>
                         <th class="px-6 py-4">Assigned Role</th>
                         <th class="px-6 py-4">Branch Hub</th>
@@ -35,13 +36,13 @@
                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($users as $usr)
                     <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                        <td class="px-6 py-4 font-semibold text-slate-900 dark:text-white flex items-center gap-3">
-                            <div class="h-9 w-9 rounded-full bg-brand-500 text-white font-bold flex items-center justify-center text-xs">
-                                {{ strtoupper(substr($usr->name, 0, 2)) }}
-                            </div>
-                            <div>
+                        <td class="px-6 py-4 font-mono font-bold text-xs text-slate-500 dark:text-slate-400">{{ $usr->id }}</td>
+                        <td class="px-6 py-4 font-semibold text-slate-900 dark:text-white">
+                            <div class="flex items-center gap-3">
+                                <div class="h-9 w-9 rounded-full bg-brand-500 text-white font-bold flex items-center justify-center text-xs shrink-0">
+                                    {{ strtoupper(substr($usr->name, 0, 2)) }}
+                                </div>
                                 <div class="font-bold text-slate-800 dark:text-white">{{ $usr->name }}</div>
-                                <div class="text-xs text-slate-400">ID #{{ $usr->id }}</div>
                             </div>
                         </td>
                         <td class="px-6 py-4 font-mono text-xs">{{ $usr->email }}</td>
@@ -57,7 +58,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-8 text-center text-slate-400">No user accounts found.</td>
+                        <td colspan="6" class="px-6 py-8 text-center text-slate-400">No user accounts found.</td>
                     </tr>
                     @endforelse
                 </tbody>
