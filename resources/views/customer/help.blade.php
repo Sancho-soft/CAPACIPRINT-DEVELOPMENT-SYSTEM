@@ -29,10 +29,10 @@
             <button @click="open === {{ $i }} ? open = null : open = {{ $i }}"
                     class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-slate-50 transition">
                 <span class="font-semibold text-navy-900 text-sm">{{ $faq['q'] }}</span>
-                <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"
-                   :class="open === {{ $i }} ? 'rotate-180' : ''"></i>
+                <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"
+                   :class="open === {{ $i }} ? 'rotate-180 text-brand-600' : ''"></i>
             </button>
-            <div x-show="open === {{ $i }}" x-collapse class="px-6 pb-4">
+            <div x-show="open === {{ $i }}" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pt-2 pb-5 border-t border-slate-50">
                 <p class="text-sm text-slate-600 leading-relaxed">{{ $faq['a'] }}</p>
             </div>
         </div>
@@ -49,24 +49,11 @@
                 <i class="fa-solid fa-envelope"></i> support@capaciprint.com
             </a>
             <span class="hidden sm:inline text-navy-500">·</span>
-            <a href="tel:+630000000000"
+            <a href="tel:+639691952485"
                class="flex items-center gap-2 text-sm text-brand-300 hover:text-brand-200 font-semibold">
-                <i class="fa-solid fa-phone"></i> +63 (0) 000 000 0000
+                <i class="fa-solid fa-phone"></i> +63 969 195 2485
             </a>
         </div>
     </div>
 </div>
-
-@section('scripts')
-<script>
-// Alpine collapse plugin for accordion
-document.addEventListener('alpine:init', () => {
-    Alpine.directive('collapse', (el) => {
-        el._x_isShown = false;
-        el.style.overflow = 'hidden';
-        if (el.style.display === 'none') el.style.maxHeight = '0';
-    });
-});
-</script>
-@endsection
 @endsection

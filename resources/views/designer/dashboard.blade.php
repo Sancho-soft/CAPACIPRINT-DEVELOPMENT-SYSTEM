@@ -27,37 +27,43 @@
 
     {{-- Designer KPI Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Pending Artwork Review</p>
-                <div class="h-10 w-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-10 w-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-file-image"></i>
                 </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Pending Artwork Review</p>
+                    <p class="text-[11px] text-purple-600 font-medium mt-0.5 truncate">Pre-press verification</p>
+                </div>
             </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ count($pendingProofs) }}</h3>
-            <p class="text-[11px] text-purple-600 font-medium mt-1">Ready for pre-press verification</p>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ count($pendingProofs) }}</h3>
         </div>
 
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Approved Proofs</p>
-                <div class="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-            </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ $approvedProofs }}</h3>
-            <p class="text-[11px] text-emerald-600 font-medium mt-1">Cleared for plate printing</p>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
-            <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Revision Requests</p>
-                <div class="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-arrows-rotate"></i>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Approved Proofs</p>
+                    <p class="text-[11px] text-emerald-600 font-medium mt-0.5 truncate">Cleared for plate printing</p>
                 </div>
             </div>
-            <h3 class="text-3xl font-black text-navy-900 font-display mt-2">{{ $revisionRequests }}</h3>
-            <p class="text-[11px] text-amber-600 font-medium mt-1">Awaiting client artwork re-upload</p>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $approvedProofs }}</h3>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between group hover:shadow-md transition">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <div class="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider truncate">Revision Requests</p>
+                    <p class="text-[11px] text-amber-600 font-medium mt-0.5 truncate">Awaiting client re-upload</p>
+                </div>
+            </div>
+            <h3 class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $revisionRequests }}</h3>
         </div>
     </div>
 
