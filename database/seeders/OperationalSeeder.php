@@ -25,18 +25,18 @@ class OperationalSeeder extends Seeder
     {
         // 1. Create Branches
         $mainBranch = Branch::updateOrCreate(
-            ['name' => 'Main Printing Hub'],
-            ['location' => 'Branch A', 'address' => 'Main Branch Address', 'phone' => '0917-111-2233', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 25]
+            ['location' => 'Branch A'],
+            ['name' => 'Morning Star Printing Press', 'address' => 'Main Branch Address', 'phone' => '0917-111-2233', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 25]
         );
 
         $northBranch = Branch::updateOrCreate(
-            ['name' => 'North Press Branch'],
-            ['location' => 'Branch B', 'address' => 'North Branch Address', 'phone' => '0917-222-3344', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 15]
+            ['location' => 'Branch B'],
+            ['name' => 'Morning Star Printing Network', 'address' => 'North Branch Address', 'phone' => '0917-222-3344', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 15]
         );
 
         $southBranch = Branch::updateOrCreate(
-            ['name' => 'South Digital Hub'],
-            ['location' => 'Branch C', 'address' => 'South Branch Address', 'phone' => '0917-333-4455', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 20]
+            ['location' => 'Branch C'],
+            ['name' => 'Green Heart Printing Hub', 'address' => 'South Branch Address', 'phone' => '0917-333-4455', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 20]
         );
 
         // 2. Create Machines
@@ -130,7 +130,7 @@ class OperationalSeeder extends Seeder
                     'material' => 'Glossy Paper 150gsm',
                     'finishing' => 'Lamination',
                     'deadline' => now()->addDays(5),
-                    'preferred_branch' => 'Main Printing Hub',
+                    'preferred_branch' => 'Morning Star Printing Press',
                     'status' => 'production',
                 ]
             );
@@ -157,7 +157,7 @@ class OperationalSeeder extends Seeder
                     'print_request_id' => $pr1->id,
                     'payment_status' => 'confirmed',
                     'status' => 'production',
-                    'assigned_branch' => 'Main Printing Hub',
+                    'assigned_branch' => 'Morning Star Printing Press',
                     'estimated_completion' => now()->addDays(3),
                 ]
             );
@@ -185,7 +185,7 @@ class OperationalSeeder extends Seeder
                     'material' => 'Flex Tarpaulin Banner Media 13oz',
                     'finishing' => 'Eyelets & Hemming',
                     'deadline' => now()->addDays(3),
-                    'preferred_branch' => 'North Press Branch',
+                    'preferred_branch' => 'Morning Star Printing Network',
                     'status' => 'submitted',
                 ]
             );

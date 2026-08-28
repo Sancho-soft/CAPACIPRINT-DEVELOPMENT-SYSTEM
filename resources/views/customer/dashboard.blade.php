@@ -1,9 +1,14 @@
 @extends('layouts.customer')
-@section('title', 'Dashboard')
-@section('page-title', 'Dashboard')
+@section('title', 'Dashboard Overview')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-8 max-w-7xl">
+
+    <div>
+        <h2 class="text-2xl font-bold text-navy-900 font-display">Dashboard Overview</h2>
+        <p class="text-sm text-slate-500 mt-1">Welcome to your personal print management portal.</p>
+    </div>
 
     {{-- ── Welcome Banner ────────────────────────────────── --}}
     <div class="bg-gradient-to-r from-navy-900 to-navy-700 text-white rounded-2xl p-6 md:p-8 shadow-md border border-navy-950 relative overflow-hidden">
@@ -70,9 +75,6 @@
             <h3 class="font-bold text-navy-900 flex items-center gap-2">
                 <i class="fa-solid fa-map-location-dot text-brand-500"></i> Latest Order Progress
             </h3>
-            <span class="text-xs text-slate-400 font-medium">
-                Order #{{ $latestOrder->order_number }}
-            </span>
         </div>
         <div class="p-6">
             @php
@@ -164,7 +166,7 @@
                 <tbody class="bg-white divide-y divide-slate-100">
                     @foreach($orders as $order)
                     <tr class="hover:bg-slate-50/50 transition">
-                        <td class="px-6 py-4 font-bold text-navy-900">#{{ $order->order_number }}</td>
+                        <td class="px-6 py-4 font-bold text-navy-900">{{ $order->order_number }}</td>
                         <td class="px-6 py-4 text-slate-700">{{ $order->printRequest->service ?? '—' }}</td>
                         <td class="px-6 py-4">
                             <span class="px-2.5 py-0.5 text-[11px] font-bold rounded uppercase
@@ -183,7 +185,10 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('customer.orders.show', $order) }}"
-                               class="text-brand-500 hover:text-brand-700 font-bold text-xs">View</a>
+                               class="inline-flex items-center justify-center h-8 w-8 rounded-lg text-brand-600 hover:bg-brand-50 hover:text-brand-800 transition"
+                               title="View Order Details">
+                                <i class="fa-solid fa-eye text-base"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

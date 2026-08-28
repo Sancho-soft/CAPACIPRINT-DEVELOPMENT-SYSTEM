@@ -1,9 +1,14 @@
 @extends('layouts.internal')
-@section('title', 'Branch Manager Dashboard')
-@section('page-title', 'Branch Manager & Production Planning Dashboard')
+@section('title', 'Dashboard Overview')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-6 max-w-7xl">
+
+    <div>
+        <h2 class="text-2xl font-bold text-navy-900 font-display">Dashboard Overview</h2>
+        <p class="text-sm text-slate-500 mt-1">Multi-branch capacity planning, workload distribution, and production job routing.</p>
+    </div>
 
     {{-- Production Metrics --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -113,7 +118,7 @@
         <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                 <tr>
-                    <th class="px-6 py-3">Job #</th>
+                    <th class="px-6 py-3">Job No.</th>
                     <th class="px-6 py-3">Customer</th>
                     <th class="px-6 py-3">Branch</th>
                     <th class="px-6 py-3">Priority</th>
@@ -124,7 +129,7 @@
             <tbody class="divide-y divide-slate-100">
                 @forelse($recentJobs as $job)
                 <tr class="hover:bg-slate-50/50 transition">
-                    <td class="px-6 py-3.5 font-bold text-navy-900">#{{ $job->job_number }}</td>
+                    <td class="px-6 py-3.5 font-bold text-navy-900">{{ $job->job_number }}</td>
                     <td class="px-6 py-3.5 text-slate-700">{{ $job->order->user->name ?? '—' }}</td>
                     <td class="px-6 py-3.5 font-semibold text-brand-600">{{ $job->branch->name ?? 'Unassigned' }}</td>
                     <td class="px-6 py-3.5">
@@ -138,7 +143,11 @@
                         </span>
                     </td>
                     <td class="px-6 py-3.5 text-right">
-                        <a href="{{ route('manager.production-planning.show', $job) }}" class="text-brand-600 font-bold hover:underline">Plan / Assign &rarr;</a>
+                        <a href="{{ route('manager.production-planning.show', $job) }}"
+                           class="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                           title="Plan & Assign Job Details">
+                            <i class="fa-solid fa-eye text-sm"></i>
+                        </a>
                     </td>
                 </tr>
                 @empty
