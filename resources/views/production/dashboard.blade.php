@@ -1,9 +1,14 @@
 @extends('layouts.internal')
-@section('title', 'Production Operator Dashboard')
-@section('page-title', 'My Production Dashboard')
+@section('title', 'Dashboard Overview')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-6 max-w-7xl">
+
+    <div>
+        <h2 class="text-2xl font-bold text-navy-900 font-display">Dashboard Overview</h2>
+        <p class="text-sm text-slate-500 mt-1">Real-time production tracking and assigned job queue.</p>
+    </div>
 
     {{-- Operator Welcome & Shift Target Banner --}}
     <div class="bg-gradient-to-r from-navy-900 via-navy-800 to-brand-900 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
@@ -130,7 +135,7 @@
                             <tr class="hover:bg-slate-50/80 transition">
                                 <td class="px-6 py-4 font-bold text-navy-900">
                                     <a href="{{ route('production.jobs.show', $job) }}" class="text-brand-600 hover:underline">
-                                        #{{ $job->job_number }}
+                                        {{ $job->job_number }}
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">
@@ -155,8 +160,10 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('production.jobs.show', $job) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition">
-                                            Details
+                                        <a href="{{ route('production.jobs.show', $job) }}"
+                                           class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                                           title="View Job Details">
+                                            <i class="fa-solid fa-eye text-sm"></i>
                                         </a>
                                         <a href="{{ route('production.jobs.status-form', $job) }}" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition flex items-center gap-1">
                                             Update &rarr;

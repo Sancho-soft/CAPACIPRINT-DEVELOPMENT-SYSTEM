@@ -121,10 +121,7 @@
 
         {{-- Top App Bar --}}
         <header class="bg-white border-b border-slate-200/80 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
-            <div>
-                <h1 class="text-lg font-bold text-navy-900 font-display">@yield('page-title', 'Dashboard')</h1>
-                <p class="text-xs text-slate-500">CapaciPrint &middot; Capacity Planning System</p>
-            </div>
+            <div></div>
 
             <div class="flex items-center gap-4">
                 <a href="{{ route('customer.notifications.index') }}" class="relative p-2 text-slate-500 hover:text-navy-900 hover:bg-slate-100 rounded-xl transition flex items-center justify-center">

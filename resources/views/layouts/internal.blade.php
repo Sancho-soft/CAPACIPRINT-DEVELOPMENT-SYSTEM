@@ -274,12 +274,30 @@
 
         {{-- Top App Bar --}}
         <header class="bg-white border-b border-slate-200/80 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
-            <div>
-                <h1 class="text-lg font-bold text-navy-900 font-display">@yield('page-title', 'Portal')</h1>
-                <p class="text-xs text-slate-500">CapaciPrint &middot; Capacity Planning System</p>
-            </div>
+            <div></div>
 
             <div class="flex items-center gap-4">
+                @php
+                    $notifRoute = match(auth()->user()->role) {
+                        'production' => Route::has('production.notifications.index') ? route('production.notifications.index') : null,
+                        'staff' => Route::has('staff.notifications.index') ? route('staff.notifications.index') : null,
+                        default => null
+                    };
+                @endphp
+                @if($notifRoute)
+                <a href="{{ $notifRoute }}" class="relative p-2 text-slate-500 hover:text-navy-900 hover:bg-slate-100 rounded-xl transition flex items-center justify-center" title="Notifications">
+                    <i class="fa-solid fa-bell text-base"></i>
+                    @php $bellCount = auth()->user()->notifications()->where('is_read', false)->count(); @endphp
+                    @if($bellCount > 0)
+                        <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500 ring-2 ring-white"></span>
+                        </span>
+                    @endif
+                </a>
+                <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                @endif
+
                 <div class="hidden sm:flex items-center gap-3">
                     <div class="h-9 w-9 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold font-display text-xs shrink-0 shadow-sm">
                         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}

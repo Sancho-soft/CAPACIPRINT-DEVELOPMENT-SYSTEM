@@ -5,7 +5,10 @@
 @section('content')
 <div class="space-y-6 max-w-7xl">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h2 class="text-xl font-bold text-navy-900 font-display">Manage Print Requests</h2>
+        <div>
+            <h2 class="text-2xl font-bold text-navy-900 font-display">Manage Print Requests</h2>
+            <p class="text-sm text-slate-500 mt-1">Review incoming artwork submissions and proofing specifications.</p>
+        </div>
 
         <form method="GET" class="flex gap-2">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Search customer or service..."
@@ -36,7 +39,7 @@
             <tbody class="divide-y divide-slate-100">
                 @forelse($printRequests as $req)
                 <tr class="hover:bg-slate-50/50 transition">
-                    <td class="px-6 py-4 font-bold text-navy-900">#PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}</td>
+                    <td class="px-6 py-4 font-bold text-navy-900">PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}</td>
                     <td class="px-6 py-4 font-semibold text-slate-800">{{ $req->user->name ?? '—' }}</td>
                     <td class="px-6 py-4 font-bold text-brand-600">{{ $req->service }}</td>
                     <td class="px-6 py-4 text-slate-600">{{ $req->quantity }} copies &middot; {{ $req->size }} &middot; {{ $req->material }}</td>
@@ -47,7 +50,11 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-right flex items-center justify-end gap-2">
-                        <a href="{{ route('staff.print-requests.show', $req) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-lg text-xs">Review</a>
+                        <a href="{{ route('staff.print-requests.show', $req) }}"
+                           class="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                           title="Review Print Request Details">
+                            <i class="fa-solid fa-eye text-sm"></i>
+                        </a>
                         @if($req->status === 'submitted')
                         <a href="{{ route('staff.quotations.create', ['print_request_id' => $req->id]) }}" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs">Quote</a>
                         @endif

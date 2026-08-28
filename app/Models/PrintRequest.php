@@ -55,6 +55,16 @@ class PrintRequest extends Model
         return $this->hasOne(Order::class);
     }
 
+    public function branchRecommendation()
+    {
+        return $this->hasOne(BranchRecommendation::class);
+    }
+
+    public function capacityEvaluations()
+    {
+        return $this->hasMany(CapacityEvaluation::class);
+    }
+
     public function designProofs()
     {
         return $this->hasMany(DesignProof::class);

@@ -32,7 +32,7 @@
                 <div class="space-y-1">
                     <h1 class="text-2xl font-black text-navy-900 tracking-tight font-display">CAPACIPRINT</h1>
                     <p class="text-xs font-bold text-brand-600 uppercase tracking-widest">Capacity Planning System</p>
-                    <p class="text-xs text-slate-500">Main Printing Hub &middot; Official Operations Portal</p>
+                    <p class="text-xs text-slate-500">Morning Star Printing Press &middot; Official Operations Portal</p>
                     <p class="text-xs text-slate-500">Email: sales@capaciprint.com</p>
                 </div>
                 <div class="text-right">

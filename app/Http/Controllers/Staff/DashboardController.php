@@ -28,6 +28,16 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $recentOrders = Order::with(['printRequest', 'user'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $recentQuotations = Quotation::with(['printRequest', 'user'])
+            ->latest()
+            ->take(5)
+            ->get();
+
         $unread = InternalNotification::where('user_id', auth()->id())
             ->where('is_read', false)->count();
 
@@ -38,6 +48,8 @@ class DashboardController extends Controller
             'activeOrdersCount',
             'recentRequests',
             'pendingPaymentOrders',
+            'recentOrders',
+            'recentQuotations',
             'unread'
         ));
     }

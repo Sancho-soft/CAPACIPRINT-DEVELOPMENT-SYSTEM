@@ -112,10 +112,26 @@ class OrderController extends Controller
 
         $code = trim($request->claim_code);
 
-        // Find claim reference by claim_code or order_number
-        $claim = \App\Models\ClaimReference::where('claim_code', $code)
-            ->orWhereHas('order', fn($q) => $q->where('order_number', $code))
+        // Find claim reference by claim_code or order_number (case-insensitive)
+        $claim = \App\Models\ClaimReference::where('claim_code', 'LIKE', $code)
+            ->orWhereHas('order', fn($q) => $q->where('order_number', 'LIKE', $code))
             ->first();
+
+        if (!$claim) {
+            // Fallback: check if Order exists directly by order_number
+            $order = Order::where('order_number', 'LIKE', $code)->first();
+            if ($order) {
+                $claim = \App\Models\ClaimReference::firstOrCreate(
+                    ['order_id' => $order->id],
+                    [
+                        'user_id'         => $order->user_id,
+                        'claim_code'      => 'CLM-' . strtoupper(\Illuminate\Support\Str::random(8)),
+                        'pickup_branch'   => $order->assigned_branch ?? 'Main Branch',
+                        'completion_date' => today(),
+                    ]
+                );
+            }
+        }
 
         if (!$claim) {
             return back()->with('error', "Invalid QR / Claim code: '{$code}'. No matching order found.");
