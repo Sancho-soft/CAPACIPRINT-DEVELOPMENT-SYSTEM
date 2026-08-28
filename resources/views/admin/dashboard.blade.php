@@ -3,167 +3,162 @@
 @section('page-title', 'System Control Center')
 
 @section('content')
-<div class="space-y-6 max-w-7xl">
+<div class="space-y-6 w-full">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- HERO BANNER --}}
+    {{-- HERO CONTROL CENTER BANNER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-gradient-to-r from-navy-950 via-navy-900 to-brand-900 rounded-3xl p-7 text-white shadow-2xl overflow-hidden">
-        {{-- Background decoration --}}
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-brand-400 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-400 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-        </div>
+    <div class="relative bg-[#111A24] border border-slate-800/80 rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
+        {{-- Ambient cyan glow in background --}}
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            {{-- Left Title & Icon --}}
             <div class="flex items-center gap-5">
-                <div class="h-16 w-16 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm text-white flex items-center justify-center text-3xl shadow-lg shrink-0">
-                    <i class="fa-solid fa-shield-halved text-brand-300"></i>
+                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-[0_0_25px_rgba(6,182,212,0.25)] shrink-0">
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-black font-display tracking-tight">Super Admin Control Center</h2>
-                    <p class="text-xs text-slate-300 mt-0.5">Full system authority — users, roles, branches, machines, audit trails, and disaster recovery.</p>
+                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-white">Super Admin Control Center</h2>
+                    <p class="text-xs text-slate-400 mt-1">Full system authority — users, roles, branches, machines, audit trails, and capacity routing.</p>
                 </div>
             </div>
-            <div class="flex flex-wrap items-center gap-2 shrink-0">
-                <a href="{{ route('admin.users.index') }}" class="px-4 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-bold text-xs shadow-lg shadow-brand-500/30 transition flex items-center gap-2">
-                    <i class="fa-solid fa-users-gear"></i> Manage Users
+
+            {{-- Right Controls: Quick Navigation Actions --}}
+            <div class="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
+                <a href="{{ route('admin.users.index') }}" class="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(6,182,212,0.35)] transition flex items-center gap-2">
+                    <i class="fa-solid fa-users-gear text-xs"></i> Manage Users
                 </a>
-                <a href="{{ route('admin.branches.index') }}" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition flex items-center gap-2">
-                    <i class="fa-solid fa-network-wired"></i> Manage Branches
+                <a href="{{ route('management.branches.index') }}" class="px-4 py-2.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-network-wired text-xs text-cyan-400"></i> Manage Branches
+                </a>
+                <a href="{{ route('management.audit-logs.index') }}" class="px-4 py-2.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-shield-halved text-xs text-purple-400"></i> Audit Logs
                 </a>
             </div>
         </div>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- SYSTEM-WIDE KPI METRICS --}}
+    {{-- 4 SYSTEM-WIDE KPI METRICS WITH COLORED ACCENTS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {{-- Total Users --}}
-        {{-- Total Users --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <div class="h-12 w-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <div class="min-w-0">
-                    <div class="text-xs font-bold text-navy-900 truncate">Registered Users</div>
-                    <div class="text-[10px] text-indigo-500 font-bold mt-0.5">All 9 Roles</div>
-                </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {{-- Card 1: Registered Users (Cyan) --}}
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+            <div class="min-w-0">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">REGISTERED USERS</div>
+                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalUsers }}</div>
+                <div class="text-[11px] text-slate-500 font-semibold mt-1">All 9 roles</div>
             </div>
-            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalUsers }}</div>
+            <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-users"></i>
+            </div>
         </div>
 
-        {{-- Active Branches --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <div class="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-store"></i>
-                </div>
-                <div class="min-w-0">
-                    <div class="text-xs font-bold text-navy-900 truncate">Active Branches</div>
-                    <div class="text-[10px] text-blue-500 font-bold mt-0.5">Network Nodes</div>
-                </div>
+        {{-- Card 2: Active Branches (Indigo/Purple) --}}
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-indigo-400 p-5 flex items-center justify-between shadow-lg hover:border-indigo-500/30 transition group">
+            <div class="min-w-0">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ACTIVE BRANCHES</div>
+                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalBranches }}</div>
+                <div class="text-[11px] text-slate-500 font-semibold mt-1">Network nodes</div>
             </div>
-            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalBranches }}</div>
+            <div class="h-12 w-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-store"></i>
+            </div>
         </div>
 
-        {{-- Print Requests --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <div class="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-file-lines"></i>
-                </div>
-                <div class="min-w-0">
-                    <div class="text-xs font-bold text-navy-900 truncate">Print Requests</div>
-                    <div class="text-[10px] text-emerald-500 font-bold mt-0.5">{{ $pendingRequests }} Pending</div>
-                </div>
+        {{-- Card 3: Print Requests (Amber) --}}
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+            <div class="min-w-0">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">PRINT REQUESTS</div>
+                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalRequests }}</div>
+                <div class="text-[11px] text-amber-400 font-semibold mt-1">{{ $pendingRequests }} pending review</div>
             </div>
-            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalRequests }}</div>
+            <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
         </div>
 
-        {{-- Total Orders --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex items-center justify-between group hover:shadow-md transition">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <div class="h-12 w-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </div>
-                <div class="min-w-0">
-                    <div class="text-xs font-bold text-navy-900 truncate">Total Orders</div>
-                    <div class="text-[10px] text-purple-500 font-bold mt-0.5">{{ $activeJobs }} In Production</div>
-                </div>
+        {{-- Card 4: Total Orders (Emerald) --}}
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+            <div class="min-w-0">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">TOTAL ORDERS</div>
+                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalOrders }}</div>
+                <div class="text-[11px] text-emerald-400 font-semibold mt-1">{{ $activeJobs }} in production</div>
             </div>
-            <div class="text-3xl font-black text-navy-900 font-display shrink-0 ml-3">{{ $totalOrders }}</div>
+            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
         </div>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- MAIN CONTENT: Left (Role breakdown + Recent Users) + Right (Production Status + Actions) --}}
+    {{-- MAIN CONTENT: Left (Recent Users Table) + Right (Health & Role Distribution) --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {{-- LEFT: Recent User Accounts (spans 2 cols) --}}
-        <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
+        <div class="lg:col-span-2 bg-[#111A24] border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden flex flex-col">
+            <div class="px-6 py-4 border-b border-slate-800/80 flex items-center justify-between bg-[#0D1520]">
                 <div>
-                    <h3 class="font-bold text-navy-900 text-sm">Recent User Accounts</h3>
-                    <p class="text-[11px] text-slate-400 mt-0.5">Latest registered system users across all roles</p>
+                    <h3 class="font-black text-white text-sm">Recent User Accounts</h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Latest registered users across all roles</p>
                 </div>
-                <a href="{{ route('admin.users.index') }}" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                <a href="{{ route('admin.users.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
                     Manage All <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
-            <div class="overflow-x-auto">
+
+            <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
-                    <thead class="bg-slate-50/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-100">
+                    <thead class="bg-[#0D1520]/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800/80">
                         <tr>
-                            <th class="px-5 py-3">ID</th>
-                            <th class="px-5 py-3">Name</th>
-                            <th class="px-5 py-3">Email</th>
-                            <th class="px-5 py-3">Role</th>
-                            <th class="px-5 py-3">Joined</th>
+                            <th class="px-5 py-3.5">ID</th>
+                            <th class="px-5 py-3.5">NAME</th>
+                            <th class="px-5 py-3.5">EMAIL</th>
+                            <th class="px-5 py-3.5">ROLE</th>
+                            <th class="px-5 py-3.5">JOINED</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-50">
+                    <tbody class="divide-y divide-slate-800/60 text-slate-300">
                         @forelse($recentUsers as $u)
-                        <tr class="hover:bg-slate-50/70 transition">
+                        @php
+                            $roleConfig = match($u->role) {
+                                'super_admin'        => ['badge' => 'bg-red-500/15 text-red-400 border-red-500/30', 'avatar' => 'from-red-500 to-rose-700', 'label' => 'SUPER ADMIN'],
+                                'admin'              => ['badge' => 'bg-orange-500/15 text-orange-400 border-orange-500/30', 'avatar' => 'from-orange-500 to-amber-700', 'label' => 'SYSTEM ADMIN'],
+                                'owner', 'management'=> ['badge' => 'bg-amber-500/15 text-amber-400 border-amber-500/30', 'avatar' => 'from-amber-500 to-yellow-600', 'label' => 'OWNER (EXECUTIVE)'],
+                                'manager'            => ['badge' => 'bg-blue-500/15 text-blue-400 border-blue-500/30', 'avatar' => 'from-blue-500 to-indigo-700', 'label' => 'BRANCH MANAGER'],
+                                'production_officer' => ['badge' => 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30', 'avatar' => 'from-cyan-400 to-teal-600', 'label' => 'PRODUCTION OFFICER'],
+                                'staff'              => ['badge' => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', 'avatar' => 'from-emerald-500 to-teal-700', 'label' => 'CS STAFF'],
+                                'designer'           => ['badge' => 'bg-purple-500/15 text-purple-400 border-purple-500/30', 'avatar' => 'from-purple-500 to-pink-600', 'label' => 'LAYOUT DESIGNER'],
+                                'production'         => ['badge' => 'bg-sky-500/15 text-sky-400 border-sky-500/30', 'avatar' => 'from-sky-400 to-blue-600', 'label' => 'PRODUCTION OPERATOR'],
+                                'inventory'          => ['badge' => 'bg-teal-500/15 text-teal-400 border-teal-500/30', 'avatar' => 'from-teal-400 to-emerald-600', 'label' => 'INVENTORY STAFF'],
+                                default              => ['badge' => 'bg-slate-500/15 text-slate-400 border-slate-500/30', 'avatar' => 'from-slate-500 to-slate-700', 'label' => 'CUSTOMER'],
+                            };
+                            $initials = collect(explode(' ', $u->name))->map(fn($p) => strtoupper(substr($p, 0, 1)))->take(2)->join('');
+                        @endphp
+                        <tr class="hover:bg-slate-800/40 transition">
                             <td class="px-5 py-3.5 font-mono text-slate-500 font-bold text-xs">{{ $u->id }}</td>
                             <td class="px-5 py-3.5">
-                                <div class="flex items-center gap-2.5">
-                                    <div class="h-7 w-7 rounded-full bg-gradient-to-br from-brand-400 to-indigo-500 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
-                                        {{ strtoupper(substr($u->name, 0, 1)) }}
+                                <div class="flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full bg-gradient-to-br {{ $roleConfig['avatar'] }} text-white flex items-center justify-center text-[10px] font-black shrink-0 shadow-sm border border-white/10">
+                                        {{ $initials }}
                                     </div>
-                                    <p class="font-bold text-navy-900 truncate max-w-[160px]">{{ $u->name }}</p>
+                                    <p class="font-bold text-white truncate max-w-[160px]">{{ $u->name }}</p>
                                 </div>
                             </td>
-                            <td class="px-5 py-3.5 text-slate-500 text-xs truncate max-w-[180px]">{{ $u->email }}</td>
+                            <td class="px-5 py-3.5 text-slate-400 text-xs truncate max-w-[180px]">{{ $u->email }}</td>
                             <td class="px-5 py-3.5">
-                                @php
-                                    $roleColors = [
-                                        'super_admin' => 'bg-red-100 text-red-700',
-                                        'owner' => 'bg-purple-100 text-purple-700',
-                                        'management' => 'bg-purple-100 text-purple-700',
-                                        'admin' => 'bg-orange-100 text-orange-700',
-                                        'manager' => 'bg-blue-100 text-blue-700',
-                                        'production_officer' => 'bg-cyan-100 text-cyan-700',
-                                        'staff' => 'bg-emerald-100 text-emerald-700',
-                                        'designer' => 'bg-indigo-100 text-indigo-700',
-                                        'production' => 'bg-yellow-100 text-yellow-700',
-                                        'inventory' => 'bg-teal-100 text-teal-700',
-                                        'customer' => 'bg-slate-100 text-slate-600',
-                                    ];
-                                    $color = $roleColors[$u->role] ?? 'bg-slate-100 text-slate-600';
-                                @endphp
-                                <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase {{ $color }}">
-                                    {{ $u->role_label }}
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border {{ $roleConfig['badge'] }}">
+                                    {{ $roleConfig['label'] }}
                                 </span>
                             </td>
                             <td class="px-5 py-3.5 text-slate-400">{{ $u->created_at->format('M d, Y') }}</td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="px-5 py-6 text-center text-slate-400">No users registered yet.</td>
+                            <td colspan="5" class="px-5 py-8 text-center text-slate-500">No users registered yet.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -171,152 +166,183 @@
             </div>
         </div>
 
-        {{-- RIGHT: Quick Stats & Actions --}}
-        <div class="space-y-4">
+        {{-- RIGHT: Production Health & Role Distribution --}}
+        <div class="space-y-6">
 
-            {{-- Production Health --}}
-            <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm p-5">
-                <h4 class="font-bold text-navy-900 text-sm mb-4">Production Health</h4>
-                <div class="space-y-3">
+            {{-- Production Health Card --}}
+            <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl p-5 shadow-xl">
+                <h4 class="font-black text-white text-sm mb-4 tracking-tight">Production Health</h4>
+                <div class="space-y-3.5 text-xs">
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-xs text-slate-600">
-                            <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block"></span> Active Jobs
+                        <div class="flex items-center gap-2.5 text-slate-300 font-medium">
+                            <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] inline-block"></span> Active Jobs
                         </div>
-                        <span class="font-black text-emerald-600 text-sm">{{ $activeJobs }}</span>
+                        <span class="font-black text-emerald-400 text-sm font-mono">{{ $activeJobs }}</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-xs text-slate-600">
-                            <span class="h-2 w-2 rounded-full bg-red-400 inline-block"></span> Delayed Jobs
+                        <div class="flex items-center gap-2.5 text-slate-300 font-medium">
+                            <span class="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)] inline-block"></span> Delayed Jobs
                         </div>
-                        <span class="font-black text-red-500 text-sm">{{ $delayedJobs }}</span>
+                        <span class="font-black text-red-500 text-sm font-mono">{{ $delayedJobs }}</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-xs text-slate-600">
-                            <span class="h-2 w-2 rounded-full bg-amber-400 inline-block"></span> Pending Requests
+                        <div class="flex items-center gap-2.5 text-slate-300 font-medium">
+                            <span class="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)] inline-block"></span> Pending Requests
                         </div>
-                        <span class="font-black text-amber-600 text-sm">{{ $pendingRequests }}</span>
+                        <span class="font-black text-amber-400 text-sm font-mono">{{ $pendingRequests }}</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-xs text-slate-600">
-                            <span class="h-2 w-2 rounded-full bg-blue-400 inline-block"></span> In Production
+                        <div class="flex items-center gap-2.5 text-slate-300 font-medium">
+                            <span class="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)] inline-block"></span> In Production
                         </div>
-                        <span class="font-black text-blue-600 text-sm">{{ $inProductionRequests }}</span>
+                        <span class="font-black text-cyan-400 text-sm font-mono">{{ $inProductionRequests }}</span>
                     </div>
                 </div>
             </div>
 
-            {{-- Role Distribution --}}
-            <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm p-5">
-                <h4 class="font-bold text-navy-900 text-sm mb-4">Role Distribution</h4>
-                <div class="space-y-2">
-                    @php
-                        $roleMeta = [
-                            'super_admin'       => ['label' => 'Super Admin',  'color' => 'bg-red-500'],
-                            'admin'             => ['label' => 'System Admin',  'color' => 'bg-orange-500'],
-                            'owner'             => ['label' => 'Owner',         'color' => 'bg-purple-500'],
-                            'management'        => ['label' => 'Management',    'color' => 'bg-purple-400'],
-                            'manager'           => ['label' => 'Branch Mgr',    'color' => 'bg-blue-500'],
-                            'production_officer'=> ['label' => 'Prod. Officer', 'color' => 'bg-cyan-500'],
-                            'staff'             => ['label' => 'CS Staff',      'color' => 'bg-emerald-500'],
-                            'designer'          => ['label' => 'Designer',      'color' => 'bg-indigo-500'],
-                            'production'        => ['label' => 'Operator',      'color' => 'bg-yellow-500'],
-                            'inventory'         => ['label' => 'Inventory',     'color' => 'bg-teal-500'],
-                            'customer'          => ['label' => 'Customer',      'color' => 'bg-slate-400'],
-                        ];
-                        $maxCount = max(array_values($roleBreakdown) ?: [1]);
-                    @endphp
-                    @foreach($roleMeta as $role => $meta)
-                        @if(isset($roleBreakdown[$role]) && $roleBreakdown[$role] > 0)
-                        <div>
-                            <div class="flex justify-between text-[10px] font-semibold mb-0.5">
-                                <span class="text-slate-500">{{ $meta['label'] }}</span>
-                                <span class="text-navy-900 font-bold">{{ $roleBreakdown[$role] }}</span>
+            {{-- Role Distribution Donut Chart & Legend --}}
+            <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl p-5 shadow-xl">
+                <h4 class="font-black text-white text-sm mb-4 tracking-tight">Role Distribution</h4>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    {{-- Chart Canvas --}}
+                    <div class="relative h-32 w-32 shrink-0 flex items-center justify-center">
+                        <canvas id="roleDonutChart" class="max-h-full max-w-full"></canvas>
+                    </div>
+
+                    {{-- Legend with Exact Numbers --}}
+                    <div class="flex-1 w-full space-y-1.5 text-[11px]">
+                        @php
+                            $roleMeta = [
+                                'super_admin'        => ['label' => 'Super Admin',  'color' => '#EF4444'],
+                                'admin'              => ['label' => 'System Admin', 'color' => '#F97316'],
+                                'owner'              => ['label' => 'Owner',        'color' => '#F59E0B'],
+                                'manager'            => ['label' => 'Branch Mgr',   'color' => '#3B82F6'],
+                                'production_officer' => ['label' => 'Prod. Officer','color' => '#06B6D4'],
+                                'staff'              => ['label' => 'CS Staff',     'color' => '#10B981'],
+                                'designer'           => ['label' => 'Designer',     'color' => '#A855F7'],
+                                'production'         => ['label' => 'Operator',     'color' => '#0EA5E9'],
+                                'inventory'          => ['label' => 'Inventory',    'color' => '#14B8A6'],
+                                'customer'           => ['label' => 'Customer',     'color' => '#64748B'],
+                            ];
+                        @endphp
+                        @foreach($roleMeta as $rk => $rm)
+                            @php $cnt = $roleBreakdown[$rk] ?? ($rk === 'owner' ? ($roleBreakdown['owner'] ?? 0) + ($roleBreakdown['management'] ?? 0) : 0); @endphp
+                            @if($cnt > 0)
+                            <div class="flex items-center justify-between text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full shrink-0" style="background-color: {{ $rm['color'] }}"></span>
+                                    <span class="truncate">{{ $rm['label'] }}</span>
+                                </div>
+                                <span class="font-black text-white font-mono ml-2">{{ $cnt }}</span>
                             </div>
-                            <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="{{ $meta['color'] }} h-full rounded-full transition-all" style="width: {{ round(($roleBreakdown[$role] / $maxCount) * 100) }}%"></div>
-                            </div>
-                        </div>
-                        @endif
-                    @endforeach
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- QUICK ACTION MODULES --}}
+    {{-- QUICK ACCESS MODULES --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div>
-        <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3">Quick Access Modules</h3>
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-500 mb-3">Quick Access Modules</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <a href="{{ route('admin.users.index') }}" class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-indigo-200 transition group block">
-                <div class="h-11 w-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+            <a href="{{ route('admin.users.index') }}" class="bg-[#111A24] border border-slate-800/80 rounded-2xl p-5 shadow-lg hover:border-cyan-500/40 transition group block">
+                <div class="h-11 w-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg mb-3 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-users-gear"></i>
                 </div>
-                <h4 class="font-bold text-navy-900 text-sm font-display">User Management</h4>
+                <h4 class="font-black text-white text-sm font-display">User Management</h4>
                 <p class="text-[11px] text-slate-400 mt-1">Create accounts, assign roles, reset credentials</p>
-                <span class="text-[10px] text-indigo-600 font-bold mt-2 block">{{ $totalUsers }} Users →</span>
+                <span class="text-[10px] text-cyan-400 font-bold mt-2 block">{{ $totalUsers }} Users →</span>
             </a>
 
-            <a href="{{ route('admin.branches.index') }}" class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition group block">
-                <div class="h-11 w-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+            <a href="{{ route('management.branches.index') }}" class="bg-[#111A24] border border-slate-800/80 rounded-2xl p-5 shadow-lg hover:border-indigo-500/40 transition group block">
+                <div class="h-11 w-11 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg mb-3 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-network-wired"></i>
                 </div>
-                <h4 class="font-bold text-navy-900 text-sm font-display">Branch Registry</h4>
+                <h4 class="font-black text-white text-sm font-display">Branch Registry</h4>
                 <p class="text-[11px] text-slate-400 mt-1">Register branches, machines, and capacity limits</p>
-                <span class="text-[10px] text-blue-600 font-bold mt-2 block">{{ $totalBranches }} Branches →</span>
+                <span class="text-[10px] text-indigo-400 font-bold mt-2 block">{{ $totalBranches }} Branches →</span>
             </a>
 
-            <a href="{{ route('admin.employees.index') }}" class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-emerald-200 transition group block">
-                <div class="h-11 w-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+            <a href="{{ route('admin.employees.index') }}" class="bg-[#111A24] border border-slate-800/80 rounded-2xl p-5 shadow-lg hover:border-emerald-500/40 transition group block">
+                <div class="h-11 w-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg mb-3 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-id-badge"></i>
                 </div>
-                <h4 class="font-bold text-navy-900 text-sm font-display">Employee Registry</h4>
+                <h4 class="font-black text-white text-sm font-display">Employee Registry</h4>
                 <p class="text-[11px] text-slate-400 mt-1">Track staff assignments and availability status</p>
-                <span class="text-[10px] text-emerald-600 font-bold mt-2 block">View Employees →</span>
+                <span class="text-[10px] text-emerald-400 font-bold mt-2 block">View Employees →</span>
             </a>
 
-            <a href="{{ route('management.audit-logs.index') }}" class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-purple-200 transition group block">
-                <div class="h-11 w-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-scroll"></i>
+            <a href="{{ route('management.audit-logs.index') }}" class="bg-[#111A24] border border-slate-800/80 rounded-2xl p-5 shadow-lg hover:border-purple-500/40 transition group block">
+                <div class="h-11 w-11 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-lg mb-3 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
-                <h4 class="font-bold text-navy-900 text-sm font-display">Audit Trail</h4>
+                <h4 class="font-black text-white text-sm font-display">Audit Trail</h4>
                 <p class="text-[11px] text-slate-400 mt-1">Monitor all system changes and access events</p>
-                <span class="text-[10px] text-purple-600 font-bold mt-2 block">View Logs →</span>
+                <span class="text-[10px] text-purple-400 font-bold mt-2 block">View Logs →</span>
             </a>
         </div>
     </div>
-
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- RECENT AUDIT LOGS --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    @if($recentAuditLogs->count() > 0)
-    <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
-            <div>
-                <h3 class="font-bold text-navy-900 text-sm">Recent Audit Activity</h3>
-                <p class="text-[11px] text-slate-400 mt-0.5">Last 6 system actions recorded</p>
-            </div>
-            <a href="{{ route('management.audit-logs.index') }}" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
-                Full Log <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </a>
-        </div>
-        <div class="divide-y divide-slate-50">
-            @foreach($recentAuditLogs as $log)
-            <div class="px-6 py-3.5 flex items-start gap-3 hover:bg-slate-50/70 transition">
-                <div class="h-7 w-7 rounded-lg bg-navy-100 text-navy-600 flex items-center justify-center text-xs shrink-0 mt-0.5">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-xs font-bold text-navy-900">{{ $log->action ?? 'System Action' }}</p>
-                    <p class="text-[11px] text-slate-400 truncate">{{ $log->description ?? '' }}</p>
-                </div>
-                <span class="text-[10px] text-slate-400 shrink-0">{{ $log->created_at->diffForHumans() }}</span>
-            </div>
-            @endforeach
-        </div>
-    </div>
-    @endif
 
 </div>
 @endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('roleDonutChart');
+    if (!ctx) return;
+
+    @php
+        $labels = [];
+        $data = [];
+        $colors = [];
+        foreach($roleMeta as $rk => $rm) {
+            $cnt = $roleBreakdown[$rk] ?? ($rk === 'owner' ? ($roleBreakdown['owner'] ?? 0) + ($roleBreakdown['management'] ?? 0) : 0);
+            if ($cnt > 0) {
+                $labels[] = $rm['label'];
+                $data[] = $cnt;
+                $colors[] = $rm['color'];
+            }
+        }
+    @endphp
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: {!! json_encode($labels) !!},
+            datasets: [{
+                data: {!! json_encode($data) !!},
+                backgroundColor: {!! json_encode($colors) !!},
+                borderColor: '#111A24',
+                borderWidth: 3,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#0D1520',
+                    titleColor: '#fff',
+                    bodyColor: '#22d3ee',
+                    borderColor: '#1E293B',
+                    borderWidth: 1,
+                    padding: 8,
+                    displayColors: true
+                }
+            }
+        }
+    });
+});
+</script>
+@endsection
+

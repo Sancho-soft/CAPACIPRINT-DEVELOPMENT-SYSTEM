@@ -31,8 +31,22 @@ class WorkloadController extends Controller
             $jobQuery->where('branch_id', $branchFilter);
         }
 
+        $totalActiveJobs  = $branches->sum('active_job_count');
+        $totalDelayedJobs = $branches->sum('delayed_count');
+        $totalRushJobs    = $branches->sum('rush_count');
+        $totalCapacity    = $branches->sum('max_daily_jobs');
+        $avgUtilization   = $totalCapacity > 0 ? round(($totalActiveJobs / $totalCapacity) * 100, 1) : 0;
+
         $jobs = $jobQuery->latest()->paginate(20);
 
-        return view('manager.workload.index', compact('branches', 'jobs', 'branchFilter'));
+        return view('manager.workload.index', compact(
+            'branches',
+            'jobs',
+            'branchFilter',
+            'totalActiveJobs',
+            'totalDelayedJobs',
+            'totalRushJobs',
+            'avgUtilization'
+        ));
     }
 }
