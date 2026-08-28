@@ -252,9 +252,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/branches',         [\App\Http\Controllers\Admin\BranchController::class,   'index'])->name('branches.index');
     Route::get('/branches/create',  [\App\Http\Controllers\Admin\BranchController::class,   'create'])->name('branches.create');
     Route::post('/branches',        [\App\Http\Controllers\Admin\BranchController::class,   'store'])->name('branches.store');
+    Route::get('/branches/{branch}', [\App\Http\Controllers\Admin\BranchController::class,  'show'])->name('branches.show');
     Route::get('/branches/{branch}/edit', [\App\Http\Controllers\Admin\BranchController::class, 'edit'])->name('branches.edit');
     Route::put('/branches/{branch}',      [\App\Http\Controllers\Admin\BranchController::class, 'update'])->name('branches.update');
+    Route::delete('/branches/{branch}',   [\App\Http\Controllers\Admin\BranchController::class, 'destroy'])->name('branches.destroy');
     Route::get('/employees',        [\App\Http\Controllers\Admin\EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/employees/create', [\App\Http\Controllers\Admin\EmployeeController::class, 'create'])->name('employees.create');
+    Route::post('/employees',       [\App\Http\Controllers\Admin\EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employees/{employee}/edit', [\App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('employees.edit');
+    Route::put('/employees/{employee}',      [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('employees.update');
+    Route::delete('/employees/{employee}',   [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('employees.destroy');
 });
 
 // ─────────────────────────────────────────────────────────────────
