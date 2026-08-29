@@ -20,46 +20,42 @@
     {{-- Executive Summary Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">TOTAL ORDERS</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $totalOrders }}</h3>
-                <p class="text-[11px] text-slate-500 font-semibold mt-1">Lifetime volume</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-folder-tree text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">TOTAL ORDERS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-folder-tree"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $totalOrders }}</div>
             </div>
         </div>
 
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-blue-400 p-5 flex items-center justify-between shadow-lg hover:border-blue-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">IN PRODUCTION</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $inProduction }}</h3>
-                <p class="text-[11px] text-blue-400 font-semibold mt-1">Active press lines</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-industry text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-blue-400 transition-all"></i>
+                <div class="text-[11px] font-black text-blue-400 uppercase tracking-wider leading-tight max-w-[110px]">IN PRODUCTION</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-industry"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $inProduction }}</div>
             </div>
         </div>
 
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">COMPLETED / CLAIMED</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $completedOrders }}</h3>
-                <p class="text-[11px] text-emerald-400 font-semibold mt-1">Fulfilled orders</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-circle-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">COMPLETED / CLAIMED</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-circle-check"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $completedOrders }}</div>
             </div>
         </div>
 
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">INVENTORY WARNINGS</p>
-                <h3 class="text-3xl font-black text-amber-400 font-display mt-1">{{ $lowStockCount }}</h3>
-                <p class="text-[11px] text-amber-400 font-semibold mt-1">Low / Out of stock</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">INVENTORY WARNINGS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-boxes-stacked"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-amber-400 font-display">{{ $lowStockCount }}</div>
             </div>
         </div>
     </div>

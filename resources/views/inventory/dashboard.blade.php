@@ -56,14 +56,13 @@
         </div>
 
         {{-- Out of Stock --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-5 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">OUT OF STOCK</p>
-                <h3 class="text-3xl font-black text-red-400 font-display mt-1">{{ $outOfStockCount }}</h3>
-                <p class="text-[11px] text-red-400 font-semibold mt-1">Immediate action</p>
+                <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-5 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-circle-xmark text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-red-500 transition-all"></i>
+                <div class="text-[11px] font-black text-red-500 uppercase tracking-wider leading-tight max-w-[110px]">OUT OF STOCK</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-circle-xmark"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-red-400 font-display">{{ $outOfStockCount }}</div>
             </div>
         </div>
     </div>

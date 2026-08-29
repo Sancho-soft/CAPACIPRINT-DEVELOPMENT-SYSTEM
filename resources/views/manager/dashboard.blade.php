@@ -19,56 +19,56 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {{-- Active Jobs --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-4 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">ACTIVE JOBS</p>
-                <h3 class="text-2xl font-black text-white font-display mt-1">{{ $totalActiveJobs }}</h3>
+            <div class="flex items-center gap-3 min-w-0">
+                <i class="fa-solid fa-industry text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[10px] font-black text-cyan-400 uppercase tracking-wider leading-tight">ACTIVE JOBS</div>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-industry"></i>
+            <div class="text-right shrink-0">
+                <div class="text-2xl font-black text-white font-display">{{ $totalActiveJobs }}</div>
             </div>
         </div>
 
         {{-- Due Today --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-4 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">DUE TODAY</p>
-                <h3 class="text-2xl font-black text-white font-display mt-1">{{ $jobsDueToday }}</h3>
+            <div class="flex items-center gap-3 min-w-0">
+                <i class="fa-solid fa-clock text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[10px] font-black text-emerald-400 uppercase tracking-wider leading-tight">DUE TODAY</div>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-clock font-bold"></i>
+            <div class="text-right shrink-0">
+                <div class="text-2xl font-black text-white font-display">{{ $jobsDueToday }}</div>
             </div>
         </div>
 
         {{-- Due Tomorrow --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-4 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">DUE TOMORROW</p>
-                <h3 class="text-2xl font-black text-white font-display mt-1">{{ $jobsDueTomorrow }}</h3>
+            <div class="flex items-center gap-3 min-w-0">
+                <i class="fa-solid fa-calendar-day text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[10px] font-black text-amber-400 uppercase tracking-wider leading-tight">DUE TOMORROW</div>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-calendar-day"></i>
+            <div class="text-right shrink-0">
+                <div class="text-2xl font-black text-white font-display">{{ $jobsDueTomorrow }}</div>
             </div>
         </div>
 
         {{-- Delayed Jobs --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-4 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">DELAYED JOBS</p>
-                <h3 class="text-2xl font-black text-red-400 font-display mt-1">{{ $delayedJobs }}</h3>
+            <div class="flex items-center gap-3 min-w-0">
+                <i class="fa-solid fa-triangle-exclamation text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-red-500 transition-all"></i>
+                <div class="text-[10px] font-black text-red-500 uppercase tracking-wider leading-tight">DELAYED JOBS</div>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+            <div class="text-right shrink-0">
+                <div class="text-2xl font-black text-red-400 font-display">{{ $delayedJobs }}</div>
             </div>
         </div>
 
         {{-- Rush / Urgent --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-orange-500 p-4 flex items-center justify-between shadow-lg hover:border-orange-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">RUSH / URGENT</p>
-                <h3 class="text-2xl font-black text-white font-display mt-1">{{ $rushJobs }}</h3>
+            <div class="flex items-center gap-3 min-w-0">
+                <i class="fa-solid fa-bolt text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-orange-500 transition-all"></i>
+                <div class="text-[10px] font-black text-orange-500 uppercase tracking-wider leading-tight">RUSH / URGENT</div>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-bolt"></i>
+            <div class="text-right shrink-0">
+                <div class="text-2xl font-black text-white font-display">{{ $rushJobs }}</div>
             </div>
         </div>
     </div>
@@ -154,7 +154,7 @@
                         </td>
                         <td class="px-5 py-3.5 text-right">
                             <a href="{{ route('manager.production-planning.show', $job) }}"
-                               class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
+                               class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
                                title="Plan & Assign Job Details">
                                 <i class="fa-solid fa-eye text-xs"></i>
                             </a>

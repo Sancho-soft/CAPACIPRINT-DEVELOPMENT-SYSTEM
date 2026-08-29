@@ -46,49 +46,45 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- Card 1: Registered Users (Cyan) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="min-w-0">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">REGISTERED USERS</div>
-                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalUsers }}</div>
-                <div class="text-[11px] text-slate-500 font-semibold mt-1">All 9 roles</div>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-users text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">REGISTERED USERS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-users"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $totalUsers }}</div>
             </div>
         </div>
 
         {{-- Card 2: Active Branches (Indigo/Purple) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-indigo-400 p-5 flex items-center justify-between shadow-lg hover:border-indigo-500/30 transition group">
-            <div class="min-w-0">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ACTIVE BRANCHES</div>
-                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalBranches }}</div>
-                <div class="text-[11px] text-slate-500 font-semibold mt-1">Network nodes</div>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-store text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-indigo-400 transition-all"></i>
+                <div class="text-[11px] font-black text-indigo-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE BRANCHES</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-store"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $totalBranches }}</div>
             </div>
         </div>
 
         {{-- Card 3: Print Requests (Amber) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="min-w-0">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">PRINT REQUESTS</div>
-                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalRequests }}</div>
-                <div class="text-[11px] text-amber-400 font-semibold mt-1">{{ $pendingRequests }} pending review</div>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-file-lines text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PRINT REQUESTS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-file-lines"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $totalRequests }}</div>
             </div>
         </div>
 
         {{-- Card 4: Total Orders (Emerald) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="min-w-0">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">TOTAL ORDERS</div>
-                <div class="text-3xl font-black text-white font-display mt-1">{{ $totalOrders }}</div>
-                <div class="text-[11px] text-emerald-400 font-semibold mt-1">{{ $activeJobs }} in production</div>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-bag-shopping text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">TOTAL ORDERS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-bag-shopping"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $totalOrders }}</div>
             </div>
         </div>
     </div>
@@ -214,16 +210,16 @@
                     <div class="flex-1 w-full space-y-1.5 text-[11px]">
                         @php
                             $roleMeta = [
-                                'super_admin'        => ['label' => 'Super Admin',  'color' => '#EF4444'],
-                                'admin'              => ['label' => 'System Admin', 'color' => '#F97316'],
-                                'owner'              => ['label' => 'Owner',        'color' => '#F59E0B'],
-                                'manager'            => ['label' => 'Branch Mgr',   'color' => '#3B82F6'],
-                                'production_officer' => ['label' => 'Prod. Officer','color' => '#06B6D4'],
-                                'staff'              => ['label' => 'CS Staff',     'color' => '#10B981'],
-                                'designer'           => ['label' => 'Designer',     'color' => '#A855F7'],
-                                'production'         => ['label' => 'Operator',     'color' => '#0EA5E9'],
-                                'inventory'          => ['label' => 'Inventory',    'color' => '#14B8A6'],
-                                'customer'           => ['label' => 'Customer',     'color' => '#64748B'],
+                                'super_admin'        => ['label' => 'Super Admin',  'color' => '#FF4F79'], // Vibrant Pink/Red
+                                'admin'              => ['label' => 'System Admin', 'color' => '#FF8F3D'], // Tangerine
+                                'owner'              => ['label' => 'Owner',        'color' => '#FFC72C'], // Bright Gold
+                                'manager'            => ['label' => 'Branch Mgr',   'color' => '#4361EE'], // Royal Blue
+                                'production_officer' => ['label' => 'Prod. Officer','color' => '#4CC9F0'], // Bright Cyan
+                                'staff'              => ['label' => 'CS Staff',     'color' => '#2DCC70'], // Emerald Green
+                                'designer'           => ['label' => 'Designer',     'color' => '#9D4EDD'], // Deep Violet
+                                'production'         => ['label' => 'Operator',     'color' => '#38BDF8'], // Sky Blue
+                                'inventory'          => ['label' => 'Inventory',    'color' => '#2DD4BF'], // Mint Teal
+                                'customer'           => ['label' => 'Customer',     'color' => '#94A3B8'], // Slate Gray
                             ];
                         @endphp
                         @foreach($roleMeta as $rk => $rm)
@@ -312,16 +308,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     @endphp
 
-    new Chart(ctx, {
+    // Theme-aware border color
+    const isDark = document.documentElement.classList.contains('dark-theme') || localStorage.theme === 'dark';
+
+    const chart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: {!! json_encode($labels) !!},
             datasets: [{
                 data: {!! json_encode($data) !!},
                 backgroundColor: {!! json_encode($colors) !!},
-                borderColor: '#111A24',
-                borderWidth: 3,
-                hoverOffset: 4
+                borderColor: isDark ? '#111A24' : '#ffffff',
+                borderWidth: 2,
+                hoverOffset: 6
             }]
         },
         options: {
@@ -342,6 +341,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+    // Listen for theme toggles to dynamically update the chart's border color
+    const observer = new MutationObserver(() => {
+        const darkTheme = document.documentElement.classList.contains('dark-theme');
+        chart.data.datasets[0].borderColor = darkTheme ? '#111A24' : '#ffffff';
+        chart.update();
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 });
 </script>
 @endsection

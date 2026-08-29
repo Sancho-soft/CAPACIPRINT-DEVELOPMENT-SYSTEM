@@ -57,49 +57,45 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- Assigned Jobs --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">ASSIGNED JOBS</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $assignedCount }}</h3>
-                <p class="text-[11px] text-slate-500 mt-0.5 truncate">Pending setup</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-list-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">ASSIGNED JOBS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-list-check"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $assignedCount }}</div>
             </div>
         </div>
 
         {{-- In Production --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-blue-400 p-5 flex items-center justify-between shadow-lg hover:border-blue-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">IN PRODUCTION</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $inProductionCount }}</h3>
-                <p class="text-[11px] text-blue-400 font-semibold mt-0.5 truncate">Active on press</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-gears text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-blue-400 transition-all"></i>
+                <div class="text-[11px] font-black text-blue-400 uppercase tracking-wider leading-tight max-w-[110px]">IN PRODUCTION</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-gears animate-spin text-sm" style="animation-duration: 8s;"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $inProductionCount }}</div>
             </div>
         </div>
 
         {{-- Completed Jobs --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">COMPLETED JOBS</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $completedCount }}</h3>
-                <p class="text-[11px] text-emerald-400 font-semibold mt-0.5 truncate">Ready for dispatch</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-circle-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">COMPLETED JOBS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-circle-check"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $completedCount }}</div>
             </div>
         </div>
 
         {{-- Delayed / Priority --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">DELAYED / PRIORITY</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $delayedCount }}</h3>
-                <p class="text-[11px] text-amber-400 font-semibold mt-0.5 truncate">Requires attention</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-triangle-exclamation text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">DELAYED / PRIORITY</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $delayedCount }}</div>
             </div>
         </div>
     </div>
@@ -144,8 +140,8 @@
                                     <p class="text-[11px] text-slate-400 mt-0.5 font-mono"><i class="fa-solid fa-layer-group text-[10px] mr-1 text-slate-500"></i> {{ number_format($job->order->printRequest->quantity ?? 0) }} pcs</p>
                                 </td>
                                 <td class="px-5 py-3.5">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 font-medium text-[11px] border border-slate-700">
-                                        <i class="fa-solid fa-print text-slate-500"></i>
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-[11px] border border-slate-200 dark:border-slate-700">
+                                        <i class="fa-solid fa-print text-cyan-500"></i>
                                         {{ $job->machine->name ?? 'Unassigned' }}
                                     </span>
                                 </td>
@@ -162,7 +158,7 @@
                                 <td class="px-5 py-3.5 text-right">
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('production.jobs.show', $job) }}"
-                                           class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
+                                           class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
                                            title="View Job Details">
                                             <i class="fa-solid fa-eye text-xs"></i>
                                         </a>
