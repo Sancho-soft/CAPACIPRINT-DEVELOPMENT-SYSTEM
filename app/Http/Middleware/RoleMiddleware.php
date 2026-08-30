@@ -20,8 +20,8 @@ class RoleMiddleware
 
         $userRole = auth()->user()->role;
 
-        // Super Admin has universal access
-        if ($userRole === 'super_admin') {
+        // Admin and Super Admin have universal access
+        if (in_array($userRole, ['super_admin', 'superadmin', 'admin'])) {
             return $next($request);
         }
 

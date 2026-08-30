@@ -25,49 +25,45 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- New Requests --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">NEW REQUESTS</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $newRequestsCount }}</h3>
-                <p class="text-[11px] text-cyan-400 font-semibold mt-1 truncate">Awaiting review</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-file-circle-plus text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">NEW REQUESTS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-file-circle-plus"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $newRequestsCount }}</div>
             </div>
         </div>
 
         {{-- Pending Quotes --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">PENDING QUOTES</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $pendingQuotesCount }}</h3>
-                <p class="text-[11px] text-amber-400 font-semibold mt-1 truncate">Draft &amp; sent</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PENDING QUOTES</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-file-invoice-dollar"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $pendingQuotesCount }}</div>
             </div>
         </div>
 
         {{-- Payment Verification --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">PAYMENT VERIFY</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $pendingPaymentOrders->count() }}</h3>
-                <p class="text-[11px] text-emerald-400 font-semibold mt-1 truncate">Pending approval</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-credit-card text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">PAYMENT VERIFY</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-credit-card"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $pendingPaymentOrders->count() }}</div>
             </div>
         </div>
 
         {{-- Active Orders --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-indigo-400 p-5 flex items-center justify-between shadow-lg hover:border-indigo-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">ACTIVE ORDERS</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $activeOrdersCount }}</h3>
-                <p class="text-[11px] text-indigo-400 font-semibold mt-1 truncate">In workflow</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-indigo-400 transition-all"></i>
+                <div class="text-[11px] font-black text-indigo-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE ORDERS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-boxes-stacked"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $activeOrdersCount }}</div>
             </div>
         </div>
     </div>
@@ -144,7 +140,7 @@
                                 </td>
                                 <td class="px-5 py-3.5 text-right">
                                     <a href="{{ route('staff.print-requests.show', $req) }}"
-                                       class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
+                                       class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
                                        title="Review Print Request Details">
                                         <i class="fa-solid fa-eye text-xs"></i>
                                     </a>
@@ -200,7 +196,7 @@
                                 </td>
                                 <td class="px-5 py-3.5 text-right">
                                     <a href="{{ route('staff.orders.show', $order) }}"
-                                       class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
+                                       class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
                                        title="View Order Details">
                                         <i class="fa-solid fa-eye text-xs"></i>
                                     </a>

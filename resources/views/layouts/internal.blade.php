@@ -20,7 +20,7 @@
      }">
 
     {{-- Mobile Overlay & Sidebar Toggle --}}
-    <div class="md:hidden bg-cyber-surface border-b border-cyber text-cyber-main px-4 py-3 flex items-center justify-between shadow-lg sticky top-0 z-40">
+    <div class="md:hidden bg-white dark:bg-cyber-surface border-b border-cyber text-cyber-main px-4 py-3 flex items-center justify-between shadow-lg sticky top-0 z-40">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/caplogo.png') }}" alt="CapaciPrint Logo" class="h-8 w-auto object-contain shrink-0" onerror="this.onerror=null; this.src=''; this.classList.add('hidden');">
             <div>
@@ -29,8 +29,15 @@
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button @click="toggleTheme()" class="p-2 rounded-lg text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub transition" title="Toggle Theme">
-                <i :class="isDark ? 'fa-solid fa-moon text-cyan-400' : 'fa-solid fa-sun text-amber-500'" class="text-base"></i>
+            <button @click="toggleTheme()" 
+                    type="button"
+                    class="relative w-10 h-5 p-0.5 rounded-full transition-colors duration-300 flex items-center shadow-inner focus:outline-none cursor-pointer"
+                    :class="isDark ? 'bg-slate-900 border border-slate-700' : 'bg-slate-300 border border-slate-300/80'"
+                    title="Toggle Light / Dark Theme">
+                <div class="w-4 h-4 rounded-full transition-transform duration-300 transform flex items-center justify-center shadow-md"
+                     :class="isDark ? 'translate-x-5 bg-slate-800 text-cyan-400 border border-slate-600' : 'translate-x-0 bg-white text-amber-500 border border-slate-200'">
+                    <i :class="isDark ? 'fa-solid fa-moon text-[8px]' : 'fa-solid fa-sun text-[8px]'"></i>
+                </div>
             </button>
             <button @click="sidebarOpen = !sidebarOpen" class="text-cyber-muted hover:text-cyber-main p-2 rounded-lg focus:outline-none">
                 <i class="fa-solid fa-bars text-xl"></i>
@@ -55,7 +62,7 @@
            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'">
 
         {{-- Sidebar Brand — PINNED TOP --}}
-        <div class="shrink-0 p-5 border-b border-cyber flex items-center justify-between bg-cyber-base/50">
+        <div class="shrink-0 h-16 px-5 border-b border-cyber flex items-center justify-between bg-white dark:bg-cyber-base/50">
             <div class="flex items-center gap-3">
                 <img src="{{ asset('images/caplogo.png') }}" alt="CapaciPrint Logo" class="h-9 w-auto object-contain shrink-0 drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]">
                 <div>
@@ -150,7 +157,7 @@
             @endif
 
             {{-- ROLE 5: PRODUCTION OFFICER --}}
-            @if(auth()->user()->isProductionOfficer() || auth()->user()->isManager() || auth()->user()->isSuperAdmin())
+            @if(auth()->user()->isProductionOfficer() || auth()->user()->isManager() || auth()->user()->isAdmin())
                 <p class="px-3 pt-1.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Operations Planning</p>
 
                 <a href="{{ route('manager.production-planning.index') }}"
@@ -231,7 +238,7 @@
 
                 <a href="{{ route('management.dashboard') }}"
                    class="flex items-center gap-3 px-3.5 py-2 rounded-xl transition whitespace-nowrap {{ request()->routeIs('management.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
-                    <i class="fa-solid fa-chart-pie w-5 text-center text-sm"></i> Management Dashboard
+                    <i class="fa-solid fa-chart-pie w-5 text-center text-sm"></i> Dashboard
                 </a>
                 <a href="{{ route('management.orders.index') }}"
                    class="flex items-center gap-3 px-3.5 py-2 rounded-xl transition whitespace-nowrap {{ request()->routeIs('management.orders.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
@@ -250,7 +257,7 @@
         </nav>
 
         {{-- User Footer / Logout — PINNED BOTTOM --}}
-        <div class="shrink-0 p-4 border-t border-cyber bg-cyber-base/50">
+        <div class="shrink-0 p-4 border-t border-cyber bg-white dark:bg-cyber-base/50">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full flex items-center justify-start gap-3 px-3 py-2 rounded-xl font-bold text-xs text-red-400 hover:text-white hover:bg-red-500/20 transition border border-transparent hover:border-red-500/30">
@@ -266,40 +273,33 @@
     <div class="flex-1 flex flex-col min-w-0 bg-cyber-base transition-colors duration-200">
 
         {{-- Top App Bar --}}
-        <header class="bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
-            <div></div>
+        <header class="h-16 bg-white dark:bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md">
+            <div>
+                <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-cyber-muted hover:text-cyber-main p-1.5 rounded-lg border border-cyber hover:bg-cyber-sub focus:outline-none transition">
+                    <i class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
 
             <div class="flex items-center gap-4 sm:gap-5">
-                {{-- Theme Switch Button (Light / Dark Mode) --}}
+                {{-- Theme Switch Button (Light / Dark Mode Toggle Switch) --}}
                 <button @click="toggleTheme()" 
-                        class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-cyber-sub border border-cyber text-cyber-main hover:border-cyan-500/40 text-xs font-bold transition shadow-sm group"
+                        type="button"
+                        class="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-cyber-sub border border-cyber text-cyber-main hover:border-cyan-500/40 transition shadow-sm group focus:outline-none select-none cursor-pointer"
                         title="Toggle Light / Dark Theme">
-                    <span class="flex items-center gap-1.5" :class="isDark ? 'text-cyan-400' : 'text-amber-500'">
-                        <i :class="isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'" class="text-sm"></i>
-                        <span class="hidden sm:inline text-[11px]" x-text="isDark ? 'Dark Mode' : 'Light Mode'"></span>
+                    <span class="flex items-center gap-1.5 text-xs font-bold font-display">
+                        <i :class="isDark ? 'fa-solid fa-moon text-cyan-400' : 'fa-solid fa-sun text-amber-500'" class="text-xs transition-colors"></i>
+                        <span class="hidden sm:inline text-[11px] font-extrabold uppercase tracking-wider" :class="isDark ? 'text-cyan-400' : 'text-slate-700'" x-text="isDark ? 'Dark Mode' : 'Light Mode'"></span>
                     </span>
-                    <span class="text-[9px] px-1.5 py-0.5 rounded bg-cyber-card border border-cyber text-cyber-muted uppercase tracking-wider font-mono group-hover:text-cyber-main">Toggle</span>
+                    {{-- Toggle Pill Switch Track --}}
+                    <div class="relative w-10 h-5 rounded-full transition-colors duration-300 p-0.5 flex items-center shadow-inner"
+                         :class="isDark ? 'bg-slate-900 border border-slate-700' : 'bg-slate-300 border border-slate-300/80'">
+                        {{-- Sliding Knob --}}
+                        <div class="w-4 h-4 rounded-full transition-transform duration-300 transform flex items-center justify-center shadow-md"
+                             :class="isDark ? 'translate-x-5 bg-slate-800 text-cyan-400 border border-slate-600' : 'translate-x-0 bg-white text-amber-500 border border-slate-200'">
+                            <i :class="isDark ? 'fa-solid fa-moon text-[8px]' : 'fa-solid fa-sun text-[8px]'"></i>
+                        </div>
+                    </div>
                 </button>
-
-                {{-- Live System Status Indicator --}}
-                <div class="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-xl bg-cyber-sub border border-cyber text-xs shadow-inner"
-                     title="Total Network Active Jobs: {{ $globalActiveJobs ?? 0 }} / Max Daily Cap: {{ $globalTotalCapacity ?? 0 }}">
-                    <div class="flex items-center gap-2">
-                        <span class="text-[10px] font-bold text-cyber-muted uppercase tracking-wider">System Load</span>
-                        <span class="text-xs font-black font-display font-mono {{ ($globalSystemLoad ?? 0) >= 80 ? 'text-red-400' : (($globalSystemLoad ?? 0) >= 50 ? 'text-amber-400' : 'text-cyan-400') }}">
-                            {{ number_format($globalSystemLoad ?? 0, 1) }}%
-                        </span>
-                        <span class="flex items-center gap-1 text-[9px] font-black uppercase px-1.5 py-0.5 rounded border {{ ($globalSystemLoad ?? 0) >= 80 ? 'bg-red-500/10 text-red-400 border-red-500/20' : (($globalSystemLoad ?? 0) >= 50 ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20') }}">
-                            <span class="h-1.5 w-1.5 rounded-full {{ ($globalSystemLoad ?? 0) >= 80 ? 'bg-red-400' : (($globalSystemLoad ?? 0) >= 50 ? 'bg-amber-400' : 'bg-emerald-400') }} animate-pulse"></span>
-                            {{ ($globalSystemLoad ?? 0) >= 80 ? 'HIGH' : (($globalSystemLoad ?? 0) >= 50 ? 'MODERATE' : 'OPTIMAL') }}
-                        </span>
-                    </div>
-                    {{-- Dynamic Mini Sparkline Bar / Gauge --}}
-                    <div class="w-12 h-1.5 bg-cyber-card rounded-full overflow-hidden border border-cyber">
-                        <div class="h-full {{ ($globalSystemLoad ?? 0) >= 80 ? 'bg-red-500' : (($globalSystemLoad ?? 0) >= 50 ? 'bg-amber-400' : 'bg-gradient-to-r from-cyan-400 to-emerald-400') }} rounded-full"
-                             style="width: {{ min(max($globalSystemLoad ?? 0, 8), 100) }}%"></div>
-                    </div>
-                </div>
 
                 @php
                     $notifRoute = match(auth()->user()->role) {
