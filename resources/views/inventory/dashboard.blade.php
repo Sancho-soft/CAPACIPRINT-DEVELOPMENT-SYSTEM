@@ -21,48 +21,45 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- Materials Catalog --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">MATERIALS CATALOG</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $totalMaterials }}</h3>
-                <p class="text-[11px] text-slate-500 font-semibold mt-1">Active items</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">MATERIALS CATALOG</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-boxes-stacked"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $totalMaterials }}</div>
             </div>
         </div>
 
         {{-- Sufficient Stock --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">SUFFICIENT STOCK</p>
-                <h3 class="text-3xl font-black text-white font-display mt-1">{{ $availableCount }}</h3>
-                <p class="text-[11px] text-emerald-400 font-semibold mt-1">Healthy buffer</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-square-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">SUFFICIENT STOCK</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-square-check"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $availableCount }}</div>
             </div>
         </div>
 
         {{-- Low Stock Alerts --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="min-w-0">
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">LOW STOCK ALERTS</p>
-                <h3 class="text-3xl font-black text-amber-400 font-display mt-1">{{ $lowStockCount }}</h3>
-                <p class="text-[11px] text-amber-400 font-semibold mt-1">Restock required</p>
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-triangle-exclamation text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">LOW STOCK ALERTS</div>
             </div>
-            <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $lowStockCount }}</div>
             </div>
         </div>
 
         {{-- Out of Stock --}}
-                <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-5 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-5 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
                 <i class="fa-solid fa-circle-xmark text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-red-500 transition-all"></i>
                 <div class="text-[11px] font-black text-red-500 uppercase tracking-wider leading-tight max-w-[110px]">OUT OF STOCK</div>
             </div>
             <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-red-400 font-display">{{ $outOfStockCount }}</div>
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $outOfStockCount }}</div>
             </div>
         </div>
     </div>

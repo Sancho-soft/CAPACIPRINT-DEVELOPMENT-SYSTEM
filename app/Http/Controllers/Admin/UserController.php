@@ -8,6 +8,7 @@ use App\Models\Branch;
 use App\Models\AuditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -15,11 +16,24 @@ class UserController extends Controller
     {
         $query = User::with('branch');
 
+        if ($request->boolean('archived')) {
+            $query->where('is_archived', true);
+        } else {
+            $query->where('is_archived', false);
+        }
+
         if ($role = $request->get('role')) {
             $query->where('role', $role);
         }
 
-        $users = $query->latest()->paginate(20);
+        if ($search = $request->get('search')) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->latest()->paginate(6);
         $branches = Branch::all();
 
         return view('admin.users.index', compact('users', 'branches'));
@@ -36,11 +50,12 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
-            'name'      => $data['name'],
-            'email'     => $data['email'],
-            'role'      => $data['role'],
-            'branch_id' => $data['branch_id'] ?? null,
-            'password'  => Hash::make($data['password']),
+            'name'        => $data['name'],
+            'email'       => $data['email'],
+            'role'        => $data['role'],
+            'branch_id'   => $data['branch_id'] ?? null,
+            'password'    => Hash::make($data['password']),
+            'is_archived' => false,
         ]);
 
         AuditLog::record(
@@ -52,6 +67,42 @@ class UserController extends Controller
         );
 
         return redirect()->back()->with('success', "User account {$user->name} created successfully.");
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $data = $request->validate([
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'role'      => ['required', 'string', 'in:customer,staff,manager,production,inventory,management,admin'],
+            'branch_id' => ['nullable', 'exists:branches,id'],
+            'password'  => ['nullable', 'string', 'min:8'],
+        ]);
+
+        $old = $user->toArray();
+
+        $updateData = [
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'role'      => $data['role'],
+            'branch_id' => $data['branch_id'] ?? null,
+        ];
+
+        if (!empty($data['password'])) {
+            $updateData['password'] = Hash::make($data['password']);
+        }
+
+        $user->update($updateData);
+
+        AuditLog::record(
+            'User Account Updated',
+            'User Management',
+            "Updated account details for {$user->name}",
+            $old,
+            $user->toArray()
+        );
+
+        return redirect()->back()->with('success', "User account {$user->name} updated successfully.");
     }
 
     public function updateRole(Request $request, User $user)
@@ -73,5 +124,23 @@ class UserController extends Controller
         );
 
         return redirect()->back()->with('success', "User {$user->name} access updated.");
+    }
+
+    public function toggleArchive(User $user)
+    {
+        $user->is_archived = !$user->is_archived;
+        $user->save();
+
+        $actionText = $user->is_archived ? 'Archived' : 'Restored';
+
+        AuditLog::record(
+            "User Account {$actionText}",
+            'User Management',
+            "{$actionText} user account {$user->name} ({$user->email})",
+            null,
+            ['is_archived' => $user->is_archived]
+        );
+
+        return redirect()->back()->with('success', "User account {$user->name} {$actionText} successfully.");
     }
 }

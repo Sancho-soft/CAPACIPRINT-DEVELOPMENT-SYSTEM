@@ -1,6 +1,6 @@
 @extends('layouts.internal')
-@section('title', 'CS & Sales Dashboard')
-@section('page-title', 'CS & Sales Dashboard')
+@section('title', 'Sales & Service Dashboard')
+@section('page-title', 'Sales & Service Dashboard')
 
 @section('content')
 <div class="space-y-6 max-w-7xl">
@@ -140,9 +140,9 @@
                                 </td>
                                 <td class="px-5 py-3.5 text-right">
                                     <a href="{{ route('staff.print-requests.show', $req) }}"
-                                       class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
+                                       class="text-cyan-400 hover:text-cyan-300 transition text-sm p-1 inline-block"
                                        title="Review Print Request Details">
-                                        <i class="fa-solid fa-eye text-xs"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -196,9 +196,9 @@
                                 </td>
                                 <td class="px-5 py-3.5 text-right">
                                     <a href="{{ route('staff.orders.show', $order) }}"
-                                       class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
+                                       class="text-cyan-400 hover:text-cyan-300 transition text-sm p-1 inline-block"
                                        title="View Order Details">
-                                        <i class="fa-solid fa-eye text-xs"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                     </a>
                                 </td>
                             </tr>

@@ -41,6 +41,16 @@ class Order extends Model
         return $this->hasOne(Payment::class);
     }
 
+    public function productionJob()
+    {
+        return $this->hasOne(ProductionJob::class);
+    }
+
+    public function productionJobs()
+    {
+        return $this->hasMany(ProductionJob::class);
+    }
+
     public function claimReference()
     {
         return $this->hasOne(ClaimReference::class);

@@ -124,7 +124,7 @@
 
                 <a href="{{ route('staff.dashboard') }}"
                    class="flex items-center gap-3 px-3.5 py-2 rounded-xl transition {{ request()->routeIs('staff.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
-                    <i class="fa-solid fa-message w-5 text-center text-sm"></i> CS Dashboard
+                    <i class="fa-solid fa-message w-5 text-center text-sm"></i> Dashboard
                 </a>
                 <a href="{{ route('staff.print-requests.index') }}"
                    class="flex items-center gap-3 px-3.5 py-2 rounded-xl transition {{ request()->routeIs('staff.print-requests.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">

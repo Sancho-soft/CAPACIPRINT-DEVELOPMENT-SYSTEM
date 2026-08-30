@@ -31,8 +31,8 @@ class DashboardController extends Controller
         $activeJobs = ProductionJob::where('status', 'in_production')->count();
         $delayedJobs = ProductionJob::where('status', 'delayed')->count();
 
-        // Recent user registrations
-        $recentUsers = User::latest()->take(8)->get();
+        // Recent user registrations (6 per page)
+        $recentUsers = User::latest()->paginate(6);
 
         // Orders by status
         $ordersByStatus = Order::select('status', DB::raw('count(*) as count'))

@@ -25,7 +25,6 @@
             <img src="{{ asset('images/caplogo.png') }}" alt="CapaciPrint Logo" class="h-8 w-auto object-contain shrink-0" onerror="this.onerror=null; this.src=''; this.classList.add('hidden');">
             <div>
                 <span class="font-black text-sm tracking-wide font-display text-cyber-main">CAPACIPRINT</span>
-                <span class="text-[9px] text-cyan-500 font-bold tracking-wider uppercase block">Customer Portal</span>
             </div>
         </div>
         <div class="flex items-center gap-2">
@@ -67,7 +66,6 @@
                 <img src="{{ asset('images/caplogo.png') }}?v={{ time() }}" alt="CapaciPrint Logo" class="h-10 w-10 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(6,182,212,0.35)]">
                 <div class="min-w-0">
                     <h1 class="font-black text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
-                    <span class="text-[10px] text-cyan-400 font-extrabold tracking-wider uppercase block mt-1 truncate">Customer Portal</span>
                 </div>
             </div>
             <button @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-white">
@@ -78,10 +76,12 @@
         {{-- Role Navigation Links — SCROLLABLE MIDDLE --}}
         <nav class="flex-1 min-h-0 px-3 py-3 space-y-0.5 overflow-y-auto no-scrollbar text-xs font-medium">
 
-            <p class="px-3 pt-1 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Customer Portal</p>
-
+            <p class="px-3 pt-1 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Dashboard</p>
             <a href="{{ route('customer.dashboard') }}"
-            <p class="px-3 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Print Request</p>
+               class="flex items-center gap-3 px-3.5 py-2 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                <i class="fa-solid fa-gauge-high w-5 text-center text-sm"></i> Dashboard Overview
+            </a>
+
             <a href="{{ route('customer.print-requests.create') }}"
                class="flex items-center gap-3 px-3.5 py-2 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
                 <i class="fa-solid fa-file-circle-plus w-5 text-center text-sm"></i> New Print Request

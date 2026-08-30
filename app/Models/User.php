@@ -20,6 +20,7 @@ class User extends Authenticatable
         'phone',
         'address',
         'branch_id',
+        'is_archived',
     ];
 
     protected $hidden = [
@@ -32,6 +33,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_archived' => 'boolean',
         ];
     }
 

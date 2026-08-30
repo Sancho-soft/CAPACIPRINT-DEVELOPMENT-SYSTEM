@@ -122,6 +122,8 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     Route::get('/dashboard',                             [StaffDashboard::class,    'index'])->name('dashboard');
     Route::get('/customers',                             [StaffCustomer::class,     'index'])->name('customers.index');
     Route::get('/customers/{user}',                      [StaffCustomer::class,     'show'])->name('customers.show');
+    Route::put('/customers/{user}',                      [StaffCustomer::class,     'update'])->name('customers.update');
+    Route::post('/customers/{user}/notify',              [StaffCustomer::class,     'notify'])->name('customers.notify');
     Route::get('/print-requests',                        [StaffPrintRequest::class, 'index'])->name('print-requests.index');
     Route::get('/print-requests/{printRequest}',         [StaffPrintRequest::class, 'show'])->name('print-requests.show');
     Route::post('/print-requests/{printRequest}/verify', [StaffPrintRequest::class, 'verify'])->name('print-requests.verify');
@@ -248,7 +250,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users',     [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::post('/users',    [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
     Route::put('/users/{user}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.update-role');
+    Route::post('/users/{user}/toggle-archive', [\App\Http\Controllers\Admin\UserController::class, 'toggleArchive'])->name('users.toggle-archive');
     Route::get('/branches',         [\App\Http\Controllers\Admin\BranchController::class,   'index'])->name('branches.index');
     Route::get('/branches/create',  [\App\Http\Controllers\Admin\BranchController::class,   'create'])->name('branches.create');
     Route::post('/branches',        [\App\Http\Controllers\Admin\BranchController::class,   'store'])->name('branches.store');
