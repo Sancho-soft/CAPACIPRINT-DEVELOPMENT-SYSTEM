@@ -26,47 +26,55 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- Card 1: Active Job Load (Cyan) --}}
-        <div class="bg-cyber-card rounded-2xl border border-cyber p-5 shadow-lg relative overflow-hidden group hover:border-cyan-500/30 transition">
-            <div class="text-[10px] font-bold uppercase tracking-wider text-cyber-muted">ACTIVE JOB LOAD</div>
-            <div class="text-3xl font-black font-display font-mono text-cyan-400 mt-1">
-                {{ $totalActiveJobs }} <span class="text-base font-semibold">{{ Str::plural('job', $totalActiveJobs) }}</span>
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-layer-group text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE JOB LOAD</div>
             </div>
-            <div class="text-[11px] text-cyber-muted font-medium mt-1">Across all branches</div>
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ $totalActiveJobs }}</div>
+                <div class="text-[10px] text-slate-400 font-medium mt-0.5">Across branches</div>
+            </div>
         </div>
 
         {{-- Card 2: Delayed Jobs (Red) --}}
-        <div class="bg-cyber-card rounded-2xl border border-cyber p-5 shadow-lg relative overflow-hidden group hover:border-red-500/30 transition">
-            <div class="text-[10px] font-bold uppercase tracking-wider text-cyber-muted">DELAYED JOBS</div>
-            <div class="text-3xl font-black font-display font-mono {{ $totalDelayedJobs > 0 ? 'text-red-400' : 'text-cyber-muted' }} mt-1">
-                {{ $totalDelayedJobs }}
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-5 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-clock-rotate-left text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-red-400 transition-all"></i>
+                <div class="text-[11px] font-black text-red-400 uppercase tracking-wider leading-tight max-w-[110px]">DELAYED JOBS</div>
             </div>
-            <div class="text-[11px] font-semibold mt-1 {{ $totalDelayedJobs > 0 ? 'text-red-400' : 'text-cyber-muted' }}">
-                {{ $totalDelayedJobs > 0 ? 'Needs attention' : 'Zero delays reported' }}
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black {{ $totalDelayedJobs > 0 ? 'text-red-400' : 'text-white' }} font-display">{{ $totalDelayedJobs }}</div>
+                <div class="text-[10px] {{ $totalDelayedJobs > 0 ? 'text-red-400' : 'text-slate-400' }} font-medium mt-0.5">{{ $totalDelayedJobs > 0 ? 'Needs attention' : 'Zero delays' }}</div>
             </div>
         </div>
 
         {{-- Card 3: Rush / Urgent (Amber) --}}
-        <div class="bg-cyber-card rounded-2xl border border-cyber p-5 shadow-lg relative overflow-hidden group hover:border-amber-500/30 transition">
-            <div class="text-[10px] font-bold uppercase tracking-wider text-cyber-muted">RUSH / URGENT</div>
-            <div class="text-3xl font-black font-display font-mono text-amber-400 mt-1 flex items-center gap-2">
-                <span>{{ $totalRushJobs }}</span>
-                @if($totalRushJobs > 0)
-                    <span class="h-2.5 w-2.5 rounded-full bg-amber-400 animate-ping"></span>
-                @endif
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-bolt text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">RUSH / URGENT</div>
             </div>
-            <div class="text-[11px] font-semibold mt-1 {{ $totalRushJobs > 0 ? 'text-amber-400' : 'text-cyber-muted' }}">
-                {{ $totalRushJobs > 0 ? 'Escalated priority' : 'No rush orders' }}
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display flex items-center justify-end gap-1.5">
+                    <span>{{ $totalRushJobs }}</span>
+                    @if($totalRushJobs > 0)
+                        <span class="h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
+                    @endif
+                </div>
+                <div class="text-[10px] text-amber-400 font-medium mt-0.5">{{ $totalRushJobs > 0 ? 'Escalated queue' : 'No rush orders' }}</div>
             </div>
         </div>
 
-        {{-- Card 4: Avg Utilization (Emerald/Cyan) --}}
-        <div class="bg-cyber-card rounded-2xl border border-cyber p-5 shadow-lg relative overflow-hidden group hover:border-emerald-500/30 transition">
-            <div class="text-[10px] font-bold uppercase tracking-wider text-cyber-muted">AVG UTILIZATION</div>
-            <div class="text-3xl font-black font-display font-mono text-emerald-400 mt-1">
-                {{ number_format($avgUtilization, 1) }}%
+        {{-- Card 4: Avg Utilization (Emerald) --}}
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <i class="fa-solid fa-gauge-high text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">AVG UTILIZATION</div>
             </div>
-            <div class="text-[11px] text-emerald-400 font-semibold mt-1">
-                {{ $avgUtilization >= 80 ? 'Heavy System Load' : ($avgUtilization >= 50 ? 'Moderate System Load' : 'Optimal Capacity') }}
+            <div class="text-right shrink-0">
+                <div class="text-3xl font-black text-white font-display">{{ number_format($avgUtilization, 1) }}%</div>
+                <div class="text-[10px] text-emerald-400 font-medium mt-0.5">{{ $avgUtilization >= 80 ? 'Heavy Load' : ($avgUtilization >= 50 ? 'Moderate' : 'Optimal') }}</div>
             </div>
         </div>
     </div>
@@ -242,7 +250,9 @@
                 <tbody class="divide-y divide-cyber-sub">
                     @forelse($jobs as $job)
                     <tr class="hover:bg-cyber-sub/60 transition">
-                        <td class="px-6 py-4 font-mono font-bold text-cyan-400">{{ $job->job_code }}</td>
+                        <td class="px-6 py-4 font-mono font-bold text-cyan-400">
+                            {{ $job->job_code ?? $job->job_ticket ?? ('JOB-' . str_pad($job->id, 5, '0', STR_PAD_LEFT)) }}
+                        </td>
                         <td class="px-6 py-4 font-bold text-cyber-main">{{ $job->branch->name ?? '—' }}</td>
                         <td class="px-6 py-4">
                             <span class="font-semibold block text-cyber-main">{{ $job->order->user->name ?? 'Demo Customer' }}</span>

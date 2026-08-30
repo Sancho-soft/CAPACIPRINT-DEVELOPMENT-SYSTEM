@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -57,9 +58,9 @@
         // Check theme preference or default to dark
         if (localStorage.theme === 'light') {
             document.documentElement.classList.add('light-theme');
-            document.documentElement.classList.remove('dark-theme');
+            document.documentElement.classList.remove('dark', 'dark-theme');
         } else {
-            document.documentElement.classList.add('dark-theme');
+            document.documentElement.classList.add('dark', 'dark-theme');
             document.documentElement.classList.remove('light-theme');
         }
     </script>
