@@ -4,16 +4,16 @@
 <div class="min-h-screen bg-cyber-base flex flex-col md:flex-row font-sans text-cyber-main selection:bg-cyan-500/30 selection:text-cyan-200" 
      x-data="{ 
         sidebarOpen: false,
-        isDark: document.documentElement.classList.contains('dark-theme'),
+        isDark: document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme'),
         toggleTheme() {
             this.isDark = !this.isDark;
             if (this.isDark) {
-                document.documentElement.classList.add('dark-theme');
+                document.documentElement.classList.add('dark', 'dark-theme');
                 document.documentElement.classList.remove('light-theme');
                 localStorage.theme = 'dark';
             } else {
                 document.documentElement.classList.add('light-theme');
-                document.documentElement.classList.remove('dark-theme');
+                document.documentElement.classList.remove('dark', 'dark-theme');
                 localStorage.theme = 'light';
             }
         }
@@ -58,19 +58,19 @@
          x-cloak></div>
 
     {{-- Dynamic Role-Based Sidebar --}}
-    <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 w-64 shrink-0 bg-cyber-surface border-r border-cyber text-cyber-muted flex flex-col h-screen overflow-hidden transition-transform duration-200 ease-in-out shadow-2xl"
+    <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 w-64 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-transform duration-200 ease-in-out shadow-2xl"
            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'">
 
         {{-- Sidebar Brand — PINNED TOP --}}
-        <div class="shrink-0 h-16 px-5 border-b border-cyber flex items-center justify-between bg-white dark:bg-cyber-base/50">
-            <div class="flex items-center gap-3">
-                <img src="{{ asset('images/caplogo.png') }}" alt="CapaciPrint Logo" class="h-9 w-auto object-contain shrink-0 drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-                <div>
-                    <h1 class="font-black text-cyber-main text-base font-display tracking-tight leading-none">CAPACIPRINT</h1>
-                    <span class="text-[10px] text-cyan-500 font-extrabold tracking-wider uppercase block mt-1">Production Planning</span>
+        <div class="shrink-0 h-16 px-5 border-b border-slate-800/80 flex items-center justify-between bg-transparent">
+            <div class="flex items-center gap-3.5 min-w-0">
+                <img src="{{ asset('images/caplogo.png') }}?v={{ time() }}" alt="CapaciPrint Logo" class="h-10 w-10 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(6,182,212,0.35)]">
+                <div class="min-w-0">
+                    <h1 class="font-black text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
+                    <span class="text-[10px] text-cyan-400 font-extrabold tracking-wider uppercase block mt-1 truncate">Production Planning</span>
                 </div>
             </div>
-            <button @click="sidebarOpen = false" class="md:hidden text-cyber-muted hover:text-cyber-main">
+            <button @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
@@ -257,7 +257,7 @@
         </nav>
 
         {{-- User Footer / Logout — PINNED BOTTOM --}}
-        <div class="shrink-0 p-4 border-t border-cyber bg-white dark:bg-cyber-base/50">
+        <div class="shrink-0 p-4 border-t border-slate-800/80 bg-transparent">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full flex items-center justify-start gap-3 px-3 py-2 rounded-xl font-bold text-xs text-red-400 hover:text-white hover:bg-red-500/20 transition border border-transparent hover:border-red-500/30">
@@ -273,7 +273,7 @@
     <div class="flex-1 flex flex-col min-w-0 bg-cyber-base transition-colors duration-200">
 
         {{-- Top App Bar --}}
-        <header class="h-16 bg-white dark:bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md">
+        <header class="h-16 bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md">
             <div>
                 <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-cyber-muted hover:text-cyber-main p-1.5 rounded-lg border border-cyber hover:bg-cyber-sub focus:outline-none transition">
                     <i class="fa-solid fa-bars text-base"></i>
@@ -326,7 +326,7 @@
                 <div class="flex items-center gap-3">
                     <div class="text-right hidden sm:block">
                         <span class="text-xs font-bold text-cyber-main block leading-tight">{{ auth()->user()->name }}</span>
-                        <span class="text-[10px] text-cyan-500 font-bold uppercase tracking-wider block mt-0.5">{{ auth()->user()->role_label }}</span>
+                        <span class="text-[10px] text-cyan-600 dark:text-cyan-400 font-extrabold uppercase tracking-wider block mt-0.5">{{ auth()->user()->role_label }}</span>
                     </div>
                     <div class="h-9 w-9 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 text-slate-950 font-black flex items-center justify-center text-xs shadow-[0_0_15px_rgba(6,182,212,0.35)] shrink-0 border border-cyan-300">
                         {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
