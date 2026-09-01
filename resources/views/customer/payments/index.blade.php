@@ -3,20 +3,22 @@
 @section('page-title', 'Payments')
 
 @section('content')
-<div class="space-y-6 max-w-5xl">
+<div class="space-y-6 w-full">
     <div>
-        <h2 class="text-2xl font-bold text-navy-900 font-display">My Payments</h2>
-        <p class="text-sm text-slate-500 mt-1">Track payment status and submit your payment references here.</p>
+        <h2 class="text-2xl font-black text-cyber-main font-display">My Payments</h2>
+        <p class="text-sm text-cyber-muted mt-1">Track payment status and submit your transaction references here.</p>
     </div>
 
     @if($payments->isEmpty())
-    <div class="bg-white border border-slate-100 rounded-xl p-12 text-center shadow-sm">
-        <i class="fa-solid fa-credit-card text-slate-300 text-4xl mb-3"></i>
-        <h4 class="font-bold text-navy-900">No payments yet</h4>
-        <p class="text-sm text-slate-500 mt-1">Payments are linked to confirmed quotations.</p>
+    <div class="bg-cyber-card border border-cyber rounded-2xl p-16 text-center shadow-xl">
+        <div class="h-16 w-16 mx-auto rounded-2xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-2xl mb-4">
+            <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <h4 class="font-bold text-cyber-main text-base">No payments yet</h4>
+        <p class="text-xs text-cyber-muted mt-1">Payment records are linked to accepted quotations and confirmed orders.</p>
     </div>
     @else
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-xl overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-slate-100 text-sm">
                 <thead class="bg-slate-50">

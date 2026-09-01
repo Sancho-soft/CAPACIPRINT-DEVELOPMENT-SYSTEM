@@ -3,24 +3,26 @@
 @section('page-title', 'My Orders')
 
 @section('content')
-<div class="space-y-6 max-w-6xl">
+<div class="space-y-6 w-full">
     <div class="flex items-center justify-between">
         <div>
-            <h2 class="text-2xl font-bold text-navy-900 font-display">My Orders</h2>
-            <p class="text-sm text-slate-500 mt-1">Monitor all your print orders and their production status.</p>
+            <h2 class="text-2xl font-black text-cyber-main font-display">My Orders</h2>
+            <p class="text-sm text-cyber-muted mt-1">Monitor all your print orders and their live production progress.</p>
         </div>
         <a href="{{ route('customer.print-requests.create') }}"
-           class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow flex items-center gap-2">
+           class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-2">
             <i class="fa-solid fa-plus"></i> New Request
         </a>
     </div>
 
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-xl overflow-hidden">
         @if($orders->isEmpty())
-        <div class="p-12 text-center">
-            <i class="fa-solid fa-box-open text-slate-300 text-4xl mb-3"></i>
-            <h4 class="font-bold text-navy-900">No orders yet</h4>
-            <p class="text-sm text-slate-500 mt-1">Submit a print request and your orders will appear here.</p>
+        <div class="p-16 text-center">
+            <div class="h-16 w-16 mx-auto rounded-2xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-2xl mb-4">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <h4 class="font-bold text-cyber-main text-base">No orders yet</h4>
+            <p class="text-xs text-cyber-muted mt-1">Submit a print request and approved jobs will appear here.</p>
         </div>
         @else
         <div class="overflow-x-auto">
