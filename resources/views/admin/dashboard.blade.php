@@ -136,20 +136,9 @@
                         @endphp
                         <tr class="hover:bg-slate-800/40 transition">
                             <td class="px-5 py-3.5 font-mono text-slate-500 font-bold text-xs">{{ $u->id }}</td>
-                            <td class="px-5 py-3.5">
-                                <div class="flex items-center gap-3">
-                                    <div class="h-8 w-8 rounded-full bg-gradient-to-br {{ $roleConfig['avatar'] }} text-white flex items-center justify-center text-[10px] font-black shrink-0 shadow-sm border border-white/10">
-                                        {{ $initials }}
-                                    </div>
-                                    <p class="font-bold text-white truncate max-w-[160px]">{{ $u->name }}</p>
-                                </div>
-                            </td>
+                            <td class="px-5 py-3.5 font-bold text-white truncate max-w-[180px]">{{ $u->name }}</td>
                             <td class="px-5 py-3.5 text-slate-400 text-xs truncate max-w-[180px]">{{ $u->email }}</td>
-                            <td class="px-5 py-3.5">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border {{ $roleConfig['badge'] }}">
-                                    {{ $roleConfig['label'] }}
-                                </span>
-                            </td>
+                            <td class="px-5 py-3.5 font-bold text-slate-300 uppercase text-xs">{{ $roleConfig['label'] }}</td>
                             <td class="px-5 py-3.5 text-slate-400">{{ $u->created_at->format('M d, Y') }}</td>
                         </tr>
                         @empty
@@ -160,6 +149,49 @@
                     </tbody>
                 </table>
             </div>
+            @if($recentUsers->hasPages())
+            <div class="px-6 py-4 border-t border-slate-800/80 bg-[#0D1520] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <p class="text-slate-400 font-medium">
+                    Showing <span class="font-bold text-white font-mono">{{ $recentUsers->firstItem() }}</span> to <span class="font-bold text-white font-mono">{{ $recentUsers->lastItem() }}</span> of <span class="font-bold text-cyan-400 font-mono">{{ $recentUsers->total() }}</span> accounts
+                </p>
+                <div class="flex items-center gap-1.5 font-bold">
+                    {{-- Previous Page --}}
+                    @if($recentUsers->onFirstPage())
+                        <span class="px-3 py-1.5 rounded-xl bg-slate-800/40 border border-slate-800/60 text-slate-600 cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                        </span>
+                    @else
+                        <a href="{{ $recentUsers->previousPageUrl() }}" class="px-3 py-1.5 rounded-xl bg-[#111A24] hover:bg-cyan-500/20 border border-slate-700 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition">
+                            <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                        </a>
+                    @endif
+
+                    {{-- Page Numbers --}}
+                    @foreach($recentUsers->getUrlRange(1, $recentUsers->lastPage()) as $page => $url)
+                        @if($page == $recentUsers->currentPage())
+                            <span class="px-3.5 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-black border border-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.35)]">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}" class="px-3.5 py-1.5 rounded-xl bg-[#111A24] hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page --}}
+                    @if($recentUsers->hasMorePages())
+                        <a href="{{ $recentUsers->nextPageUrl() }}" class="px-3 py-1.5 rounded-xl bg-[#111A24] hover:bg-cyan-500/20 border border-slate-700 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition">
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </a>
+                    @else
+                        <span class="px-3 py-1.5 rounded-xl bg-slate-800/40 border border-slate-800/60 text-slate-600 cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            @endif
         </div>
 
         {{-- RIGHT: Production Health & Role Distribution --}}

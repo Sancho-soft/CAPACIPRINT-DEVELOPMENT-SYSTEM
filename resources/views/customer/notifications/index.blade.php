@@ -3,47 +3,49 @@
 @section('page-title', 'Notifications')
 
 @section('content')
-<div class="space-y-6 max-w-3xl">
+<div class="space-y-6 w-full">
     <div class="flex items-center justify-between">
         <div>
-            <h2 class="text-2xl font-bold text-navy-900 font-display">Notifications</h2>
-            <p class="text-sm text-slate-500 mt-1">Stay updated with your order progress and important alerts.</p>
+            <h2 class="text-2xl font-black text-cyber-main font-display">Notifications</h2>
+            <p class="text-sm text-cyber-muted mt-1">Stay updated with your order progress and important alerts.</p>
         </div>
         @if($unreadCount > 0)
         <form method="POST" action="{{ route('customer.notifications.markAllRead') }}">
             @csrf
-            <button type="submit" class="text-xs text-brand-500 hover:text-brand-700 font-semibold flex items-center gap-1">
-                <i class="fa-solid fa-check-double"></i> Mark all as read
+            <button type="submit" class="text-xs text-cyan-500 hover:text-cyan-400 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 transition">
+                <i class="fa-solid fa-check-double text-xs"></i> Mark all as read
             </button>
         </form>
         @endif
     </div>
 
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden divide-y divide-slate-100">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-xl overflow-hidden divide-y divide-cyber">
         @forelse($notifications as $notif)
-        <div class="{{ !$notif->is_read ? 'bg-brand-50/20' : 'bg-white' }} p-4 flex items-start gap-4 hover:bg-slate-50/50 transition">
-            <div class="h-10 w-10 rounded-lg flex items-center justify-center shrink-0 {{ !$notif->is_read ? 'bg-brand-100 text-brand-600' : 'bg-slate-100 text-slate-500' }}">
-                <i class="fa-solid {{ $notif->type_icon }}"></i>
+        <div class="{{ !$notif->is_read ? 'bg-cyan-500/5' : 'bg-cyber-card' }} p-5 flex items-start gap-4 hover:bg-cyber-sub/40 transition">
+            <div class="h-11 w-11 rounded-xl flex items-center justify-center shrink-0 {{ !$notif->is_read ? 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]' : 'bg-cyber-sub text-cyber-muted border border-cyber' }}">
+                <i class="fa-solid {{ $notif->type_icon }} text-base"></i>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between gap-4">
-                    <h4 class="text-sm font-bold text-navy-900">{{ $notif->title }}</h4>
-                    <span class="text-[10px] text-slate-400 shrink-0">{{ $notif->created_at->diffForHumans() }}</span>
+                    <h4 class="text-sm font-bold text-cyber-main truncate">{{ $notif->title }}</h4>
+                    <span class="text-[11px] font-medium text-cyber-muted shrink-0">{{ $notif->created_at->diffForHumans() }}</span>
                 </div>
-                <p class="text-xs text-slate-600 mt-1">{{ $notif->body }}</p>
+                <p class="text-xs text-cyber-muted mt-1 leading-relaxed">{{ $notif->body }}</p>
             </div>
             @if(!$notif->is_read)
             <form method="POST" action="{{ route('customer.notifications.markRead', $notif->id) }}">
                 @csrf
-                <button type="submit" class="text-[10px] text-brand-500 hover:text-brand-700 font-semibold shrink-0 mt-1">Mark read</button>
+                <button type="submit" class="text-[11px] font-bold text-cyan-500 hover:text-cyan-400 px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 transition shrink-0 mt-0.5">Mark read</button>
             </form>
             @endif
         </div>
         @empty
-        <div class="p-12 text-center">
-            <i class="fa-solid fa-bell-slash text-slate-300 text-4xl mb-3"></i>
-            <h4 class="font-bold text-navy-900">No notifications</h4>
-            <p class="text-sm text-slate-500 mt-1">You're all caught up!</p>
+        <div class="p-16 text-center">
+            <div class="h-16 w-16 mx-auto rounded-2xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-2xl mb-4">
+                <i class="fa-solid fa-bell-slash"></i>
+            </div>
+            <h4 class="font-bold text-cyber-main text-base">No notifications</h4>
+            <p class="text-xs text-cyber-muted mt-1">You're all caught up with your alerts.</p>
         </div>
         @endforelse
     </div>

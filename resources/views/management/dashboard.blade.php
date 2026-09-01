@@ -55,7 +55,7 @@
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">INVENTORY WARNINGS</div>
             </div>
             <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-amber-400 font-display">{{ $lowStockCount }}</div>
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $lowStockCount }}</div>
             </div>
         </div>
     </div>
@@ -117,7 +117,7 @@
                         <td class="px-5 py-3.5 text-slate-400">{{ $ord->printRequest->service ?? '—' }}</td>
                         <td class="px-5 py-3.5 font-bold text-cyan-400">{{ $ord->assigned_branch ?? 'Pending' }}</td>
                         <td class="px-5 py-3.5">
-                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border {{ match($ord->status) { 'ready_for_pickup'=>'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', 'production'=>'bg-cyan-500/15 text-cyan-400 border-cyan-500/30', default=>'bg-slate-800 text-slate-400 border-slate-700' } }}">
+                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border {{ match($ord->status) { 'claimed'=>'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', 'completed'=>'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', 'ready_for_pickup'=>'bg-teal-500/15 text-teal-400 border-teal-500/30', 'production'=>'bg-cyan-500/15 text-cyan-400 border-cyan-500/30', default=>'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' } }}">
                                 {{ $ord->status_label }}
                             </span>
                         </td>

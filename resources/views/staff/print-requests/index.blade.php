@@ -51,9 +51,9 @@
                     </td>
                     <td class="px-6 py-4 text-right flex items-center justify-end gap-2">
                         <a href="{{ route('staff.print-requests.show', $req) }}"
-                           class="inline-flex items-center justify-center h-8 w-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
+                           class="text-cyan-500 hover:text-cyan-400 transition text-sm p-1 inline-block"
                            title="Review Print Request Details">
-                            <i class="fa-solid fa-eye text-sm"></i>
+                            <i class="fa-solid fa-eye"></i>
                         </a>
                         @if($req->status === 'submitted')
                         <a href="{{ route('staff.quotations.create', ['print_request_id' => $req->id]) }}" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-3 py-1.5 rounded-lg text-xs">Quote</a>

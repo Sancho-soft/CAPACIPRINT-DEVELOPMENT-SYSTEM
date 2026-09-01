@@ -100,13 +100,8 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse($employees as $emp)
                         <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-5">
-                                <div class="flex items-center gap-3">
-                                    <div class="h-10 w-10 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold font-display text-sm shrink-0">
-                                        {{ strtoupper(substr($emp->name, 0, 2)) }}
-                                    </div>
-                                    <div class="font-bold text-navy-900">{{ $emp->name }}</div>
-                                </div>
+                            <td class="py-4 px-5 font-bold text-navy-900">
+                                {{ $emp->name }}
                             </td>
                             <td class="py-4 px-4 font-semibold text-slate-700">
                                 {{ $emp->position }}
