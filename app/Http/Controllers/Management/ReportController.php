@@ -58,7 +58,7 @@ class ReportController extends Controller
         $statuses = Order::statusSteps();
         $branches = Branch::where('status', 'active')->get();
 
-        $totalFilteredRevenue = (clone $query)->join('quotations', 'orders.id', '=', 'quotations.order_id')
+        $totalFilteredRevenue = (clone $query)->join('quotations', 'orders.quotation_id', '=', 'quotations.id')
                                              ->sum('quotations.total_price');
 
         return view('management.reports.orders', compact('orders', 'statuses', 'branches', 'totalFilteredRevenue'));

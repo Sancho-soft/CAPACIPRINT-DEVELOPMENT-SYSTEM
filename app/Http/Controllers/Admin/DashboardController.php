@@ -49,6 +49,12 @@ class DashboardController extends Controller
             'machines',
         ])->get();
 
+        // Active task assignments
+        $activeAssignments = ProductionJob::with(['assignedTo', 'branch'])
+            ->latest()
+            ->take(5)
+            ->get();
+
         // Recent audit logs (if model exists)
         $recentAuditLogs = collect();
         if (class_exists(\App\Models\AuditLog::class)) {
@@ -72,7 +78,8 @@ class DashboardController extends Controller
             'pendingRequests',
             'inProductionRequests',
             'branches',
-            'recentAuditLogs'
+            'recentAuditLogs',
+            'activeAssignments'
         ));
     }
 }

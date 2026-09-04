@@ -26,17 +26,17 @@ class OperationalSeeder extends Seeder
         // 1. Create Branches
         $mainBranch = Branch::updateOrCreate(
             ['location' => 'Branch A'],
-            ['name' => 'Morning Star Printing Press', 'address' => 'Main Branch Address', 'phone' => '0917-111-2233', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 25]
+            ['name' => 'Morning Star Printing Press', 'address' => 'Main Branch Address', 'phone' => '0917-111-2233', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 85]
         );
 
         $northBranch = Branch::updateOrCreate(
             ['location' => 'Branch B'],
-            ['name' => 'Morning Star Printing Network', 'address' => 'North Branch Address', 'phone' => '0917-222-3344', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 15]
+            ['name' => 'Morning Star Printing Network', 'address' => 'North Branch Address', 'phone' => '0917-222-3344', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 60]
         );
 
         $southBranch = Branch::updateOrCreate(
             ['location' => 'Branch C'],
-            ['name' => 'Green Heart Printing Hub', 'address' => 'South Branch Address', 'phone' => '0917-333-4455', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 20]
+            ['name' => 'Green Heart Printing Hub', 'address' => 'South Branch Address', 'phone' => '0917-333-4455', 'manager_name' => 'Branch Manager', 'status' => 'active', 'max_daily_jobs' => 50]
         );
 
         // 2. Create Machines

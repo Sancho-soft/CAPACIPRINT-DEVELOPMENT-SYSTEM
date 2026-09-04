@@ -266,6 +266,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/employees/{employee}/edit', [\App\Http\Controllers\Admin\EmployeeController::class, 'edit'])->name('employees.edit');
     Route::put('/employees/{employee}',      [\App\Http\Controllers\Admin\EmployeeController::class, 'update'])->name('employees.update');
     Route::delete('/employees/{employee}',   [\App\Http\Controllers\Admin\EmployeeController::class, 'destroy'])->name('employees.destroy');
+
+    // Settings Routes
+    Route::get('/settings',                  [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
+    Route::put('/settings/profile',          [\App\Http\Controllers\Admin\SettingsController::class, 'updateProfile'])->name('settings.update-profile');
+    Route::put('/settings/password',         [\App\Http\Controllers\Admin\SettingsController::class, 'updatePassword'])->name('settings.update-password');
+    Route::post('/settings/session-timeout', [\App\Http\Controllers\Admin\SettingsController::class, 'updateSessionTimeout'])->name('settings.update-timeout');
+    Route::post('/settings/backup-database', [\App\Http\Controllers\Admin\SettingsController::class, 'backupDatabase'])->name('settings.backup-db');
+    Route::post('/settings/restore-database',[\App\Http\Controllers\Admin\SettingsController::class, 'restoreDatabase'])->name('settings.restore-db');
 });
 
 // ─────────────────────────────────────────────────────────────────

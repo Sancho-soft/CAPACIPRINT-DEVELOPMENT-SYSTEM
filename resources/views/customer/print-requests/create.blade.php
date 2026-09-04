@@ -53,15 +53,22 @@
                     <h3 class="text-lg font-bold text-cyber-main">Select Print Service</h3>
                     <p class="text-xs text-cyber-muted mt-0.5">Choose the service that matches your product type.</p>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @php
                     $services = [
-                        ['name'=>'Digital Printing',   'icon'=>'fa-print',           'desc'=>'High-quality digital prints for flyers, brochures, and marketing materials.'],
-                        ['name'=>'Offset Printing',    'icon'=>'fa-layer-group',      'desc'=>'Cost-effective bulk printing with consistent colour accuracy.'],
-                        ['name'=>'Large Format',       'icon'=>'fa-expand',           'desc'=>'Banners, posters, and signage up to 3m wide.'],
-                        ['name'=>'Booklet / Binding',  'icon'=>'fa-book',             'desc'=>'Saddle-stitch or perfect binding for booklets and catalogs.'],
-                        ['name'=>'Business Cards',     'icon'=>'fa-id-card',          'desc'=>'Premium business cards with optional special finishes.'],
-                        ['name'=>'Sticker / Labels',   'icon'=>'fa-tag',              'desc'=>'Custom cut stickers and labels in various shapes and materials.'],
+                        ['name'=>'Tarpaulin Printing',                 'icon'=>'fa-scroll',             'desc'=>'High-resolution outdoor & indoor tarpaulin banners and event backdrops.'],
+                        ['name'=>'Sticker (Product Label)',             'icon'=>'fa-tag',                'desc'=>'Indoor & outdoor stickers, product decals, and precision cut-outs.'],
+                        ['name'=>'Risograph Printing',                  'icon'=>'fa-file-invoice',       'desc'=>'Receipts, invoices, Rx pads, official forms, vouchers, and order slips.'],
+                        ['name'=>'Laser Printing / Poster / Flyers',    'icon'=>'fa-print',              'desc'=>'High-speed digital laser prints, promotional flyers, and posters.'],
+                        ['name'=>'Calling Card / Brochure',             'icon'=>'fa-address-card',       'desc'=>'Premium business cards, multi-fold brochures, and corporate stationery.'],
+                        ['name'=>'Bookbinding',                         'icon'=>'fa-book-open',          'desc'=>'Hardbound, softbound, coil, wire-o, and saddle-stitch bookbinding.'],
+                        ['name'=>'Lanyard / I.D. Sling / PVC I.D',     'icon'=>'fa-id-badge',           'desc'=>'Custom printed lanyards, ID slings, and durable PVC identification cards.'],
+                        ['name'=>'Mug / Tumbler / Eco Bag / Fan',       'icon'=>'fa-mug-hot',            'desc'=>'Customized mugs, tumblers, eco bags, folded fans, and promotional items.'],
+                        ['name'=>'Invitation / Souvenir Program',       'icon'=>'fa-envelope-open-text', 'desc'=>'Event invitations, wedding cards, souvenir programs, and greeting cards.'],
+                        ['name'=>'T-Shirt Printing',                    'icon'=>'fa-shirt',              'desc'=>'Silkscreen and heat press custom t-shirt printing for uniforms and events.'],
+                        ['name'=>'Sintra Board',                        'icon'=>'fa-border-all',         'desc'=>'Rigid Sintra board standees, wall mounts, and photo panels.'],
+                        ['name'=>'Banners (X-Stand / Pull Up)',        'icon'=>'fa-expand',             'desc'=>'Portable X-stand banners, retractable pull-up banners, and display stands.'],
+                        ['name'=>'Signage (Panaflex / Acrylic)',        'icon'=>'fa-store',              'desc'=>'Panaflex illuminated signages, acrylic cutouts, and 3D shopfront signboards.'],
                     ];
                     @endphp
                     @foreach($services as $svc)

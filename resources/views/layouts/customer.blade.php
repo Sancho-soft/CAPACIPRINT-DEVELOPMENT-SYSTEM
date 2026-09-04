@@ -166,11 +166,6 @@
                 <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-cyber-muted hover:text-cyber-main p-1.5 rounded-lg border border-cyber hover:bg-cyber-sub focus:outline-none transition">
                     <i class="fa-solid fa-bars text-base"></i>
                 </button>
-                {{-- Desktop collapse toggle in header --}}
-                <button @click="toggleSidebar()" class="hidden md:flex items-center justify-center h-8 w-8 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl border border-cyber transition cursor-pointer"
-                        :title="sidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'">
-                    <i class="fa-solid text-xs transition-transform duration-200" :class="sidebarCollapsed ? 'fa-indent text-cyan-400' : 'fa-outdent'"></i>
-                </button>
             </div>
 
             <div class="flex items-center gap-4 sm:gap-5">
@@ -213,15 +208,6 @@
                          class="absolute right-0 mt-2.5 w-64 rounded-2xl bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-2 text-xs space-y-1 backdrop-blur-xl"
                          x-cloak>
                         
-                        {{-- Dropdown Header with User Info --}}
-                        <div class="px-3 py-2.5 border-b border-slate-100 dark:border-slate-800 mb-1">
-                            <p class="text-xs font-black text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">{{ auth()->user()->email }}</p>
-                            <span class="inline-block mt-1.5 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30">
-                                Verified Customer
-                            </span>
-                        </div>
-
                         {{-- Slideable Dark Mode Interactive Toggle --}}
                         <div class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/60 flex items-center justify-between">
                             <div class="flex items-center gap-2.5">

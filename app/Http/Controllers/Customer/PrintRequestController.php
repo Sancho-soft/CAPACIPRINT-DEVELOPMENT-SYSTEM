@@ -127,12 +127,19 @@ class PrintRequestController extends Controller
     private function getAvailableServices(): array
     {
         return [
-            ['id' => 1, 'name' => 'Digital Printing',     'icon' => 'fa-solid fa-print',           'description' => 'High-quality digital prints for flyers, brochures, and marketing materials.'],
-            ['id' => 2, 'name' => 'Offset Printing',      'icon' => 'fa-solid fa-layer-group',      'description' => 'Cost-effective bulk printing with consistent color accuracy.'],
-            ['id' => 3, 'name' => 'Large Format',         'icon' => 'fa-solid fa-expand',           'description' => 'Banners, posters, and signage up to 3m wide.'],
-            ['id' => 4, 'name' => 'Booklet / Binding',    'icon' => 'fa-solid fa-book',             'description' => 'Saddle-stitch or perfect binding for booklets and catalogs.'],
-            ['id' => 5, 'name' => 'Business Cards',       'icon' => 'fa-solid fa-id-card',          'description' => 'Premium business cards with optional special finishes.'],
-            ['id' => 6, 'name' => 'Sticker / Labels',     'icon' => 'fa-solid fa-tag',              'description' => 'Custom cut stickers and labels in various shapes and materials.'],
+            ['id' => 1,  'name' => 'Tarpaulin Printing',                 'icon' => 'fa-solid fa-scroll',             'description' => 'High-resolution outdoor & indoor tarpaulin banners and event backdrops.'],
+            ['id' => 2,  'name' => 'Sticker (Product Label)',             'icon' => 'fa-solid fa-tag',                'description' => 'Indoor & outdoor stickers, product decals, and precision cut-outs.'],
+            ['id' => 3,  'name' => 'Risograph Printing',                  'icon' => 'fa-solid fa-file-invoice',       'description' => 'Receipts, invoices, Rx pads, official forms, vouchers, and order slips.'],
+            ['id' => 4,  'name' => 'Laser Printing / Poster / Flyers',    'icon' => 'fa-solid fa-print',              'description' => 'High-speed digital laser prints, promotional flyers, and posters.'],
+            ['id' => 5,  'name' => 'Calling Card / Brochure',             'icon' => 'fa-solid fa-address-card',       'description' => 'Premium business cards, multi-fold brochures, and corporate stationery.'],
+            ['id' => 6,  'name' => 'Bookbinding',                         'icon' => 'fa-solid fa-book-open',          'description' => 'Hardbound, softbound, coil, wire-o, and saddle-stitch bookbinding.'],
+            ['id' => 7,  'name' => 'Lanyard / I.D. Sling / PVC I.D',     'icon' => 'fa-solid fa-id-badge',           'description' => 'Custom printed lanyards, ID slings, and durable PVC identification cards.'],
+            ['id' => 8,  'name' => 'Mug / Tumbler / Eco Bag / Fan',       'icon' => 'fa-solid fa-mug-hot',            'description' => 'Customized mugs, tumblers, eco bags, folded fans, and promotional items.'],
+            ['id' => 9,  'name' => 'Invitation / Souvenir Program',       'icon' => 'fa-solid fa-envelope-open-text', 'description' => 'Event invitations, wedding cards, souvenir programs, and greeting cards.'],
+            ['id' => 10, 'name' => 'T-Shirt Printing',                    'icon' => 'fa-solid fa-shirt',              'description' => 'Silkscreen and heat press custom t-shirt printing for uniforms and events.'],
+            ['id' => 11, 'name' => 'Sintra Board',                        'icon' => 'fa-solid fa-border-all',         'description' => 'Rigid Sintra board standees, wall mounts, and photo panels.'],
+            ['id' => 12, 'name' => 'Banners (X-Stand / Pull Up)',        'icon' => 'fa-solid fa-expand',             'description' => 'Portable X-stand banners, retractable pull-up banners, and display stands.'],
+            ['id' => 13, 'name' => 'Signage (Panaflex / Acrylic)',        'icon' => 'fa-solid fa-store',              'description' => 'Panaflex illuminated signages, acrylic cutouts, and 3D shopfront signboards.'],
         ];
     }
 }
