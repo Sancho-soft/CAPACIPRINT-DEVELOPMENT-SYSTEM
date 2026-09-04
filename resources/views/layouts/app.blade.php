@@ -455,6 +455,21 @@
             max-width: 100% !important;
             width: 100% !important;
         }
+
+        /* ═══ Global Print Mode Styles ═══ */
+        @media print {
+            aside, header, nav, .print\:hidden {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+        }
     </style>
 
     @yield('head')

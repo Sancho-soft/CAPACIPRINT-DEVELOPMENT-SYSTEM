@@ -13,6 +13,7 @@ use App\Models\PricingRule;
 use App\Models\PrintRequest;
 use App\Models\Quotation;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\ProductionJob;
 use App\Models\CapacityEvaluation;
 use App\Models\BranchRecommendation;
@@ -159,6 +160,18 @@ class OperationalSeeder extends Seeder
                     'status' => 'production',
                     'assigned_branch' => 'Morning Star Printing Press',
                     'estimated_completion' => now()->addDays(3),
+                ]
+            );
+
+            Payment::firstOrCreate(
+                ['order_id' => $order1->id],
+                [
+                    'user_id' => $customer->id,
+                    'amount' => $quote1->total_price,
+                    'payment_method' => 'GCash',
+                    'payment_reference' => 'PAY-SEED001',
+                    'status' => 'confirmed',
+                    'paid_at' => now()->subDay(),
                 ]
             );
 

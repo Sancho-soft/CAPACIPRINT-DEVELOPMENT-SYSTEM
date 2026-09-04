@@ -3,15 +3,43 @@
 @section('page-title', 'QR Claim Reference')
 
 @section('content')
-<div class="max-w-sm mx-auto space-y-6">
+<style>
+@media print {
+    /* Hide layout, navigation bar, sidebars, headers, titles, buttons, and links when printing */
+    aside, header, nav, footer, .print\:hidden, button, a {
+        display: none !important;
+    }
+    body, html, main {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    .print-card-wrapper {
+        margin: 1rem auto !important;
+        max-width: 420px !important;
+        width: 100% !important;
+    }
+    .print-card-box {
+        border: 2px solid #0f172a !important;
+        box-shadow: none !important;
+        border-radius: 1rem !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+    }
+}
+</style>
 
-    <div class="text-center">
+<div class="max-w-sm mx-auto space-y-6 print-card-wrapper">
+
+    <div class="text-center print:hidden">
         <h2 class="text-2xl font-bold text-navy-900 font-display">QR Claim Reference</h2>
         <p class="text-sm text-slate-500 mt-1">Present this screen or print to claim your order.</p>
     </div>
 
     {{-- Claim Card --}}
-    <div class="bg-white border border-slate-100 rounded-2xl shadow-lg overflow-hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-lg overflow-hidden print-card-box">
         {{-- Header --}}
         <div class="bg-navy-800 px-6 py-5 text-center">
             <img src="{{ asset('images/caplogo.png') }}" class="h-12 w-auto mx-auto brightness-0 invert mb-2" alt="CAPACIPRINT">
@@ -54,6 +82,10 @@
                     <span class="text-slate-500 font-medium">Completion</span>
                     <span class="font-bold text-navy-900">{{ $claim->completion_date?->format('M d, Y') ?? '—' }}</span>
                 </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500 font-medium">Payment Method</span>
+                    <span class="font-bold text-navy-900">{{ $claim->order->payment->payment_method ?? 'Cash on Pickup' }}</span>
+                </div>
                 <div class="flex justify-between items-center pt-1">
                     <span class="text-slate-500 font-medium">Status</span>
                     <span class="px-2.5 py-0.5 text-[11px] font-bold rounded-full uppercase {{ $claim->is_claimed ? 'bg-slate-100 text-slate-600' : 'bg-teal-100 text-teal-700' }}">
@@ -75,12 +107,12 @@
 
     {{-- Print button --}}
     <button onclick="window.print()"
-            class="w-full border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2">
+            class="w-full border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2 print:hidden">
         <i class="fa-solid fa-print"></i> Print Claim Reference
     </button>
 
     <a href="{{ route('customer.claiming.index') }}"
-       class="block text-center text-sm text-slate-500 hover:text-navy-900 font-medium">
+       class="block text-center text-sm text-slate-500 hover:text-navy-900 font-medium print:hidden">
         <i class="fa-solid fa-arrow-left text-xs mr-1"></i> Back to Claims
     </a>
 </div>

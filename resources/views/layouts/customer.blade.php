@@ -25,7 +25,7 @@
      }">
 
     {{-- Mobile Overlay & Sidebar Toggle --}}
-    <div class="md:hidden bg-white dark:bg-cyber-surface border-b border-cyber text-cyber-main px-4 py-3 flex items-center justify-between shadow-lg sticky top-0 z-40">
+    <div class="md:hidden bg-white dark:bg-cyber-surface border-b border-cyber text-cyber-main px-4 py-3 flex items-center justify-between shadow-lg sticky top-0 z-40 print:hidden">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/caplogo.png') }}" alt="CapaciPrint Logo" class="h-8 w-auto object-contain shrink-0" onerror="this.onerror=null; this.src=''; this.classList.add('hidden');">
             <div>
@@ -62,7 +62,7 @@
          x-cloak></div>
 
     {{-- Customer Collapsible Sidebar --}}
-    <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-all duration-300 ease-in-out shadow-2xl"
+    <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-all duration-300 ease-in-out shadow-2xl print:hidden"
            :class="{
                'w-64': !sidebarCollapsed,
                'w-20': sidebarCollapsed,
@@ -160,7 +160,7 @@
     <div class="flex-1 flex flex-col min-w-0 bg-cyber-base transition-colors duration-200">
 
         {{-- Top App Bar --}}
-        <header class="h-16 bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md">
+        <header class="h-16 bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md print:hidden">
             <div class="flex items-center gap-3">
                 {{-- Mobile toggle --}}
                 <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-cyber-muted hover:text-cyber-main p-1.5 rounded-lg border border-cyber hover:bg-cyber-sub focus:outline-none transition">

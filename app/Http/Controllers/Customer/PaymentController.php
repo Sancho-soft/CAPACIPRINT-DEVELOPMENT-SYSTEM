@@ -50,11 +50,13 @@ class PaymentController extends Controller
         }
 
         $data = $request->validate([
+            'payment_method'    => ['required', 'string', 'max:255'],
             'payment_reference' => ['required', 'string', 'max:255'],
             'notes'             => ['nullable', 'string', 'max:1000'],
         ]);
 
         $payment->update([
+            'payment_method'    => $data['payment_method'],
             'payment_reference' => $data['payment_reference'],
             'notes'             => $data['notes'] ?? null,
             'status'            => 'submitted',

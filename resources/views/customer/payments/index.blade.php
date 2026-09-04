@@ -25,6 +25,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-bold text-navy-800 uppercase tracking-wider">Order No.</th>
                         <th class="px-6 py-3 text-left text-xs font-bold text-navy-800 uppercase tracking-wider">Amount Due</th>
+                        <th class="px-6 py-3 text-left text-xs font-bold text-navy-800 uppercase tracking-wider">Payment Method</th>
                         <th class="px-6 py-3 text-left text-xs font-bold text-navy-800 uppercase tracking-wider">Reference</th>
                         <th class="px-6 py-3 text-left text-xs font-bold text-navy-800 uppercase tracking-wider">Date</th>
                         <th class="px-6 py-3 text-left text-xs font-bold text-navy-800 uppercase tracking-wider">Status</th>
@@ -36,6 +37,7 @@
                     <tr class="hover:bg-slate-50/50 transition">
                         <td class="px-6 py-4 font-bold text-navy-900">#{{ $payment->order->order_number ?? '—' }}</td>
                         <td class="px-6 py-4 font-bold text-navy-900">₱{{ number_format($payment->amount, 2) }}</td>
+                        <td class="px-6 py-4 font-semibold text-slate-700">{{ $payment->payment_method ?? 'Cash on Pickup' }}</td>
                         <td class="px-6 py-4 text-slate-600">{{ $payment->payment_reference ?? '—' }}</td>
                         <td class="px-6 py-4 text-slate-500">{{ $payment->paid_at?->format('M d, Y') ?? '—' }}</td>
                         <td class="px-6 py-4">

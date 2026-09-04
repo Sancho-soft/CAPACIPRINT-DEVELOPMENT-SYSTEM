@@ -53,8 +53,31 @@ class QuotationController extends Controller
         // Update the print request status to payment
         $quotation->printRequest->update(['status' => 'payment']);
 
-        return redirect()->route('customer.quotations.show', $quotation)
-            ->with('success', 'Quotation confirmed! Proceed to payment.');
+        $order = \App\Models\Order::firstOrCreate(
+            ['quotation_id' => $quotation->id],
+            [
+                'order_number'         => 'ORD-' . strtoupper(\Illuminate\Support\Str::random(8)),
+                'user_id'              => $quotation->user_id,
+                'print_request_id'     => $quotation->print_request_id,
+                'payment_status'       => 'pending',
+                'status'               => 'payment',
+                'assigned_branch'      => $quotation->printRequest->preferred_branch ?? 'Morning Star Printing Press',
+                'estimated_completion' => now()->addDays(3),
+            ]
+        );
+
+        \App\Models\Payment::firstOrCreate(
+            ['order_id' => $order->id],
+            [
+                'user_id'        => $quotation->user_id,
+                'amount'         => $quotation->total_price,
+                'payment_method' => 'Cash on Pickup',
+                'status'         => 'pending',
+            ]
+        );
+
+        return redirect()->route('customer.payments.index')
+            ->with('success', 'Quotation confirmed! Order and payment record created. Proceed to submit payment details.');
     }
 
     /**
