@@ -9,12 +9,12 @@
     <!-- Header Actions -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black text-cyber-main font-display">User Accounts &amp; Access Control</h1>
+            <h1 class="text-xl sm:text-2xl font-black text-cyber-main font-display">Executive Accounts &amp; Access Control</h1>
             <p class="text-xs text-cyber-muted mt-1">
                 @if(request('archived'))
-                    Showing archived user accounts. Restoring an account will re-enable system access.
+                    Showing archived executive accounts. Restoring an account will re-enable system access.
                 @else
-                    Create staff accounts, assign managerial roles, and configure system permissions.
+                    Reset passwords and manage account status for executive roles.
                 @endif
             </p>
         </div>
@@ -25,11 +25,6 @@
                 <i class="fa-solid {{ request('archived') ? 'fa-users text-cyan-400' : 'fa-box-archive text-amber-400' }} text-xs"></i>
                 {{ request('archived') ? 'View Active Accounts' : 'View Archived' }}
             </a>
-
-            <button onclick="document.getElementById('new-user-modal').classList.remove('hidden')" class="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.35)] transition">
-                <i class="fa-solid fa-user-plus text-xs"></i>
-                Create New User Account
-            </button>
         </div>
     </div>
 
@@ -96,18 +91,15 @@
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
 
-                                {{-- Edit Button --}}
+                                {{-- Reset Password Button --}}
                                 <button type="button" 
                                         onclick="openEditUserModal({{ json_encode([
                                             'id' => $usr->id,
-                                            'name' => $usr->name,
-                                            'email' => $usr->email,
-                                            'role' => $usr->role,
-                                            'branch_id' => $usr->branch_id
+                                            'name' => $usr->name
                                         ]) }})" 
                                         class="h-8 w-8 rounded-xl bg-indigo-500/10 hover:bg-indigo-500 text-indigo-400 hover:text-white border border-indigo-500/30 flex items-center justify-center text-xs transition shadow-sm" 
-                                        title="Edit User Account">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                        title="Reset Password">
+                                    <i class="fa-solid fa-key"></i>
                                 </button>
 
                                 {{-- Archive / Restore Button --}}
@@ -229,12 +221,12 @@
     </div>
 </div>
 
-<!-- Edit User Modal -->
+<!-- Reset Password Modal -->
 <div id="edit-user-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
     <div class="bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 w-full max-w-lg shadow-2xl space-y-4">
         <div class="flex items-center justify-between border-b border-cyber pb-3">
             <h3 class="text-lg font-black text-cyber-main font-display flex items-center gap-2">
-                <i class="fa-solid fa-user-pen text-indigo-400"></i> Edit User Account
+                <i class="fa-solid fa-key text-indigo-400"></i> Reset Password
             </h3>
             <button type="button" onclick="document.getElementById('edit-user-modal').classList.add('hidden')" class="text-cyber-muted hover:text-cyber-main">
                 <i class="fa-solid fa-xmark text-lg"></i>
@@ -244,108 +236,16 @@
             @csrf
             @method('PUT')
             <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Full Name</label>
-                <input type="text" id="edit-name" name="name" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-            </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Email Address</label>
-                <input type="email" id="edit-email" name="email" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">System Role</label>
-                    <select id="edit-role" name="role" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                        <option value="customer">Customer</option>
-                        <option value="staff">Customer Service Staff</option>
-                        <option value="designer">Pre-Press Designer</option>
-                        <option value="manager">Branch Manager</option>
-                        <option value="production">Production Operator</option>
-                        <option value="inventory">Inventory Staff</option>
-                        <option value="management">Executive Owner</option>
-                        <option value="admin">System Admin</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Branch Allocation</label>
-                    <select id="edit-branch-id" name="branch_id" class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                        <option value="">System-Wide / All</option>
-                        @foreach($branches as $br)
-                            <option value="{{ $br->id }}">{{ $br->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">New Password (Leave blank to keep current)</label>
-                <input type="password" name="password" class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-slate-500" placeholder="Enter new password if changing">
+                <p class="text-cyber-muted mb-4 text-xs">You are resetting the password for <strong id="edit-name-display" class="text-cyber-main"></strong>.</p>
+                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">New Password</label>
+                <input type="password" name="password" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-slate-500" placeholder="Enter new password">
             </div>
             <div class="flex items-center justify-end gap-2 pt-2 border-t border-cyber">
                 <button type="button" onclick="document.getElementById('edit-user-modal').classList.add('hidden')" class="px-4 py-2 bg-cyber-sub hover:bg-slate-700 border border-cyber text-cyber-muted font-bold rounded-xl transition">
                     Cancel
                 </button>
                 <button type="submit" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-black rounded-xl transition shadow-md shadow-indigo-500/20">
-                    Update Account
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- New User Modal -->
-<div id="new-user-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-    <div class="bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 w-full max-w-lg shadow-2xl space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber pb-3">
-            <h3 class="text-lg font-black text-cyber-main font-display flex items-center gap-2">
-                <i class="fa-solid fa-user-plus text-cyan-400"></i> Create User Account
-            </h3>
-            <button type="button" onclick="document.getElementById('new-user-modal').classList.add('hidden')" class="text-cyber-muted hover:text-cyber-main">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-        <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-4 text-xs">
-            @csrf
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Full Name</label>
-                <input type="text" name="name" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-cyan-500 focus:outline-none placeholder-slate-500" placeholder="e.g. Maria Clara">
-            </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Email Address</label>
-                <input type="email" name="email" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-cyan-500 focus:outline-none placeholder-slate-500" placeholder="e.g. maria@capaciprint.com">
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">System Role</label>
-                    <select name="role" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                        <option value="customer">Customer</option>
-                        <option value="staff">Customer Service Staff</option>
-                        <option value="designer">Pre-Press Designer</option>
-                        <option value="manager">Branch Manager</option>
-                        <option value="production">Production Operator</option>
-                        <option value="inventory">Inventory Staff</option>
-                        <option value="management">Executive Owner</option>
-                        <option value="admin">System Admin</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Branch Allocation</label>
-                    <select name="branch_id" class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                        <option value="">System-Wide / All</option>
-                        @foreach($branches as $br)
-                            <option value="{{ $br->id }}">{{ $br->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-cyber-muted mb-1">Default Password</label>
-                <input type="password" name="password" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-3.5 py-2 text-cyber-main focus:ring-2 focus:ring-cyan-500 focus:outline-none placeholder-slate-500" placeholder="Enter default password">
-            </div>
-            <div class="flex items-center justify-end gap-2 pt-2 border-t border-cyber">
-                <button type="button" onclick="document.getElementById('new-user-modal').classList.add('hidden')" class="px-4 py-2 bg-cyber-sub hover:bg-slate-700 border border-cyber text-cyber-muted font-bold rounded-xl transition">
-                    Cancel
-                </button>
-                <button type="submit" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black rounded-xl transition shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-                    Save Account
+                    Reset Password
                 </button>
             </div>
         </form>
@@ -376,10 +276,7 @@
         const form = document.getElementById('edit-user-form');
         form.action = '/admin/users/' + user.id;
         
-        document.getElementById('edit-name').value = user.name;
-        document.getElementById('edit-email').value = user.email;
-        document.getElementById('edit-role').value = user.role;
-        document.getElementById('edit-branch-id').value = user.branch_id || '';
+        document.getElementById('edit-name-display').textContent = user.name;
         
         document.getElementById('edit-user-modal').classList.remove('hidden');
     }

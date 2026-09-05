@@ -1,175 +1,144 @@
 @extends('layouts.internal')
-@section('title', 'Branch & Capacity Dashboard')
-@section('page-title', 'Branch & Capacity Dashboard')
+@section('title', 'Branch & Capacity Operations Hub')
+@section('page-title', 'Branch & Capacity Operations Hub')
 
 @section('content')
-<div class="space-y-6 max-w-7xl">
+<div class="space-y-6 w-full max-w-7xl mx-auto">
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-            <h2 class="text-xl sm:text-2xl font-black text-white font-display">Branch &amp; Capacity Dashboard</h2>
-            <p class="text-xs text-slate-400 mt-1">Multi-branch capacity planning, workload distribution, and production job routing.</p>
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- PAGE HEADER: BRANCH & CAPACITY COMMAND HUB --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div class="flex items-center gap-4 sm:gap-5">
+                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-industry"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-mono">
+                            Press Scheduling
+                        </span>
+                    </div>
+                    <p class="text-xs text-cyber-muted mt-1 leading-relaxed">
+                        Shop-floor press queue scheduling, machine line allocation, turnaround deadlines, and multi-branch load distribution.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
+                <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
+                </a>
+                <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-calendar-days text-xs text-cyan-400"></i> Plan Schedule
+                </a>
+                <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-boxes-packing text-xs text-amber-400"></i> Material Reorders
+                </a>
+            </div>
         </div>
-        <a href="{{ route('manager.capacity.index') }}" class="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(6,182,212,0.35)] transition flex items-center gap-2 shrink-0">
-            <i class="fa-solid fa-calculator text-xs"></i> Run Capacity Evaluation
-        </a>
     </div>
 
-    {{-- Production Metrics --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- LEVEL 1: ACTIONABLE ATTENTION CENTER --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <x-dashboard.attention-center 
+        :items="$attentionItems"
+        title="Production Floor Attention Center"
+        subtitle="Stoppages, delay exceptions, rush deadlines, and material inventory warnings"
+    />
+
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- 5 OPERATIONAL PRODUCTION METRICS --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {{-- Active Jobs --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-industry text-xl text-cyan-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[10px] font-black text-cyan-400 uppercase tracking-wider leading-tight">ACTIVE JOBS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-2xl font-black text-white font-display">{{ $totalActiveJobs }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="ACTIVE JOBS ON FLOOR"
+            :value="$totalActiveJobs"
+            icon="fa-solid fa-gears"
+            accent="cyan"
+            trend="{{ $jobsDueToday }} due today"
+            :trendType="$jobsDueToday > 0 ? 'warning' : 'up'"
+            subtitle="Current press queue"
+            :link="route('manager.production-planning.index')"
+        />
 
-        {{-- Due Today --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-clock text-xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[10px] font-black text-emerald-400 uppercase tracking-wider leading-tight">DUE TODAY</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-2xl font-black text-white font-display">{{ $jobsDueToday }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="DUE TODAY (DEADLINE)"
+            :value="$jobsDueToday"
+            icon="fa-solid fa-clock"
+            accent="emerald"
+            trend="{{ $jobsDueTomorrow }} due tomorrow"
+            trendType="neutral"
+            subtitle="Today's promised orders"
+        />
 
-        {{-- Due Tomorrow --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-calendar-day text-xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[10px] font-black text-amber-400 uppercase tracking-wider leading-tight">DUE TOMORROW</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-2xl font-black text-white font-display">{{ $jobsDueTomorrow }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="RUSH & URGENT RUNS"
+            :value="$rushJobs"
+            icon="fa-solid fa-bolt"
+            accent="amber"
+            trend="Priority queue"
+            :trendType="$rushJobs > 0 ? 'warning' : 'neutral'"
+            subtitle="High-turnaround jobs"
+        />
 
-        {{-- Delayed Jobs --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
-            <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-triangle-exclamation text-xl text-red-500 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[10px] font-black text-red-500 uppercase tracking-wider leading-tight">DELAYED JOBS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-2xl font-black text-red-400 font-display">{{ $delayedJobs }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="PRESS RUN DELAYS"
+            :value="$delayedJobs"
+            icon="fa-solid fa-triangle-exclamation"
+            accent="rose"
+            trend="{{ $delayedJobs > 0 ? 'Action required' : 'Clear run' }}"
+            :trendType="$delayedJobs > 0 ? 'danger' : 'up'"
+            subtitle="Production exceptions"
+        />
 
-        {{-- Rush / Urgent --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-orange-500/30 transition group">
-            <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-bolt text-xl text-orange-500 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[10px] font-black text-orange-500 uppercase tracking-wider leading-tight">RUSH / URGENT</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-2xl font-black text-white font-display">{{ $rushJobs }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="PRESS FLEET READY"
+            :value="$availableMachines . '/' . $totalMachines"
+            icon="fa-solid fa-print"
+            accent="indigo"
+            trend="{{ $inUseMachines }} actively running"
+            trendType="up"
+            subtitle="Operational equipment"
+        />
     </div>
 
-    {{-- Branch Capacity & Workload Grid --}}
-    <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl p-6 shadow-xl space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
-            <div>
-                <h3 class="font-black text-white text-base">Branch Capacity Utilization Monitor</h3>
-                <p class="text-xs text-slate-400 mt-0.5">Real-time daily machine capacity and active job load across all branches.</p>
-            </div>
-            <a href="{{ route('manager.capacity.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
-                Details <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </a>
-        </div>
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- LEVEL 2: COMMERCIAL PRINTING WORKFLOW PIPELINE --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <x-dashboard.workflow-pipeline 
+        :stages="$pipeline"
+        title="Commercial Printing Production Lifecycle"
+        subtitle="End-to-end production tracking from artwork proofing to shop-floor pressing and claiming"
+    />
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-            @foreach($branches as $b)
-            <div class="p-4 rounded-2xl border border-slate-800 bg-[#0D1520] space-y-3">
-                <div class="flex items-center justify-between">
-                    <h4 class="font-black text-white text-sm">{{ $b->name }}</h4>
-                    <span class="text-[10px] font-black px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">{{ $b->location }}</span>
-                </div>
-                <div class="text-xs text-slate-400 space-y-1.5 font-medium">
-                    <div class="flex justify-between"><span>Available Machines:</span><strong class="text-slate-200 font-mono">{{ $b->available_machines_count }} / {{ $b->machines->count() }}</strong></div>
-                    <div class="flex justify-between"><span>Active Production Jobs:</span><strong class="text-cyan-400 font-mono">{{ $b->active_jobs_count }}</strong></div>
-                    <div class="flex justify-between"><span>Daily Capacity Limit:</span><strong class="text-slate-200 font-mono">{{ $b->max_daily_jobs }} jobs/day</strong></div>
-                </div>
-                {{-- Workload Bar --}}
-                <div class="space-y-1 pt-1">
-                    <div class="flex justify-between text-[10px] font-black">
-                        <span class="text-slate-400">Workload</span>
-                        <span class="{{ $b->workload_percent >= 80 ? 'text-red-400' : ($b->workload_percent >= 50 ? 'text-amber-400' : 'text-emerald-400') }}">{{ $b->workload_percent }}%</span>
-                    </div>
-                    <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full {{ $b->workload_percent >= 80 ? 'bg-red-500' : ($b->workload_percent >= 50 ? 'bg-amber-400' : 'bg-emerald-400') }}"
-                             style="width: {{ $b->workload_percent }}%"></div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- LEVEL 2: MULTI-BRANCH WORKLOAD & MACHINE UTILIZATION --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <x-dashboard.branch-workload-card 
+        :branches="$branches"
+        title="Branch Capacity Utilization & Machine Workload"
+        subtitle="Real-time daily machine capacity and active job load across all branches"
+        :actionUrl="route('manager.capacity.index')"
+        actionLabel="Capacity Evaluation Matrix"
+    />
 
-    {{-- Active Production Planning Jobs --}}
-    <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden flex flex-col">
-        <div class="px-6 py-4 border-b border-slate-800/80 flex items-center justify-between bg-[#0D1520]">
-            <div>
-                <h3 class="font-black text-white text-base">Active Production Jobs</h3>
-                <p class="text-[11px] text-slate-400 mt-0.5">Real-time scheduling and assignments</p>
-            </div>
-            <a href="{{ route('manager.production-planning.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
-                View All <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </a>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-[#0D1520]/80 text-slate-400 font-bold uppercase tracking-wider border-b border-slate-800/80">
-                    <tr>
-                        <th class="px-5 py-3.5">Job No.</th>
-                        <th class="px-5 py-3.5">Customer</th>
-                        <th class="px-5 py-3.5">Branch</th>
-                        <th class="px-5 py-3.5">Priority</th>
-                        <th class="px-5 py-3.5">Status</th>
-                        <th class="px-5 py-3.5 text-right">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800/60 text-slate-300">
-                    @forelse($recentJobs as $job)
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="px-5 py-3.5 font-bold text-white font-mono">{{ $job->job_number }}</td>
-                        <td class="px-5 py-3.5 text-slate-300">{{ $job->order->user->name ?? '—' }}</td>
-                        <td class="px-5 py-3.5 font-bold text-cyan-400">{{ $job->branch->name ?? 'Unassigned' }}</td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border {{ $job->priority_badge_class }}">
-                                {{ $job->priority }}
-                            </span>
-                        </td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border {{ $job->status_badge_class }}">
-                                {{ $job->status_label }}
-                            </span>
-                        </td>
-                        <td class="px-5 py-3.5 text-right">
-                            <a href="{{ route('manager.production-planning.show', $job) }}"
-                               class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition"
-                               title="Plan & Assign Job Details">
-                                <i class="fa-solid fa-eye text-xs"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="px-5 py-8 text-center text-slate-500">No active production jobs found.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- LEVEL 2 & 4: LIVE PRODUCTION JOBS DATA TABLE --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <x-dashboard.production-table 
+        :jobs="$recentJobs"
+        title="Active Production Jobs & Press Allocation"
+        subtitle="Real-time shop-floor jobs, customer specifications, and assigned press operators"
+        :viewAllUrl="route('manager.production-planning.index')"
+        viewAllLabel="Full Production Schedule"
+    />
 
 </div>
 @endsection
-

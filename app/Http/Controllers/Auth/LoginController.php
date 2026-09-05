@@ -59,7 +59,7 @@ class LoginController extends Controller
     private function redirectAfterLogin($user)
     {
         return match ($user->role) {
-            'super_admin'        => redirect()->route('admin.dashboard'),
+            'system_admin'       => redirect()->route('admin.dashboard'),
             'owner'              => redirect()->route('management.dashboard'),
             'management'         => redirect()->route('management.dashboard'),
             'admin'              => redirect()->route('admin.dashboard'),

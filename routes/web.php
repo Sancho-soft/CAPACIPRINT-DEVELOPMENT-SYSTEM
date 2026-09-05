@@ -56,7 +56,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     if (auth()->check()) {
         return match(auth()->user()->role) {
-            'super_admin', 'admin' => redirect()->route('admin.dashboard'),
+            'system_admin', 'admin' => redirect()->route('admin.dashboard'),
             'owner', 'management'  => redirect()->route('management.dashboard'),
             'manager'              => redirect()->route('manager.dashboard'),
             'production_officer'   => redirect()->route('manager.production-planning.index'),
@@ -280,7 +280,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 // DEMO ROLE SWITCHER (For Testing & Presentation)
 // ─────────────────────────────────────────────────────────────────
 Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
-    if (in_array($role, ['super_admin', 'owner', 'admin', 'manager', 'production_officer', 'staff', 'designer', 'production', 'customer'])) {
+    if (in_array($role, ['system_admin', 'owner', 'admin', 'manager', 'production_officer', 'staff', 'designer', 'production', 'customer'])) {
         $user = \App\Models\User::where('role', $role)->first();
         if ($user) {
             auth()->login($user);
@@ -293,7 +293,7 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
                 'production'         => route('production.dashboard'),
                 'inventory'          => route('inventory.dashboard'),
                 'owner'              => route('management.dashboard'),
-                'super_admin'        => route('admin.dashboard'),
+                'system_admin'       => route('admin.dashboard'),
                 default              => route('admin.dashboard')
             });
         }
@@ -303,11 +303,6 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
 
 // ── Designer Controllers ──────────────────────────────────────────
 use App\Http\Controllers\Designer\DesignController as DesignerController;
-
-// ── Admin Controllers ─────────────────────────────────────────────
-use App\Http\Controllers\Admin\UserController as AdminUser;
-use App\Http\Controllers\Admin\BranchController as AdminBranch;
-use App\Http\Controllers\Admin\EmployeeController as AdminEmployee;
 
 // ─────────────────────────────────────────────────────────────────
 // DESIGN & LAYOUT MANAGEMENT (role: designer, staff, admin, superadmin)

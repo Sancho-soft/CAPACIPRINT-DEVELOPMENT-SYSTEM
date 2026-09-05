@@ -11,6 +11,7 @@
         },
         isDark: document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme'),
         toggleTheme() {
+            document.documentElement.classList.add('theme-transitioning');
             this.isDark = !this.isDark;
             if (this.isDark) {
                 document.documentElement.classList.add('dark', 'dark-theme');
@@ -21,6 +22,9 @@
                 document.documentElement.classList.remove('dark', 'dark-theme');
                 localStorage.theme = 'light';
             }
+            setTimeout(() => {
+                document.documentElement.classList.remove('theme-transitioning');
+            }, 400);
         }
      }">
 
@@ -73,7 +77,7 @@
         {{-- Sidebar Brand — PINNED TOP --}}
         <div class="shrink-0 h-16 px-4 border-b border-slate-800/80 flex items-center justify-between bg-transparent">
             <div class="flex items-center gap-3 min-w-0" :class="sidebarCollapsed ? 'justify-center w-full' : ''">
-                <img src="{{ asset('images/caplogo.png') }}?v={{ time() }}" alt="CapaciPrint Logo" class="h-10 w-10 object-contain shrink-0 drop-shadow-[0_0_12px_rgba(6,182,212,0.35)]">
+                <img src="{{ asset('images/caplogo.png') }}?v={{ time() }}" alt="CapaciPrint Logo" class="h-10 w-10 object-contain shrink-0 drop-shadow-sm">
                 <div class="min-w-0" x-show="!sidebarCollapsed" x-transition.opacity>
                     <h1 class="font-black text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
                 </div>
@@ -88,7 +92,7 @@
 
             <p class="px-2.5 pt-1 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Dashboard</p>
             <a href="{{ route('customer.dashboard') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Dashboard Overview' : ''">
                 <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
@@ -96,14 +100,14 @@
             </a>
 
             <a href="{{ route('customer.print-requests.create') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'New Print Request' : ''">
                 <i class="fa-solid fa-file-circle-plus w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">New Print Request</span>
             </a>
             <a href="{{ route('customer.print-requests.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'My Requests' : ''">
                 <i class="fa-solid fa-list-ul w-5 text-center text-sm shrink-0"></i>
@@ -112,7 +116,7 @@
 
             <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Finance</p>
             <a href="{{ route('customer.quotations.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Quotations' : ''">
                 <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-sm shrink-0"></i>
@@ -123,7 +127,7 @@
                 @endif
             </a>
             <a href="{{ route('customer.payments.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Payments' : ''">
                 <i class="fa-solid fa-credit-card w-5 text-center text-sm shrink-0"></i>
@@ -132,7 +136,7 @@
 
             <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Tracking &amp; Claiming</p>
             <a href="{{ route('customer.claiming.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'QR / Claiming' : ''">
                 <i class="fa-solid fa-qrcode w-5 text-center text-sm shrink-0"></i>
@@ -168,7 +172,15 @@
                 </button>
             </div>
 
-            <div class="flex items-center gap-4 sm:gap-5">
+            <div class="flex items-center gap-3 sm:gap-4">
+                {{-- Direct Quick Theme Toggle Button --}}
+                <button @click="toggleTheme()" 
+                        type="button" 
+                        class="hidden sm:flex items-center justify-center h-9 w-9 text-cyber-muted hover:text-cyan-400 hover:bg-cyber-sub rounded-xl border border-cyber transition cursor-pointer"
+                        :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+                    <i :class="isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-700'" class="text-sm"></i>
+                </button>
+
                 <a href="{{ route('customer.notifications.index') }}" class="relative p-2 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl transition flex items-center justify-center border border-cyber/50" title="Notifications">
                     <i class="fa-solid fa-bell text-base"></i>
                     @php $bellCount = auth()->user()->notifications()->where('is_read', false)->count(); @endphp
@@ -187,7 +199,7 @@
                             type="button"
                             class="flex items-center gap-3 p-1.5 pr-3 rounded-2xl bg-cyber-sub border border-cyber hover:border-cyan-500/40 text-cyber-main transition shadow-sm group focus:outline-none select-none cursor-pointer"
                             :class="profileOpen ? 'ring-2 ring-cyan-500/30 border-cyan-500/50' : ''">
-                        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 text-slate-950 font-black flex items-center justify-center text-sm shadow-[0_0_12px_rgba(6,182,212,0.35)] shrink-0 border border-cyan-300 group-hover:scale-105 transition-transform">
+                        <div class="h-9 w-9 rounded-xl bg-slate-800 text-sky-400 font-bold flex items-center justify-center text-sm shrink-0 border border-slate-700 group-hover:scale-105 transition-transform">
                             {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                         </div>
                         <div class="text-left leading-tight hidden sm:block">

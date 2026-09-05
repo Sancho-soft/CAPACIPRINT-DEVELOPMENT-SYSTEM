@@ -14,16 +14,13 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::with('branch');
+        // Only allow managing executive roles
+        $query = User::with('branch')->whereIn('role', ['owner', 'management', 'admin', 'system_admin', 'manager']);
 
         if ($request->boolean('archived')) {
             $query->where('is_archived', true);
         } else {
             $query->where('is_archived', false);
-        }
-
-        if ($role = $request->get('role')) {
-            $query->where('role', $role);
         }
 
         if ($search = $request->get('search')) {
@@ -39,108 +36,51 @@ class UserController extends Controller
         return view('admin.users.index', compact('users', 'branches'));
     }
 
-    public function store(Request $request)
+    public function update(Request $request, User $user)
     {
+        // Ensure user being edited is an executive
+        if (!in_array($user->role, ['owner', 'management', 'admin', 'system_admin', 'manager'])) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $data = $request->validate([
-            'name'      => ['required', 'string', 'max:255'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'role'      => ['required', 'string', 'in:customer,staff,manager,production,inventory,management,admin'],
-            'branch_id' => ['nullable', 'exists:branches,id'],
             'password'  => ['required', 'string', 'min:8'],
         ]);
 
-        $user = User::create([
-            'name'        => $data['name'],
-            'email'       => $data['email'],
-            'role'        => $data['role'],
-            'branch_id'   => $data['branch_id'] ?? null,
-            'password'    => Hash::make($data['password']),
-            'is_archived' => false,
+        $user->update([
+            'password' => Hash::make($data['password']),
         ]);
 
         AuditLog::record(
-            'User Account Created',
+            'Executive Account Password Reset',
             'User Management',
-            "Created user account {$user->name} ({$user->email}) with role {$user->role}",
+            "Reset password for {$user->name}",
             null,
-            $user->toArray()
+            ['id' => $user->id]
         );
 
-        return redirect()->back()->with('success', "User account {$user->name} created successfully.");
-    }
-
-    public function update(Request $request, User $user)
-    {
-        $data = $request->validate([
-            'name'      => ['required', 'string', 'max:255'],
-            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'role'      => ['required', 'string', 'in:customer,staff,manager,production,inventory,management,admin'],
-            'branch_id' => ['nullable', 'exists:branches,id'],
-            'password'  => ['nullable', 'string', 'min:8'],
-        ]);
-
-        $old = $user->toArray();
-
-        $updateData = [
-            'name'      => $data['name'],
-            'email'     => $data['email'],
-            'role'      => $data['role'],
-            'branch_id' => $data['branch_id'] ?? null,
-        ];
-
-        if (!empty($data['password'])) {
-            $updateData['password'] = Hash::make($data['password']);
-        }
-
-        $user->update($updateData);
-
-        AuditLog::record(
-            'User Account Updated',
-            'User Management',
-            "Updated account details for {$user->name}",
-            $old,
-            $user->toArray()
-        );
-
-        return redirect()->back()->with('success', "User account {$user->name} updated successfully.");
-    }
-
-    public function updateRole(Request $request, User $user)
-    {
-        $data = $request->validate([
-            'role'      => ['required', 'string', 'in:customer,staff,manager,production,inventory,management,admin'],
-            'branch_id' => ['nullable', 'exists:branches,id'],
-        ]);
-
-        $old = ['role' => $user->role, 'branch_id' => $user->branch_id];
-        $user->update($data);
-
-        AuditLog::record(
-            'User Access Level Updated',
-            'User Management',
-            "Updated role for {$user->name} to {$user->role}",
-            $old,
-            $data
-        );
-
-        return redirect()->back()->with('success', "User {$user->name} access updated.");
+        return redirect()->back()->with('success', "Password for {$user->name} reset successfully.");
     }
 
     public function toggleArchive(User $user)
     {
+        if (!in_array($user->role, ['owner', 'management', 'admin', 'system_admin', 'manager'])) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $user->is_archived = !$user->is_archived;
         $user->save();
 
         $actionText = $user->is_archived ? 'Archived' : 'Restored';
 
         AuditLog::record(
-            "User Account {$actionText}",
+            "Executive Account {$actionText}",
             'User Management',
-            "{$actionText} user account {$user->name} ({$user->email})",
+            "{$actionText} account {$user->name} ({$user->email})",
             null,
             ['is_archived' => $user->is_archived]
         );
 
-        return redirect()->back()->with('success', "User account {$user->name} {$actionText} successfully.");
+        return redirect()->back()->with('success', "Account {$user->name} {$actionText} successfully.");
     }
 }

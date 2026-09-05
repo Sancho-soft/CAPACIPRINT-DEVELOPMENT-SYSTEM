@@ -37,9 +37,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function isSuperAdmin(): bool        { return in_array($this->role, ['super_admin', 'superadmin']); }
     public function isOwner(): bool             { return in_array($this->role, ['owner', 'management']); }
-    public function isAdmin(): bool             { return in_array($this->role, ['admin', 'super_admin', 'superadmin']); }
+    public function isAdmin(): bool             { return in_array($this->role, ['admin', 'system_admin']); }
     public function isManager(): bool           { return $this->role === 'manager'; }
     public function isProductionOfficer(): bool { return in_array($this->role, ['production_officer', 'planner']); }
     public function isStaff(): bool             { return $this->role === 'staff'; }
@@ -51,15 +50,15 @@ class User extends Authenticatable
 
     public function isInternal(): bool
     {
-        return in_array($this->role, ['super_admin', 'superadmin', 'owner', 'admin', 'manager', 'production_officer', 'planner', 'staff', 'designer', 'production', 'inventory', 'management']);
+        return in_array($this->role, ['system_admin', 'owner', 'admin', 'manager', 'production_officer', 'planner', 'staff', 'designer', 'production', 'inventory', 'management']);
     }
 
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'super_admin'        => 'Super Admin',
-            'owner'              => 'Owner (Executive)',
+            'system_admin'       => 'System Admin',
             'admin'              => 'System Admin',
+            'owner'              => 'Owner (Executive)',
             'manager'            => 'Branch Manager',
             'production_officer' => 'Production Officer',
             'staff'              => 'Customer Service (CS)',
