@@ -375,18 +375,13 @@
             background-color: #F1F5F9 !important;
         }
 
-        /* Light-theme soft diffused shadows & low-glare styling */
-        html.light-theme .shadow-2xl {
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
-        }
-        html.light-theme .shadow-xl {
-            box-shadow: 0 6px 16px -3px rgba(15, 23, 42, 0.04), 0 4px 6px -4px rgba(15, 23, 42, 0.03) !important;
-        }
-        html.light-theme .shadow-lg {
-            box-shadow: 0 4px 10px -2px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
-        }
-        html.light-theme .shadow-md {
-            box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02) !important;
+        /* Light-theme plain card styling - removes blurred drop shadows extending past card borders ("lumampas") */
+        html.light-theme .shadow-2xl,
+        html.light-theme .shadow-xl,
+        html.light-theme .shadow-lg,
+        html.light-theme .shadow-md,
+        html.light-theme .shadow {
+            box-shadow: none !important;
         }
 
         html.light-theme .blur-3xl {

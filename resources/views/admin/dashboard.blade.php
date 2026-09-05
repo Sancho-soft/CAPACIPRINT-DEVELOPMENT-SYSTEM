@@ -44,7 +44,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- Card 1: Registered Users (Cyan) --}}
-        <a href="{{ route('admin.users.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
+        <a href="{{ route('admin.users.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-none hover:border-cyan-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
                 <i class="fa-solid fa-users text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
                 <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">REGISTERED USERS</div>
@@ -55,7 +55,7 @@
         </a>
 
         {{-- Card 2: Active Branches (Indigo/Purple) --}}
-        <a href="{{ route('management.branches.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-indigo-400 p-5 flex items-center justify-between shadow-lg hover:border-indigo-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
+        <a href="{{ route('management.branches.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-indigo-400 p-5 flex items-center justify-between shadow-none hover:border-indigo-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
                 <i class="fa-solid fa-store text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-indigo-400 transition-all"></i>
                 <div class="text-[11px] font-black text-indigo-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE BRANCHES</div>
@@ -66,7 +66,7 @@
         </a>
 
         {{-- Card 3: Print Requests (Amber) --}}
-        <a href="{{ route('staff.print-requests.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
+        <a href="{{ route('staff.print-requests.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-none hover:border-amber-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
                 <i class="fa-solid fa-file-lines text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PRINT REQUESTS</div>
@@ -77,7 +77,7 @@
         </a>
 
         {{-- Card 4: Total Orders (Emerald) --}}
-        <a href="{{ route('management.orders.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
+        <a href="{{ route('management.orders.index') }}" class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-none hover:border-emerald-500/50 hover:bg-[#15202D] transition-all group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
                 <i class="fa-solid fa-bag-shopping text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">TOTAL ORDERS</div>
