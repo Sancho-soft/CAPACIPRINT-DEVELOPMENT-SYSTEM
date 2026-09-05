@@ -74,7 +74,7 @@
         }
 
         /* Dark Theme Variables (Default) */
-        html.dark-theme, html:not(.light-theme) {
+        html.dark-theme, html.dark, :root {
             --bg-base: #0B1118;
             --bg-surface: #0D1520;
             --bg-card: #111A24;
@@ -86,17 +86,29 @@
             --text-sub: #64748B;
         }
 
-        /* Eye-Friendly Soft Light Theme Variables */
+        /* Eye-Friendly Soft Light Theme Variables (Subtle Slate/Warm Tint - Low Glare) */
         html.light-theme {
-            --bg-base: #FFFFFF;
+            --bg-base: #F1F5F9;
             --bg-surface: #FFFFFF;
             --bg-card: #FFFFFF;
-            --bg-card-sub: rgba(6,182,212,0.06);
-            --border-main: #E2E8F0;
-            --border-sub: #CBD5E1;
-            --text-main: #1E293B;
-            --text-muted: #64748B;
-            --text-sub: #94A3B8;
+            --bg-card-sub: #F8FAFC;
+            --border-main: #CBD5E1;
+            --border-sub: #E2E8F0;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --text-sub: #64748B;
+        }
+
+        /* ═══ Smooth Theme Transitions (Dark Mode <-> Light Mode) ═══ */
+        html.theme-transitioning,
+        html.theme-transitioning *,
+        html.theme-transitioning *::before,
+        html.theme-transitioning *::after {
+            transition: background-color 0.35s ease,
+                        border-color 0.35s ease,
+                        color 0.25s ease,
+                        box-shadow 0.35s ease !important;
+            transition-delay: 0s !important;
         }
 
         /* ═══ Theme-aware utility classes ═══ */
@@ -113,96 +125,96 @@
         /* ══════════════════════════════════════════════════════════════
            GLOBAL DARK-THEME OVERRIDES
            Forces all hardcoded light-mode Tailwind classes to switch
-           when html.dark-theme (or not light-theme) is active.
+           when html.dark-theme (or html.dark) is active.
            This prevents cards, tables, inputs from staying "white"
            when the user switches to dark mode.
            ══════════════════════════════════════════════════════════════ */
 
         /* Card / container backgrounds */
         html.dark-theme main .bg-white,
-        html:not(.light-theme) main .bg-white {
+        html.dark main .bg-white {
             background-color: #111A24 !important;
         }
         html.dark-theme main .bg-slate-50,
-        html:not(.light-theme) main .bg-slate-50 {
+        html.dark main .bg-slate-50 {
             background-color: #0D1520 !important;
         }
         html.dark-theme main .bg-slate-100,
-        html:not(.light-theme) main .bg-slate-100 {
+        html.dark main .bg-slate-100 {
             background-color: #0D1520 !important;
         }
 
         /* Colored tint backgrounds (report category icons etc.) */
         html.dark-theme main .bg-blue-50,
-        html:not(.light-theme) main .bg-blue-50 { background-color: rgba(59,130,246,0.1) !important; }
+        html.dark main .bg-blue-50 { background-color: rgba(59,130,246,0.1) !important; }
         html.dark-theme main .bg-emerald-50,
-        html:not(.light-theme) main .bg-emerald-50 { background-color: rgba(16,185,129,0.1) !important; }
+        html.dark main .bg-emerald-50 { background-color: rgba(16,185,129,0.1) !important; }
         html.dark-theme main .bg-purple-50,
-        html:not(.light-theme) main .bg-purple-50 { background-color: rgba(168,85,247,0.1) !important; }
+        html.dark main .bg-purple-50 { background-color: rgba(168,85,247,0.1) !important; }
         html.dark-theme main .bg-amber-50,
-        html:not(.light-theme) main .bg-amber-50 { background-color: rgba(245,158,11,0.1) !important; }
+        html.dark main .bg-amber-50 { background-color: rgba(245,158,11,0.1) !important; }
         html.dark-theme main .bg-red-50,
-        html:not(.light-theme) main .bg-red-50 { background-color: rgba(239,68,68,0.1) !important; }
+        html.dark main .bg-red-50 { background-color: rgba(239,68,68,0.1) !important; }
         html.dark-theme main .bg-teal-50,
-        html:not(.light-theme) main .bg-teal-50 { background-color: rgba(20,184,166,0.1) !important; }
+        html.dark main .bg-teal-50 { background-color: rgba(20,184,166,0.1) !important; }
         html.dark-theme main .bg-cyan-50,
-        html:not(.light-theme) main .bg-cyan-50 { background-color: rgba(6,182,212,0.1) !important; }
+        html.dark main .bg-cyan-50 { background-color: rgba(6,182,212,0.1) !important; }
         html.dark-theme main .bg-indigo-50,
-        html:not(.light-theme) main .bg-indigo-50 { background-color: rgba(99,102,241,0.1) !important; }
+        html.dark main .bg-indigo-50 { background-color: rgba(99,102,241,0.1) !important; }
 
         /* Border colors */
         html.dark-theme main .border-slate-100,
-        html:not(.light-theme) main .border-slate-100 {
+        html.dark main .border-slate-100 {
             border-color: rgba(30,41,59,0.8) !important;
         }
         html.dark-theme main .border-slate-200,
-        html:not(.light-theme) main .border-slate-200 {
+        html.dark main .border-slate-200 {
             border-color: rgba(30,41,59,0.6) !important;
         }
         html.dark-theme main .border-slate-300,
-        html:not(.light-theme) main .border-slate-300 {
+        html.dark main .border-slate-300 {
             border-color: rgba(30,41,59,0.5) !important;
         }
 
         /* Dividers */
         html.dark-theme main .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
-        html:not(.light-theme) main .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+        html.dark main .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
             border-color: rgba(30,41,59,0.6) !important;
         }
 
         /* Text colors — dark headings become light */
         html.dark-theme main .text-navy-900,
-        html:not(.light-theme) main .text-navy-900 {
+        html.dark main .text-navy-900 {
             color: #F8FAFC !important;
         }
         html.dark-theme main .text-slate-900,
-        html:not(.light-theme) main .text-slate-900 {
+        html.dark main .text-slate-900 {
             color: #F1F5F9 !important;
         }
         html.dark-theme main .text-slate-800,
-        html:not(.light-theme) main .text-slate-800 {
+        html.dark main .text-slate-800 {
             color: #E2E8F0 !important;
         }
         html.dark-theme main .text-slate-700,
-        html:not(.light-theme) main .text-slate-700 {
+        html.dark main .text-slate-700 {
             color: #CBD5E1 !important;
         }
         html.dark-theme main .text-slate-600,
-        html:not(.light-theme) main .text-slate-600 {
+        html.dark main .text-slate-600 {
             color: #94A3B8 !important;
         }
 
         /* Hover states for dark mode — light hovers become dark */
         html.dark-theme main .hover\:bg-slate-50:hover,
-        html:not(.light-theme) main .hover\:bg-slate-50:hover,
+        html.dark main .hover\:bg-slate-50:hover,
         html.dark-theme main .hover\:bg-slate-100:hover,
-        html:not(.light-theme) main .hover\:bg-slate-100:hover,
+        html.dark main .hover\:bg-slate-100:hover,
         html.dark-theme main .hover\:bg-slate-50\/50:hover,
-        html:not(.light-theme) main .hover\:bg-slate-50\/50:hover {
+        html.dark main .hover\:bg-slate-50\/50:hover {
             background-color: #182433 !important;
         }
         html.dark-theme main .hover\:shadow-md:hover,
-        html:not(.light-theme) main .hover\:shadow-md:hover {
+        html.dark main .hover\:shadow-md:hover {
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.2) !important;
         }
 
@@ -210,15 +222,15 @@
         html.dark-theme main input,
         html.dark-theme main select,
         html.dark-theme main textarea,
-        html:not(.light-theme) main input,
-        html:not(.light-theme) main select,
-        html:not(.light-theme) main textarea {
+        html.dark main input,
+        html.dark main select,
+        html.dark main textarea {
             background-color: #0D1520 !important;
             border-color: rgba(30,41,59,0.8) !important;
             color: #F8FAFC !important;
         }
         html.dark-theme main input::placeholder,
-        html:not(.light-theme) main input::placeholder {
+        html.dark main input::placeholder {
             color: #64748B !important;
         }
 
@@ -228,10 +240,16 @@
            when html.light-theme is active. This prevents cards, tables,
            headers, and text from staying "stuck" in dark mode.
            ══════════════════════════════════════════════════════════════ */
-        html.light-theme .bg-\[\#111A24\],
-        html.light-theme .bg-\[\#0D1520\],
-        html.light-theme .bg-\[\#0B1118\] {
+        html.light-theme .bg-\[\#111A24\] {
             background-color: #FFFFFF !important;
+        }
+
+        html.light-theme .bg-\[\#0D1520\] {
+            background-color: #F8FAFC !important;
+        }
+
+        html.light-theme .bg-\[\#0B1118\] {
+            background-color: #F1F5F9 !important;
         }
 
         html.light-theme .bg-\[\#0D1520\]\/80 {
@@ -239,6 +257,40 @@
         }
 
         html.light-theme .bg-\[\#0B1118\]\/80 {
+            background-color: #E2E8F0 !important;
+        }
+
+        /* Sidebar container in light mode */
+        html.light-theme aside.bg-\[\#111A24\] {
+            background-color: #FFFFFF !important;
+            border-color: #CBD5E1 !important;
+        }
+
+        /* Top header in light mode */
+        html.light-theme header.bg-cyber-surface\/90 {
+            background-color: rgba(255, 255, 255, 0.92) !important;
+            border-color: #CBD5E1 !important;
+        }
+
+        /* Table header and inner metric sub-panels in Light Mode */
+        html.light-theme .bg-cyber-base\/80,
+        html.light-theme thead.bg-cyber-base\/80,
+        html.light-theme thead {
+            background-color: #F1F5F9 !important;
+            color: #475569 !important;
+            border-color: #CBD5E1 !important;
+        }
+
+        html.light-theme .bg-cyber-card\/60,
+        html.light-theme .bg-cyber-sub\/60,
+        html.light-theme .bg-cyber-sub\/70,
+        html.light-theme .bg-cyber-sub\/80 {
+            background-color: #F8FAFC !important;
+            border-color: #E2E8F0 !important;
+        }
+
+        html.light-theme .bg-cyber-hover\/50:hover,
+        html.light-theme tr.hover\:bg-cyber-hover\/50:hover {
             background-color: #F1F5F9 !important;
         }
 
@@ -291,19 +343,30 @@
             color: #64748B !important;
         }
 
-        /* Protect contrast for dark container blocks in Light Mode */
-        html.light-theme main .bg-slate-900 *,
-        html.light-theme main .bg-slate-800 *,
-        html.light-theme main .bg-navy-900 * {
-            color: inherit;
-        }
-        html.light-theme main .bg-slate-900 .text-white,
-        html.light-theme main .bg-navy-900 .text-white {
+        /* Protect contrast only for specifically designated dark badges */
+        html.light-theme .badge-dark,
+        html.light-theme .tag-dark {
             color: #FFFFFF !important;
         }
-        html.light-theme main .bg-slate-900 .text-slate-300,
-        html.light-theme main .bg-navy-900 .text-slate-300 {
-            color: #CBD5E1 !important;
+
+        /* Table header cells and borders in Light Mode */
+        html.light-theme table thead th {
+            background-color: #F8FAFC !important;
+            color: #475569 !important;
+            border-bottom: 1px solid #CBD5E1 !important;
+        }
+
+        /* Inner metric boxes in branch workload cards & tables */
+        html.light-theme .bg-cyber-card\/60,
+        html.light-theme [class*="bg-cyber-card"] {
+            background-color: #F8FAFC !important;
+        }
+        html.light-theme .bg-cyber-sub\/60,
+        html.light-theme .bg-cyber-sub\/70,
+        html.light-theme .bg-cyber-sub\/80,
+        html.light-theme [class*="bg-cyber-sub"] {
+            background-color: #FFFFFF !important;
+            border-color: #CBD5E1 !important;
         }
 
         /* Border colors */
@@ -311,7 +374,7 @@
         html.light-theme .border-slate-800,
         html.light-theme .border-slate-800\/60,
         html.light-theme .border-slate-700 {
-            border-color: #E2E8F0 !important;
+            border-color: #CBD5E1 !important;
         }
 
         /* Dividers */

@@ -131,5 +131,17 @@ class UserSeeder extends Seeder
                 'address'  => 'Client Address',
             ]
         );
+
+        // 10. Inventory Staff
+        User::updateOrCreate(
+            ['email' => 'inventory@capaciprint.com'],
+            [
+                'name'     => 'Irene Warehouse',
+                'password' => Hash::make('password'),
+                'role'     => 'inventory',
+                'phone'    => '+63 921 777 8888',
+                'address'  => 'Central Materials Storage',
+            ]
+        );
     }
 }

@@ -17,11 +17,11 @@
     <div class="bg-[#111A24] p-4 rounded-3xl border border-slate-800/80 shadow-xl flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-2">
             <a href="{{ route('designer.index') }}" 
-               class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-cyan-500 text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.3)]' : 'bg-[#0D1520] text-slate-300 hover:bg-slate-800 border border-slate-800' }}">
+               class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {{ !request('status') ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'bg-[#0D1520] text-slate-300 hover:bg-slate-800 border border-slate-800' }}">
                 All Jobs
             </a>
             <a href="{{ route('designer.index', ['status' => 'needs_proof']) }}" 
-               class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {{ request('status') === 'needs_proof' ? 'bg-cyan-500 text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.3)]' : 'bg-[#0D1520] text-slate-300 hover:bg-slate-800 border border-slate-800' }}">
+               class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {{ request('status') === 'needs_proof' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'bg-[#0D1520] text-slate-300 hover:bg-slate-800 border border-slate-800' }}">
                 Needs Proof
             </a>
             <a href="{{ route('designer.index', ['status' => 'revision_requested']) }}" 
