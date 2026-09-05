@@ -25,7 +25,7 @@
      }">
 
     {{-- Mobile Overlay & Sidebar Toggle --}}
-    <div class="md:hidden bg-white dark:bg-cyber-surface border-b border-cyber text-cyber-main px-4 py-3 flex items-center justify-between shadow-lg sticky top-0 z-40">
+    <div class="md:hidden bg-white dark:bg-cyber-surface border-b border-cyber text-cyber-main px-4 py-3 flex items-center justify-between shadow-lg sticky top-0 z-40 print:hidden">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/caplogo.png') }}" alt="CapaciPrint Logo" class="h-8 w-auto object-contain shrink-0" onerror="this.onerror=null; this.src=''; this.classList.add('hidden');">
             <div>
@@ -62,7 +62,7 @@
          x-cloak></div>
 
     {{-- Customer Collapsible Sidebar --}}
-    <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-all duration-300 ease-in-out shadow-2xl"
+    <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-all duration-300 ease-in-out shadow-2xl print:hidden"
            :class="{
                'w-64': !sidebarCollapsed,
                'w-20': sidebarCollapsed,
@@ -88,7 +88,7 @@
 
             <p class="px-2.5 pt-1 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Dashboard</p>
             <a href="{{ route('customer.dashboard') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Dashboard Overview' : ''">
                 <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
@@ -96,14 +96,14 @@
             </a>
 
             <a href="{{ route('customer.print-requests.create') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'New Print Request' : ''">
                 <i class="fa-solid fa-file-circle-plus w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">New Print Request</span>
             </a>
             <a href="{{ route('customer.print-requests.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'My Requests' : ''">
                 <i class="fa-solid fa-list-ul w-5 text-center text-sm shrink-0"></i>
@@ -112,7 +112,7 @@
 
             <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Finance</p>
             <a href="{{ route('customer.quotations.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Quotations' : ''">
                 <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-sm shrink-0"></i>
@@ -123,7 +123,7 @@
                 @endif
             </a>
             <a href="{{ route('customer.payments.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Payments' : ''">
                 <i class="fa-solid fa-credit-card w-5 text-center text-sm shrink-0"></i>
@@ -132,7 +132,7 @@
 
             <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Tracking &amp; Claiming</p>
             <a href="{{ route('customer.claiming.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'QR / Claiming' : ''">
                 <i class="fa-solid fa-qrcode w-5 text-center text-sm shrink-0"></i>
@@ -160,16 +160,11 @@
     <div class="flex-1 flex flex-col min-w-0 bg-cyber-base transition-colors duration-200">
 
         {{-- Top App Bar --}}
-        <header class="h-16 bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md">
+        <header class="h-16 bg-cyber-surface/90 backdrop-blur-md border-b border-cyber px-6 flex items-center justify-between sticky top-0 z-30 shadow-md print:hidden">
             <div class="flex items-center gap-3">
                 {{-- Mobile toggle --}}
                 <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-cyber-muted hover:text-cyber-main p-1.5 rounded-lg border border-cyber hover:bg-cyber-sub focus:outline-none transition">
                     <i class="fa-solid fa-bars text-base"></i>
-                </button>
-                {{-- Desktop collapse toggle in header --}}
-                <button @click="toggleSidebar()" class="hidden md:flex items-center justify-center h-8 w-8 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl border border-cyber transition cursor-pointer"
-                        :title="sidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'">
-                    <i class="fa-solid text-xs transition-transform duration-200" :class="sidebarCollapsed ? 'fa-indent text-cyan-400' : 'fa-outdent'"></i>
                 </button>
             </div>
 
@@ -213,15 +208,6 @@
                          class="absolute right-0 mt-2.5 w-64 rounded-2xl bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-2 text-xs space-y-1 backdrop-blur-xl"
                          x-cloak>
                         
-                        {{-- Dropdown Header with User Info --}}
-                        <div class="px-3 py-2.5 border-b border-slate-100 dark:border-slate-800 mb-1">
-                            <p class="text-xs font-black text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">{{ auth()->user()->email }}</p>
-                            <span class="inline-block mt-1.5 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30">
-                                Verified Customer
-                            </span>
-                        </div>
-
                         {{-- Slideable Dark Mode Interactive Toggle --}}
                         <div class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/60 flex items-center justify-between">
                             <div class="flex items-center gap-2.5">

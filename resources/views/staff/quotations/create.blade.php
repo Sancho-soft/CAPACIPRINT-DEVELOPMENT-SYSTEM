@@ -55,9 +55,17 @@
                 </div>
             </div>
 
-            <div class="p-4 bg-slate-900 text-white rounded-xl flex items-center justify-between">
-                <span class="font-semibold text-slate-300">Total Quoted Price:</span>
-                <span class="text-xl font-black font-display" x-text="'₱' + total.toFixed(2)">₱0.00</span>
+            <div class="p-4 sm:p-5 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-2.5">
+                    <div class="h-9 w-9 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-calculator text-base"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-slate-800 dark:text-slate-100 text-sm block">Total Quoted Price</span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Sum of Base, Material &amp; Finishing costs</span>
+                    </div>
+                </div>
+                <span class="text-2xl sm:text-3xl font-black font-display text-cyan-600 dark:text-cyan-400 tracking-tight" x-text="'₱' + (parseFloat(total)||0).toFixed(2)">₱0.00</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

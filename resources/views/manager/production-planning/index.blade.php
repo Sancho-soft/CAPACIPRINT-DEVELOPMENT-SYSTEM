@@ -27,9 +27,9 @@
 
     {{-- Quick Metric Summary --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-blue-400 p-5 flex items-center justify-between shadow-lg hover:border-blue-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-blue-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-list-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-blue-400 transition-all"></i>
+                <i class="fa-solid fa-list-check text-2xl text-blue-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-blue-400 uppercase tracking-wider leading-tight max-w-[120px]">ACTIVE PRODUCTION JOBS</div>
             </div>
             <div class="text-right shrink-0">
@@ -37,9 +37,9 @@
             </div>
         </div>
 
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-rose-500 p-5 flex items-center justify-between shadow-lg hover:border-rose-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-rose-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-bolt text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-rose-500 transition-all"></i>
+                <i class="fa-solid fa-bolt text-2xl text-rose-500 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-rose-500 uppercase tracking-wider leading-tight max-w-[120px]">RUSH &amp; URGENT PRIORITY</div>
             </div>
             <div class="text-right shrink-0">
@@ -47,9 +47,9 @@
             </div>
         </div>
 
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-user-clock text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <i class="fa-solid fa-user-clock text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[120px]">UNASSIGNED JOBS PENDING</div>
             </div>
             <div class="text-right shrink-0">

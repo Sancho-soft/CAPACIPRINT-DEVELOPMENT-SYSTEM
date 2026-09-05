@@ -21,9 +21,9 @@
     {{-- Designer KPI Metrics Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {{-- Pending Artwork Review --}}
-        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 border-l-4 border-l-purple-500 p-5 flex items-center justify-between shadow-lg hover:border-purple-500/30 transition group">
+        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-purple-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-image text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-purple-500 transition-all"></i>
+                <i class="fa-solid fa-file-image text-2xl text-purple-500 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-purple-600 dark:text-purple-400 uppercase tracking-wider leading-tight max-w-[120px]">PENDING ARTWORK REVIEW</div>
             </div>
             <div class="text-right shrink-0">
@@ -32,9 +32,9 @@
         </div>
 
         {{-- Approved Proofs --}}
-        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-circle-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <i class="fa-solid fa-circle-check text-2xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider leading-tight max-w-[120px]">APPROVED PROOFS</div>
             </div>
             <div class="text-right shrink-0">
@@ -43,9 +43,9 @@
         </div>
 
         {{-- Revision Requests --}}
-        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-arrows-rotate text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <i class="fa-solid fa-arrows-rotate text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-wider leading-tight max-w-[120px]">REVISION REQUESTS</div>
             </div>
             <div class="text-right shrink-0">

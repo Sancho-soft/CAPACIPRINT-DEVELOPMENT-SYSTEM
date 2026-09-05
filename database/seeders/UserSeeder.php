@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
                 'name'     => 'Super Admin',
                 'password' => Hash::make('password'),
                 'role'     => 'super_admin',
-                'phone'    => '+63 900 000 0001',
+                'phone'    => '+63 969 195 2485',
                 'address'  => 'CapaciPrint Technical Center',
             ]
         );

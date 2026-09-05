@@ -88,10 +88,10 @@
 
         /* Eye-Friendly Soft Light Theme Variables */
         html.light-theme {
-            --bg-base: #F1F5F9;
-            --bg-surface: #F8FAFC;
+            --bg-base: #FFFFFF;
+            --bg-surface: #FFFFFF;
             --bg-card: #FFFFFF;
-            --bg-card-sub: #F1F5F9;
+            --bg-card-sub: rgba(6,182,212,0.06);
             --border-main: #E2E8F0;
             --border-sub: #CBD5E1;
             --text-main: #1E293B;
@@ -291,6 +291,21 @@
             color: #64748B !important;
         }
 
+        /* Protect contrast for dark container blocks in Light Mode */
+        html.light-theme main .bg-slate-900 *,
+        html.light-theme main .bg-slate-800 *,
+        html.light-theme main .bg-navy-900 * {
+            color: inherit;
+        }
+        html.light-theme main .bg-slate-900 .text-white,
+        html.light-theme main .bg-navy-900 .text-white {
+            color: #FFFFFF !important;
+        }
+        html.light-theme main .bg-slate-900 .text-slate-300,
+        html.light-theme main .bg-navy-900 .text-slate-300 {
+            color: #CBD5E1 !important;
+        }
+
         /* Border colors */
         html.light-theme .border-slate-800\/80,
         html.light-theme .border-slate-800,
@@ -454,6 +469,21 @@
         main .max-w-5xl {
             max-width: 100% !important;
             width: 100% !important;
+        }
+
+        /* ═══ Global Print Mode Styles ═══ */
+        @media print {
+            aside, header, nav, .print\:hidden {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
         }
     </style>
 

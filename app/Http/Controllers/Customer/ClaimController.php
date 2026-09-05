@@ -15,7 +15,7 @@ class ClaimController extends Controller
     {
         $claims = $request->user()
             ->claimReferences()
-            ->with('order.printRequest')
+            ->with(['order.printRequest', 'order.payment'])
             ->latest()
             ->get();
 
@@ -30,7 +30,7 @@ class ClaimController extends Controller
         $claim = $request->user()
             ->claimReferences()
             ->where('order_id', $orderId)
-            ->with('order.printRequest')
+            ->with(['order.printRequest', 'order.payment'])
             ->firstOrFail();
 
         return view('customer.claiming.show', compact('claim'));

@@ -44,6 +44,10 @@
                         <span class="text-cyber-muted">Completion</span>
                         <span class="font-bold text-cyber-main">{{ $claim->completion_date?->format('M d, Y') ?? '—' }}</span>
                     </div>
+                    <div class="flex justify-between py-1 border-b border-cyber/50">
+                        <span class="text-cyber-muted">Payment Method</span>
+                        <span class="font-bold text-cyber-main">{{ $claim->order->payment->payment_method ?? 'Cash on Pickup' }}</span>
+                    </div>
                     @if($claim->is_claimed)
                     <div class="flex justify-between py-1 border-b border-cyber/50">
                         <span class="text-cyber-muted">Claimed At</span>
