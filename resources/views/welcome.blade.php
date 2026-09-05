@@ -244,30 +244,30 @@
                 <!-- CUSTOMER SIDEBAR LINKS -->
                 <template x-if="userRole === 'customer'">
                     <div class="space-y-1">
-                        <button @click="currentTab = 'customer-dashboard'" :class="currentTab === 'customer-dashboard' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'customer-dashboard'" :class="currentTab === 'customer-dashboard' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-gauge w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Dashboard</span>
                         </button>
-                        <button @click="currentTab = 'new-print-request'; resetPrintForm()" :class="currentTab === 'new-print-request' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'new-print-request'; resetPrintForm()" :class="currentTab === 'new-print-request' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-file-circle-plus w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>New Print Request</span>
                         </button>
-                        <button @click="currentTab = 'customer-orders'" :class="currentTab === 'customer-orders' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'customer-orders'" :class="currentTab === 'customer-orders' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-boxes-stacked w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>My Orders</span>
                             <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950" x-text="customerOrdersCount">0</span>
                         </button>
-                        <button @click="currentTab = 'customer-quotations'" :class="currentTab === 'customer-quotations' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'customer-quotations'" :class="currentTab === 'customer-quotations' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-file-invoice-dollar w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Quotations</span>
                             <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-amber-500 text-navy-950" x-text="customerQuotesCount">0</span>
                         </button>
-                        <button @click="currentTab = 'customer-notifications'" :class="currentTab === 'customer-notifications' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'customer-notifications'" :class="currentTab === 'customer-notifications' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-bell w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Notifications</span>
                             <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950" x-show="unreadCount > 0" x-text="unreadCount">0</span>
                         </button>
-                        <button @click="currentTab = 'customer-profile'" :class="currentTab === 'customer-profile' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'customer-profile'" :class="currentTab === 'customer-profile' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-circle-user w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Profile</span>
                         </button>
@@ -277,41 +277,41 @@
                 <!-- STAFF / ADMIN SIDEBAR LINKS -->
                 <template x-if="userRole === 'admin'">
                     <div class="space-y-1">
-                        <button @click="currentTab = 'admin-dashboard'" :class="currentTab === 'admin-dashboard' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-dashboard'" :class="currentTab === 'admin-dashboard' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-chart-line w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Dashboard</span>
                         </button>
-                        <button @click="currentTab = 'admin-orders'" :class="currentTab === 'admin-orders' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-orders'" :class="currentTab === 'admin-orders' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-receipt w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Orders</span>
                             <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950" x-text="adminOrdersCount">0</span>
                         </button>
-                        <button @click="currentTab = 'admin-production'" :class="currentTab === 'admin-production' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-production'" :class="currentTab === 'admin-production' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-industry w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Production</span>
                         </button>
-                        <button @click="currentTab = 'admin-planning'" :class="currentTab === 'admin-planning' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-planning'" :class="currentTab === 'admin-planning' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-brain w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Capacity Planning</span>
                             <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950">AI</span>
                         </button>
-                        <button @click="currentTab = 'admin-inventory'" :class="currentTab === 'admin-inventory' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-inventory'" :class="currentTab === 'admin-inventory' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-warehouse w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Inventory</span>
                         </button>
-                        <button @click="currentTab = 'admin-branches'" :class="currentTab === 'admin-branches' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-branches'" :class="currentTab === 'admin-branches' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-code-branch w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Branches</span>
                         </button>
-                        <button @click="currentTab = 'admin-reports'" :class="currentTab === 'admin-reports' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-reports'" :class="currentTab === 'admin-reports' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-file-contract w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Reports</span>
                         </button>
-                        <button @click="currentTab = 'admin-notifications'" :class="currentTab === 'admin-notifications' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-notifications'" :class="currentTab === 'admin-notifications' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-bell w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Notifications</span>
                         </button>
-                        <button @click="currentTab = 'admin-settings'" :class="currentTab === 'admin-settings' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
+                        <button @click="currentTab = 'admin-settings'" :class="currentTab === 'admin-settings' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-sliders w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Settings</span>
                         </button>
@@ -360,27 +360,27 @@
                     <nav class="flex-1 space-y-1 px-4 py-4 overflow-y-auto">
                         <template x-if="userRole === 'customer'">
                             <div class="space-y-1">
-                                <button @click="currentTab = 'customer-dashboard'; sidebarOpen = false" :class="currentTab === 'customer-dashboard' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'customer-dashboard'; sidebarOpen = false" :class="currentTab === 'customer-dashboard' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-gauge w-5 mr-3 text-lg"></i>
                                     <span>Dashboard</span>
                                 </button>
-                                <button @click="currentTab = 'new-print-request'; sidebarOpen = false; resetPrintForm()" :class="currentTab === 'new-print-request' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'new-print-request'; sidebarOpen = false; resetPrintForm()" :class="currentTab === 'new-print-request' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-file-circle-plus w-5 mr-3 text-lg"></i>
                                     <span>New Print Request</span>
                                 </button>
-                                <button @click="currentTab = 'customer-orders'; sidebarOpen = false" :class="currentTab === 'customer-orders' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'customer-orders'; sidebarOpen = false" :class="currentTab === 'customer-orders' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-boxes-stacked w-5 mr-3 text-lg"></i>
                                     <span>My Orders</span>
                                 </button>
-                                <button @click="currentTab = 'customer-quotations'; sidebarOpen = false" :class="currentTab === 'customer-quotations' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'customer-quotations'; sidebarOpen = false" :class="currentTab === 'customer-quotations' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-file-invoice-dollar w-5 mr-3 text-lg"></i>
                                     <span>Quotations</span>
                                 </button>
-                                <button @click="currentTab = 'customer-notifications'; sidebarOpen = false" :class="currentTab === 'customer-notifications' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'customer-notifications'; sidebarOpen = false" :class="currentTab === 'customer-notifications' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-bell w-5 mr-3 text-lg"></i>
                                     <span>Notifications</span>
                                 </button>
-                                <button @click="currentTab = 'customer-profile'; sidebarOpen = false" :class="currentTab === 'customer-profile' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'customer-profile'; sidebarOpen = false" :class="currentTab === 'customer-profile' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-circle-user w-5 mr-3 text-lg"></i>
                                     <span>Profile</span>
                                 </button>
@@ -389,39 +389,39 @@
 
                         <template x-if="userRole === 'admin'">
                             <div class="space-y-1">
-                                <button @click="currentTab = 'admin-dashboard'; sidebarOpen = false" :class="currentTab === 'admin-dashboard' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-dashboard'; sidebarOpen = false" :class="currentTab === 'admin-dashboard' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-chart-line w-5 mr-3 text-lg"></i>
                                     <span>Dashboard</span>
                                 </button>
-                                <button @click="currentTab = 'admin-orders'; sidebarOpen = false" :class="currentTab === 'admin-orders' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-orders'; sidebarOpen = false" :class="currentTab === 'admin-orders' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-receipt w-5 mr-3 text-lg"></i>
                                     <span>Orders</span>
                                 </button>
-                                <button @click="currentTab = 'admin-production'; sidebarOpen = false" :class="currentTab === 'admin-production' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-production'; sidebarOpen = false" :class="currentTab === 'admin-production' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-industry w-5 mr-3 text-lg"></i>
                                     <span>Production</span>
                                 </button>
-                                <button @click="currentTab = 'admin-planning'; sidebarOpen = false" :class="currentTab === 'admin-planning' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-planning'; sidebarOpen = false" :class="currentTab === 'admin-planning' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-brain w-5 mr-3 text-lg"></i>
                                     <span>Capacity Planning</span>
                                 </button>
-                                <button @click="currentTab = 'admin-inventory'; sidebarOpen = false" :class="currentTab === 'admin-inventory' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-inventory'; sidebarOpen = false" :class="currentTab === 'admin-inventory' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-warehouse w-5 mr-3 text-lg"></i>
                                     <span>Inventory</span>
                                 </button>
-                                <button @click="currentTab = 'admin-branches'; sidebarOpen = false" :class="currentTab === 'admin-branches' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-branches'; sidebarOpen = false" :class="currentTab === 'admin-branches' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-code-branch w-5 mr-3 text-lg"></i>
                                     <span>Branches</span>
                                 </button>
-                                <button @click="currentTab = 'admin-reports'; sidebarOpen = false" :class="currentTab === 'admin-reports' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-reports'; sidebarOpen = false" :class="currentTab === 'admin-reports' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-file-contract w-5 mr-3 text-lg"></i>
                                     <span>Reports</span>
                                 </button>
-                                <button @click="currentTab = 'admin-notifications'; sidebarOpen = false" :class="currentTab === 'admin-notifications' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-notifications'; sidebarOpen = false" :class="currentTab === 'admin-notifications' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-bell w-5 mr-3 text-lg"></i>
                                     <span>Notifications</span>
                                 </button>
-                                <button @click="currentTab = 'admin-settings'; sidebarOpen = false" :class="currentTab === 'admin-settings' ? 'bg-brand-500/20 text-brand-400 border-l-4 border-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
+                                <button @click="currentTab = 'admin-settings'; sidebarOpen = false" :class="currentTab === 'admin-settings' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md">
                                     <i class="fa-solid fa-sliders w-5 mr-3 text-lg"></i>
                                     <span>Settings</span>
                                 </button>
@@ -506,8 +506,7 @@
                         <div class="absolute inset-0 bg-[linear-gradient(to_right,#0e1e38_1px,transparent_1px),linear-gradient(to_bottom,#0e1e38_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-30"></div>
                         <div class="relative z-10 max-w-xl">
                             <h2 class="text-2xl md:text-3xl font-bold font-display" x-text="'Welcome back, ' + userName + '!'"></h2>
-                            <p class="mt-2 text-sm text-navy-100 leading-relaxed">Submit your artwork files, request instantaneous quotations, and monitor your print items routing to optimized local branches seamlessly.</p>
-                            <div class="mt-6 flex flex-wrap gap-3">
+                            <div class="mt-4 flex flex-wrap gap-3">
                                 <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="bg-cyan-500 hover:bg-cyan-600 text-navy-950 font-bold px-5 py-2.5 rounded-lg text-sm transition-all shadow flex items-center gap-2">
                                     <i class="fa-solid fa-plus"></i> Submit Print Request
                                 </button>
@@ -689,7 +688,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <template x-for="service in availableServices" :key="service.id">
                                     <div @click="formService = service.name; formServiceId = service.id" :class="formService === service.name ? 'border-cyan-500 bg-cyan-50/20 shadow-md ring-1 ring-cyan-500' : 'border-slate-200 hover:border-slate-300'" class="border p-5 rounded-xl cursor-pointer transition flex items-start gap-4">
-                                        <div class="h-10 w-10 bg-slate-50 text-navy-700 border border-slate-150 rounded-lg flex items-center justify-center text-lg shrink-0">
+                                        <div class="h-10 w-10 bg-cyan-500/10 text-cyan-500 border border-cyan-500/20 rounded-lg flex items-center justify-center text-lg shrink-0">
                                             <i :class="service.icon"></i>
                                         </div>
                                         <div>

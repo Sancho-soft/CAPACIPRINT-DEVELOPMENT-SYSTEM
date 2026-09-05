@@ -59,9 +59,9 @@
     {{-- Metrics Grid --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- Assigned Jobs --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-list-check text-2xl text-slate-500 group-hover:text-cyan-400 transition-colors"></i>
+                <i class="fa-solid fa-list-check text-2xl text-cyan-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight">ASSIGNED JOBS</div>
             </div>
             <div class="text-right shrink-0">
@@ -70,9 +70,9 @@
         </div>
 
         {{-- In Production --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-blue-400 p-5 flex items-center justify-between shadow-lg hover:border-blue-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-blue-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-gears text-2xl text-slate-500 group-hover:text-blue-400 transition-colors"></i>
+                <i class="fa-solid fa-gears text-2xl text-blue-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-blue-400 uppercase tracking-wider leading-tight">IN PRODUCTION</div>
             </div>
             <div class="text-right shrink-0">
@@ -81,9 +81,9 @@
         </div>
 
         {{-- Completed Jobs --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-circle-check text-2xl text-slate-500 group-hover:text-emerald-400 transition-colors"></i>
+                <i class="fa-solid fa-circle-check text-2xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight">COMPLETED JOBS</div>
             </div>
             <div class="text-right shrink-0">
@@ -92,9 +92,9 @@
         </div>
 
         {{-- Delayed / Priority --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-triangle-exclamation text-2xl text-slate-500 group-hover:text-amber-400 transition-colors"></i>
+                <i class="fa-solid fa-triangle-exclamation text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight">DELAYED / PRIORITY</div>
             </div>
             <div class="text-right shrink-0">

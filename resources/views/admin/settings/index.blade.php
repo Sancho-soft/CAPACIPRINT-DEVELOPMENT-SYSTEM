@@ -4,12 +4,12 @@
 @section('page-title', 'Account Settings')
 
 @section('content')
-<div class="space-y-6 max-w-7xl font-sans">
+<div class="space-y-4 max-w-7xl font-sans">
 
     <!-- Header Banner -->
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+            <h1 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
                 <i class="fa-solid fa-user-gear text-cyan-500"></i> Account Settings
             </h1>
         </div>
@@ -17,19 +17,19 @@
 
     <!-- Alert Notifications -->
     @if(session('success'))
-        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 flex items-center gap-3 text-xs font-medium shadow-md">
-            <i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>
+        <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 flex items-center gap-3 text-xs font-medium shadow-sm">
+            <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
             {{ session('success') }}
         </div>
     @endif
     @if(session('error'))
-        <div class="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 flex items-center gap-3 text-xs font-medium shadow-md">
-            <i class="fa-solid fa-triangle-exclamation text-red-500 text-base"></i>
+        <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 flex items-center gap-3 text-xs font-medium shadow-sm">
+            <i class="fa-solid fa-triangle-exclamation text-red-500 text-sm"></i>
             {{ session('error') }}
         </div>
     @endif
     @if($errors->any())
-        <div class="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 text-xs space-y-1 shadow-md">
+        <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-xs space-y-1 shadow-sm">
             <div class="font-bold flex items-center gap-2">
                 <i class="fa-solid fa-circle-xmark"></i> Please correct the following errors:
             </div>
@@ -42,13 +42,13 @@
     @endif
 
     <!-- Main 2-Column Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
         <!-- LEFT COLUMN (Spans 2 cols) -->
-        <div class="lg:col-span-2 space-y-6">
+        <div class="lg:col-span-2 space-y-4">
 
             <!-- 1. Personal Information Card -->
-            <div class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
+            <div class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
                 <div class="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800/80 pb-4">
                     <div class="h-8 w-8 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-sm">
                         <i class="fa-solid fa-id-card"></i>

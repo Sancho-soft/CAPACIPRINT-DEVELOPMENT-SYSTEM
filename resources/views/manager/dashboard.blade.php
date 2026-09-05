@@ -18,9 +18,9 @@
     {{-- Production Metrics --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {{-- Active Jobs --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-4 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
             <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-industry text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <i class="fa-solid fa-industry text-xl text-cyan-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[10px] font-black text-cyan-400 uppercase tracking-wider leading-tight">ACTIVE JOBS</div>
             </div>
             <div class="text-right shrink-0">
@@ -29,9 +29,9 @@
         </div>
 
         {{-- Due Today --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-4 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
             <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-clock text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <i class="fa-solid fa-clock text-xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[10px] font-black text-emerald-400 uppercase tracking-wider leading-tight">DUE TODAY</div>
             </div>
             <div class="text-right shrink-0">
@@ -40,9 +40,9 @@
         </div>
 
         {{-- Due Tomorrow --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-4 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-calendar-day text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <i class="fa-solid fa-calendar-day text-xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[10px] font-black text-amber-400 uppercase tracking-wider leading-tight">DUE TOMORROW</div>
             </div>
             <div class="text-right shrink-0">
@@ -51,9 +51,9 @@
         </div>
 
         {{-- Delayed Jobs --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-red-500 p-4 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-red-500/30 transition group">
             <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-triangle-exclamation text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-red-500 transition-all"></i>
+                <i class="fa-solid fa-triangle-exclamation text-xl text-red-500 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[10px] font-black text-red-500 uppercase tracking-wider leading-tight">DELAYED JOBS</div>
             </div>
             <div class="text-right shrink-0">
@@ -62,9 +62,9 @@
         </div>
 
         {{-- Rush / Urgent --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-orange-500 p-4 flex items-center justify-between shadow-lg hover:border-orange-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-4 flex items-center justify-between shadow-lg hover:border-orange-500/30 transition group">
             <div class="flex items-center gap-3 min-w-0">
-                <i class="fa-solid fa-bolt text-xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-orange-500 transition-all"></i>
+                <i class="fa-solid fa-bolt text-xl text-orange-500 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[10px] font-black text-orange-500 uppercase tracking-wider leading-tight">RUSH / URGENT</div>
             </div>
             <div class="text-right shrink-0">

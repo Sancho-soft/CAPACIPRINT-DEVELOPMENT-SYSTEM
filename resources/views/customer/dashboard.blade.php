@@ -8,30 +8,28 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- HERO WELCOME BANNER (ALIGNED WITH SUPER ADMIN CONTROL CENTER) --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-[#111A24] border border-slate-800/80 rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        {{-- Ambient cyan glow in background --}}
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- HERO WELCOME HEADER --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <div class="relative py-1">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             {{-- Left Title & Icon --}}
-            <div class="flex items-center gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-[0_0_25px_rgba(6,182,212,0.25)] shrink-0">
+            <div class="flex items-center gap-3.5">
+                <div class="h-11 w-11 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 dark:text-cyan-400 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-user-circle"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-white">Welcome back, {{ auth()->user()->name }}!</h2>
-                    <p class="text-xs text-slate-400 mt-1">Submit artwork files, receive instant quotations, and monitor your print jobs routed to optimised branches.</p>
+                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Welcome back, {{ auth()->user()->name }}!</h2>
                 </div>
             </div>
 
             {{-- Right Controls: Quick Navigation Actions --}}
-            <div class="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
-                <a href="{{ route('customer.print-requests.create') }}" class="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-[0_0_20px_rgba(6,182,212,0.35)] transition flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
+                <a href="{{ route('customer.print-requests.create') }}" class="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-md transition flex items-center gap-2">
                     <i class="fa-solid fa-plus text-xs"></i> Submit Print Request
                 </a>
-                <a href="{{ route('customer.orders.index') }}" class="px-4 py-2.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-magnifying-glass text-xs text-cyan-400"></i> View My Orders
+                <a href="{{ route('customer.orders.index') }}" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500"></i> View My Orders
                 </a>
             </div>
         </div>
@@ -42,9 +40,9 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {{-- Card 1: Active Orders (Cyan) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <i class="fa-solid fa-boxes-stacked text-2xl text-cyan-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE ORDERS</div>
             </div>
             <div class="text-right shrink-0">
@@ -53,9 +51,9 @@
         </div>
 
         {{-- Card 2: Pending Quotations (Amber) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <i class="fa-solid fa-file-invoice-dollar text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PENDING QUOTATIONS</div>
             </div>
             <div class="text-right shrink-0">
@@ -64,9 +62,9 @@
         </div>
 
         {{-- Card 3: Completed Orders (Emerald) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-clipboard-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <i class="fa-solid fa-clipboard-check text-2xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">COMPLETED ORDERS</div>
             </div>
             <div class="text-right shrink-0">

@@ -24,9 +24,9 @@
     {{-- Metrics Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {{-- New Requests --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-cyan-400 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-circle-plus text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
+                <i class="fa-solid fa-file-circle-plus text-2xl text-cyan-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">NEW REQUESTS</div>
             </div>
             <div class="text-right shrink-0">
@@ -35,9 +35,9 @@
         </div>
 
         {{-- Pending Quotes --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-amber-400 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
+                <i class="fa-solid fa-file-invoice-dollar text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PENDING QUOTES</div>
             </div>
             <div class="text-right shrink-0">
@@ -46,9 +46,9 @@
         </div>
 
         {{-- Payment Verification --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-emerald-400 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-credit-card text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
+                <i class="fa-solid fa-credit-card text-2xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">PAYMENT VERIFY</div>
             </div>
             <div class="text-right shrink-0">
@@ -57,9 +57,9 @@
         </div>
 
         {{-- Active Orders --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 border-l-4 border-l-indigo-400 p-5 flex items-center justify-between shadow-lg hover:border-indigo-500/30 transition group">
+        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-indigo-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-indigo-400 transition-all"></i>
+                <i class="fa-solid fa-boxes-stacked text-2xl text-indigo-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-indigo-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE ORDERS</div>
             </div>
             <div class="text-right shrink-0">

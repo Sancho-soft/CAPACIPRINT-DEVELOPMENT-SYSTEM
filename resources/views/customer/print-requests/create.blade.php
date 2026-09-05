@@ -11,7 +11,7 @@
     </div>
 
     {{-- ── Step Indicators ─────────────────────────────── --}}
-    <div class="mb-8 bg-cyber-card border border-cyber p-5 rounded-2xl shadow-sm">
+    <div class="mb-5 px-2 py-1">
         <div class="flex items-center justify-between relative">
             <template x-for="(label, i) in steps" :key="i">
                 <div class="flex-1 flex flex-col items-center relative">
@@ -33,7 +33,7 @@
                     </div>
 
                     {{-- Step Label --}}
-                    <span class="text-[10px] font-bold uppercase tracking-wider mt-2.5 text-center transition-colors" 
+                    <span class="text-[10px] font-bold uppercase tracking-wider mt-2 text-center transition-colors" 
                           :class="step === i+1 ? 'text-cyan-500 dark:text-cyan-400 font-black' : 'text-slate-500 dark:text-slate-400'" 
                           x-text="label"></span>
                 </div>
@@ -162,7 +162,7 @@
                         <input type="radio" name="service" value="{{ $svc['name'] }}" x-model="form.service" class="sr-only" required>
                         
                         <div class="flex items-start gap-3.5">
-                            <div class="h-10 w-10 bg-cyber-sub text-cyan-400 border border-cyber rounded-xl flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition-transform group-hover:border-cyan-400/50">
+                            <div class="h-10 w-10 bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 rounded-xl flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition-transform group-hover:border-cyan-400/50">
                                 <i class="fa-solid {{ $svc['icon'] }}"></i>
                             </div>
                             <div class="min-w-0 flex-1">

@@ -88,10 +88,10 @@
 
         /* Eye-Friendly Soft Light Theme Variables */
         html.light-theme {
-            --bg-base: #F1F5F9;
-            --bg-surface: #F8FAFC;
+            --bg-base: #FFFFFF;
+            --bg-surface: #FFFFFF;
             --bg-card: #FFFFFF;
-            --bg-card-sub: #F1F5F9;
+            --bg-card-sub: rgba(6,182,212,0.06);
             --border-main: #E2E8F0;
             --border-sub: #CBD5E1;
             --text-main: #1E293B;
@@ -291,6 +291,21 @@
             color: #64748B !important;
         }
 
+        /* Protect contrast for dark container blocks in Light Mode */
+        html.light-theme main .bg-slate-900 *,
+        html.light-theme main .bg-slate-800 *,
+        html.light-theme main .bg-navy-900 * {
+            color: inherit;
+        }
+        html.light-theme main .bg-slate-900 .text-white,
+        html.light-theme main .bg-navy-900 .text-white {
+            color: #FFFFFF !important;
+        }
+        html.light-theme main .bg-slate-900 .text-slate-300,
+        html.light-theme main .bg-navy-900 .text-slate-300 {
+            color: #CBD5E1 !important;
+        }
+
         /* Border colors */
         html.light-theme .border-slate-800\/80,
         html.light-theme .border-slate-800,
@@ -375,13 +390,18 @@
             background-color: #F1F5F9 !important;
         }
 
-        /* Light-theme plain card styling - removes blurred drop shadows extending past card borders ("lumampas") */
-        html.light-theme .shadow-2xl,
-        html.light-theme .shadow-xl,
-        html.light-theme .shadow-lg,
-        html.light-theme .shadow-md,
-        html.light-theme .shadow {
-            box-shadow: none !important;
+        /* Light-theme soft diffused shadows & low-glare styling */
+        html.light-theme .shadow-2xl {
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+        }
+        html.light-theme .shadow-xl {
+            box-shadow: 0 6px 16px -3px rgba(15, 23, 42, 0.04), 0 4px 6px -4px rgba(15, 23, 42, 0.03) !important;
+        }
+        html.light-theme .shadow-lg {
+            box-shadow: 0 4px 10px -2px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
+        }
+        html.light-theme .shadow-md {
+            box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02) !important;
         }
 
         html.light-theme .blur-3xl {

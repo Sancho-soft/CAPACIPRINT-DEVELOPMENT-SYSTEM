@@ -88,7 +88,7 @@
 
             <p class="px-2.5 pt-1 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Dashboard</p>
             <a href="{{ route('customer.dashboard') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Dashboard Overview' : ''">
                 <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
@@ -96,14 +96,14 @@
             </a>
 
             <a href="{{ route('customer.print-requests.create') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'New Print Request' : ''">
                 <i class="fa-solid fa-file-circle-plus w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">New Print Request</span>
             </a>
             <a href="{{ route('customer.print-requests.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'My Requests' : ''">
                 <i class="fa-solid fa-list-ul w-5 text-center text-sm shrink-0"></i>
@@ -112,7 +112,7 @@
 
             <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Finance</p>
             <a href="{{ route('customer.quotations.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Quotations' : ''">
                 <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-sm shrink-0"></i>
@@ -123,7 +123,7 @@
                 @endif
             </a>
             <a href="{{ route('customer.payments.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Payments' : ''">
                 <i class="fa-solid fa-credit-card w-5 text-center text-sm shrink-0"></i>
@@ -132,7 +132,7 @@
 
             <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Tracking &amp; Claiming</p>
             <a href="{{ route('customer.claiming.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.15)]' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'QR / Claiming' : ''">
                 <i class="fa-solid fa-qrcode w-5 text-center text-sm shrink-0"></i>
