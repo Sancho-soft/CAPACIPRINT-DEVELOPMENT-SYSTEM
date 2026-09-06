@@ -165,7 +165,7 @@
                         @forelse($recentUsers as $u)
                             @php
                                 $roleBadge = match($u->role) {
-                                    'super_admin', 'admin' => 'bg-slate-800 text-sky-400 border-slate-700 dark:bg-slate-800 dark:text-sky-300 dark:border-slate-700',
+                                    'system_admin', 'admin' => 'bg-slate-800 text-sky-400 border-slate-700 dark:bg-slate-800 dark:text-sky-300 dark:border-slate-700',
                                     'owner', 'management'  => 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
                                     'manager'              => 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20',
                                     'production_officer', 'production' => 'bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700',

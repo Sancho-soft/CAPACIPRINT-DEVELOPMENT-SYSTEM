@@ -30,14 +30,14 @@ TABLE OF CONTENTS
 CapaciPrint integrates multi-branch printing shop operations into a unified 
 digital workflow. The system coordinates 9 distinct user actors across 20 modules:
 
-  1. Super Admin       : Full system control, role permissions, emergency recovery.
-  2. Owner / Executive : Financial dashboards, branch performance, procurement approvals.
-  3. System Admin      : User accounts, branch infrastructure, machine catalogs.
-  4. Branch Manager    : Capacity scheduling, branch workload, employee management.
-  5. Production Officer: Production planning, multi-branch job scheduling.
-  6. Customer Service  : Customer CRM, request intake, quotation, payments, claiming.
-  7. Layout Designer   : Artwork preparation, layout proofs, revision approvals.
-  8. Production Tech   : Job execution, machine operations, material deductions.
+  1. Owner / Executive : Financial dashboards, branch performance, procurement approvals.
+  2. System Admin      : User accounts, branch infrastructure, machine catalogs.
+  3. Branch Manager    : Capacity scheduling, branch workload, employee management.
+  4. Production Officer: Production planning, multi-branch job scheduling.
+  5. Customer Service  : Customer CRM, request intake, quotation, payments, claiming.
+  6. Layout Designer   : Artwork preparation, layout proofs, revision approvals.
+  7. Production Tech   : Job execution, machine operations, material deductions.
+  8. Inventory Staff   : Raw materials tracking, supplier purchase requisitions.
   9. Customer          : Request wizard, quote approval, order tracking, claiming.
 
 ================================================================================
@@ -54,7 +54,7 @@ MODULE 1: AUTHENTICATION & ACCOUNT ACCESS
   * Checks encrypted credentials (bcrypt) and verifies user status.
   * Role Redirection: Upon successful login, the system automatically redirects
     the user to their designated dashboard:
-      - Admin / Super Admin -> /admin/dashboard
+      - System Admin        -> /admin/dashboard
       - Customer            -> /customer/dashboard
       - Customer Service    -> /staff/dashboard
       - Branch Manager      -> /manager/dashboard
@@ -67,7 +67,7 @@ MODULE 1: AUTHENTICATION & ACCOUNT ACCESS
 MODULE 2: USER & ACCESS MANAGEMENT
 --------------------------------------------------------------------------------
 - Purpose: Full administrative lifecycle of system user accounts and permissions.
-- Key Actors: Super Admin, System Admin.
+- Key Actors: System Admin.
 - Implementation Details:
   * Handled via App\Http\Controllers\Admin\UserController.
   * Features:

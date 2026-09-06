@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,10 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectTo(
             guests: '/login',
-            users: fn() => match(auth()->user()?->role) {
-                'super_admin'        => '/admin/dashboard',
+            users: fn() => match(Auth::user()?->role) {
                 'owner', 'management'=> '/management/dashboard',
-                'admin'              => '/admin/dashboard',
+                'admin', 'system_admin' => '/admin/dashboard',
                 'manager'            => '/manager/dashboard',
                 'production_officer' => '/manager/production-planning',
                 'staff'              => '/staff/dashboard',

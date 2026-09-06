@@ -6,9 +6,6 @@
 <div class="space-y-6 w-full">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- HERO WELCOME BANNER (ALIGNED WITH SUPER ADMIN CONTROL CENTER) --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- HERO WELCOME HEADER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="relative py-1">
@@ -36,7 +33,7 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 3 KPI METRICS WITH COLORED ACCENTS (ALIGNED WITH SUPER ADMIN UI) --}}
+    {{-- 3 KPI METRICS WITH COLORED ACCENTS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {{-- Card 1: Active Orders (Cyan) --}}

@@ -51,11 +51,12 @@ use App\Http\Controllers\Management\InventoryController as MgmtInventory;
 use App\Http\Controllers\Management\ReportController as MgmtReport;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 // ─────────────────────────────────────────────────────────────────
 Route::get('/', function () {
-    if (auth()->check()) {
-        return match(auth()->user()->role) {
+    if (Auth::check()) {
+        return match(Auth::user()->role) {
             'system_admin', 'admin' => redirect()->route('admin.dashboard'),
             'owner', 'management'  => redirect()->route('management.dashboard'),
             'manager'              => redirect()->route('manager.dashboard'),
@@ -283,7 +284,7 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
     if (in_array($role, ['system_admin', 'owner', 'admin', 'manager', 'production_officer', 'staff', 'designer', 'production', 'customer'])) {
         $user = \App\Models\User::where('role', $role)->first();
         if ($user) {
-            auth()->login($user);
+            Auth::login($user);
             return redirect()->to(match($role) {
                 'customer'           => route('customer.dashboard'),
                 'staff'              => route('staff.dashboard'),
@@ -305,7 +306,7 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
 use App\Http\Controllers\Designer\DesignController as DesignerController;
 
 // ─────────────────────────────────────────────────────────────────
-// DESIGN & LAYOUT MANAGEMENT (role: designer, staff, admin, superadmin)
+// DESIGN & LAYOUT MANAGEMENT (role: designer, staff, admin)
 // ─────────────────────────────────────────────────────────────────
 Route::middleware(['auth'])->prefix('designer')->name('designer.')->group(function () {
     Route::get('/',                                    [DesignerController::class, 'index'])->name('index');
