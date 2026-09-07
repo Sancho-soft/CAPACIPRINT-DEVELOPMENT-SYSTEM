@@ -10,13 +10,15 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
         <div>
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-network-wired text-cyan-400 text-sm"></i>
+                <i class="fa-solid fa-network-wired text-cyan-600 dark:text-cyan-400 text-sm"></i>
                 <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">{{ $title }}</h3>
             </div>
-            <p class="text-[11px] sm:text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
+            @if(!empty($subtitle))
+                <p class="text-[11px] sm:text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
+            @endif
         </div>
         @if($actionUrl)
-            <a href="{{ $actionUrl }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 shrink-0">
+            <a href="{{ $actionUrl }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1 shrink-0">
                 {{ $actionLabel }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </a>
         @endif
@@ -54,20 +56,21 @@
                 $totalMachines = $b->machines_count ?? ($b->machines ? $b->machines->count() : 0);
             @endphp
 
-            <div class="p-4 sm:p-5 rounded-2xl border border-cyber bg-cyber-sub/60 hover:border-cyan-500/30 transition-all duration-200 flex flex-col justify-between space-y-3 group">
+            <a href="{{ $actionUrl ?? route('management.branches.index') }}" class="p-4 sm:p-5 rounded-2xl border border-cyber bg-cyber-sub/60 hover:border-cyan-500/40 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-3 group cursor-pointer block">
                 {{-- Header --}}
                 <div class="flex items-start justify-between gap-2">
                     <div class="min-w-0">
-                        <h4 class="font-black text-cyber-main text-sm truncate font-display group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors">
-                            {{ $b->name }}
+                        <h4 class="font-black text-cyber-main text-sm truncate font-display group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0"></span>
+                            <span class="truncate">{{ $b->name }}</span>
                         </h4>
                         <span class="text-[10px] text-cyber-muted flex items-center gap-1 mt-0.5">
                             <i class="fa-solid fa-location-dot text-[9px] text-cyan-600 dark:text-cyan-400"></i>
                             {{ $b->location ?? 'Hub' }}
                         </span>
                     </div>
-                    <span class="text-[9px] font-black uppercase px-2 py-0.5 rounded border {{ $statusColor['badge'] }} shrink-0 font-mono">
-                        {{ $statusColor['label'] }}
+                    <span class="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0">
+                        Inspect <i class="fa-solid fa-arrow-right text-[8px] transition-transform group-hover:translate-x-0.5"></i>
                     </span>
                 </div>
 
@@ -100,7 +103,7 @@
                              style="width: {{ $pct }}%"></div>
                     </div>
                 </div>
-            </div>
+            </a>
         @empty
             <div class="col-span-3 text-center py-6 text-cyber-muted text-xs">
                 No active branches configured in the system.

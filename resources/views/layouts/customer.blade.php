@@ -68,31 +68,31 @@
     {{-- Customer Collapsible Sidebar --}}
     <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-all duration-300 ease-in-out shadow-2xl print:hidden"
            :class="{
-               'w-64': !sidebarCollapsed,
+               'w-56': !sidebarCollapsed,
                'w-20': sidebarCollapsed,
                'translate-x-0': sidebarOpen,
                '-translate-x-full md:translate-x-0': !sidebarOpen
            }">
 
         {{-- Sidebar Brand — PINNED TOP --}}
-        <div class="shrink-0 h-16 px-4 border-b border-slate-800/80 flex items-center justify-between bg-transparent">
+        <div class="shrink-0 h-16 px-4 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between bg-transparent">
             <div class="flex items-center gap-3 min-w-0" :class="sidebarCollapsed ? 'justify-center w-full' : ''">
                 <img src="{{ asset('images/caplogo.png') }}?v={{ time() }}" alt="CapaciPrint Logo" class="h-10 w-10 object-contain shrink-0 drop-shadow-sm">
                 <div class="min-w-0" x-show="!sidebarCollapsed" x-transition.opacity>
-                    <h1 class="font-black text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
+                    <h1 class="font-black text-slate-900 dark:text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
                 </div>
             </div>
-            <button @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-white">
+            <button @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-slate-900 dark:hover:text-white">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
 
         {{-- Role Navigation Links — SCROLLABLE MIDDLE --}}
-        <nav class="flex-1 min-h-0 px-2.5 py-3 space-y-1 overflow-y-auto no-scrollbar text-xs font-medium">
+        <nav class="flex-1 min-h-0 px-2.5 py-3 space-y-1 overflow-y-auto no-scrollbar text-[13px]">
 
-            <p class="px-2.5 pt-1 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Dashboard</p>
+            <p class="px-3 pt-1 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider" x-show="!sidebarCollapsed" x-transition.opacity>Dashboard</p>
             <a href="{{ route('customer.dashboard') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Dashboard Overview' : ''">
                 <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
@@ -100,43 +100,43 @@
             </a>
 
             <a href="{{ route('customer.print-requests.create') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.create') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'New Print Request' : ''">
                 <i class="fa-solid fa-file-circle-plus w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">New Print Request</span>
             </a>
             <a href="{{ route('customer.print-requests.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.print-requests.index') || request()->routeIs('customer.print-requests.show') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'My Requests' : ''">
                 <i class="fa-solid fa-list-ul w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">My Requests</span>
             </a>
 
-            <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Finance</p>
+            <p class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider" x-show="!sidebarCollapsed" x-transition.opacity>Finance</p>
             <a href="{{ route('customer.quotations.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.quotations.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Quotations' : ''">
                 <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">Quotations</span>
                 @php $quoteCount = auth()->user()->quotations()->where('status','pending')->count(); @endphp
                 @if($quoteCount > 0)
-                    <span x-show="!sidebarCollapsed" class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">{{ $quoteCount }}</span>
+                    <span x-show="!sidebarCollapsed" class="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30">{{ $quoteCount }}</span>
                 @endif
             </a>
             <a href="{{ route('customer.payments.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.payments.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'Payments' : ''">
                 <i class="fa-solid fa-credit-card w-5 text-center text-sm shrink-0"></i>
                 <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">Payments</span>
             </a>
 
-            <p class="px-2.5 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1" x-show="!sidebarCollapsed" x-transition.opacity>Tracking &amp; Claiming</p>
+            <p class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider" x-show="!sidebarCollapsed" x-transition.opacity>Tracking &amp; Claiming</p>
             <a href="{{ route('customer.claiming.index') }}"
-               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('customer.claiming.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}"
                :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                :title="sidebarCollapsed ? 'QR / Claiming' : ''">
                 <i class="fa-solid fa-qrcode w-5 text-center text-sm shrink-0"></i>
@@ -146,12 +146,12 @@
         </nav>
 
         {{-- Desktop Sidebar Collapse / Expand Toggle Button --}}
-        <div class="hidden md:flex shrink-0 p-3 border-t border-slate-800/80 bg-transparent items-center"
+        <div class="hidden md:flex shrink-0 p-3 border-t border-slate-200 dark:border-slate-800/80 bg-transparent items-center"
              :class="sidebarCollapsed ? 'justify-center' : 'justify-between'">
-            <span x-show="!sidebarCollapsed" x-transition.opacity class="text-[11px] font-bold text-slate-500 uppercase tracking-wider pl-2">Collapse Menu</span>
+            <span x-show="!sidebarCollapsed" x-transition.opacity class="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider pl-2">Collapse Menu</span>
             <button @click="toggleSidebar()" 
                     type="button" 
-                    class="h-8 w-8 rounded-xl bg-slate-800/80 hover:bg-cyan-500/20 text-slate-400 hover:text-cyan-400 border border-slate-700/80 hover:border-cyan-500/40 flex items-center justify-center transition shadow-sm cursor-pointer"
+                    class="h-8 w-8 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-cyan-50 dark:hover:bg-cyan-500/20 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 border border-slate-200 dark:border-slate-700/80 flex items-center justify-center transition shadow-xs cursor-pointer"
                     :title="sidebarCollapsed ? 'Expand Sidebar (Ctrl + B)' : 'Collapse Sidebar'">
                 <i class="fa-solid text-xs transition-transform duration-300"
                    :class="sidebarCollapsed ? 'fa-angles-right' : 'fa-angles-left'"></i>
@@ -176,16 +176,16 @@
                 {{-- Direct Quick Theme Toggle Button --}}
                 <button @click="toggleTheme()" 
                         type="button" 
-                        class="hidden sm:flex items-center justify-center h-9 w-9 text-cyber-muted hover:text-cyan-400 hover:bg-cyber-sub rounded-xl border border-cyber transition cursor-pointer"
+                        class="hidden sm:flex items-center justify-center h-10 w-10 text-cyber-muted hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl transition cursor-pointer"
                         :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-                    <i :class="isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-700'" class="text-sm"></i>
+                    <i :class="isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-700 dark:text-slate-300'" class="text-lg"></i>
                 </button>
 
-                <a href="{{ route('customer.notifications.index') }}" class="relative p-2 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl transition flex items-center justify-center border border-cyber/50" title="Notifications">
-                    <i class="fa-solid fa-bell text-base"></i>
+                <a href="{{ route('customer.notifications.index') }}" class="relative h-10 w-10 text-cyber-muted hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl transition flex items-center justify-center" title="Notifications">
+                    <i class="fa-solid fa-bell text-lg"></i>
                     @php $bellCount = auth()->user()->notifications()->where('is_read', false)->count(); @endphp
                     @if($bellCount > 0)
-                        <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                        <span class="absolute top-2 right-2 flex h-2.5 w-2.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500 ring-2 ring-cyber-surface"></span>
                         </span>
@@ -220,22 +220,6 @@
                          class="absolute right-0 mt-2.5 w-64 rounded-2xl bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-2 text-xs space-y-1 backdrop-blur-xl"
                          x-cloak>
                         
-                        {{-- Slideable Dark Mode Interactive Toggle --}}
-                        <div class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/60 flex items-center justify-between">
-                            <div class="flex items-center gap-2.5">
-                                <i :class="isDark ? 'fa-solid fa-moon text-cyan-400' : 'fa-solid fa-sun text-amber-500'" class="text-sm transition-colors"></i>
-                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200" x-text="isDark ? 'Dark Mode' : 'Light Mode'"></span>
-                            </div>
-                            <button @click="toggleTheme()" 
-                                    type="button"
-                                    class="relative w-11 h-6 rounded-full transition-colors duration-300 p-0.5 flex items-center shadow-inner cursor-pointer focus:outline-none"
-                                    :class="isDark ? 'bg-cyan-950 border border-cyan-500/50' : 'bg-slate-300 border border-slate-400/80'">
-                                <div class="w-5 h-5 rounded-full transition-transform duration-300 transform flex items-center justify-center shadow-md text-[9px]"
-                                     :class="isDark ? 'translate-x-5 bg-cyan-400 text-slate-950 font-bold' : 'translate-x-0 bg-white text-amber-500'">
-                                    <i :class="isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
-                                </div>
-                            </button>
-                        </div>
 
                         {{-- Settings / Profile Link --}}
                         <a href="{{ route('customer.profile.index') }}" 

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CustomerMiddleware
@@ -14,14 +15,14 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check()) {
+        if (! Auth::check()) {
             return redirect()->route('login');
         }
 
-        $user = auth()->user();
+        $user = Auth::user();
 
-        // Allow super_admin or customer
-        if ($user->role === 'customer' || $user->role === 'super_admin') {
+        // Only allow customer
+        if ($user->role === 'customer') {
             return $next($request);
         }
 

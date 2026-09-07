@@ -9,23 +9,11 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     /**
-     * Seed demo accounts for all 9 system roles.
+     * Seed demo accounts for system roles.
      */
     public function run(): void
     {
-        // 1. Super Admin
-        User::updateOrCreate(
-            ['email' => 'superadmin@capaciprint.com'],
-            [
-                'name'     => 'Super Admin',
-                'password' => Hash::make('password'),
-                'role'     => 'super_admin',
-                'phone'    => '+63 969 195 2485',
-                'address'  => 'CapaciPrint Technical Center',
-            ]
-        );
-
-        // 2. Owner
+        // 1. Owner
         User::updateOrCreate(
             ['email' => 'owner@capaciprint.com'],
             [
@@ -48,7 +36,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 3. System Admin
+        // 2. System Admin
         User::updateOrCreate(
             ['email' => 'admin@capaciprint.com'],
             [
@@ -60,7 +48,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 4. Branch Manager
+        // 3. Branch Manager
         User::updateOrCreate(
             ['email' => 'manager@capaciprint.com'],
             [
@@ -72,7 +60,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 5. Production Officer
+        // 4. Production Officer
         User::updateOrCreate(
             ['email' => 'officer@capaciprint.com'],
             [
@@ -84,7 +72,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 6. Customer Service (CS)
+        // 5. Customer Service (CS)
         User::updateOrCreate(
             ['email' => 'staff@capaciprint.com'],
             [
@@ -96,7 +84,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 7. Layout Designer
+        // 6. Layout Designer
         User::updateOrCreate(
             ['email' => 'designer@capaciprint.com'],
             [
@@ -108,7 +96,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 8. Production Operator
+        // 7. Production Operator
         User::updateOrCreate(
             ['email' => 'production@capaciprint.com'],
             [
@@ -117,6 +105,18 @@ class UserSeeder extends Seeder
                 'role'     => 'production',
                 'phone'    => '+63 920 456 7890',
                 'address'  => 'Main Hub Production Floor',
+            ]
+        );
+
+        // 8. Inventory Staff
+        User::updateOrCreate(
+            ['email' => 'inventory@capaciprint.com'],
+            [
+                'name'     => 'Irene Warehouse',
+                'password' => Hash::make('password'),
+                'role'     => 'inventory',
+                'phone'    => '+63 921 777 8888',
+                'address'  => 'Central Materials Storage',
             ]
         );
 
@@ -129,18 +129,6 @@ class UserSeeder extends Seeder
                 'role'     => 'customer',
                 'phone'    => '+63 912 345 6789',
                 'address'  => 'Client Address',
-            ]
-        );
-
-        // 10. Inventory Staff
-        User::updateOrCreate(
-            ['email' => 'inventory@capaciprint.com'],
-            [
-                'name'     => 'Irene Warehouse',
-                'password' => Hash::make('password'),
-                'role'     => 'inventory',
-                'phone'    => '+63 921 777 8888',
-                'address'  => 'Central Materials Storage',
             ]
         );
     }

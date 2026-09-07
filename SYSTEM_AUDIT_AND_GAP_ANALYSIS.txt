@@ -23,14 +23,14 @@ and the local branch (main), approximately 85% of the core backend and UI
 workspaces are fully functional.
 
 Actor Roles Supported:
-  1. Super Admin
-  2. Owner / Executive Management
-  3. System Admin
-  4. Branch Manager
-  5. Production Officer / Planner
-  6. Customer Service (CS) / Sales
-  7. Layout Designer / Pre-press
-  8. Production Operator
+  1. Owner / Executive Management
+  2. System Admin
+  3. Branch Manager
+  4. Production Officer / Planner
+  5. Customer Service (CS) / Sales
+  6. Layout Designer / Pre-press
+  7. Production Operator
+  8. Inventory Staff
   9. Customer
 
 ================================================================================
@@ -44,7 +44,7 @@ Actor Roles Supported:
 
 [✅ COMPLETE] MODULE 2: USER & ACCESS MANAGEMENT
 - Status: Fully Functional.
-- Capabilities: Admin/Super Admin user CRUD, dynamic search, role filters across 9 roles.
+- Capabilities: System Admin user CRUD, dynamic search, role filters across 9 roles.
 - Lacking: Fine-grained granular permission toggles per user (role-based is active).
 
 [✅ COMPLETE] MODULE 3: BRANCH MANAGEMENT

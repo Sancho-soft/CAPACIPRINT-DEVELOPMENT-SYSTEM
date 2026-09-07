@@ -18,15 +18,7 @@
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
                 <div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Executive Management Dashboard</h2>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30 font-mono">
-                            Enterprise Direct
-                        </span>
-                    </div>
-                    <p class="text-xs text-cyber-muted mt-1 leading-relaxed">
-                        High-level commercial printing telemetry: multi-branch throughput, revenue health, capacity utilization, and order fulfillment.
-                    </p>
+                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Executive Management Dashboard</h2>
                 </div>
             </div>
 
@@ -45,15 +37,6 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 1: ACTIONABLE ATTENTION CENTER --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    <x-dashboard.attention-center 
-        :items="$attentionItems"
-        title="Executive Attention Center"
-        subtitle="Purchase requisitions awaiting signoff, delayed press runs, and critical inventory warnings"
-    />
-
-    {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 4 KEY EXECUTIVE METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
@@ -62,9 +45,6 @@
             :value="$totalOrders"
             icon="fa-solid fa-box-archive"
             accent="cyan"
-            trend="{{ $activeOrders }} active runs"
-            trendType="neutral"
-            subtitle="Lifetime order intake"
             :link="route('management.orders.index')"
         />
 
@@ -73,9 +53,7 @@
             :value="'₱' . number_format($totalRevenue, 2)"
             icon="fa-solid fa-coins"
             accent="emerald"
-            trend="₱{{ number_format($pendingPayments, 2) }} pending"
-            trendType="up"
-            subtitle="Verified client transactions"
+            :link="route('management.reports.index')"
         />
 
         <x-dashboard.kpi-card 
@@ -83,9 +61,6 @@
             :value="$inProduction"
             icon="fa-solid fa-industry"
             accent="indigo"
-            trend="{{ $readyForPickup }} ready for pickup"
-            trendType="up"
-            subtitle="Active job execution"
             :link="route('management.production.index')"
         />
 
@@ -94,9 +69,6 @@
             :value="$lowStockCount"
             icon="fa-solid fa-boxes-stacked"
             accent="amber"
-            trend="{{ $lowStockCount > 0 ? 'Requires restock' : 'Supplies healthy' }}"
-            :trendType="$lowStockCount > 0 ? 'warning' : 'up'"
-            subtitle="Materials below threshold"
             :link="route('management.inventory.index')"
         />
     </div>
@@ -107,7 +79,7 @@
     <x-dashboard.workflow-pipeline 
         :stages="$pipeline"
         title="Enterprise Commercial Printing Pipeline"
-        subtitle="End-to-end commercial printing flow across customer intake, quote matrix, press run, and pickup"
+        subtitle=""
     />
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -120,7 +92,7 @@
             <x-dashboard.branch-workload-card 
                 :branches="$branches"
                 title="Branch Capacity & Equipment Utilization"
-                subtitle="Live daily job volume versus rated threshold across all locations"
+                subtitle=""
                 :actionUrl="route('management.branches.index')"
                 actionLabel="Branch Directory"
             />
@@ -132,7 +104,6 @@
                 <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
                     <div>
                         <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Print Services Mix</h3>
-                        <p class="text-[11px] text-cyber-muted mt-0.5">Order distribution by category</p>
                     </div>
                     <i class="fa-solid fa-chart-pie text-cyan-400 text-sm"></i>
                 </div>
@@ -185,7 +156,7 @@
     <x-dashboard.production-table 
         :jobs="$recentOrders"
         title="Recent Customer Orders & Routing Status"
-        subtitle="Live client transactions, routing destination, and current fulfillment stage"
+        subtitle=""
         :viewAllUrl="route('management.orders.index')"
         viewAllLabel="All Client Orders"
     />

@@ -52,8 +52,11 @@ class DashboardController extends Controller
         ->take(10)
         ->get();
 
-        // Shop Floor Press Machines
-        $pressMachines = Machine::when($branchId, fn($q) => $q->where('branch_id', $branchId))->get();
+        // Shop Floor Press Machines (Paginated at 9 per page)
+        $pressMachines = Machine::when($branchId, fn($q) => $q->where('branch_id', $branchId))
+            ->orderBy('id', 'asc')
+            ->paginate(9)
+            ->fragment('press-equipment-fleet');
 
         // Commercial Printing Pipeline for Shop Floor
         $pipeline = [

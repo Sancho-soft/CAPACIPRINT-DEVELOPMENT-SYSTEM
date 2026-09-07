@@ -18,15 +18,7 @@
                     <i class="fa-solid fa-industry"></i>
                 </div>
                 <div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-mono">
-                            Press Scheduling
-                        </span>
-                    </div>
-                    <p class="text-xs text-cyber-muted mt-1 leading-relaxed">
-                        Shop-floor press queue scheduling, machine line allocation, turnaround deadlines, and multi-branch load distribution.
-                    </p>
+                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
                 </div>
             </div>
 
@@ -45,15 +37,6 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 1: ACTIONABLE ATTENTION CENTER --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    <x-dashboard.attention-center 
-        :items="$attentionItems"
-        title="Production Floor Attention Center"
-        subtitle="Stoppages, delay exceptions, rush deadlines, and material inventory warnings"
-    />
-
-    {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 5 OPERATIONAL PRODUCTION METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -62,9 +45,6 @@
             :value="$totalActiveJobs"
             icon="fa-solid fa-gears"
             accent="cyan"
-            trend="{{ $jobsDueToday }} due today"
-            :trendType="$jobsDueToday > 0 ? 'warning' : 'up'"
-            subtitle="Current press queue"
             :link="route('manager.production-planning.index')"
         />
 
@@ -73,9 +53,7 @@
             :value="$jobsDueToday"
             icon="fa-solid fa-clock"
             accent="emerald"
-            trend="{{ $jobsDueTomorrow }} due tomorrow"
-            trendType="neutral"
-            subtitle="Today's promised orders"
+            :link="route('manager.production-planning.index')"
         />
 
         <x-dashboard.kpi-card 
@@ -83,9 +61,7 @@
             :value="$rushJobs"
             icon="fa-solid fa-bolt"
             accent="amber"
-            trend="Priority queue"
-            :trendType="$rushJobs > 0 ? 'warning' : 'neutral'"
-            subtitle="High-turnaround jobs"
+            :link="route('manager.production-planning.index', ['priority' => 'rush_urgent'])"
         />
 
         <x-dashboard.kpi-card 
@@ -93,9 +69,7 @@
             :value="$delayedJobs"
             icon="fa-solid fa-triangle-exclamation"
             accent="rose"
-            trend="{{ $delayedJobs > 0 ? 'Action required' : 'Clear run' }}"
-            :trendType="$delayedJobs > 0 ? 'danger' : 'up'"
-            subtitle="Production exceptions"
+            :link="route('manager.production-planning.index', ['status' => 'delayed'])"
         />
 
         <x-dashboard.kpi-card 
@@ -103,9 +77,7 @@
             :value="$availableMachines . '/' . $totalMachines"
             icon="fa-solid fa-print"
             accent="indigo"
-            trend="{{ $inUseMachines }} actively running"
-            trendType="up"
-            subtitle="Operational equipment"
+            :link="route('manager.capacity.index')"
         />
     </div>
 
@@ -115,7 +87,7 @@
     <x-dashboard.workflow-pipeline 
         :stages="$pipeline"
         title="Commercial Printing Production Lifecycle"
-        subtitle="End-to-end production tracking from artwork proofing to shop-floor pressing and claiming"
+        subtitle=""
     />
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -124,7 +96,7 @@
     <x-dashboard.branch-workload-card 
         :branches="$branches"
         title="Branch Capacity Utilization & Machine Workload"
-        subtitle="Real-time daily machine capacity and active job load across all branches"
+        subtitle=""
         :actionUrl="route('manager.capacity.index')"
         actionLabel="Capacity Evaluation Matrix"
     />
@@ -135,7 +107,7 @@
     <x-dashboard.production-table 
         :jobs="$recentJobs"
         title="Active Production Jobs & Press Allocation"
-        subtitle="Real-time shop-floor jobs, customer specifications, and assigned press operators"
+        subtitle=""
         :viewAllUrl="route('manager.production-planning.index')"
         viewAllLabel="Full Production Schedule"
     />

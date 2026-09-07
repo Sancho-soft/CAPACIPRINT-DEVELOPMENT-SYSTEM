@@ -16,10 +16,26 @@ class DesignController extends Controller
      */
     public function index(Request $request)
     {
-        $query = PrintRequest::with(['user', 'designProofs.designer', 'latestProof'])
-            ->whereNotNull('design_file_path')
-            ->orWhereHas('designProofs');
+        $baseQuery = fn() => PrintRequest::where(function ($q) {
+            $q->whereNotNull('design_file_path')
+              ->orWhereHas('designProofs');
+        });
 
+        // Tab counts
+        $counts = [
+            'all'                => $baseQuery()->count(),
+            'needs_proof'        => $baseQuery()->doesntHave('designProofs')->count(),
+            'revision_requested' => $baseQuery()->whereHas('latestProof', fn($q) => $q->where('status', 'revision_requested'))->count(),
+            'approved'           => $baseQuery()->whereHas('latestProof', fn($q) => $q->where('status', 'approved'))->count(),
+        ];
+
+        $query = PrintRequest::with(['user', 'designProofs.designer', 'latestProof'])
+            ->where(function ($q) {
+                $q->whereNotNull('design_file_path')
+                  ->orWhereHas('designProofs');
+            });
+
+        // Status Filter
         if ($status = $request->get('status')) {
             if ($status === 'needs_proof') {
                 $query->doesntHave('designProofs');
@@ -28,9 +44,19 @@ class DesignController extends Controller
             }
         }
 
-        $printRequests = $query->latest()->paginate(12);
+        // Search Filter
+        if ($search = trim($request->get('search', ''))) {
+            $query->where(function ($q) use ($search) {
+                $q->where('id', 'like', "%{$search}%")
+                  ->orWhere('service', 'like', "%{$search}%")
+                  ->orWhere('material', 'like', "%{$search}%")
+                  ->orWhereHas('user', fn($uq) => $uq->where('name', 'like', "%{$search}%"));
+            });
+        }
 
-        return view('designer.index', compact('printRequests'));
+        $printRequests = $query->latest()->paginate(12)->withQueryString();
+
+        return view('designer.index', compact('printRequests', 'counts'));
     }
 
     /**

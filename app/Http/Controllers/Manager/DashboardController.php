@@ -134,7 +134,7 @@ class DashboardController extends Controller
                 'severity'     => 'warning',
                 'icon'         => 'fa-solid fa-bolt',
                 'badge'        => strtoupper($r->priority),
-                'meta'         => "Status: " . ucfirst($r->status),
+                'meta'         => "Status: " . ucfirst(str_replace('_', ' ', $r->status)),
                 'action_url'   => route('manager.production-planning.show', $r->id),
                 'action_label' => 'View Job',
             ];

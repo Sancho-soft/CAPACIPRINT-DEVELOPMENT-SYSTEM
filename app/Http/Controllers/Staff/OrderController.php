@@ -98,7 +98,20 @@ class OrderController extends Controller
     public function claimScanner()
     {
         $recentClaims = \App\Models\ClaimReference::with('order.user')->latest()->take(10)->get();
-        return view('staff.claims.scanner', compact('recentClaims'));
+
+        // Active orders ready for customer collection
+        $readyOrders = Order::with(['user', 'printRequest', 'claimReference'])
+            ->where('status', 'ready_for_pickup')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $readyCount = Order::where('status', 'ready_for_pickup')->count();
+        $todayClaimedCount = \App\Models\ClaimReference::where('is_claimed', true)
+            ->whereDate('claimed_at', today())
+            ->count();
+
+        return view('staff.claims.scanner', compact('recentClaims', 'readyOrders', 'readyCount', 'todayClaimedCount'));
     }
 
     /**
@@ -128,6 +141,7 @@ class OrderController extends Controller
                         'claim_code'      => 'CLM-' . strtoupper(\Illuminate\Support\Str::random(8)),
                         'pickup_branch'   => $order->assigned_branch ?? 'Main Branch',
                         'completion_date' => today(),
+                        'is_claimed'      => false,
                     ]
                 );
             }
@@ -137,13 +151,13 @@ class OrderController extends Controller
             return back()->with('error', "Invalid QR / Claim code: '{$code}'. No matching order found.");
         }
 
-        if ($claim->status === 'claimed') {
-            return back()->with('error', "Order #{$claim->order->order_number} has already been claimed on " . $claim->claimed_at?->format('M d, Y h:i A') . ".");
+        if ($claim->is_claimed) {
+            return back()->with('error', "Order #{$claim->order->order_number} has already been claimed on " . ($claim->claimed_at?->format('M d, Y h:i A') ?? 'an earlier date') . ".");
         }
 
-        DB::transaction(function () use ($claim) {
+        \Illuminate\Support\Facades\DB::transaction(function () use ($claim) {
             $claim->update([
-                'status'     => 'claimed',
+                'is_claimed' => true,
                 'claimed_at' => now(),
             ]);
 

@@ -24,11 +24,19 @@ class WorkloadController extends Controller
             ])->get();
 
         $branchFilter = $request->get('branch_id');
+        $filter       = $request->get('filter');
+
         $jobQuery = ProductionJob::with(['order.user', 'order.printRequest', 'branch'])
             ->whereNotIn('status', ['completed']);
 
         if ($branchFilter) {
             $jobQuery->where('branch_id', $branchFilter);
+        }
+
+        if ($filter === 'delayed') {
+            $jobQuery->where('status', 'delayed');
+        } elseif ($filter === 'rush') {
+            $jobQuery->whereIn('priority', ['rush', 'urgent']);
         }
 
         $totalActiveJobs  = $branches->sum('active_job_count');
@@ -37,12 +45,13 @@ class WorkloadController extends Controller
         $totalCapacity    = $branches->sum('max_daily_jobs');
         $avgUtilization   = $totalCapacity > 0 ? round(($totalActiveJobs / $totalCapacity) * 100, 1) : 0;
 
-        $jobs = $jobQuery->latest()->paginate(20);
+        $jobs = $jobQuery->latest()->paginate(20)->withQueryString();
 
         return view('manager.workload.index', compact(
             'branches',
             'jobs',
             'branchFilter',
+            'filter',
             'totalActiveJobs',
             'totalDelayedJobs',
             'totalRushJobs',

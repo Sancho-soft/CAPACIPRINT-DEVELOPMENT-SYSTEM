@@ -69,59 +69,59 @@
     {{-- Dynamic Role-Based Collapsible Sidebar --}}
     <aside class="fixed md:sticky top-0 inset-y-0 left-0 z-50 shrink-0 bg-[#111A24] border-r border-slate-800/80 text-slate-400 flex flex-col h-screen overflow-hidden transition-all duration-300 ease-in-out shadow-2xl"
            :class="{
-               'w-64': !sidebarCollapsed,
+               'w-56': !sidebarCollapsed,
                'w-20': sidebarCollapsed,
                'translate-x-0': sidebarOpen,
                '-translate-x-full md:translate-x-0': !sidebarOpen
            }">
 
         {{-- Sidebar Brand — PINNED TOP --}}
-        <div class="shrink-0 h-16 px-4 border-b border-slate-800/80 flex items-center justify-between bg-transparent">
+        <div class="shrink-0 h-16 px-4 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between bg-transparent">
             <div class="flex items-center gap-3 min-w-0" :class="sidebarCollapsed ? 'justify-center w-full' : ''">
                 <img src="{{ asset('images/caplogo.png') }}?v={{ time() }}" alt="CapaciPrint Logo" class="h-10 w-10 object-contain shrink-0 drop-shadow-sm">
                 <div class="min-w-0" x-show="!sidebarCollapsed" x-transition.opacity>
-                    <h1 class="font-black text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
-                    <span class="text-[10px] text-cyan-400 font-extrabold tracking-wider uppercase block mt-1 truncate">Production Planning</span>
+                    <h1 class="font-black text-slate-900 dark:text-white text-base font-display tracking-tight leading-none truncate">CAPACIPRINT</h1>
+                    <span class="text-[10px] text-cyan-500 dark:text-cyan-400 font-extrabold tracking-wider uppercase block mt-1 truncate">Production Planning</span>
                 </div>
             </div>
-            <button @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-white">
+            <button @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-slate-900 dark:hover:text-white">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
 
         {{-- Role Navigation Links — SCROLLABLE MIDDLE --}}
-        <nav class="flex-1 min-h-0 px-2.5 py-3 space-y-1 overflow-y-auto no-scrollbar text-xs font-medium">
+        <nav class="flex-1 min-h-0 px-2.5 py-3 space-y-1 overflow-y-auto no-scrollbar text-[13px]">
 
             {{-- ROLE 7: SYSTEM ADMINISTRATOR --}}
             @if(auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">System Administration</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-1 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">System Administration</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('admin.dashboard') }}"
                    title="Dashboard"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('admin.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-table-cells-large w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('admin.users.index') }}"
                    title="User &amp; Access Mgmt"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('admin.users.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('admin.users.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-users-gear w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">User &amp; Access Mgmt</span>
                 </a>
                 <a href="{{ route('admin.branches.index') }}"
                    title="Branch Management"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('admin.branches.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('admin.branches.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-network-wired w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Branch Management</span>
                 </a>
                 <a href="{{ route('management.audit-logs.index') }}"
                    title="System Audit Logs"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('management.audit-logs.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('management.audit-logs.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-shield-halved w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">System Audit Logs</span>
                 </a>
@@ -129,27 +129,27 @@
 
             {{-- ROLE 4: BRANCH MANAGER --}}
             @if(auth()->user()->isManager() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Branch &amp; Capacity</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Branch &amp; Capacity</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('manager.dashboard') }}"
                    title="Dashboard"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('manager.purchasing.index') }}"
                    title="Purchase Requests"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.purchasing.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.purchasing.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-cart-flatbed w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Purchase Requests</span>
                 </a>
                 <a href="{{ route('manager.reports.index') }}"
                    title="Operational Reports"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.reports.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.reports.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-chart-column w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Operational Reports</span>
                 </a>
@@ -157,97 +157,90 @@
 
             {{-- ROLE 2: SALES / CUSTOMER SERVICE STAFF --}}
             @if(auth()->user()->isStaff() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Sales &amp; Service</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Sales &amp; Service</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('staff.dashboard') }}"
                    title="Dashboard"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-message w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('staff.print-requests.index') }}"
                    title="Customer Requests"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.print-requests.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.print-requests.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-file-signature w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Customer Requests</span>
                 </a>
                 <a href="{{ route('staff.quotations.index') }}"
                    title="Quotations"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.quotations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.quotations.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Quotations</span>
                 </a>
                 <a href="{{ route('staff.orders.index') }}"
                    title="Orders"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.orders.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.orders.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-box-archive w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Orders</span>
                 </a>
                 <a href="{{ route('staff.claim-scanner') }}"
                    title="Claim &amp; QR Scanner"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.claim-scanner') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.claim-scanner') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-qrcode w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Claim &amp; QR Scanner</span>
                 </a>
                 <a href="{{ route('staff.pricing-rules.index') }}"
                    title="Pricing Rules"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.pricing-rules.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.pricing-rules.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-dollar-sign w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Pricing Rules</span>
                 </a>
                 <a href="{{ route('staff.customers.index') }}"
                    title="Customers"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.customers.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.customers.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-users w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Customers</span>
-                </a>
-                <a href="{{ route('staff.notifications.index') }}"
-                   title="Notifications"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('staff.notifications.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
-                    <i class="fa-solid fa-bell w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Notifications</span>
                 </a>
             @endif
 
             {{-- ROLE 5: PRODUCTION OFFICER --}}
             @if(auth()->user()->isProductionOfficer() || auth()->user()->isManager() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Operations Planning</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Operations Planning</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('manager.production-planning.index') }}"
                    title="Production Planning"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.production-planning.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.production-planning.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-calendar-days w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Production Planning</span>
                 </a>
                 <a href="{{ route('manager.capacity.index') }}"
                    title="Capacity Evaluation"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.capacity.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.capacity.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-calculator w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Capacity Evaluation</span>
                 </a>
                 <a href="{{ route('manager.recommendations.index') }}"
                    title="Branch Recommendations"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.recommendations.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.recommendations.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-building-circle-check w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Branch Recommendations</span>
                 </a>
                 <a href="{{ route('manager.workload.index') }}"
                    title="Workload Monitor"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('manager.workload.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.workload.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-chart-line w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Workload Monitor</span>
                 </a>
@@ -255,13 +248,22 @@
 
             {{-- ROLE 7: LAYOUT DESIGNER / PRE-PRESS --}}
             @if(auth()->user()->isDesigner() || auth()->user()->isStaff() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Design &amp; Layout</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Design &amp; Pre-Press</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
+                @if(auth()->user()->isDesigner() || auth()->user()->isAdmin())
+                    <a href="{{ route('designer.dashboard') }}"
+                       title="Dashboard"
+                       :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('designer.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                        <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
+                        <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
+                    </a>
+                @endif
                 <a href="{{ route('designer.index') }}"
                    title="Design Workspace"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('designer.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('designer.index*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Design Workspace</span>
                 </a>
@@ -269,69 +271,62 @@
 
             {{-- ROLE 4: PRODUCTION STAFF --}}
             @if(auth()->user()->isProduction() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Production</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Production</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('production.dashboard') }}"
                    title="Dashboard"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('production.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('production.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-industry w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('production.jobs.index') }}"
                    title="My Production Jobs"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('production.jobs.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('production.jobs.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-list-check w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">My Production Jobs</span>
-                </a>
-                <a href="{{ route('production.notifications.index') }}"
-                   title="Notifications"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('production.notifications.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
-                    <i class="fa-solid fa-bell w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Notifications</span>
                 </a>
             @endif
 
             {{-- ROLE 5: INVENTORY STAFF --}}
             @if(auth()->user()->isInventory() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Material Inventory</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Material Inventory</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('inventory.dashboard') }}"
                    title="Dashboard"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('inventory.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('inventory.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-warehouse w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('inventory.materials.index') }}"
                    title="Materials Catalog"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('inventory.materials.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('inventory.materials.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-boxes-stacked w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Materials Catalog</span>
                 </a>
                 <a href="{{ route('inventory.stock.index') }}"
                    title="Branch Stock Levels"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('inventory.stock.index') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('inventory.stock.index') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-cubes-stacked w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Branch Stock Levels</span>
                 </a>
                 <a href="{{ route('inventory.stock-movements.index') }}"
                    title="Stock Movements"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('inventory.stock-movements.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('inventory.stock-movements.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-right-left w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Stock Movements</span>
                 </a>
                 <a href="{{ route('inventory.reports.index') }}"
                    title="Inventory Reports"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('inventory.reports.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('inventory.reports.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-file-lines w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Inventory Reports</span>
                 </a>
@@ -339,34 +334,34 @@
 
             {{-- ROLE 6: OWNER / MANAGEMENT --}}
             @if(auth()->user()->isManagement() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-2.5 text-[10px] uppercase font-bold text-cyber-sub tracking-wider mb-1">Executive</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-800/80 my-2"></div>
+                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Executive</p>
+                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('management.dashboard') }}"
                    title="Dashboard"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('management.dashboard') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('management.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-chart-pie w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('management.orders.index') }}"
                    title="Orders Overview"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('management.orders.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('management.orders.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-layer-group w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Orders Overview</span>
                 </a>
                 <a href="{{ route('management.branches.index') }}"
                    title="Branch Performance"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('management.branches.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('management.branches.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-store w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Branch Performance</span>
                 </a>
                 <a href="{{ route('management.reports.index') }}"
                    title="Executive Reports"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3.5'"
-                   class="flex items-center gap-3 py-2 rounded-xl transition {{ request()->routeIs('management.reports.*') ? 'bg-cyan-500/15 text-cyan-400 font-bold border-l-2 border-sky-500 rounded-l-none' : 'text-cyber-muted hover:bg-slate-800/60 hover:text-slate-100' }}">
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('management.reports.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-chart-column w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Executive Reports</span>
                 </a>
@@ -389,56 +384,52 @@
                     <i class="fa-solid fa-bars text-base"></i>
                 </button>
                 {{-- Desktop collapse toggle in header --}}
-                <button @click="toggleSidebar()" class="hidden md:flex items-center justify-center h-8 w-8 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl border border-cyber transition cursor-pointer"
+                <button @click="toggleSidebar()" class="hidden md:flex items-center justify-center h-8 w-8 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl transition cursor-pointer"
                         :title="sidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'">
                     <i class="fa-solid text-xs transition-transform duration-200" :class="sidebarCollapsed ? 'fa-indent text-cyan-400' : 'fa-outdent'"></i>
                 </button>
 
-                {{-- Operational Branch Context Pill --}}
-                <div class="hidden sm:flex items-center gap-2 pl-2">
-                    <div class="flex items-center gap-2 px-3 py-1 rounded-xl bg-cyber-sub/80 border border-cyber text-xs">
-                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span class="text-[11px] font-bold text-cyber-main">
-                            @if(auth()->user()->branch)
-                                {{ auth()->user()->branch->name }}
-                            @else
-                                Multi-Branch Network Hub
-                            @endif
-                        </span>
-                        <span class="text-[9px] uppercase font-black px-1.5 py-0.2 rounded bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
-                            Live
-                        </span>
-                    </div>
+                {{-- Operational Branch Context --}}
+                <div class="hidden sm:flex items-center gap-2 pl-2 text-xs">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-xs font-bold text-cyber-main">
+                        @if(auth()->user()->branch)
+                            {{ auth()->user()->branch->name }}
+                        @else
+                            Multi-Branch Network Hub
+                        @endif
+                    </span>
                 </div>
             </div>
 
             <div class="flex items-center gap-3 sm:gap-4">
-                {{-- Live Operational Date Badge --}}
-                <div class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyber-sub/60 border border-cyber text-[11px] text-cyber-muted font-mono">
-                    <i class="fa-regular fa-calendar text-cyan-400 text-[10px]"></i>
-                    <span>{{ now()->format('D, M d, Y') }}</span>
+                {{-- Live Operational Date --}}
+                <div class="hidden lg:flex items-center gap-2 text-xs font-medium text-cyber-muted">
+                    <i class="fa-regular fa-calendar text-cyan-400 text-xs"></i>
+                    <span>{{ now()->format('D, M j, Y') }}</span>
                 </div>
 
-                {{-- Direct Quick Theme Toggle Button --}}
+                {{-- Direct Quick Theme Toggle Button (Plain borderless ghost button) --}}
                 <button @click="toggleTheme()" 
                         type="button" 
-                        class="hidden sm:flex items-center justify-center h-9 w-9 text-cyber-muted hover:text-cyan-400 hover:bg-cyber-sub rounded-xl border border-cyber transition cursor-pointer"
+                        class="hidden sm:flex items-center justify-center h-10 w-10 text-cyber-muted hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl transition cursor-pointer"
                         :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-                    <i :class="isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-700'" class="text-sm"></i>
+                    <i :class="isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-700 dark:text-slate-300'" class="text-lg"></i>
                 </button>
                 @php
                     $notifRoute = match(auth()->user()->role) {
                         'production' => Route::has('production.notifications.index') ? route('production.notifications.index') : null,
                         'staff' => Route::has('staff.notifications.index') ? route('staff.notifications.index') : null,
+                        'designer' => Route::has('designer.index') ? route('designer.index', ['status' => 'revision_requested']) : null,
                         default => null
                     };
                 @endphp
                 @if($notifRoute)
-                <a href="{{ $notifRoute }}" class="relative p-2 text-cyber-muted hover:text-cyber-main hover:bg-cyber-sub rounded-xl transition flex items-center justify-center border border-cyber/50" title="Notifications">
-                    <i class="fa-solid fa-bell text-base"></i>
+                <a href="{{ $notifRoute }}" class="relative h-10 w-10 text-cyber-muted hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl transition flex items-center justify-center" title="Notifications">
+                    <i class="fa-solid fa-bell text-lg"></i>
                     @php $bellCount = auth()->user()->notifications()->where('is_read', false)->count(); @endphp
                     @if($bellCount > 0)
-                        <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                        <span class="absolute top-2 right-2 flex h-2.5 w-2.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500 ring-2 ring-[#0D1520]"></span>
                         </span>
@@ -474,22 +465,6 @@
                          class="absolute right-0 mt-2.5 w-64 rounded-2xl bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 shadow-2xl z-50 p-2 text-xs space-y-1 backdrop-blur-xl"
                          x-cloak>
                         
-                        {{-- Slideable Dark Mode Interactive Toggle --}}
-                        <div class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/60 flex items-center justify-between">
-                            <div class="flex items-center gap-2.5">
-                                <i :class="isDark ? 'fa-solid fa-moon text-cyan-400' : 'fa-solid fa-sun text-amber-500'" class="text-sm transition-colors"></i>
-                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200" x-text="isDark ? 'Dark Mode' : 'Light Mode'"></span>
-                            </div>
-                            <button @click="toggleTheme()" 
-                                    type="button"
-                                    class="relative w-11 h-6 rounded-full transition-colors duration-300 p-0.5 flex items-center shadow-inner cursor-pointer focus:outline-none"
-                                    :class="isDark ? 'bg-cyan-950 border border-cyan-500/50' : 'bg-slate-300 border border-slate-400/80'">
-                                <div class="w-5 h-5 rounded-full transition-transform duration-300 transform flex items-center justify-center shadow-md text-[9px]"
-                                     :class="isDark ? 'translate-x-5 bg-cyan-400 text-slate-950 font-bold' : 'translate-x-0 bg-white text-amber-500'">
-                                    <i :class="isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
-                                </div>
-                            </button>
-                        </div>
 
                         @if(Route::has('admin.settings.index') && auth()->user()->isAdmin())
                         {{-- Settings Option --}}

@@ -17,8 +17,8 @@
         </div>
         <div class="flex items-center gap-3">
             <a href="{{ request()->fullUrlWithQuery(['export' => 'csv']) }}" 
-               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-bold text-xs shadow-md shadow-teal-500/20 transition">
-                <i class="fa-solid fa-file-csv text-sm"></i> Export to CSV
+               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 transition cursor-pointer">
+                <i class="fa-solid fa-file-csv text-sm text-slate-950"></i> Export to CSV
             </a>
         </div>
     </div>

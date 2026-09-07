@@ -11,21 +11,23 @@
 <div class="bg-cyber-card border {{ $hasItems ? 'border-amber-500/30' : 'border-cyber' }} rounded-3xl shadow-xl overflow-hidden">
     <div class="px-5 sm:px-6 py-4 {{ $hasItems ? 'bg-amber-500/10 border-b border-amber-500/20' : 'bg-cyber-sub border-b border-cyber' }} flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-            <div class="h-7 w-7 rounded-xl {{ $hasItems ? 'bg-amber-500/20 text-amber-400' : 'bg-cyber-card text-cyber-muted' }} flex items-center justify-center text-xs">
+            <div class="h-7 w-7 rounded-xl {{ $hasItems ? 'bg-amber-500/15 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-cyber-card text-cyber-muted' }} flex items-center justify-center text-xs">
                 <i class="fa-solid fa-triangle-exclamation {{ $hasItems ? 'animate-bounce' : '' }}"></i>
             </div>
             <div>
                 <h3 class="font-black text-xs sm:text-sm text-cyber-main font-display">{{ $title }}</h3>
-                <p class="text-[10px] sm:text-[11px] text-cyber-muted">{{ $subtitle }}</p>
+                @if(!empty($subtitle))
+                    <p class="text-[10px] sm:text-[11px] text-cyber-muted">{{ $subtitle }}</p>
+                @endif
             </div>
         </div>
         <div>
             @if($hasItems)
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase bg-amber-500/15 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30">
                     {{ count($items) }} Action{{ count($items) > 1 ? 's' : '' }} Pending
                 </span>
             @else
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase bg-emerald-500/10 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
                     <i class="fa-solid fa-check mr-1"></i> All Clear
                 </span>
             @endif
@@ -38,14 +40,14 @@
                 @php
                     $severity = $item['severity'] ?? 'warning'; // critical, warning, info
                     $badgeStyle = match($severity) {
-                        'critical' => 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-                        'info'     => 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-                        default    => 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+                        'critical' => 'bg-rose-500/10 dark:bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/20 dark:border-rose-500/30',
+                        'info'     => 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 border-cyan-500/20 dark:border-cyan-500/30',
+                        default    => 'bg-amber-500/10 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/20 dark:border-amber-500/30',
                     };
                     $iconStyle = match($severity) {
-                        'critical' => 'text-rose-400',
-                        'info'     => 'text-cyan-400',
-                        default    => 'text-amber-400',
+                        'critical' => 'text-rose-600 dark:text-rose-400',
+                        'info'     => 'text-sky-600 dark:text-cyan-400',
+                        default    => 'text-amber-600 dark:text-amber-400',
                     };
                 @endphp
                 <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-cyber-hover/50 transition">

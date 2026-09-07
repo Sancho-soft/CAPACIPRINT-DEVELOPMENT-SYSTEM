@@ -40,6 +40,7 @@ class DashboardController extends Controller
                 'count' => PrintRequest::whereIn('status', ['submitted', 'verified'])->count(),
                 'icon'  => 'fa-solid fa-file-arrow-up',
                 'color' => 'cyan',
+                'url'   => route('staff.print-requests.index'),
             ],
             [
                 'key'   => 'quotation',
@@ -47,6 +48,7 @@ class DashboardController extends Controller
                 'count' => Quotation::where('status', 'pending')->count(),
                 'icon'  => 'fa-solid fa-file-invoice-dollar',
                 'color' => 'indigo',
+                'url'   => route('staff.quotations.index'),
             ],
             [
                 'key'   => 'payment',
@@ -54,6 +56,7 @@ class DashboardController extends Controller
                 'count' => Order::where('status', 'payment')->orWhere('payment_status', 'submitted')->count(),
                 'icon'  => 'fa-solid fa-credit-card',
                 'color' => 'amber',
+                'url'   => route('staff.orders.index'),
             ],
             [
                 'key'   => 'routing',
@@ -61,6 +64,7 @@ class DashboardController extends Controller
                 'count' => ProductionJob::where('status', 'assigned')->count(),
                 'icon'  => 'fa-solid fa-network-wired',
                 'color' => 'blue',
+                'url'   => route('manager.production-planning.index', ['status' => 'assigned']),
             ],
             [
                 'key'    => 'production',
@@ -69,6 +73,7 @@ class DashboardController extends Controller
                 'icon'   => 'fa-solid fa-industry',
                 'color'  => 'teal',
                 'active' => true,
+                'url'    => route('manager.production-planning.index', ['status' => 'in_production']),
             ],
             [
                 'key'   => 'qc',
@@ -76,6 +81,7 @@ class DashboardController extends Controller
                 'count' => ProductionJob::where('status', 'quality_checking')->count(),
                 'icon'  => 'fa-solid fa-microscope',
                 'color' => 'purple',
+                'url'   => route('manager.production-planning.index', ['status' => 'quality_checking']),
             ],
             [
                 'key'   => 'ready',
@@ -83,6 +89,7 @@ class DashboardController extends Controller
                 'count' => Order::whereIn('status', ['ready_for_pickup', 'completed'])->count(),
                 'icon'  => 'fa-solid fa-box-open',
                 'color' => 'emerald',
+                'url'   => route('staff.orders.index', ['status' => 'ready_for_pickup']),
             ],
         ];
 
