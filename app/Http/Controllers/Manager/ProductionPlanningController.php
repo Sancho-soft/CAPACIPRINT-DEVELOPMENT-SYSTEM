@@ -26,7 +26,16 @@ class ProductionPlanningController extends Controller
 
         // Priority filter
         if ($priority = $request->get('priority')) {
-            $query->where('priority', $priority);
+            if ($priority === 'rush_urgent' || $priority === 'urgent_rush') {
+                $query->whereIn('priority', ['urgent', 'rush']);
+            } else {
+                $query->where('priority', $priority);
+            }
+        }
+
+        // Unassigned filter
+        if ($request->boolean('unassigned') || $request->get('unassigned') === '1') {
+            $query->whereNull('assigned_to');
         }
 
         // Status filter

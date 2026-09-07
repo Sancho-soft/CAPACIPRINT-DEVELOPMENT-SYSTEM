@@ -229,6 +229,11 @@
             border-color: rgba(30,41,59,0.8) !important;
             color: #F8FAFC !important;
         }
+        html.dark-theme main select option,
+        html.dark main select option {
+            background-color: #0D1520 !important;
+            color: #F8FAFC !important;
+        }
         html.dark-theme main input::placeholder,
         html.dark main input::placeholder {
             color: #64748B !important;
@@ -295,14 +300,26 @@
         }
 
         /* Text colors — scoped to dark-hex containers only */
-        html.light-theme .bg-\[\#111A24\] .text-white,
-        html.light-theme .bg-\[\#0D1520\] .text-white,
-        html.light-theme .bg-\[\#0B1118\] .text-white,
-        html.light-theme .bg-\[\#111A24\].text-white,
-        html.light-theme .bg-\[\#0D1520\].text-white,
-        html.light-theme .bg-\[\#0B1118\].text-white,
-        html.light-theme main .text-white:not([class*="bg-gradient"]):not([class*="bg-cyan"]):not([class*="bg-brand"]):not([class*="bg-navy"]):not([class*="bg-red"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="from-"]) {
+        html.light-theme .bg-\[\#111A24\] .text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
+        html.light-theme .bg-\[\#0D1520\] .text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
+        html.light-theme .bg-\[\#0B1118\] .text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
+        html.light-theme .bg-\[\#111A24\].text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
+        html.light-theme .bg-\[\#0D1520\].text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
+        html.light-theme .bg-\[\#0B1118\].text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
+        html.light-theme main .text-white:not([class*="bg-gradient"]):not([class*="bg-cyan"]):not([class*="bg-brand"]):not([class*="bg-navy"]):not([class*="bg-red"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-sky"]):not([class*="bg-slate-800"]):not([class*="bg-slate-900"]):not([class*="bg-indigo"]):not([class*="bg-purple"]):not([class*="bg-teal"]):not([class*="bg-amber"]):not([class*="from-"]):not(button):not(a[class*="bg-"]):not(.btn) {
             color: #1E293B !important;
+        }
+
+        /* Explicitly guarantee white text on colored solid action buttons & pills */
+        html.light-theme main button.text-white,
+        html.light-theme main a.text-white,
+        html.light-theme main [class*="bg-sky-"] .text-white,
+        html.light-theme main [class*="bg-sky-"] *::before,
+        html.light-theme main [class*="bg-brand-"] .text-white,
+        html.light-theme main [class*="bg-emerald-"] .text-white,
+        html.light-theme main [class*="bg-indigo-"] .text-white,
+        html.light-theme main [class*="bg-rose-"] .text-white {
+            color: #FFFFFF !important;
         }
         /* Hero banners in Light Mode (Production Planning, Reports, etc.) */
         html.light-theme .from-navy-900.to-navy-800,

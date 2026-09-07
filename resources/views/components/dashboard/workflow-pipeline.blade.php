@@ -21,15 +21,16 @@ Expected $stages array format:
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-cyber/80">
         <div>
             <div class="flex items-center gap-2">
-                <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="inline-block w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse"></span>
                 <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
             </div>
-            <p class="text-[11px] sm:text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
+            @if(!empty($subtitle))
+                <p class="text-[11px] sm:text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
+            @endif
         </div>
-        <div class="flex items-center gap-2">
-            <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-lg bg-cyber-sub border border-cyber text-cyber-muted">
-                Real-time Flow
-            </span>
+        <div class="flex items-center gap-1.5 text-[11px] font-semibold text-cyber-muted">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Live Shift Flow</span>
         </div>
     </div>
 
@@ -38,36 +39,33 @@ Expected $stages array format:
         <div class="flex items-center min-w-[760px] justify-between gap-2 relative">
             
             {{-- Background Connecting Line --}}
-            <div class="absolute top-5 left-8 right-8 h-0.5 bg-slate-800 dark:bg-slate-800/80 -z-0"></div>
+            <div class="absolute top-5 left-12 right-12 h-0.5 bg-slate-200 dark:bg-slate-800 -z-0"></div>
 
             @foreach($stages as $index => $stage)
                 @php
                     $isActive = !empty($stage['active']);
                     $count = $stage['count'] ?? 0;
                     $hasItems = $count > 0;
+                    $stageUrl = $stage['url'] ?? null;
 
-                    // Executive enterprise color language:
-                    // Active/Focus stage: refined Primary Blue/Sky
-                    // Stages with backlog/items: professional navy/slate with crisp contrast
-                    // Idle stages: subdued muted slate
                     if ($isActive) {
-                        $circleStyle = 'bg-sky-500 text-white border-sky-400 shadow-md ring-4 ring-sky-500/20';
-                        $badgeStyle  = 'bg-sky-500/15 text-sky-600 dark:text-sky-300 border-sky-500/30';
-                        $titleStyle  = 'text-sky-600 dark:text-sky-400 font-extrabold';
+                        $circleStyle = 'bg-sky-600 dark:bg-sky-500 text-white border-transparent shadow-md shadow-sky-500/20 ring-4 ring-sky-500/20';
+                        $badgeStyle  = 'bg-sky-500/15 text-sky-700 dark:text-sky-300';
+                        $titleStyle  = 'text-sky-700 dark:text-sky-400 font-extrabold';
                     } elseif ($hasItems) {
-                        $circleStyle = 'bg-cyber-card border-slate-400 dark:border-slate-600 text-slate-700 dark:text-slate-200 group-hover:border-sky-500 group-hover:text-sky-500';
-                        $badgeStyle  = 'bg-slate-200/60 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700';
+                        $circleStyle = 'bg-cyber-card border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 group-hover:text-sky-500 group-hover:border-sky-400';
+                        $badgeStyle  = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
                         $titleStyle  = 'text-cyber-main font-bold';
                     } else {
-                        $circleStyle = 'bg-cyber-sub border-cyber text-cyber-muted opacity-60';
-                        $badgeStyle  = 'bg-cyber-sub text-cyber-muted border-cyber opacity-60';
-                        $titleStyle  = 'text-cyber-muted font-medium';
+                        $circleStyle = 'bg-cyber-card border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 group-hover:border-slate-400 dark:group-hover:border-slate-600';
+                        $badgeStyle  = '';
+                        $titleStyle  = 'text-slate-500 dark:text-slate-400 font-medium';
                     }
                 @endphp
 
-                <div class="flex-1 flex flex-col items-center text-center relative z-10 group px-1">
+                <{{ $stageUrl ? 'a href='.$stageUrl : 'div' }} class="flex-1 flex flex-col items-center text-center relative z-10 group px-1 {{ $stageUrl ? 'cursor-pointer' : '' }}">
                     {{-- Step Node --}}
-                    <div class="h-10 w-10 rounded-2xl border-2 {{ $circleStyle }} flex items-center justify-center text-sm transition-all duration-200 group-hover:scale-105">
+                    <div class="h-10 w-10 rounded-2xl border-2 {{ $circleStyle }} flex items-center justify-center text-sm transition-all duration-200 group-hover:scale-110">
                         <i class="{{ $stage['icon'] ?? 'fa-solid fa-circle' }}"></i>
                     </div>
 
@@ -76,20 +74,15 @@ Expected $stages array format:
                         {{ $stage['label'] }}
                     </span>
 
-                    {{-- Step Count Badge --}}
-                    <div class="mt-1.5">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black font-mono border {{ $badgeStyle }}">
-                            {{ $count }} {{ $count == 1 ? 'item' : 'items' }}
-                        </span>
+                    {{-- Step Count Badge (Only show when there are active items) --}}
+                    <div class="mt-1.5 min-h-[20px] flex items-center justify-center">
+                        @if($hasItems)
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold font-mono {{ $badgeStyle }} group-hover:bg-sky-500/20 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
+                                {{ $count }} {{ $count == 1 ? 'item' : 'items' }}
+                            </span>
+                        @endif
                     </div>
-                </div>
-
-                {{-- Arrow connector if not last --}}
-                @if(!$loop->last)
-                    <div class="shrink-0 text-cyber-sub/60 -mt-7 z-10">
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </div>
-                @endif
+                </{{ $stageUrl ? 'a' : 'div' }}>
             @endforeach
 
         </div>

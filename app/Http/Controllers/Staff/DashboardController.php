@@ -94,7 +94,7 @@ class DashboardController extends Controller
         $unverifiedRequests = PrintRequest::where('status', 'submitted')->with('user')->take(3)->get();
         foreach ($unverifiedRequests as $uReq) {
             $attentionItems[] = [
-                'title'        => "Unverified Print Request: #{$uReq->id} ({$uReq->service})",
+                'title'        => "Unverified Print Request: #REQ-" . str_pad($uReq->id, 5, '0', STR_PAD_LEFT) . " ({$uReq->service})",
                 'description'  => "Customer: " . ($uReq->user->name ?? 'Client') . " &middot; Specs: {$uReq->quantity} pcs, {$uReq->size} on " . ($uReq->material ?? 'Standard Media'),
                 'severity'     => 'warning',
                 'icon'         => 'fa-solid fa-file-signature',

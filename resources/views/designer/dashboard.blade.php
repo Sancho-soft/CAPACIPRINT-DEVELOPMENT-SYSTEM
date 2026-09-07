@@ -12,47 +12,45 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Manage customer artwork proofs, bleed checks, vector pre-flighting, and design approvals.</p>
         </div>
         <div class="flex items-center gap-2">
-            <span class="px-3.5 py-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-black border border-purple-500/20 flex items-center gap-2">
-                <i class="fa-solid fa-pen-ruler text-xs"></i> Pre-Flight Studio
-            </span>
+            <a href="{{ route('designer.index') }}" class="px-3.5 py-2 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-400 text-xs font-bold border border-purple-500/20 flex items-center gap-2 transition shadow-xs">
+                <i class="fa-solid fa-wand-magic-sparkles text-xs"></i> Pre-Flight Workspace
+            </a>
         </div>
     </div>
 
     {{-- Designer KPI Metrics Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        {{-- Pending Artwork Review --}}
-        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-purple-500/30 transition group">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-image text-2xl text-purple-500 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[11px] font-black text-purple-600 dark:text-purple-400 uppercase tracking-wider leading-tight max-w-[120px]">PENDING ARTWORK REVIEW</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ count($pendingProofs) }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="PENDING ARTWORK REVIEW"
+            :value="$needsProofCount ?? count($pendingProofs)"
+            icon="fa-solid fa-file-image"
+            accent="purple"
+            :link="route('designer.index', ['status' => 'needs_proof'])"
+        />
 
-        {{-- Approved Proofs --}}
-        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-circle-check text-2xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider leading-tight max-w-[120px]">APPROVED PROOFS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $approvedProofs }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="APPROVED PROOFS"
+            :value="$approvedProofs"
+            icon="fa-solid fa-circle-check"
+            accent="emerald"
+            :link="route('designer.index', ['status' => 'approved'])"
+        />
 
-        {{-- Revision Requests --}}
-        <div class="bg-white dark:bg-[#111A24] rounded-2xl border border-slate-200 dark:border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-arrows-rotate text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[11px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-wider leading-tight max-w-[120px]">REVISION REQUESTS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $revisionRequests }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="REVISION REQUESTS"
+            :value="$revisionRequests"
+            icon="fa-solid fa-arrows-rotate"
+            accent="amber"
+            :link="route('designer.index', ['status' => 'revision_requested'])"
+        />
     </div>
+
+    {{-- Operational Attention Center for Pre-Press --}}
+    <x-dashboard.attention-center 
+        :items="$attentionItems ?? []"
+        title="Pre-Press Attention Center"
+        subtitle="Customer revision requests and incoming artwork requiring immediate designer action"
+    />
 
     {{-- Customer Artwork Pre-Press Queue Table --}}
     <div class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-xl overflow-hidden flex flex-col">
@@ -61,10 +59,13 @@
                 <h3 class="font-black text-slate-900 dark:text-white text-sm">Artwork Pre-Press Queue</h3>
                 <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Layout Designer Module &middot; Scoped View</p>
             </div>
+            <a href="{{ route('designer.index') }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1 shrink-0">
+                View Full Queue <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
-                <thead class="bg-slate-100/70 dark:bg-[#0D1520]/80 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800/80">
+                <thead class="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800/80 text-[10px]">
                     <tr>
                         <th class="px-6 py-3.5">Request #</th>
                         <th class="px-6 py-3.5">Customer &amp; Service</th>
@@ -87,13 +88,14 @@
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border {{ $req->status_badge_class }}">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                                 {{ $req->status_label }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('staff.print-requests.show', $req) }}" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition inline-flex items-center gap-1">
-                                Inspect Artwork &rarr;
+                            <a href="{{ route('designer.show', $req) }}" class="bg-sky-600 hover:bg-sky-500 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-sm transition inline-flex items-center gap-1.5">
+                                <span>Inspect Artwork</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
                         </td>
                     </tr>

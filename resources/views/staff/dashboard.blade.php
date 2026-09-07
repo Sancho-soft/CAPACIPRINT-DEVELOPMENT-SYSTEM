@@ -18,15 +18,7 @@
                     <i class="fa-solid fa-headset"></i>
                 </div>
                 <div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Sales &amp; Customer Service Desk</h2>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono">
-                            Front Desk Active
-                        </span>
-                    </div>
-                    <p class="text-xs text-cyber-muted mt-1 leading-relaxed">
-                        Client print request intake, technical specification verification, quotation estimation, payment auditing, and QR claim handover.
-                    </p>
+                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Sales &amp; Customer Service Desk</h2>
                 </div>
             </div>
 
@@ -45,15 +37,6 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 1: ACTIONABLE ATTENTION CENTER --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    <x-dashboard.attention-center 
-        :items="$attentionItems"
-        title="Front Desk Action Queue"
-        subtitle="Unverified payment receipts and new customer print specifications awaiting approval"
-    />
-
-    {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 4 KEY CUSTOMER SERVICE METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
@@ -62,9 +45,6 @@
             :value="$newRequestsCount"
             icon="fa-solid fa-file-circle-plus"
             accent="cyan"
-            trend="{{ $newRequestsCount > 0 ? 'Needs verification' : 'Up to date' }}"
-            :trendType="$newRequestsCount > 0 ? 'warning' : 'up'"
-            subtitle="Awaiting staff review"
             :link="route('staff.print-requests.index')"
         />
 
@@ -73,9 +53,6 @@
             :value="$pendingQuotesCount"
             icon="fa-solid fa-file-invoice-dollar"
             accent="amber"
-            trend="Price matrix calculations"
-            trendType="neutral"
-            subtitle="Estimates prepared"
             :link="route('staff.quotations.index')"
         />
 
@@ -84,9 +61,7 @@
             :value="$pendingPaymentOrders->count()"
             icon="fa-solid fa-credit-card"
             accent="emerald"
-            trend="{{ $pendingPaymentOrders->count() > 0 ? 'Receipts attached' : 'No backlog' }}"
-            :trendType="$pendingPaymentOrders->count() > 0 ? 'warning' : 'up'"
-            subtitle="Proof slips submitted"
+            :link="route('staff.orders.index', ['payment_status' => 'submitted'])"
         />
 
         <x-dashboard.kpi-card 
@@ -94,10 +69,7 @@
             :value="$readyForPickupCount"
             icon="fa-solid fa-box-open"
             accent="indigo"
-            trend="Use QR scanner"
-            trendType="neutral"
-            subtitle="Awaiting client claim"
-            :link="route('staff.claim-scanner')"
+            :link="route('staff.orders.index', ['status' => 'ready_for_pickup'])"
         />
     </div>
 
@@ -107,7 +79,7 @@
     <x-dashboard.workflow-pipeline 
         :stages="$pipeline"
         title="Customer Service Order Intake & Fulfillment Flow"
-        subtitle="Tracking client request verification, quote confirmation, payment clearance, and claiming"
+        :subtitle="null"
     />
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -117,59 +89,74 @@
 
         {{-- LEFT: INCOMING PRINT REQUESTS --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+            <div class="px-5 sm:px-6 py-4 border-b border-cyber/60 flex items-center justify-between">
                 <div>
                     <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Recent Print Requests</h3>
-                    <p class="text-[11px] text-cyber-muted mt-0.5">Customer specifications requiring technical review</p>
                 </div>
-                <a href="{{ route('staff.print-requests.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                <a href="{{ route('staff.print-requests.index') }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1">
                     View All <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
             <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
-                    <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
+                    <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]">
                         <tr>
-                            <th class="px-4 sm:px-5 py-3">Customer</th>
-                            <th class="px-4 sm:px-5 py-3">Service & Specs</th>
-                            <th class="px-4 sm:px-5 py-3">Status</th>
-                            <th class="px-4 sm:px-5 py-3 text-right">Action</th>
+                            <th class="px-4 sm:px-5 py-3.5">Customer</th>
+                            <th class="px-4 sm:px-5 py-3.5">Service &amp; Specs</th>
+                            <th class="px-4 sm:px-5 py-3.5">Status</th>
+                            <th class="px-4 sm:px-5 py-3.5 text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-cyber/60 text-cyber-main">
                         @forelse($recentRequests as $req)
                             @php
                                 $statusBadge = match($req->status) {
-                                    'submitted' => 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-                                    'verified'  => 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-                                    'quoted'    => 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
-                                    'production'=> 'bg-teal-500/15 text-teal-400 border-teal-500/30',
-                                    'completed' => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-                                    default     => 'bg-slate-500/15 text-slate-400 border-slate-500/30',
+                                    'submitted' => 'bg-amber-500/15 text-amber-700 dark:text-amber-400',
+                                    'verified'  => 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-400',
+                                    'quoted'    => 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400',
+                                    'production'=> 'bg-teal-500/15 text-teal-700 dark:text-teal-400',
+                                    'completed' => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
+                                    default     => 'bg-slate-500/15 text-slate-700 dark:text-slate-400',
                                 };
+
+                                $reqActionLabel = match($req->status) {
+                                    'submitted'  => 'Verify Specs',
+                                    'production' => 'Track Job',
+                                    'completed'  => 'View Order',
+                                    'quoted'     => 'View Quote',
+                                    default      => 'Details',
+                                };
+                                $isPrimaryAction = ($req->status === 'submitted');
                             @endphp
                             <tr class="hover:bg-cyber-hover/50 transition">
-                                <td class="px-4 sm:px-5 py-3">
+                                <td class="px-4 sm:px-5 py-3.5">
                                     <span class="font-bold text-cyber-main block truncate max-w-[140px]">{{ $req->user->name ?? 'Customer' }}</span>
                                     <span class="text-[10px] text-cyber-muted block truncate max-w-[140px]">{{ $req->created_at ? $req->created_at->diffForHumans() : 'Recently' }}</span>
                                 </td>
-                                <td class="px-4 sm:px-5 py-3">
-                                    <span class="font-medium text-cyan-400 block truncate max-w-[160px]">{{ $req->service }}</span>
+                                <td class="px-4 sm:px-5 py-3.5">
+                                    <span class="font-medium text-cyan-700 dark:text-cyan-400 block truncate max-w-[160px]">{{ $req->service }}</span>
                                     <span class="text-[10px] text-cyber-muted font-mono block">
                                         {{ number_format($req->quantity) }} pcs &middot; {{ $req->size }}
                                     </span>
                                 </td>
-                                <td class="px-4 sm:px-5 py-3 whitespace-nowrap">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border {{ $statusBadge }} font-mono">
+                                <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider {{ $statusBadge }} font-mono">
                                         {{ ucfirst($req->status) }}
                                     </span>
                                 </td>
-                                <td class="px-4 sm:px-5 py-3 text-right whitespace-nowrap">
-                                    <a href="{{ route('staff.print-requests.show', $req->id) }}" class="px-2.5 py-1 rounded-lg bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition inline-flex items-center gap-1">
-                                        <span>Verify</span>
-                                        <i class="fa-solid fa-chevron-right text-[9px]"></i>
-                                    </a>
+                                <td class="px-4 sm:px-5 py-3.5 text-right whitespace-nowrap">
+                                    @if($isPrimaryAction)
+                                        <a href="{{ route('staff.print-requests.show', $req->id) }}" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition inline-flex items-center gap-1.5">
+                                            <span>{{ $reqActionLabel }}</span>
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('staff.print-requests.show', $req->id) }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 inline-flex items-center gap-1 hover:underline">
+                                            <span>{{ $reqActionLabel }}</span>
+                                            <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -184,51 +171,50 @@
 
         {{-- RIGHT: RECENT QUOTATIONS --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+            <div class="px-5 sm:px-6 py-4 border-b border-cyber/60 flex items-center justify-between">
                 <div>
                     <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Recent Quotations</h3>
-                    <p class="text-[11px] text-cyber-muted mt-0.5">Pricing estimates prepared for clients</p>
                 </div>
-                <a href="{{ route('staff.quotations.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                <a href="{{ route('staff.quotations.index') }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1">
                     All Quotes <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
             <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
-                    <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
+                    <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]">
                         <tr>
-                            <th class="px-4 sm:px-5 py-3">Quote #</th>
-                            <th class="px-4 sm:px-5 py-3">Customer</th>
-                            <th class="px-4 sm:px-5 py-3">Total Est.</th>
-                            <th class="px-4 sm:px-5 py-3 text-right">Action</th>
+                            <th class="px-4 sm:px-5 py-3.5">Quote #</th>
+                            <th class="px-4 sm:px-5 py-3.5">Customer</th>
+                            <th class="px-4 sm:px-5 py-3.5">Total Est.</th>
+                            <th class="px-4 sm:px-5 py-3.5 text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-cyber/60 text-cyber-main">
                         @forelse($recentQuotations as $q)
                             @php
                                 $qBadge = match($q->status) {
-                                    'confirmed' => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-                                    'declined'  => 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-                                    default     => 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+                                    'confirmed' => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
+                                    'declined'  => 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
+                                    default     => 'bg-amber-500/15 text-amber-800 dark:text-amber-400',
                                 };
                             @endphp
                             <tr class="hover:bg-cyber-hover/50 transition">
-                                <td class="px-4 sm:px-5 py-3">
+                                <td class="px-4 sm:px-5 py-3.5">
                                     <span class="font-mono font-bold text-cyber-main block">{{ $q->quotation_number }}</span>
-                                    <span class="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider border {{ $qBadge }} font-mono inline-block mt-0.5">
+                                    <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider {{ $qBadge }} font-mono inline-block mt-0.5">
                                         {{ ucfirst($q->status) }}
                                     </span>
                                 </td>
-                                <td class="px-4 sm:px-5 py-3">
+                                <td class="px-4 sm:px-5 py-3.5">
                                     <span class="font-bold text-cyber-main block truncate max-w-[140px]">{{ $q->user->name ?? 'Customer' }}</span>
                                     <span class="text-[10px] text-cyber-muted truncate max-w-[140px] block">{{ $q->printRequest->service ?? 'Print Order' }}</span>
                                 </td>
-                                <td class="px-4 sm:px-5 py-3 font-mono font-bold text-emerald-400 whitespace-nowrap">
+                                <td class="px-4 sm:px-5 py-3.5 font-mono font-bold text-emerald-700 dark:text-emerald-400 whitespace-nowrap">
                                     ₱{{ number_format($q->total_price, 2) }}
                                 </td>
-                                <td class="px-4 sm:px-5 py-3 text-right whitespace-nowrap">
-                                    <a href="{{ route('staff.quotations.show', $q->id) }}" class="px-2.5 py-1 rounded-lg bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition inline-flex items-center gap-1">
+                                <td class="px-4 sm:px-5 py-3.5 text-right whitespace-nowrap">
+                                    <a href="{{ route('staff.quotations.show', $q->id) }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 inline-flex items-center gap-1 hover:underline">
                                         <span>View</span>
                                         <i class="fa-solid fa-chevron-right text-[9px]"></i>
                                     </a>
@@ -252,7 +238,7 @@
     <x-dashboard.production-table 
         :jobs="$recentOrders"
         title="Active Client Orders"
-        subtitle="Live status tracking across payment confirmation, production, and claiming"
+        :subtitle="null"
         :viewAllUrl="route('staff.orders.index')"
         viewAllLabel="All Client Orders"
     />
