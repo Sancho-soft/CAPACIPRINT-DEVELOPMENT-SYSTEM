@@ -9,24 +9,18 @@
     {{-- HERO WELCOME HEADER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="relative py-1">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-            {{-- Left Title & Icon --}}
-            <div class="flex items-center gap-3.5">
-                <div class="h-11 w-11 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 dark:text-cyan-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-user-circle"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Welcome back, {{ auth()->user()->name }}!</h2>
-                </div>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            {{-- Left Title --}}
+            <div>
+                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white leading-tight">Welcome back, {{ auth()->user()->name }}!</h2>
             </div>
 
             {{-- Right Controls: Quick Navigation Actions --}}
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
-                <a href="{{ route('customer.print-requests.create') }}" class="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-md transition flex items-center gap-2">
-                    <i class="fa-solid fa-plus text-xs"></i> Submit Print Request
-                </a>
-                <a href="{{ route('customer.orders.index') }}" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500"></i> View My Orders
+            <div class="flex items-center gap-2.5 shrink-0">
+                <a href="{{ route('customer.orders.index') }}" 
+                   class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-md shadow-cyan-500/20 transition-all duration-200 active:scale-95">
+                    <i class="fa-solid fa-magnifying-glass text-xs shrink-0"></i>
+                    <span class="leading-none">View My Orders</span>
                 </a>
             </div>
         </div>
@@ -39,7 +33,7 @@
         {{-- Card 1: Active Orders (Cyan) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-boxes-stacked text-2xl text-cyan-400 shrink-0 group-hover:scale-110 transition-all"></i>
+                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE ORDERS</div>
             </div>
             <div class="text-right shrink-0">
@@ -50,7 +44,7 @@
         {{-- Card 2: Pending Quotations (Amber) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-invoice-dollar text-2xl text-amber-400 shrink-0 group-hover:scale-110 transition-all"></i>
+                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PENDING QUOTATIONS</div>
             </div>
             <div class="text-right shrink-0">
@@ -61,7 +55,7 @@
         {{-- Card 3: Completed Orders (Emerald) --}}
         <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-clipboard-check text-2xl text-emerald-400 shrink-0 group-hover:scale-110 transition-all"></i>
+                <i class="fa-solid fa-clipboard-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">COMPLETED ORDERS</div>
             </div>
             <div class="text-right shrink-0">
@@ -163,10 +157,10 @@
             <table class="min-w-full divide-y divide-slate-800/80 text-sm">
                 <thead class="bg-[#0D1520]">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Order No.</th>
-                        <th class="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Service</th>
-                        <th class="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-right text-xs font-bold text-slate-400 uppercase tracking-wider">Action</th>
+                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Order No.</th>
+                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Service</th>
+                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-right text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-800/80">

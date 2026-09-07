@@ -282,7 +282,8 @@
         html.light-theme thead.bg-cyber-base\/80,
         html.light-theme thead {
             background-color: #F1F5F9 !important;
-            color: #475569 !important;
+            color: #0F172A !important;
+            font-weight: 800 !important;
             border-color: #CBD5E1 !important;
         }
 
@@ -369,8 +370,13 @@
         /* Table header cells and borders in Light Mode */
         html.light-theme table thead th {
             background-color: #F8FAFC !important;
-            color: #475569 !important;
+            color: #0F172A !important;
+            font-weight: 800 !important;
             border-bottom: 1px solid #CBD5E1 !important;
+        }
+
+        table thead th {
+            font-weight: 800 !important;
         }
 
         /* Inner metric boxes in branch workload cards & tables */

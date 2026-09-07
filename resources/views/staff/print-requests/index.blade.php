@@ -11,21 +11,8 @@
         <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-xl shrink-0">
-                    <i class="fa-solid fa-file-circle-question"></i>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Customer Print Requests</h2>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-mono">
-                            Front Desk Queue
-                        </span>
-                    </div>
-                    <p class="text-xs text-cyber-muted mt-1 leading-relaxed">
-                        Audit incoming artwork submissions, review customer specifications, and generate price quotations.
-                    </p>
-                </div>
+            <div>
+                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Customer Print Requests</h2>
             </div>
 
             <div class="flex items-center gap-2.5 shrink-0">

@@ -13,13 +13,8 @@
         <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-headset"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Sales &amp; Customer Service Desk</h2>
-                </div>
+            <div>
+                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Sales &amp; Customer Service Desk</h2>
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">

@@ -21,15 +21,7 @@
         default            => 'text-cyan-600 dark:text-cyan-400',
     };
 
-    $iconColor = match($accent) {
-        'emerald'          => 'text-emerald-500 dark:text-emerald-400',
-        'amber'            => 'text-amber-500 dark:text-amber-400',
-        'rose'             => 'text-rose-500 dark:text-rose-400',
-        'indigo', 'purple' => 'text-indigo-500 dark:text-indigo-400',
-        'teal'             => 'text-teal-500 dark:text-teal-400',
-        'blue'             => 'text-blue-500 dark:text-blue-400',
-        default            => 'text-cyan-500 dark:text-cyan-400',
-    };
+    $iconColor = 'text-slate-400 dark:text-slate-400';
 
     $activeClasses = match($accent) {
         'rose'    => 'ring-2 ring-rose-500/40 border-rose-500/60 bg-rose-500/[0.03]',
