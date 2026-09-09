@@ -46,11 +46,10 @@
             <p class="text-brand-400 text-xs font-bold tracking-widest uppercase">Claiming Reference</p>
         </div>
 
-        {{-- QR Code (via API) --}}
+        {{-- QR Code (via QRious) --}}
         <div class="flex justify-center py-6 bg-white">
             <div class="p-4 border-2 border-slate-100 rounded-xl bg-white shadow-inner">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ urlencode($claim->claim_code) }}"
-                     alt="QR Claim Code" class="w-44 h-44">
+                <canvas id="qr-code-claim" class="w-44 h-44"></canvas>
             </div>
         </div>
 
@@ -116,4 +115,18 @@
         <i class="fa-solid fa-arrow-left text-xs mr-1"></i> Back to Claims
     </a>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('assets/js/qrious.min.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new QRious({
+            element: document.getElementById('qr-code-claim'),
+            value: '{{ $claim->claim_code }}',
+            size: 180,
+            level: 'H'
+        });
+    });
+</script>
 @endsection

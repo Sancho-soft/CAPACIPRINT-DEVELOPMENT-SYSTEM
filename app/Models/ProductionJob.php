@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductionJob extends Model
 {
+    use Auditable;
     protected $fillable = [
         'job_number', 'order_id', 'branch_id', 'machine_id', 'assigned_to',
         'status', 'priority', 'estimated_hours', 'delay_reason', 'remarks',

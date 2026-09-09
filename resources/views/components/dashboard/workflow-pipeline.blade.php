@@ -42,7 +42,7 @@ Expected $stages array format:
         <div class="flex items-center min-w-[760px] justify-between gap-2 relative">
 
             {{-- Background Connecting Line --}}
-            <div class="absolute top-5 left-12 right-12 h-0.5 bg-slate-200 dark:bg-slate-800 -z-0"></div>
+            <div class="absolute top-[20px] left-10 right-10 h-0.5 sm:h-1 bg-slate-300 dark:bg-slate-700 z-0 rounded-full"></div>
 
             @foreach($stages as $index => $stage)
             @php
@@ -52,17 +52,17 @@ Expected $stages array format:
             $stageUrl = $stage['url'] ?? null;
 
             if ($isActive) {
-            $circleStyle = 'bg-sky-600 dark:bg-sky-500 text-white border-transparent shadow-md shadow-sky-500/20 ring-4 ring-sky-500/20';
-            $badgeStyle = 'bg-sky-500/15 text-sky-700 dark:text-sky-300';
-            $titleStyle = 'text-sky-700 dark:text-sky-400 font-extrabold';
+            $circleStyle = 'bg-sky-600 dark:bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-500/30 ring-4 ring-sky-500/25';
+            $badgeStyle = 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30';
+            $titleStyle = 'text-sky-700 dark:text-sky-400 font-black';
             } elseif ($hasItems) {
-            $circleStyle = 'bg-cyber-card border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 group-hover:text-sky-500 group-hover:border-sky-400';
-            $badgeStyle = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300';
+            $circleStyle = 'bg-white dark:bg-slate-850 border-sky-500 text-sky-600 dark:text-sky-400 shadow-xs group-hover:border-sky-400 group-hover:scale-110';
+            $badgeStyle = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700';
             $titleStyle = 'text-cyber-main font-bold';
             } else {
-            $circleStyle = 'bg-cyber-card border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 group-hover:border-slate-400 dark:group-hover:border-slate-600';
+            $circleStyle = 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 group-hover:border-sky-400 dark:group-hover:border-sky-500 group-hover:text-sky-600 dark:group-hover:text-sky-400 shadow-xs';
             $badgeStyle = '';
-            $titleStyle = 'text-slate-500 dark:text-slate-400 font-medium';
+            $titleStyle = 'text-slate-600 dark:text-slate-400 font-semibold';
             }
             @endphp
 

@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="bg-white p-3 rounded-2xl shadow-lg shrink-0 text-center">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data={{ urlencode($order->claimReference->claim_code ?? $order->order_number) }}" alt="QR Code" class="h-32 w-32">
+            <canvas id="qr-code-order" class="h-32 w-32"></canvas>
             <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mt-1">Scan at Counter</span>
         </div>
     </div>
@@ -125,4 +125,20 @@
         <i class="fa-solid fa-arrow-left text-xs"></i> Back to My Orders
     </a>
 </div>
+@endsection
+
+@section('scripts')
+@if($order->claimReference || in_array($order->status, ['ready_for_pickup', 'completed', 'claimed']))
+<script src="{{ asset('assets/js/qrious.min.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new QRious({
+            element: document.getElementById('qr-code-order'),
+            value: '{{ $order->claimReference->claim_code ?? $order->order_number }}',
+            size: 140,
+            level: 'H'
+        });
+    });
+</script>
+@endif
 @endsection

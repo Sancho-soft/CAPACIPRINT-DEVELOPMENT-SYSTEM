@@ -112,5 +112,70 @@
         viewAllLabel="Full Production Schedule"
     />
 
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- MACHINE MAINTENANCE SCHEDULE ALERTS --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    @if($maintenanceAlerts->isNotEmpty())
+    <div class="bg-cyber-card border border-amber-500/30 rounded-3xl shadow-xl p-6 sm:p-7 space-y-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-wrench"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-cyber-main text-sm font-display">Machine Maintenance Alerts</h3>
+                    <p class="text-[10px] text-cyber-muted">{{ $maintenanceAlerts->count() }} machine(s) require attention</p>
+                </div>
+            </div>
+            <a href="{{ route('production.machines.index') }}" class="px-3 py-1.5 rounded-lg bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-[10px] transition">
+                View Logs →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            @foreach($maintenanceAlerts as $machine)
+                @php
+                    $isOverdue  = $machine->maintenance_overdue;
+                    $isDueSoon  = $machine->maintenance_due_soon;
+                    $isDown     = in_array($machine->status, ['maintenance', 'offline']);
+
+                    $borderClass = $isOverdue ? 'border-rose-500/40' : ($isDown ? 'border-amber-500/40' : 'border-cyan-500/30');
+                    $iconColor   = $isOverdue ? 'text-rose-400' : ($isDown ? 'text-amber-400' : 'text-cyan-400');
+                    $badgeClass  = $isOverdue ? 'bg-rose-500/15 text-rose-400' : ($isDown ? 'bg-amber-500/15 text-amber-400' : 'bg-cyan-500/15 text-cyan-400');
+                    $badgeLabel  = $isOverdue ? 'OVERDUE' : ($isDown ? strtoupper($machine->status) : 'DUE SOON');
+                @endphp
+                <div class="bg-cyber-sub/50 rounded-xl border {{ $borderClass }} p-3.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-print {{ $iconColor }} text-xs"></i>
+                            <span class="font-bold text-cyber-main text-xs truncate max-w-[140px]">{{ $machine->name }}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider {{ $badgeClass }}">
+                            {{ $badgeLabel }}
+                        </span>
+                    </div>
+                    <p class="text-[10px] text-cyber-muted">
+                        <i class="fa-solid fa-location-dot mr-0.5"></i> {{ $machine->branch->name ?? 'Branch' }}
+                        · {{ $machine->type }}
+                    </p>
+                    @if($machine->next_maintenance_date)
+                        <p class="text-[10px] font-mono {{ $isOverdue ? 'text-rose-400' : 'text-cyber-muted' }}">
+                            <i class="fa-solid fa-calendar-day mr-0.5"></i>
+                            Next maintenance: {{ $machine->next_maintenance_date->format('M d, Y') }}
+                            @if($isOverdue)
+                                ({{ $machine->next_maintenance_date->diffForHumans() }})
+                            @endif
+                        </p>
+                    @else
+                        <p class="text-[10px] text-amber-400 font-mono">
+                            <i class="fa-solid fa-triangle-exclamation mr-0.5"></i> No maintenance schedule set
+                        </p>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
 </div>
 @endsection

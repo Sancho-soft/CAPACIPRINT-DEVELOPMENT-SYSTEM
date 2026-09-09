@@ -56,7 +56,15 @@ class JobController extends Controller
             'status'       => ['required', 'in:' . implode(',', ProductionJob::STATUSES)],
             'delay_reason' => ['required_if:status,delayed', 'nullable', 'string', 'max:500'],
             'remarks'      => ['nullable', 'string', 'max:1000'],
+            'qc_confirmed' => ['required_if:status,completed'],
         ]);
+
+        // Block completion if QC checklist was not signed off
+        if ($data['status'] === 'completed' && ($request->input('qc_confirmed') !== '1')) {
+            return redirect()->back()->withErrors([
+                'qc_confirmed' => 'You must complete the Quality Control checklist before marking this job as completed.',
+            ])->withInput();
+        }
 
         $updates = [
             'status'       => $data['status'],
