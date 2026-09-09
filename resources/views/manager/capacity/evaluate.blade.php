@@ -59,6 +59,13 @@
             </div>
         </div>
 
+        {{-- Radar Chart Visualization --}}
+        <div class="w-full flex justify-center bg-cyber-sub/20 rounded-2xl border border-cyber/50 p-4">
+            <div class="relative w-full max-w-2xl h-80">
+                <canvas id="capacityRadarChart"></canvas>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 gap-5">
             @foreach($evaluations as $eval)
             @php
@@ -204,4 +211,92 @@
     </div>
 
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const evaluations = @json($evaluations);
+        
+        // Prepare datasets for Radar Chart
+        const colors = [
+            { border: 'rgba(6, 182, 212, 1)', bg: 'rgba(6, 182, 212, 0.2)' }, // Cyan
+            { border: 'rgba(56, 189, 248, 0.8)', bg: 'rgba(56, 189, 248, 0.1)' }, // Light Blue
+            { border: 'rgba(167, 139, 250, 0.8)', bg: 'rgba(167, 139, 250, 0.1)' }, // Violet
+            { border: 'rgba(244, 114, 182, 0.6)', bg: 'rgba(244, 114, 182, 0.05)' }, // Pink
+            { border: 'rgba(148, 163, 184, 0.5)', bg: 'rgba(148, 163, 184, 0.05)' } // Slate
+        ];
+
+        const datasets = evaluations.map((eval, index) => {
+            const color = colors[index % colors.length];
+            return {
+                label: eval.branch.name,
+                data: [
+                    eval.machine_score,
+                    eval.workload_score,
+                    eval.employee_score,
+                    eval.material_score,
+                    eval.deadline_score
+                ],
+                backgroundColor: color.bg,
+                borderColor: color.border,
+                pointBackgroundColor: color.border,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: color.border,
+                borderWidth: 2,
+            };
+        });
+
+        const ctx = document.getElementById('capacityRadarChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Machine (Max 30)', 
+                    'Workload (Max 20)', 
+                    'Staff (Max 20)', 
+                    'Material (Max 20)', 
+                    'Deadline (Max 10)'
+                ],
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: {
+                            color: 'rgba(255, 255, 255, 0.7)',
+                            font: { family: "'Inter', sans-serif", size: 11, weight: 'bold' }
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 30
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            font: { family: "'Inter', sans-serif", size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#fff',
+                        bodyColor: '#cbd5e1',
+                        borderColor: 'rgba(6, 182, 212, 0.3)',
+                        borderWidth: 1
+                    }
+                }
+            }
+        });
+    });
+</script>
 @endsection

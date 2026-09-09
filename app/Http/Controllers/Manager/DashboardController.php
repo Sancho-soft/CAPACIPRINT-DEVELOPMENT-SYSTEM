@@ -165,6 +165,16 @@ class DashboardController extends Controller
             ->take(8)
             ->get();
 
+        // Machines with upcoming or overdue maintenance
+        $maintenanceAlerts = Machine::with('branch')
+            ->where(function ($q) {
+                $q->whereNotNull('next_maintenance_date')
+                  ->where('next_maintenance_date', '<=', now()->addDays(7));
+            })
+            ->orWhereIn('status', ['maintenance', 'offline'])
+            ->orderBy('next_maintenance_date')
+            ->get();
+
         return view('manager.dashboard', compact(
             'branches',
             'totalActiveJobs',
@@ -178,7 +188,8 @@ class DashboardController extends Controller
             'maintenanceMachines',
             'pipeline',
             'attentionItems',
-            'recentJobs'
+            'recentJobs',
+            'maintenanceAlerts'
         ));
     }
 }

@@ -7,17 +7,17 @@
     <title>@yield('title', 'CAPACIPRINT') — Intelligent Print Routing</title>
     <meta name="description" content="@yield('meta_description', 'CAPACIPRINT – Intelligent capacity-based print routing system.')">
 
-    {{-- Google Fonts --}}
+    {{-- Fonts (CDN with Local Fallback) --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}'; let l=document.createElement('link'); l.rel='stylesheet'; l.href='{{ asset('assets/fontsource/outfit/index.css') }}'; document.head.appendChild(l);">
 
-    {{-- FontAwesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {{-- FontAwesome (CDN with Local Fallback) --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onerror="this.onerror=null; this.href='{{ asset('assets/fontawesome/css/all.min.css') }}';">
 
-    {{-- Tailwind CDN --}}
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- Tailwind & ChartJS (CDN with Local Fallback) --}}
+    <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null; this.src='{{ asset('assets/js/tailwindcss.js') }}';"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="this.onerror=null; this.src='{{ asset('assets/js/chart.min.js') }}';"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -578,8 +578,8 @@
 <body class="h-full font-sans antialiased text-slate-800 bg-slate-50">
 @yield('body')
 
-{{-- Alpine.js --}}
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{{-- Alpine.js (CDN with Local Fallback) --}}
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" onerror="this.onerror=null; this.src='{{ asset('assets/js/alpine.min.js') }}';"></script>
 @yield('scripts')
 </body>
 </html>

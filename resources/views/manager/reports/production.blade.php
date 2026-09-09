@@ -37,35 +37,60 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- SEARCH & STATUS FILTER TOOLBAR --}}
+    {{-- SEARCH, DATE RANGE & STATUS FILTER TOOLBAR --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <form method="GET" action="{{ route('manager.reports.production') }}" class="bg-cyber-card border border-cyber rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3">
-        <div class="w-full md:w-80 relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-cyber-muted"></i>
-            <input type="text" name="search" value="{{ request('search') }}" 
-                   placeholder="Search job #, customer, branch..."
-                   class="w-full pl-9 pr-4 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main placeholder:text-cyber-muted focus:outline-hidden focus:border-cyan-500 transition font-sans">
-        </div>
+    <form method="GET" action="{{ route('manager.reports.production') }}" class="bg-cyber-card border border-cyber rounded-2xl p-4 shadow-sm space-y-3">
+        <div class="flex flex-col md:flex-row items-center gap-3">
+            {{-- Search --}}
+            <div class="w-full md:w-72 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-cyber-muted"></i>
+                <input type="text" name="search" value="{{ request('search') }}"
+                       placeholder="Search job #, customer, branch..."
+                       class="w-full pl-9 pr-4 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main placeholder:text-cyber-muted focus:outline-hidden focus:border-cyan-500 transition font-sans">
+            </div>
 
-        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-start md:justify-end">
-            <select name="status" onchange="this.form.submit()" class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans">
+            {{-- Status Filter --}}
+            <select name="status" class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans">
                 <option value="">All Statuses</option>
-                <option value="in_production" {{ request('status') === 'in_production' ? 'selected' : '' }}>In Production</option>
+                <option value="in_production"    {{ request('status') === 'in_production'    ? 'selected' : '' }}>In Production</option>
                 <option value="quality_checking" {{ request('status') === 'quality_checking' ? 'selected' : '' }}>Quality Checking</option>
-                <option value="delayed" {{ request('status') === 'delayed' ? 'selected' : '' }}>Delayed</option>
-                <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed</option>
-                <option value="assigned" {{ request('status') === 'assigned' ? 'selected' : '' }}>Assigned</option>
+                <option value="delayed"          {{ request('status') === 'delayed'          ? 'selected' : '' }}>Delayed</option>
+                <option value="completed"        {{ request('status') === 'completed'        ? 'selected' : '' }}>Completed</option>
+                <option value="assigned"         {{ request('status') === 'assigned'         ? 'selected' : '' }}>Assigned</option>
             </select>
 
-            <button type="submit" class="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition shadow-xs">
-                Filter
-            </button>
+            {{-- Date Range --}}
+            <div class="flex items-center gap-2">
+                <input type="date" name="from_date" value="{{ request('from_date') }}"
+                       class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans"
+                       title="From date">
+                <span class="text-cyber-muted text-xs font-bold">→</span>
+                <input type="date" name="to_date" value="{{ request('to_date') }}"
+                       class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans"
+                       title="To date">
+            </div>
 
-            @if(request()->filled('search') || request()->filled('status'))
-                <a href="{{ route('manager.reports.production') }}" class="px-3 py-2 text-xs bg-cyber-sub hover:bg-cyber-card border border-cyber rounded-xl text-cyber-muted hover:text-cyber-main transition">
-                    Clear
-                </a>
-            @endif
+            {{-- Filter & Clear Buttons --}}
+            <div class="flex items-center gap-2">
+                <button type="submit" class="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition shadow-xs">
+                    <i class="fa-solid fa-filter mr-1"></i> Filter
+                </button>
+
+                @if(request()->filled('search') || request()->filled('status') || request()->filled('from_date') || request()->filled('to_date'))
+                    <a href="{{ route('manager.reports.production') }}" class="px-3 py-2 text-xs bg-cyber-sub hover:bg-cyber-card border border-cyber rounded-xl text-cyber-muted hover:text-cyber-main transition">
+                        Clear
+                    </a>
+                @endif
+            </div>
+        </div>
+
+        {{-- CSV Export Button --}}
+        <div class="flex justify-end pt-2 border-t border-cyber/50">
+            <a href="{{ route('manager.reports.production', array_merge(request()->query(), ['export' => 'csv'])) }}"
+               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs transition shadow-sm">
+                <i class="fa-solid fa-file-csv text-sm"></i>
+                Export to CSV
+            </a>
         </div>
     </form>
 
