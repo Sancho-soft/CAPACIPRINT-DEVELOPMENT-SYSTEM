@@ -16,7 +16,7 @@
                     <label class="block font-bold text-navy-900 mb-1">Target Branch <span class="text-red-500">*</span></label>
                     <select name="branch_id" required class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
                         @foreach($branches as $b)
-                        <option value="{{ $b->id }}">{{ $b->name }}</option>
+                        <option value="{{ $b->id }}" {{ old('branch_id', request('branch_id')) == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -24,7 +24,7 @@
                     <label class="block font-bold text-navy-900 mb-1">Select Material <span class="text-red-500">*</span></label>
                     <select name="material_id" required class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
                         @foreach($materials as $m)
-                        <option value="{{ $m->id }}">{{ $m->name }} ({{ $m->unit }})</option>
+                        <option value="{{ $m->id }}" {{ old('material_id', request('material_id')) == $m->id ? 'selected' : '' }}>{{ $m->name }} ({{ $m->unit }})</option>
                         @endforeach
                     </select>
                 </div>
@@ -34,14 +34,14 @@
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Movement Type <span class="text-red-500">*</span></label>
                     <select name="movement_type" required class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
-                        <option value="stock_in">Stock In (+ Add)</option>
-                        <option value="stock_out">Stock Out (- Deduct)</option>
-                        <option value="adjustment">Stock Adjustment (Set Exact)</option>
+                        <option value="stock_in" {{ old('movement_type', request('movement_type', 'stock_in')) === 'stock_in' ? 'selected' : '' }}>Stock In (+ Add)</option>
+                        <option value="stock_out" {{ old('movement_type', request('movement_type')) === 'stock_out' ? 'selected' : '' }}>Stock Out (- Deduct)</option>
+                        <option value="adjustment" {{ old('movement_type', request('movement_type')) === 'adjustment' ? 'selected' : '' }}>Stock Adjustment (Set Exact)</option>
                     </select>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Quantity <span class="text-red-500">*</span></label>
-                    <input type="number" step="0.01" name="quantity" required min="0.01"
+                    <input type="number" step="0.01" name="quantity" value="{{ old('quantity', request('quantity')) }}" required min="0.01"
                            class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs font-bold focus:border-brand-500 focus:outline-none">
                 </div>
                 <div>

@@ -72,6 +72,94 @@
         </div>
     @endif
 
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- PRODUCTION PLANNING VISUAL ANALYTICS (SPLIT GRID) --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+
+        {{-- LEFT 2 COLS: FLOOR STAGE THROUGHPUT BAR GRAPH (STRAIGHT COLUMNS) --}}
+        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col justify-between h-full">
+            <div class="flex flex-col flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
+                    <div>
+                        <div class="flex items-center gap-2.5">
+                            <div class="h-8 w-8 rounded-xl bg-teal-500/10 border border-teal-500/20 text-[#009498] flex items-center justify-center text-xs shadow-xs">
+                                <i class="fa-solid fa-bars-progress"></i>
+                            </div>
+                            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Production Stage Throughput</h3>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-cyber-muted mt-1">Real-time volume across print shop pre-press, on-press, and QC stages</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium shrink-0">
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-2.5 w-2.5 shadow-xs" style="background-color: #009498;"></span>
+                            <span class="text-cyber-muted text-[11px]">Active Stages</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-2.5 w-2.5 shadow-xs" style="background-color: #f43f5e;"></span>
+                            <span class="text-cyber-muted text-[11px]">Delayed</span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Bar Chart Canvas --}}
+                <div class="relative h-64 sm:h-72 w-full pt-3">
+                    <canvas id="productionStageBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        {{-- RIGHT 1 COL: PRIORITY & URGENCY DISTRIBUTION DONUT --}}
+        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+            <div class="flex flex-col flex-1">
+                <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
+                    <div>
+                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Queue Urgency Mix</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Floor scheduling priority breakdown</p>
+                    </div>
+                    <div class="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                </div>
+
+                @php
+                    $totalPriorityCount = max(1, array_sum($planningPriorityBreakdown));
+                    $priLabels = array_keys($planningPriorityBreakdown);
+                    $priValues = array_values($planningPriorityBreakdown);
+                    $priColors = ['#f43f5e', '#f59e0b', '#009498'];
+                @endphp
+
+                <div class="relative flex items-center justify-center my-2 h-44 w-full">
+                    <canvas id="planningPriorityDonutChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPriorityCount }}</span>
+                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Active Runs</span>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
+                    @foreach($planningPriorityBreakdown as $pLabel => $pVal)
+                        @php
+                            $pPct = round(($pVal / $totalPriorityCount) * 100);
+                            $pDot = $priColors[$loop->index % count($priColors)];
+                        @endphp
+                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $pDot }}"></span>
+                                <span class="text-cyber-main font-medium truncate text-[11px]">{{ $pLabel }}</span>
+                            </div>
+                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
+                                {{ $pVal }} <span class="text-[10px] font-normal text-cyber-sub">({{ $pPct }}%)</span>
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     {{-- Filter & Search Form --}}
     <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm">
         <form method="GET" action="{{ route('manager.production-planning.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs">
@@ -261,4 +349,165 @@
     </div>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
+
+        // 1. Production Stage Throughput Bar Chart (Straight Columns)
+        const stageCanvas = document.getElementById('productionStageBarChart');
+        if (stageCanvas) {
+            const stageData = @json($stageBreakdown);
+            const labels = Object.keys(stageData);
+            const values = Object.values(stageData);
+
+            // Palette with sample colors & cyber tokens: Teal, Navy, Green, Indigo, Rose
+            const barColors = ['#009498', '#013F73', '#7DD956', '#6366f1', '#f43f5e'];
+            const hoverColors = ['#00b4b8', '#02569c', '#8ee568', '#818cf8', '#fb7185'];
+
+            new Chart(stageCanvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Jobs in Stage',
+                            data: values,
+                            backgroundColor: barColors,
+                            hoverBackgroundColor: hoverColors,
+                            borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
+                            borderSkipped: false,
+                            maxBarThickness: 48,
+                            barPercentage: 0.8,
+                            categoryPercentage: 0.7
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: isDark ? '#94a3b8' : '#475569',
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 10,
+                            cornerRadius: 6,
+                            boxPadding: 4,
+                            callbacks: {
+                                label: function(context) {
+                                    const val = context.raw || 0;
+                                    return ` ${context.label}: ${val} active jobs`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                            ticks: {
+                                color: isDark ? '#94a3b8' : '#64748b',
+                                font: {
+                                    family: 'Inter, sans-serif',
+                                    size: 11,
+                                    weight: '600'
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                            },
+                            ticks: {
+                                color: isDark ? '#94a3b8' : '#64748b',
+                                font: {
+                                    family: 'Inter, sans-serif',
+                                    size: 10
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Job Volume',
+                                color: isDark ? '#64748b' : '#94a3b8',
+                                font: {
+                                    size: 10,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+
+        // 2. Queue Urgency Distribution Donut Chart
+        const priorityCanvas = document.getElementById('planningPriorityDonutChart');
+        if (priorityCanvas) {
+            const pLabels = @json($priLabels);
+            const pData = @json($priValues);
+            const pColors = ['#f43f5e', '#f59e0b', '#009498'];
+
+            new Chart(priorityCanvas, {
+                type: 'doughnut',
+                data: {
+                    labels: pLabels,
+                    datasets: [{
+                        data: pData,
+                        backgroundColor: pColors,
+                        borderWidth: 2,
+                        borderColor: isDark ? '#111A24' : '#ffffff',
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '72%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: isDark ? '#94a3b8' : '#475569',
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 10,
+                            cornerRadius: 6,
+                            boxPadding: 4,
+                            callbacks: {
+                                label: function(context) {
+                                    const val = context.raw || 0;
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const pct = total > 0 ? Math.round((val / total) * 100) : 0;
+                                    return ` ${context.label}: ${val} jobs (${pct}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                        duration: 800
+                    }
+                }
+            });
+        }
+    });
+</script>
 @endsection

@@ -3,7 +3,7 @@
 @section('page-title', 'Customer Directory')
 
 @section('content')
-<div class="space-y-6 max-w-7xl">
+<div class="space-y-6">
     <div class="flex items-center justify-between">
         <div>
             <h2 class="text-2xl font-bold text-navy-900 font-display">Customers Directory</h2>
@@ -60,10 +60,9 @@
 
                             {{-- Send Direct Notification --}}
                             <button type="button"
-                                    onclick="openNotifyModal({{ json_encode([
-                                        'id' => $c->id,
-                                        'name' => $c->name
-                                    ]) }})"
+                                    data-id="{{ $c->id }}"
+                                    data-name="{{ $c->name }}"
+                                    onclick="openNotifyModal(this)"
                                     class="text-indigo-500 hover:text-indigo-400 transition text-sm p-1 inline-block"
                                     title="Send Direct Portal Notification">
                                 <i class="fa-solid fa-paper-plane"></i>
@@ -71,12 +70,11 @@
 
                             {{-- Edit Contact Details --}}
                             <button type="button"
-                                    onclick="openEditCustomerModal({{ json_encode([
-                                        'id' => $c->id,
-                                        'name' => $c->name,
-                                        'email' => $c->email,
-                                        'phone' => $c->phone
-                                    ]) }})"
+                                    data-id="{{ $c->id }}"
+                                    data-name="{{ $c->name }}"
+                                    data-email="{{ $c->email }}"
+                                    data-phone="{{ $c->phone }}"
+                                    onclick="openEditCustomerModal(this)"
                                     class="text-slate-500 hover:text-slate-700 transition text-sm p-1 inline-block"
                                     title="Edit Contact Info">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -174,19 +172,21 @@
 </div>
 
 <script>
-    function openNotifyModal(c) {
-        document.getElementById('notify-cust-name').textContent = c.name;
+    function openNotifyModal(target) {
+        const data = target.dataset || target;
+        document.getElementById('notify-cust-name').textContent = data.name;
         const form = document.getElementById('notify-form');
-        form.action = '/staff/customers/' + c.id + '/notify';
+        form.action = '/staff/customers/' + data.id + '/notify';
         document.getElementById('notify-modal').classList.remove('hidden');
     }
 
-    function openEditCustomerModal(c) {
-        document.getElementById('edit-cust-name').value = c.name;
-        document.getElementById('edit-cust-email').value = c.email;
-        document.getElementById('edit-cust-phone').value = c.phone || '';
+    function openEditCustomerModal(target) {
+        const data = target.dataset || target;
+        document.getElementById('edit-cust-name').value = data.name || '';
+        document.getElementById('edit-cust-email').value = data.email || '';
+        document.getElementById('edit-cust-phone').value = data.phone || '';
         const form = document.getElementById('edit-customer-form');
-        form.action = '/staff/customers/' + c.id;
+        form.action = '/staff/customers/' + data.id;
         document.getElementById('edit-customer-modal').classList.remove('hidden');
     }
 </script>

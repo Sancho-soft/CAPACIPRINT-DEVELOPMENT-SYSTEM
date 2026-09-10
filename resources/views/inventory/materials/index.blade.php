@@ -33,9 +33,21 @@
                             {{ $m->is_active ? 'Active' : 'Inactive' }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-right flex items-center justify-end gap-2">
-                        <a href="{{ route('inventory.materials.show', $m) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1.5 rounded-lg text-xs">View</a>
-                        <a href="{{ route('inventory.materials.edit', $m) }}" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3 py-1.5 rounded-lg text-xs">Edit</a>
+                    <td class="px-6 py-4 text-right whitespace-nowrap">
+                        <div class="inline-flex items-center justify-end gap-2">
+                            {{-- View Material Specification --}}
+                            <a href="{{ route('inventory.materials.show', $m) }}" 
+                               class="group h-8 w-8 rounded-xl bg-cyan-500/15 hover:bg-cyan-500 text-cyan-600 hover:text-white dark:bg-cyan-500/20 dark:text-cyan-400 dark:hover:bg-cyan-500 dark:hover:text-white border border-cyan-500/30 hover:border-cyan-500 flex items-center justify-center text-xs transition-all duration-200 shadow-xs" 
+                               title="View Material Specification">
+                                <i class="fa-solid fa-eye text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors"></i>
+                            </a>
+                            {{-- Edit Material Details --}}
+                            <a href="{{ route('inventory.materials.edit', $m) }}" 
+                               class="group h-8 w-8 rounded-xl bg-amber-500/15 hover:bg-amber-500 text-amber-600 hover:text-white dark:bg-amber-500/20 dark:text-amber-400 dark:hover:bg-amber-500 dark:hover:text-white border border-amber-500/30 hover:border-amber-500 flex items-center justify-center text-xs transition-all duration-200 shadow-xs" 
+                               title="Edit Material Details">
+                                <i class="fa-solid fa-pen-to-square text-amber-600 dark:text-amber-400 group-hover:text-white transition-colors"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
                 @empty
