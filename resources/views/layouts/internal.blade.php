@@ -142,14 +142,21 @@
                 <a href="{{ route('manager.purchasing.index') }}"
                    title="Purchase Requests"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.purchasing.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.purchasing.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-cart-flatbed w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Purchase Requests</span>
+                </a>
+                <a href="{{ route('manager.pricing-rules.index') }}"
+                   title="Pricing Rules Matrix"
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.pricing-rules.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                    <i class="fa-solid fa-calculator w-5 text-center text-sm shrink-0"></i>
+                    <span x-show="!sidebarCollapsed" class="truncate">Pricing Rules</span>
                 </a>
                 <a href="{{ route('manager.reports.index') }}"
                    title="Operational Reports"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.reports.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.reports.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-chart-column w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Operational Reports</span>
                 </a>
@@ -163,49 +170,42 @@
                 <a href="{{ route('staff.dashboard') }}"
                    title="Dashboard"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.dashboard') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-message w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('staff.print-requests.index') }}"
                    title="Customer Requests"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.print-requests.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.print-requests.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-file-signature w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Customer Requests</span>
                 </a>
                 <a href="{{ route('staff.quotations.index') }}"
                    title="Quotations"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.quotations.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.quotations.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Quotations</span>
                 </a>
                 <a href="{{ route('staff.orders.index') }}"
                    title="Orders"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.orders.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.orders.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-box-archive w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Orders</span>
                 </a>
                 <a href="{{ route('staff.claim-scanner') }}"
                    title="Claim &amp; QR Scanner"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.claim-scanner') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.claim-scanner') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-qrcode w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Claim &amp; QR Scanner</span>
-                </a>
-                <a href="{{ route('staff.pricing-rules.index') }}"
-                   title="Pricing Rules"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.pricing-rules.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
-                    <i class="fa-solid fa-dollar-sign w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Pricing Rules</span>
                 </a>
                 <a href="{{ route('staff.customers.index') }}"
                    title="Customers"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.customers.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('staff.customers.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-users w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Customers</span>
                 </a>
@@ -217,30 +217,30 @@
                 <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('manager.production-planning.index') }}"
-                   title="Production Planning"
+                   title="Planning Dashboard"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.production-planning.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.production-planning.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-calendar-days w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Production Planning</span>
                 </a>
                 <a href="{{ route('manager.capacity.index') }}"
                    title="Capacity Evaluation"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.capacity.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.capacity.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-calculator w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Capacity Evaluation</span>
                 </a>
                 <a href="{{ route('manager.recommendations.index') }}"
                    title="Branch Recommendations"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.recommendations.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.recommendations.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-building-circle-check w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Branch Recommendations</span>
                 </a>
                 <a href="{{ route('manager.workload.index') }}"
                    title="Workload Monitor"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.workload.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.workload.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-chart-line w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Workload Monitor</span>
                 </a>

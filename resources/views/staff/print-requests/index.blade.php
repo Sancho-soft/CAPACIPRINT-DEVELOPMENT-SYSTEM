@@ -16,8 +16,11 @@
             </div>
 
             <div class="flex items-center gap-2.5 shrink-0">
-                <a href="{{ route('staff.quotations.create') }}" class="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs shadow-[0_0_15px_rgba(6,182,212,0.3)] transition flex items-center gap-2">
-                    <i class="fa-solid fa-plus text-xs"></i> New Quotation
+                <a href="{{ route('staff.print-requests.create') }}" class="px-4 py-2.5 rounded-xl bg-[#0E3386] hover:bg-[#1442a8] text-white font-bold text-xs shadow-md shadow-[#0E3386]/25 transition flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-file-circle-plus text-xs"></i> New Print Request
+                </a>
+                <a href="{{ route('staff.quotations.create') }}" class="px-4 py-2.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2">
+                    <i class="fa-solid fa-plus text-xs text-sky-400"></i> New Quotation
                 </a>
             </div>
         </div>

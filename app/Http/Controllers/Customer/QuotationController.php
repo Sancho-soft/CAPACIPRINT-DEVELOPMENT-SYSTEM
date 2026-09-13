@@ -13,11 +13,46 @@ class QuotationController extends Controller
      */
     public function index(Request $request)
     {
-        $quotations = $request->user()
+        $query = $request->user()
             ->quotations()
-            ->with('printRequest')
-            ->latest()
-            ->paginate(7);
+            ->with('printRequest');
+
+        // Search by quotation number or service name
+        if ($search = $request->get('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('quotation_number', 'like', "%{$search}%")
+                  ->orWhereHas('printRequest', function ($pq) use ($search) {
+                      $pq->where('service', 'like', "%{$search}%")
+                         ->orWhere('material', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        // Filter by Date Assigned / Created
+        if ($dateFrom = $request->get('date_from')) {
+            $query->whereDate('created_at', '>=', $dateFrom);
+        }
+        if ($dateTo = $request->get('date_to')) {
+            $query->whereDate('created_at', '<=', $dateTo);
+        }
+
+        // Filter by status
+        if ($status = $request->get('status')) {
+            $query->where('status', $status);
+        }
+
+        // Sorting mechanics
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+        
+        $allowedSorts = ['created_at', 'total_price', 'valid_until', 'quotation_number'];
+        if (in_array($sortBy, $allowedSorts)) {
+            $query->orderBy($sortBy, $sortOrder === 'asc' ? 'asc' : 'desc');
+        } else {
+            $query->latest();
+        }
+
+        $quotations = $query->paginate(10)->withQueryString();
 
         return view('customer.quotations.index', compact('quotations'));
     }

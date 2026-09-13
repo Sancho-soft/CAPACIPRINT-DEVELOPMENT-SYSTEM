@@ -21,6 +21,54 @@
         </div>
     @endif
 
+    {{-- Filter, Search & Sorting Controls --}}
+    <div class="bg-white border border-slate-200/80 p-4 rounded-2xl shadow-sm">
+        <form method="GET" action="{{ route('staff.quotations.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+            {{-- Search Bar --}}
+            <div class="md:col-span-2 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search quotation #, customer, service..."
+                       class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-500 transition">
+            </div>
+
+            {{-- Date Assigned / Created Filter --}}
+            <div class="relative">
+                <input type="date" name="date_from" value="{{ request('date_from') }}" title="Date from"
+                       class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-brand-500 transition">
+            </div>
+
+            {{-- Status Filter --}}
+            <div>
+                <select name="status" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-brand-500 transition">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="confirmed" {{ request('status') === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                    <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    <option value="expired" {{ request('status') === 'expired' ? 'selected' : '' }}>Expired</option>
+                </select>
+            </div>
+
+            {{-- Sort By & Action --}}
+            <div class="flex items-center gap-2">
+                <select name="sort_by" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-brand-500 transition">
+                    <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>Date: Recent</option>
+                    <option value="total_price" {{ request('sort_by') === 'total_price' ? 'selected' : '' }}>Total Amount</option>
+                    <option value="valid_until" {{ request('sort_by') === 'valid_until' ? 'selected' : '' }}>Valid Until</option>
+                    <option value="quotation_number" {{ request('sort_by') === 'quotation_number' ? 'selected' : '' }}>Quotation #</option>
+                </select>
+                <input type="hidden" name="sort_order" value="{{ request('sort_order', 'desc') }}">
+                <button type="submit" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center">
+                    <i class="fa-solid fa-filter"></i>
+                </button>
+                @if(request()->hasAny(['search', 'date_from', 'status', 'sort_by']))
+                <a href="{{ route('staff.quotations.index') }}" class="p-2 bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 rounded-xl text-xs transition" title="Reset Filters">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </a>
+                @endif
+            </div>
+        </form>
+    </div>
+
     <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">

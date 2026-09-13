@@ -71,6 +71,16 @@ class UserSeeder extends Seeder
                 'address'  => 'Operations Planning Hub',
             ]
         );
+        User::updateOrCreate(
+            ['email' => 'production_officer@capaciprint.com'],
+            [
+                'name'     => 'Isagani Canal',
+                'password' => Hash::make('password'),
+                'role'     => 'production_officer',
+                'phone'    => '+63 919 444 5555',
+                'address'  => 'Operations Planning Hub',
+            ]
+        );
 
         // 5. Customer Service (CS)
         User::updateOrCreate(
