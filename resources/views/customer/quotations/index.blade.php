@@ -20,16 +20,64 @@
             <div class="flex items-center p-1 bg-cyber-sub rounded-xl border border-cyber">
                 <button type="button" @click="viewMode = 'table'"
                         class="py-1.5 px-3 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
-                        :class="viewMode === 'table' ? 'bg-cyan-500 text-slate-950 font-black shadow' : 'text-cyber-muted hover:text-cyber-main'">
+                        :class="viewMode === 'table' ? 'bg-brand-500 text-white font-black shadow' : 'text-cyber-muted hover:text-cyber-main'">
                     <i class="fa-solid fa-list text-[11px]"></i> Table View
                 </button>
                 <button type="button" @click="viewMode = 'grid'"
                         class="py-1.5 px-3 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
-                        :class="viewMode === 'grid' ? 'bg-cyan-500 text-slate-950 font-black shadow' : 'text-cyber-muted hover:text-cyber-main'">
+                        :class="viewMode === 'grid' ? 'bg-brand-500 text-white font-black shadow' : 'text-cyber-muted hover:text-cyber-main'">
                     <i class="fa-solid fa-border-all text-[11px]"></i> Grid Cards
                 </button>
             </div>
         </div>
+    </div>
+
+    {{-- Filter, Search & Sorting Bar --}}
+    <div class="bg-cyber-card border border-cyber p-4 rounded-2xl shadow-sm">
+        <form method="GET" action="{{ route('customer.quotations.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+            {{-- Search Bar --}}
+            <div class="md:col-span-2 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-cyber-muted text-xs"></i>
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search quotation #, service, material..."
+                       class="w-full pl-9 pr-3 py-2 bg-cyber-sub/60 border border-cyber rounded-xl text-xs text-cyber-main placeholder-cyber-muted focus:outline-none focus:border-brand-500 transition">
+            </div>
+
+            {{-- Date Assigned / Created Filter --}}
+            <div class="relative">
+                <input type="date" name="date_from" value="{{ request('date_from') }}" title="Date from"
+                       class="w-full px-3 py-2 bg-cyber-sub/60 border border-cyber rounded-xl text-xs text-cyber-main focus:outline-none focus:border-brand-500 transition">
+            </div>
+
+            {{-- Status Filter --}}
+            <div>
+                <select name="status" class="w-full px-3 py-2 bg-cyber-sub/60 border border-cyber rounded-xl text-xs text-cyber-main focus:outline-none focus:border-brand-500 transition">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="confirmed" {{ request('status') === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                    <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    <option value="expired" {{ request('status') === 'expired' ? 'selected' : '' }}>Expired</option>
+                </select>
+            </div>
+
+            {{-- Sort By & Action --}}
+            <div class="flex items-center gap-2">
+                <select name="sort_by" class="flex-1 px-3 py-2 bg-cyber-sub/60 border border-cyber rounded-xl text-xs text-cyber-main focus:outline-none focus:border-brand-500 transition">
+                    <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>Date: Recent</option>
+                    <option value="total_price" {{ request('sort_by') === 'total_price' ? 'selected' : '' }}>Total Price</option>
+                    <option value="valid_until" {{ request('sort_by') === 'valid_until' ? 'selected' : '' }}>Valid Until</option>
+                    <option value="quotation_number" {{ request('sort_by') === 'quotation_number' ? 'selected' : '' }}>Quotation #</option>
+                </select>
+                <input type="hidden" name="sort_order" value="{{ request('sort_order', 'desc') }}">
+                <button type="submit" class="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center">
+                    <i class="fa-solid fa-filter"></i>
+                </button>
+                @if(request()->hasAny(['search', 'date_from', 'status', 'sort_by']))
+                <a href="{{ route('customer.quotations.index') }}" class="p-2 bg-cyber-sub hover:bg-rose-500/20 text-cyber-muted hover:text-rose-500 rounded-xl text-xs transition" title="Clear Filters">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </a>
+                @endif
+            </div>
+        </form>
     </div>
 
     @if($quotations->isEmpty())

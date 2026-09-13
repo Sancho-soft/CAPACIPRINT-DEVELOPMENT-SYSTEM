@@ -38,12 +38,18 @@
                             700: '#2e3d50', 800: '#1f2c3a', 900: '#141c26', 950: '#0b1016',
                         },
                         brand: {
-                            50: '#e8f7fd', 100: '#c3ebf9', 200: '#8bd9f5', 300: '#4dc6ef',
-                            400: '#00F2FE', 500: '#00D2E0', 600: '#00B4C4',
-                            700: '#0090A0', 800: '#006E7D', 900: '#004C5A',
+                            50: '#f0f4fc', 100: '#dce5f8', 200: '#bfd2f2', 300: '#94b5e8',
+                            400: '#3b82f6', 500: '#1d4ed8', 600: '#1e40af',
+                            700: '#143c96', 800: '#0E3386', 900: '#0a235c', 950: '#051336',
+                        },
+                        cubs: {
+                            DEFAULT: '#0E3386',
+                            50: '#f0f4fc', 100: '#dce5f8', 200: '#bfd2f2', 300: '#94b5e8',
+                            400: '#3b82f6', 500: '#1d4ed8', 600: '#1e40af',
+                            700: '#143c96', 800: '#0E3386', 900: '#0a235c', 950: '#051336',
                         },
                         cyan: {
-                            400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2'
+                            400: '#3b82f6', 500: '#1d4ed8', 600: '#0E3386'
                         }
                     },
                     fontFamily: {
@@ -70,7 +76,7 @@
         :root {
             --brand-dark: #1f2c3a;
             --brand-mid:  #3d5068;
-            --brand-blue: #29bce8;
+            --brand-blue: #0E3386;
         }
 
         /* Dark Theme Variables (Default) */
@@ -86,12 +92,12 @@
             --text-sub: #64748B;
         }
 
-        /* Eye-Friendly Soft Light Theme Variables (Subtle Slate/Warm Tint - Low Glare) */
+        /* Eye-Friendly Soft Light Theme Variables (Anti-Glare Light Gray Tone) */
         html.light-theme {
-            --bg-base: #F1F5F9;
-            --bg-surface: #FFFFFF;
-            --bg-card: #FFFFFF;
-            --bg-card-sub: #F8FAFC;
+            --bg-base: #F1F3F7;
+            --bg-surface: #F8F9FA;
+            --bg-card: #F8F9FA;
+            --bg-card-sub: #ECEEF2;
             --border-main: #CBD5E1;
             --border-sub: #E2E8F0;
             --text-main: #0F172A;
@@ -505,8 +511,29 @@
         html.light-theme .hover\:border-purple-500\/40:hover { border-color: rgba(168,85,247,0.4) !important; }
 
         /* Selection color for light theme */
-        html.light-theme .selection\:bg-cyan-500\/30::selection { background-color: rgba(6,182,212,0.15) !important; }
-        html.light-theme .selection\:text-cyan-200::selection { color: #0E7490 !important; }
+        html.light-theme .selection\:bg-cyan-500\/30::selection { background-color: rgba(14,51,134,0.15) !important; }
+        html.light-theme .selection\:text-cyan-200::selection { color: #0E3386 !important; }
+
+        /* Eye-Friendly Anti-Glare Overrides for Light Theme (Replaces harsh #FFFFFF) */
+        html.light-theme,
+        html.light-theme body,
+        html.light-theme .bg-cyber-base {
+            background-color: #F1F3F7 !important;
+        }
+        html.light-theme main .bg-white,
+        html.light-theme .bg-white {
+            background-color: #F8F9FA !important;
+        }
+        html.light-theme .bg-cyber-card {
+            background-color: #F8F9FA !important;
+            border-color: #DDE2E8 !important;
+        }
+        html.light-theme .bg-cyber-sub {
+            background-color: #EDF0F4 !important;
+        }
+        html.light-theme .border-cyber {
+            border-color: #CBD5E1 !important;
+        }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(16px); }

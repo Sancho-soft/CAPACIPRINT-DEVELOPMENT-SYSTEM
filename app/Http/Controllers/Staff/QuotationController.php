@@ -17,10 +17,46 @@ class QuotationController extends Controller
 {
     public function index(Request $request)
     {
-        $quotations = Quotation::with(['user', 'printRequest'])
-            ->when($request->status, fn($q, $s) => $q->where('status', $s))
-            ->latest()
-            ->paginate(7);
+        $query = Quotation::with(['user', 'printRequest']);
+
+        // Search by quotation number, customer name, or service
+        if ($search = $request->get('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('quotation_number', 'like', "%{$search}%")
+                  ->orWhereHas('user', function ($uq) use ($search) {
+                      $uq->where('name', 'like', "%{$search}%")
+                         ->orWhere('email', 'like', "%{$search}%");
+                  })
+                  ->orWhereHas('printRequest', function ($pq) use ($search) {
+                      $pq->where('service', 'like', "%{$search}%")
+                         ->orWhere('material', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        // Date Assigned / Created filtering
+        if ($dateFrom = $request->get('date_from')) {
+            $query->whereDate('created_at', '>=', $dateFrom);
+        }
+        if ($dateTo = $request->get('date_to')) {
+            $query->whereDate('created_at', '<=', $dateTo);
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        // Sorting
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+        $allowedSorts = ['created_at', 'total_price', 'valid_until', 'quotation_number'];
+        if (in_array($sortBy, $allowedSorts)) {
+            $query->orderBy($sortBy, $sortOrder === 'asc' ? 'asc' : 'desc');
+        } else {
+            $query->latest();
+        }
+
+        $quotations = $query->paginate(10)->withQueryString();
 
         return view('staff.quotations.index', compact('quotations'));
     }

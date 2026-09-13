@@ -53,23 +53,15 @@ use App\Http\Controllers\Management\ReportController as MgmtReport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// ─────────────────────────────────────────────────────────────────
-Route::get('/', function () {
-    if (Auth::check()) {
-        return match(Auth::user()->role) {
-            'system_admin', 'admin' => redirect()->route('admin.dashboard'),
-            'owner', 'management'  => redirect()->route('management.dashboard'),
-            'manager'              => redirect()->route('manager.dashboard'),
-            'production_officer'   => redirect()->route('manager.production-planning.index'),
-            'staff'                => redirect()->route('staff.dashboard'),
-            'designer'             => redirect()->route('designer.dashboard'),
-            'production'           => redirect()->route('production.dashboard'),
-            'inventory'            => redirect()->route('inventory.dashboard'),
-            default                => redirect()->route('customer.dashboard'),
-        };
-    }
-    return redirect()->route('login');
-});
+// ── Public Customer Landing Page & Track Order ──────────────────
+Route::get('/', [\App\Http\Controllers\LandingController::class, 'index'])->name('landing');
+Route::post('/track-order', [\App\Http\Controllers\LandingController::class, 'trackOrder'])->name('orders.public-track');
+
+// ── Customer Portal Entry & Employee Portal Entry ────────────────
+Route::get('/portal', [LoginController::class, 'showCustomerLoginForm'])->name('customer.portal');
+Route::get('/customer/login', [LoginController::class, 'showCustomerLoginForm'])->name('customer.login');
+Route::get('/employee/login', [LoginController::class, 'showStaffLoginForm'])->name('employee.login');
+Route::get('/staff/portal', [LoginController::class, 'showStaffLoginForm'])->name('staff.portal');
 
 // ─────────────────────────────────────────────────────────────────
 // GUEST ONLY — Auth
@@ -126,6 +118,8 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     Route::put('/customers/{user}',                      [StaffCustomer::class,     'update'])->name('customers.update');
     Route::post('/customers/{user}/notify',              [StaffCustomer::class,     'notify'])->name('customers.notify');
     Route::get('/print-requests',                        [StaffPrintRequest::class, 'index'])->name('print-requests.index');
+    Route::get('/print-requests/create',                 [StaffPrintRequest::class, 'create'])->name('print-requests.create');
+    Route::post('/print-requests',                       [StaffPrintRequest::class, 'store'])->name('print-requests.store');
     Route::get('/print-requests/{printRequest}',         [StaffPrintRequest::class, 'show'])->name('print-requests.show');
     Route::post('/print-requests/{printRequest}/verify', [StaffPrintRequest::class, 'verify'])->name('print-requests.verify');
     Route::get('/quotations',                            [StaffQuotation::class,    'index'])->name('quotations.index');
@@ -143,11 +137,6 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     // Claim Verification & QR Scanner
     Route::get('/claim-scanner',                         [StaffOrder::class,        'claimScanner'])->name('claim-scanner');
     Route::post('/claim-verify',                         [StaffOrder::class,        'claimVerify'])->name('claim-verify');
-
-    // Pricing Rules Matrix Management
-    Route::get('/pricing-rules',                         [StaffQuotation::class,    'pricingRulesIndex'])->name('pricing-rules.index');
-    Route::post('/pricing-rules',                        [StaffQuotation::class,    'pricingRulesStore'])->name('pricing-rules.store');
-    Route::put('/pricing-rules/{pricingRule}',           [StaffQuotation::class,    'pricingRulesUpdate'])->name('pricing-rules.update');
 
     Route::get('/notifications',                         [StaffNotification::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{id}/read',              [StaffNotification::class, 'markRead'])->name('notifications.markRead');
@@ -187,6 +176,11 @@ Route::middleware(['auth', 'role:manager'])->prefix('manager')->name('manager.')
     Route::post('/purchasing/{purchaseRequest}/reject',     [\App\Http\Controllers\Manager\ProcurementController::class, 'reject'])->name('purchasing.reject');
     Route::post('/purchasing/{purchaseRequest}/cancel',     [\App\Http\Controllers\Manager\ProcurementController::class, 'cancel'])->name('purchasing.cancel');
     Route::post('/purchasing/{purchaseRequest}/receive',    [\App\Http\Controllers\Manager\ProcurementController::class, 'markReceived'])->name('purchasing.receive');
+
+    // Pricing Rules Matrix Management (Manager Role)
+    Route::get('/pricing-rules',                            [\App\Http\Controllers\Manager\PricingRuleController::class, 'index'])->name('pricing-rules.index');
+    Route::post('/pricing-rules',                           [\App\Http\Controllers\Manager\PricingRuleController::class, 'store'])->name('pricing-rules.store');
+    Route::put('/pricing-rules/{pricingRule}',              [\App\Http\Controllers\Manager\PricingRuleController::class, 'update'])->name('pricing-rules.update');
 });
 
 // ─────────────────────────────────────────────────────────────────

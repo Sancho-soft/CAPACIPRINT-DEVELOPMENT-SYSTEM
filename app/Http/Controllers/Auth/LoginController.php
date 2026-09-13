@@ -10,19 +10,39 @@ use Illuminate\Validation\ValidationException;
 class LoginController extends Controller
 {
     /**
-     * Show the login form.
+     * Show the default or customer login form.
      */
     public function showLoginForm()
+    {
+        return $this->showCustomerLoginForm();
+    }
+
+    /**
+     * Show the dedicated customer login form.
+     */
+    public function showCustomerLoginForm()
     {
         if (Auth::check()) {
             return $this->redirectAfterLogin(Auth::user());
         }
 
-        return view('auth.login');
+        return view('auth.login', ['portal' => 'customer']);
     }
 
     /**
-     * Handle an authentication attempt.
+     * Show the dedicated staff / employee login form.
+     */
+    public function showStaffLoginForm()
+    {
+        if (Auth::check()) {
+            return $this->redirectAfterLogin(Auth::user());
+        }
+
+        return view('auth.login', ['portal' => 'staff']);
+    }
+
+    /**
+     * Handle an authentication attempt with role-based portal enforcement.
      */
     public function login(Request $request)
     {
@@ -31,9 +51,39 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
+        $portalType = $request->input('portal_type', 'customer');
+
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $user = Auth::user();
+
+            // 1. On Customer Portal / Main Landing Page: ONLY customer can log in
+            if ($portalType === 'customer') {
+                if ($user->role !== 'customer') {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    throw ValidationException::withMessages([
+                        'email' => __('Access Denied: This login is exclusively for customers. Operations staff must sign in via the Staff Portal.'),
+                    ]);
+                }
+            }
+
+            // 2. On Staff Portal: ONLY employees / operations staff can log in
+            if ($portalType === 'staff') {
+                if ($user->role === 'customer') {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    throw ValidationException::withMessages([
+                        'email' => __('Access Denied: This portal is for authorized operations personnel only. Customers please sign in via the Customer Portal.'),
+                    ]);
+                }
+            }
+
             $request->session()->regenerate();
-            return $this->redirectAfterLogin(Auth::user());
+            return $this->redirectAfterLogin($user);
         }
 
         throw ValidationException::withMessages([
@@ -50,7 +100,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('landing');
     }
 
     /**

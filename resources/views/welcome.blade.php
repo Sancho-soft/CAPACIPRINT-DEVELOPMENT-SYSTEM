@@ -158,71 +158,996 @@
 </head>
 <body class="h-full font-sans antialiased text-slate-800" x-data="appState()" x-cloak>
 
-    <!-- 1. LOGIN SCREEN — Centered Card Layout -->
-    <div x-show="!isLoggedIn" class="flex min-h-screen items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-50/50 via-slate-50 to-slate-100 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- 1. CAPACIPRINT ENTERPRISE DSS PUBLIC LANDING PAGE          -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div x-show="!isLoggedIn" class="min-h-screen bg-[#F4F6F9] text-slate-800 flex flex-col justify-between selection:bg-[#0E3386] selection:text-white font-sans antialiased">
         
-        <!-- Centered Login Card -->
-        <div class="w-full max-w-md bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100/60 p-8 sm:p-10 relative z-10 animate-fade-in-up">
-            
-            <!-- Logo & Branding -->
-            <div class="flex flex-col items-center mb-8">
-                <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT Logo" class="h-36 w-auto object-contain mix-blend-multiply brightness-[1.08] contrast-[1.15]">
-            </div>
-
-            <!-- Error Alert -->
-            <div x-show="authError" class="mb-6 flex items-start gap-3 p-3.5 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
-                <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-red-500"></i>
-                <span x-text="authError"></span>
-            </div>
-
-            <!-- Login Form -->
-            <form @submit.prevent="handleLogin" class="space-y-6" autocomplete="off">
+        <!-- Clean Modern Top Navigation Bar (Branded Cubs Blue & Sky Blue) -->
+        <header id="main-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs text-slate-800 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                 
-                <!-- Username -->
-                <div>
-                    <label for="usr_field" class="block text-sm font-bold text-slate-700 mb-2">Username</label>
-                    <div class="flex rounded-xl border border-slate-200 overflow-hidden focus-within:border-brand-400 focus-within:ring-4 focus-within:ring-brand-400/15 transition-all bg-white shadow-sm">
-                        <span class="flex items-center justify-center w-12 border-r border-slate-200 text-slate-600 bg-white shrink-0">
-                            <i class="fa-solid fa-user text-lg"></i>
+                {{-- Brand Identity --}}
+                <a href="{{ route('landing') }}" class="flex items-center gap-3.5 group shrink-0 mr-4">
+                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+                    <div class="border-l border-slate-300 pl-3.5 flex flex-col justify-center">
+                        <span class="block font-display font-black text-xl text-slate-900 tracking-tight leading-none">
+                            CAPACI<span class="text-[#0E3386]">PRINT</span><span class="text-[#29bce8]">.</span>
                         </span>
-                        <input id="usr_field" name="usr_fake_name" type="text" x-model="loginUsername" required placeholder="" onfocus="this.placeholder='Enter your username'" onblur="this.placeholder=''" autocomplete="off" data-lpignore="true" class="flex-1 py-3 px-4 text-sm font-medium text-slate-800 placeholder-slate-400 bg-transparent border-none focus:ring-0 focus:outline-none">
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-[#0E3386] mt-1 block">Intelligent Print Routing</span>
+                    </div>
+                </a>
+
+                {{-- Clean Navigation Menu --}}
+                <nav class="hidden lg:flex items-center gap-8 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                    <a href="#hero" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Home</a>
+                    <a href="#services" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Print Services</a>
+                    <a href="#decision-engine" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Routing Engine</a>
+                    <a href="#problem" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Why CapaciPrint</a>
+                    <a href="#branches" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Branch Capacity</a>
+                    <a href="#tracking" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Track Order</a>
+                </nav>
+
+                {{-- Customer Sign In Modal Trigger on Main Landing Page --}}
+                <div class="flex items-center gap-3">
+                    <button type="button" @click="showLoginModal = true" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white text-xs font-bold transition-all shadow-md shadow-[#0E3386]/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-xs text-[#29bce8]"></i> Customer Sign In
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1">
+
+            <!-- ── HERO SECTION: CINEMATIC COMMERCIAL PRINT PRODUCTION ── -->
+            <section id="hero" class="relative min-h-[85vh] lg:min-h-[90vh] bg-slate-950 text-white overflow-hidden flex items-center justify-center border-b border-slate-800">
+                
+                {{-- Background Press Floor Photo with Cinematic Dark Radial Overlay --}}
+                <div class="absolute inset-0 z-0">
+                    <img src="{{ asset('images/press-floor-dark.jpg') }}" alt="Commercial Print Facility" class="w-full h-full object-cover object-center filter brightness-[0.36] contrast-[1.2] scale-100 transition-transform duration-1000 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/50 to-slate-950"></div>
+                    <div class="absolute inset-0 bg-radial at-center from-transparent via-slate-950/40 to-slate-950/90"></div>
+                    
+                    {{-- Ambient Subtle Animated Glow Orbs in Signature Blues --}}
+                    <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-[#0E3386]/30 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+                    <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#29bce8]/15 rounded-full blur-3xl pointer-events-none animate-float"></div>
+                </div>
+
+                {{-- Centered Heroic Typography & Content --}}
+                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center flex flex-col items-center">
+                    
+                    {{-- Badged Pill in Signature Cubs Blue & Sky Blue --}}
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0E3386]/40 border border-[#29bce8]/40 text-[#29bce8] text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-lg shadow-[#0E3386]/20 animate-fade-in-up">
+                        <span class="h-2 w-2 rounded-full bg-[#29bce8] animate-ping"></span>
+                        Multi-Branch Commercial Digital Printing Platform
+                    </div>
+
+                    {{-- Main Headline in Signature Gradient --}}
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-display tracking-tight leading-[1.05] animate-fade-in-up" style="animation-delay: 0.15s;">
+                        Print Your Brand <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] via-[#60a5fa] to-[#93c5fd]">Into Reality.</span>
+                    </h1>
+
+                    {{-- Centered Subtitle --}}
+                    <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed animate-fade-in-up" style="animation-delay: 0.25s;">
+                        From bold outdoor banners to precision vinyl decals and corporate apparel, CapaciPrint coordinates multi-facility press capacity, substrate stock, and deadlines before routing every job to the optimal branch.
+                    </p>
+
+                    {{-- Centered Dual Pill CTAs in Signature Palette --}}
+                    <div class="mt-9 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.35s;">
+                        <a href="#services" class="px-8 py-4 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#0E3386]/30 border border-[#29bce8]/40 transition-all transform hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 flex items-center gap-2.5 cursor-pointer">
+                            Explore Our Services <i class="fa-solid fa-arrow-right text-xs text-[#29bce8]"></i>
+                        </a>
+                        <a href="#decision-engine" class="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 hover:border-[#29bce8]/60 text-white font-bold text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center gap-2.5">
+                            <i class="fa-solid fa-microchip text-[#29bce8]"></i> View Allocation Engine
+                        </a>
+                    </div>
+
+                    {{-- Scroll Indicator --}}
+                    <div class="mt-14 flex flex-col items-center gap-1.5 text-slate-400 text-[11px] font-mono uppercase tracking-widest animate-bounce">
+                        <span>Scroll</span>
+                        <i class="fa-solid fa-chevron-down text-[#29bce8]"></i>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION: TRUST & CAPABILITIES BANNER (WITH ANIMATED COUNTERS) ── -->
+            <div id="stats-banner" class="bg-slate-900 border-b border-slate-800 text-slate-300 py-7">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="border-r border-slate-800 last:border-0 pr-4">
+                            <span class="block text-3xl font-black text-[#29bce8] font-display counter-item" data-target="3">0</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Production Facilities</span>
+                        </div>
+                        <div class="border-r border-slate-800 last:border-0 pr-4">
+                            <span class="block text-3xl font-black text-white font-display counter-item" data-target="100" data-suffix="%">0%</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Feasibility Verified</span>
+                        </div>
+                        <div class="border-r border-slate-800 last:border-0 pr-4">
+                            <span class="block text-3xl font-black text-[#29bce8] font-display counter-item" data-target="4" data-suffix="-Factor">0</span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Routing Allocation Weights</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-black text-white font-display flex items-center justify-center gap-2">
+                                <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping"></span> Live
+                            </span>
+                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Real-Time Floor Sync</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SECTION: COMMERCIAL PRINT CAPABILITIES & SERVICES ── -->
+            <section id="services" class="py-20 lg:py-28 bg-[#F4F6F9] border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Our Printing Capabilities</span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
+                            Commercial Print Solutions
+                        </h2>
+                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
+                            Industrial roll-to-roll solvent presses, high-precision contour vinyl plotters, dual-platen DTF apparel heat transfer units, and digital duplicators.
+                        </p>
+                    </div>
+
+                    {{-- 4-Card Photographic Grid with Hover Elevation --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        
+                        {{-- Product 1: Tarpaulins --}}
+                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll">
+                            <div class="relative h-56 overflow-hidden bg-slate-900">
+                                <img src="{{ asset('images/sample-tarpaulin.jpg') }}" alt="Heavy-Duty Tarpaulin Banners" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
+                                    Solvent Press
+                                </span>
+                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-emerald-950/85 backdrop-blur-md text-[10px] font-bold text-emerald-300 border border-emerald-500/30">
+                                    Same-Day / 24h
+                                </span>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Tarpaulin Banners</h3>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Heavyweight 13oz weatherproof vinyl with brass eyelets, hemmed edges, and solvent UV ink for maximum outdoor durability.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">Roll-to-Roll</span>
+                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
+                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Product 2: Stickers & Decals --}}
+                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll" style="transition-delay: 100ms;">
+                            <div class="relative h-56 overflow-hidden bg-slate-900">
+                                <img src="{{ asset('images/sample-stickers.jpg') }}" alt="Vinyl Stickers and Decals" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
+                                    Plotter Cutter
+                                </span>
+                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-sky-950/85 backdrop-blur-md text-[10px] font-bold text-sky-300 border border-sky-500/30">
+                                    1–2 Days
+                                </span>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Stickers &amp; Decals</h3>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Waterproof contour-cut vinyl decals with scratch-resistant matte or high-gloss UV laminate finish for packaging and branding.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">Die-Cut / Kiss-Cut</span>
+                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
+                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Product 3: DTF Apparel --}}
+                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll" style="transition-delay: 200ms;">
+                            <div class="relative h-56 overflow-hidden bg-slate-900">
+                                <img src="{{ asset('images/sample-apparel.jpg') }}" alt="Apparel & DTF Transfer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
+                                    Heat Press / DTF
+                                </span>
+                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-indigo-950/85 backdrop-blur-md text-[10px] font-bold text-indigo-300 border border-indigo-500/30">
+                                    2–3 Days
+                                </span>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Apparel &amp; DTF</h3>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Full-color Direct-to-Film transfers on cotton, polyester, corporate uniforms, event hoodies, and activewear with high wash-fastness.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">Garment Transfer</span>
+                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
+                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Product 4: Receipts & Carbonless Forms --}}
+                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll" style="transition-delay: 300ms;">
+                            <div class="relative h-56 overflow-hidden bg-slate-900">
+                                <img src="{{ asset('images/sample-receipts.jpg') }}" alt="Carbonless Receipts and Invoices" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
+                                    Duplicator
+                                </span>
+                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-bold text-slate-300 border border-slate-500/30">
+                                    2–4 Days
+                                </span>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                <div>
+                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Receipts &amp; Forms</h3>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Carbonless duplicate and triplicate NCR paper pads, sequentially numbered with precise tear perforations for official business invoices.
+                                    </p>
+                                </div>
+                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">NCR Numbered</span>
+                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
+                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SECTION: THE CAPACIPRINT DECISION SUPPORT ENGINE (CORE CAPSTONE ARCHITECTURE) ── -->
+            <section id="decision-engine" class="py-20 lg:py-28 bg-[#0B1118] text-white border-b border-slate-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+                        <span class="text-xs font-black text-[#29bce8] uppercase tracking-widest block mb-2 font-mono">Algorithmic Architecture</span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display tracking-tight">
+                            The 3-Stage Intelligent Routing Engine
+                        </h2>
+                        <p class="mt-4 text-slate-300 text-base leading-relaxed">
+                            CapaciPrint eliminates branch guesswork and delivery delays through a rigorous analytical three-stage pipeline based on verified shop-floor constraints.
+                        </p>
+                    </div>
+
+                    {{-- 3-Stage Analytical Sequence --}}
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        
+                        {{-- Stage 1 --}}
+                        <div class="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-6 reveal-on-scroll">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 01</span>
+                                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-950/80 text-rose-300 border border-rose-800/60">Hard Constraint</span>
+                                </div>
+                                <h3 class="text-xl font-black text-white font-display">Constraint-Based Rule Filtering</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Disqualifies any branch that cannot physically fulfill the job. Validates printer width capability, substrate stock in inventory, assigned machine operators, and remaining shift hours before deadline.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-slate-800 text-[11px] font-mono text-slate-400 space-y-1.5">
+                                <div class="flex items-center justify-between"><span>Max Print Width:</span> <strong class="text-emerald-400">&ge; Job Width</strong></div>
+                                <div class="flex items-center justify-between"><span>Substrate Stock:</span> <strong class="text-emerald-400">&ge; Required Area</strong></div>
+                                <div class="flex items-center justify-between"><span>Lead Time Margin:</span> <strong class="text-emerald-400">&gt; 0 Hours</strong></div>
+                            </div>
+                        </div>
+
+                        {{-- Stage 2 --}}
+                        <div class="p-8 rounded-2xl bg-slate-900/90 border-2 border-[#29bce8]/70 shadow-xl shadow-[#0E3386]/20 transition-all flex flex-col justify-between space-y-6 relative reveal-on-scroll" style="transition-delay: 100ms;">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 02</span>
+                                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#0E3386] text-white border border-[#29bce8] font-bold">Scoring Formula</span>
+                                </div>
+                                <h3 class="text-xl font-black text-white font-display">Multi-Factor Weighted Scoring</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Ranks all remaining eligible branches using verified operational weights to balance machine wear, staff availability, current queue density, and delivery safety margins.
+                                </p>
+                            </div>
+                            <div class="space-y-2.5 pt-4 border-t border-slate-800">
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Machine Availability</span><span class="text-[#29bce8] font-bold">40%</span></div>
+                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-[#29bce8] w-[40%]"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Assigned Staff &amp; Skill</span><span class="text-sky-400 font-bold">20%</span></div>
+                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-sky-400 w-[20%]"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Current Queue Workload</span><span class="text-indigo-400 font-bold">20%</span></div>
+                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-indigo-400 w-[20%]"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Deadline Safety Buffer</span><span class="text-emerald-400 font-bold">20%</span></div>
+                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-emerald-400 w-[20%]"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Stage 3 --}}
+                        <div class="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-6 reveal-on-scroll" style="transition-delay: 200ms;">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 03</span>
+                                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-sky-950/80 text-sky-300 border border-sky-800/60">Floor Scheduling</span>
+                                </div>
+                                <h3 class="text-xl font-black text-white font-display">Rule-Based Floor Dispatch</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Dispatches confirmed jobs into prioritized production queues. Uses Earliest Due Date (EDD) heuristics and setup-time batching so operators print identical substrates together to minimize waste.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-slate-800 text-[11px] font-mono text-slate-400 space-y-1.5">
+                                <div class="flex items-center justify-between"><span>Scheduling Rule:</span> <strong class="text-sky-400">Earliest Due Date (EDD)</strong></div>
+                                <div class="flex items-center justify-between"><span>Batch Optimization:</span> <strong class="text-sky-400">Group by Substrate</strong></div>
+                                <div class="flex items-center justify-between"><span>Shop Floor Sync:</span> <strong class="text-emerald-400">Live Operator Tablet</strong></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{-- Interactive Specimen Showcase (Full Width & Spacious) --}}
+                    <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-8 lg:p-10 shadow-2xl reveal-on-scroll">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+                            <div>
+                                <span class="text-xs font-black text-[#29bce8] uppercase tracking-widest font-mono">Live Routing Specimen</span>
+                                <h4 class="text-2xl font-black text-white font-display mt-1">Tarpaulin Banner (3 &times; 5 ft, 20 units)</h4>
+                                <p class="text-xs text-slate-400 font-mono mt-1">Requested Deadline: Today, 4:00 PM &bull; Priority: Rush Job &bull; Total Area: 300 sq.ft</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
+                                    <i class="fa-solid fa-check-circle mr-1"></i> Automated Allocation Passed
+                                </span>
+                            </div>
+                        </div>
+
+                        {{-- The 3 Branches Evaluation Grid --}}
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6">
+                            
+                            {{-- Branch 1: Ineligible --}}
+                            <div class="p-5 rounded-xl bg-slate-950/60 border border-rose-900/60 text-slate-300 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h5 class="font-bold text-white text-sm">Branch 1 &mdash; Central Hub</h5>
+                                        <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold uppercase border border-rose-800">Disqualified</span>
+                                    </div>
+                                    <div class="space-y-1.5 text-xs font-mono text-slate-400">
+                                        <div class="flex justify-between"><span>Roll Press:</span> <strong class="text-emerald-400">✓ 3.2m OK</strong></div>
+                                        <div class="flex justify-between"><span>13oz Media:</span> <strong class="text-emerald-400">✓ In Stock</strong></div>
+                                        <div class="flex justify-between"><span>Operators:</span> <strong class="text-emerald-400">✓ 4 On Duty</strong></div>
+                                        <div class="flex justify-between"><span>Cutoff Margin:</span> <strong class="text-rose-400 font-black">✕ Violates Cutoff</strong></div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-rose-900/40 text-[11px] text-rose-400 font-medium">
+                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Cannot complete before 4:00 PM cutoff due to existing heavy roll queue.
+                                </div>
+                            </div>
+
+                            {{-- Branch 2: Recommended (Cubs Blue & Cyan Glow) --}}
+                            <div class="p-5 rounded-xl bg-gradient-to-br from-[#0E3386]/30 via-slate-900 to-slate-900 border-2 border-[#29bce8] text-white flex flex-col justify-between relative shadow-xl shadow-[#0E3386]/30">
+                                <div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h5 class="font-bold text-white text-sm">Branch 2 &mdash; South Press Plant</h5>
+                                        <span class="px-2.5 py-0.5 rounded bg-[#0E3386] text-white border border-[#29bce8] text-[10px] font-black uppercase">Recommended</span>
+                                    </div>
+                                    <div class="space-y-1.5 text-xs font-mono text-slate-300">
+                                        <div class="flex justify-between"><span>Machine Load:</span> <strong class="text-white">61% (Available)</strong></div>
+                                        <div class="flex justify-between"><span>13oz Media:</span> <strong class="text-emerald-400">✓ 1,200 sq.ft Ready</strong></div>
+                                        <div class="flex justify-between"><span>Operators:</span> <strong class="text-emerald-400">✓ 3 Certified Staff</strong></div>
+                                        <div class="flex justify-between"><span>Lead Margin:</span> <strong class="text-emerald-400 font-bold">✓ +2.5 Hours Safety</strong></div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-[#29bce8]/30 flex items-center justify-between text-xs font-mono">
+                                    <span class="text-[#29bce8] font-bold">Overall Score: 84 / 100</span>
+                                    <span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Highest Match</span>
+                                </div>
+                            </div>
+
+                            {{-- Branch 3: High Capacity --}}
+                            <div class="p-5 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h5 class="font-bold text-white text-sm">Branch 3 &mdash; North Workshop</h5>
+                                        <span class="px-2 py-0.5 rounded bg-amber-950/60 text-amber-300 text-[10px] font-bold uppercase border border-amber-800/60">Near Capacity</span>
+                                    </div>
+                                    <div class="space-y-1.5 text-xs font-mono text-slate-400">
+                                        <div class="flex justify-between"><span>Machine Load:</span> <strong class="text-amber-400 font-bold">88% (Heavy)</strong></div>
+                                        <div class="flex justify-between"><span>13oz Media:</span> <strong class="text-emerald-400">✓ In Stock</strong></div>
+                                        <div class="flex justify-between"><span>Operators:</span> <strong class="text-emerald-400">✓ 2 Staff</strong></div>
+                                        <div class="flex justify-between"><span>Lead Margin:</span> <strong class="text-amber-400 font-bold">Marginal (+0.4h)</strong></div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex items-center justify-between">
+                                    <span>Overall Score: 63 / 100</span>
+                                    <span class="text-amber-400">Queue Congestion</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION: WHY CAPACIPRINT (OPERATIONAL BOTTLENECKS) ── -->
+            <section id="problem" class="py-20 lg:py-28 bg-white border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Operational Bottlenecks</span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
+                            When Every Branch Plans in Isolation
+                        </h2>
+                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
+                            Commercial print shops manage multi-stage operations: setup times, solvent drying, media stock, and customer commitments. When branches operate as disconnected units, manual planning causes severe bottlenecks.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                        
+                        {{-- Problem Side --}}
+                        <div class="p-8 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-6 reveal-on-scroll">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-phone-slash"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-black text-slate-900 font-display">Traditional Siloed Coordination</h4>
+                                    <span class="text-xs text-rose-600 font-medium">Manual phone calls &bull; Disconnected spreadsheets</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-4 text-xs sm:text-sm text-slate-700">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
+                                    <span>Counter staff repeatedly call press operators to ask if wide-format machines are free.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
+                                    <span>Substrate inventory is checked manually on outdated, separate store sheets.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
+                                    <span>Jobs are scheduled by subjective guess-work without visibility into other branches' capacity.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
+                                    <span>Rush orders cause operator overtime at one shop while another shop's roll printer sits idle.</span>
+                                </li>
+                            </ul>
+
+                            <div class="p-4 rounded-xl bg-rose-100/60 border border-rose-200 text-xs font-bold text-rose-800 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Result: Machine idle time in one branch, delay overruns and lost clients in another.
+                            </div>
+                        </div>
+
+                        {{-- Solution Side in Cubs Blue --}}
+                        <div class="p-8 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-6 reveal-on-scroll" style="transition-delay: 150ms;">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-xl bg-[#0E3386]/10 text-[#0E3386] flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-network-wired"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-black text-slate-900 font-display">CapaciPrint Intelligent Print Routing</h4>
+                                    <span class="text-xs text-[#0E3386] font-medium">Automated constraint checks &bull; Balanced multi-branch dispatch</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-4 text-xs sm:text-sm text-slate-700">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
+                                    <span>Intake instantly validates machine specs, media stock, and cutoffs before accepting orders.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
+                                    <span>Multi-criteria scoring assigns jobs to the least congested facility capable of hitting the target.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
+                                    <span>Shop-floor tablets give press operators organized, prioritized queues by earliest due date.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
+                                    <span>Clients track live progress with serialized QR claim tags from printing to packaging.</span>
+                                </li>
+                            </ul>
+
+                            <div class="p-4 rounded-xl bg-[#0E3386]/10 border border-[#0E3386]/20 text-xs font-bold text-[#0E3386] flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-[#29bce8]"></i>
+                                Result: Balanced branch utilization, predictable turnaround times, and guaranteed feasibility.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SECTION: REAL-TIME BRANCH NETWORK CAPACITY ── -->
+            <section id="branches" class="py-20 lg:py-28 bg-[#F4F6F9] border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Centralized Network</span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
+                            Live Multi-Branch Operations
+                        </h2>
+                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
+                            Continuous shop-floor load synchronization across all physical production facilities.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        {{-- Facility 1 --}}
+                        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 space-y-5 reveal-on-scroll">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                <div>
+                                    <h4 class="font-black text-slate-900 font-display text-lg">Central Hub</h4>
+                                    <span class="text-xs text-slate-500 font-mono">Morning Star Press</span>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase border border-emerald-200">
+                                    Operational
+                                </span>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <div class="flex justify-between text-slate-600 font-mono mb-1"><span>Current Workload</span><span class="font-bold text-[#0E3386]">68%</span></div>
+                                    <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#0E3386] w-[68%] transition-all duration-1000"></div></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2">
+                                    <span>Presses: <strong class="text-slate-800">4 Solvent Roll</strong></span>
+                                    <span>Operators: <strong class="text-slate-800">6 On Shift</strong></span>
+                                    <span>Daily Cap: <strong class="text-slate-800">2,500 sq.ft</strong></span>
+                                    <span>Queue: <strong class="text-slate-800">8 Orders</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Facility 2 --}}
+                        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 space-y-5 reveal-on-scroll" style="transition-delay: 100ms;">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                <div>
+                                    <h4 class="font-black text-slate-900 font-display text-lg">South Press Plant</h4>
+                                    <span class="text-xs text-slate-500 font-mono">Morning Star Network</span>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase border border-emerald-200">
+                                    Optimal Capacity
+                                </span>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <div class="flex justify-between text-slate-600 font-mono mb-1"><span>Current Workload</span><span class="font-bold text-emerald-600">52%</span></div>
+                                    <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 w-[52%] transition-all duration-1000"></div></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2">
+                                    <span>Presses: <strong class="text-slate-800">3 UV &amp; Solvent</strong></span>
+                                    <span>Operators: <strong class="text-slate-800">4 On Shift</strong></span>
+                                    <span>Daily Cap: <strong class="text-slate-800">1,800 sq.ft</strong></span>
+                                    <span>Queue: <strong class="text-slate-800">4 Orders</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Facility 3 --}}
+                        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 space-y-5 reveal-on-scroll" style="transition-delay: 200ms;">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                <div>
+                                    <h4 class="font-black text-slate-900 font-display text-lg">North Workshop</h4>
+                                    <span class="text-xs text-slate-500 font-mono">Green Heart Hub</span>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-sky-50 text-[#0E3386] text-[10px] font-black uppercase border border-sky-200">
+                                    Active Load
+                                </span>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <div class="flex justify-between text-slate-600 font-mono mb-1"><span>Current Workload</span><span class="font-bold text-[#0E3386]">74%</span></div>
+                                    <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#0E3386] w-[74%] transition-all duration-1000"></div></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2">
+                                    <span>Presses: <strong class="text-slate-800">2 DTF &amp; Duplicator</strong></span>
+                                    <span>Operators: <strong class="text-slate-800">3 On Shift</strong></span>
+                                    <span>Daily Cap: <strong class="text-slate-800">1,200 pcs</strong></span>
+                                    <span>Queue: <strong class="text-slate-800">7 Orders</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SECTION: QUALITY CONTROL & 4-POINT OPERATOR SIGN-OFF ── -->
+            <section class="py-20 lg:py-28 bg-white border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <div class="lg:col-span-6 space-y-6 reveal-on-scroll">
+                            <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block font-mono">Shop-Floor Execution</span>
+                            <h2 class="text-3xl sm:text-4xl font-black text-slate-950 font-display tracking-tight">
+                                Mandatory 4-Point Floor Quality Control
+                            </h2>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                                No job leaves the printing press without verified sign-off. Machine operators complete physical quality checks on mobile tablets before marking an order ready for customer handover.
+                            </p>
+
+                            <div class="space-y-3 pt-2">
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
+                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
+                                    <div>
+                                        <strong class="text-xs font-bold text-slate-900 block">1. Color Profile &amp; Density Calibration</strong>
+                                        <span class="text-[11px] text-slate-500">CMYK proof validation against client-approved artwork file.</span>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
+                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
+                                    <div>
+                                        <strong class="text-xs font-bold text-slate-900 block">2. Bleed Margin &amp; Contour Cut Alignment</strong>
+                                        <span class="text-[11px] text-slate-500">Precision registration verification on plotter knife cutters.</span>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
+                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
+                                    <div>
+                                        <strong class="text-xs font-bold text-slate-900 block">3. Lamination &amp; Edge Finishing Check</strong>
+                                        <span class="text-[11px] text-slate-500">Grommet tensile pull-test, folding alignment, and heat bonding.</span>
+                                    </div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
+                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
+                                    <div>
+                                        <strong class="text-xs font-bold text-slate-900 block">4. Output Count &amp; Serialized QR Packaging</strong>
+                                        <span class="text-[11px] text-slate-500">Final item count verification and client claim ticket tagging.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Quality Control Visual Card --}}
+                        <div class="lg:col-span-6 bg-[#0B1118] text-white p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6 reveal-on-scroll" style="transition-delay: 150ms;">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                                <div>
+                                    <span class="text-[10px] font-mono uppercase tracking-widest text-[#29bce8]">Tablet Sign-Off UI</span>
+                                    <h4 class="text-base font-black text-white font-display mt-0.5">Operator Inspection Protocol</h4>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] font-mono font-bold">
+                                    All Checks Passed
+                                </span>
+                            </div>
+
+                            <div class="space-y-4 font-mono text-xs">
+                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                                    <span>Ink Density Delta E &lt; 2.0:</span>
+                                    <span class="text-emerald-400 font-bold">✓ VERIFIED (0.8)</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                                    <span>Knife Alignment:</span>
+                                    <span class="text-emerald-400 font-bold">✓ EXACT (0.1mm)</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                                    <span>Eyelet Spacing:</span>
+                                    <span class="text-emerald-400 font-bold">✓ 24in Spacing OK</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
+                                    <span>Physical Count:</span>
+                                    <span class="text-emerald-400 font-bold">✓ 20 of 20 Boxed</span>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+                                <span>Sign-off Operator: <strong class="text-white">J. Santos (Lead Tech)</strong></span>
+                                <span class="font-mono text-[#29bce8]">Timestamp: 15:42:09</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SECTION: PUBLIC ORDER TRACKING ── -->
+            <section id="tracking" class="py-20 lg:py-28 bg-[#F4F6F9] border-b border-slate-200">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    
+                    <div class="max-w-2xl mx-auto mb-10 reveal-on-scroll">
+                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Live Order Lookup</span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-slate-950 font-display tracking-tight">
+                            Track Your Order Progress
+                        </h2>
+                        <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                            Enter your official reference number (e.g. <button type="button" @click="trackQuery = 'ORD-001'; lookupPublicOrder()" class="font-mono font-bold text-[#0E3386] underline cursor-pointer hover:text-[#0a2663]">ORD-001</button>) to inspect assigned facility routing, production status, and estimated completion.
+                        </p>
+                    </div>
+
+                    {{-- Tracking Search Box --}}
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 text-left reveal-on-scroll">
+                        <form @submit.prevent="lookupPublicOrder()" class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative flex-1">
+                                <i class="fa-solid fa-barcode absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <input type="text" x-model="trackQuery" required placeholder="Enter Order Number (e.g. ORD-001)"
+                                       class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-300 rounded-2xl text-xs sm:text-sm font-mono font-bold text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0E3386] focus:bg-white uppercase transition-colors">
+                            </div>
+                            <button type="submit" :disabled="isTracking"
+                                    class="px-8 py-4 rounded-2xl bg-[#0E3386] hover:bg-[#0a2663] text-white font-black text-xs sm:text-sm shadow-md shadow-[#0E3386]/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shrink-0 active:scale-95">
+                                <template x-if="isTracking">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-notch animate-spin"></i> Locating...
+                                    </span>
+                                </template>
+                                <template x-if="!isTracking">
+                                    <span class="flex items-center gap-2">
+                                        <i class="fa-solid fa-magnifying-glass"></i> Track Order
+                                    </span>
+                                </template>
+                            </button>
+                        </form>
+
+                        {{-- Tracking Error --}}
+                        <div x-show="trackError" class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium flex items-start gap-2.5" x-cloak>
+                            <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
+                            <span x-text="trackError"></span>
+                        </div>
+
+                        {{-- Tracking Result --}}
+                        <div x-show="trackResult" class="p-6 sm:p-7 rounded-2xl bg-slate-50 border border-slate-200 space-y-5" x-cloak>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-2">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Job Record</span>
+                                    <h3 class="text-xl font-black text-slate-900 font-mono" x-text="'#' + trackResult?.order_number"></h3>
+                                </div>
+                                <span class="px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#0E3386] text-white w-fit font-mono shadow-xs" x-text="trackResult?.status_label"></span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Service Type:</span>
+                                    <strong class="text-slate-900 text-sm" x-text="trackResult?.service"></strong>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Quantity &amp; Material:</span>
+                                    <strong class="text-slate-900 text-sm" x-text="trackResult?.quantity + ' pcs &bull; ' + trackResult?.material"></strong>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Production Facility:</span>
+                                    <strong class="text-[#0E3386] text-sm" x-text="trackResult?.assigned_branch"></strong>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 text-[11px] block">Estimated Completion:</span>
+                                    <strong class="text-slate-900 text-sm" x-text="trackResult?.estimated_completion"></strong>
+                                </div>
+                            </div>
+
+                            {{-- Progress Bar --}}
+                            <div class="pt-2">
+                                <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-2 font-mono">
+                                    <span>Production Queue Progression</span>
+                                    <span class="text-[#0E3386]" x-text="trackResult?.progress_percent + '%'"></span>
+                                </div>
+                                <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-[#0E3386] to-[#29bce8] rounded-full transition-all duration-700" :style="'width: ' + trackResult?.progress_percent + '%'"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ── FOOTER: ENTERPRISE COMMERCIAL PRINTING (CUBS BLUE BRANDED) ── -->
+        <footer class="bg-slate-950 text-slate-400 text-xs py-14 border-t border-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800">
+                    <div class="flex items-center gap-3.5">
+                        <img src="{{ asset('images/caplogo.png') }}" class="h-10 w-auto object-contain" alt="CAPACIPRINT">
+                        <div class="border-l border-slate-800 pl-3.5">
+                            <span class="font-display font-black text-white tracking-tight text-base block leading-none">
+                                CAPACI<span class="text-[#29bce8]">PRINT</span>
+                            </span>
+                            <span class="text-[9px] text-[#29bce8] uppercase tracking-widest mt-1 block font-semibold">Intelligent Print Routing</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-6 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                        <a href="#services" class="hover:text-white transition-colors">Services</a>
+                        <a href="#decision-engine" class="hover:text-white transition-colors">Routing Engine</a>
+                        <a href="#problem" class="hover:text-white transition-colors">Architecture</a>
+                        <a href="#branches" class="hover:text-white transition-colors">Branch Status</a>
+                        <a href="#tracking" class="hover:text-white transition-colors">Track Order</a>
+                        <a href="{{ route('customer.portal') }}" class="text-[#29bce8] hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+                            <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i> Customer Portal
+                        </a>
                     </div>
                 </div>
 
-                <!-- Password -->
-                <div>
-                    <label for="pwd_field" class="block text-sm font-bold text-slate-700 mb-2">Password</label>
-                    <div class="flex rounded-xl border border-slate-200 overflow-hidden focus-within:border-brand-400 focus-within:ring-4 focus-within:ring-brand-400/15 transition-all shadow-sm" x-data="{ show: false }">
-                        <span class="flex items-center justify-center w-12 border-r border-slate-200 text-slate-600 bg-white shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="4" y="11" width="16" height="10" rx="2.5"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                        </span>
-                        <input id="pwd_field" name="pwd_fake_name" :type="show ? 'text' : 'password'" x-model="loginPassword" required placeholder="" onfocus="this.placeholder='Enter your password'" onblur="this.placeholder=''" autocomplete="new-password" data-lpignore="true" class="flex-1 py-3 px-4 text-sm font-medium text-slate-800 placeholder-slate-400 bg-slate-50 border-none focus:ring-0 focus:outline-none">
-                        <button type="button" @click="show = !show" class="flex items-center justify-center w-12 text-slate-500 hover:text-brand-500 transition-colors bg-white border-l border-slate-200 shrink-0">
-                            <i class="fa-solid text-lg" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
-                        </button>
-                    </div>
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
+                    <p>&copy; {{ date('Y') }} CapaciPrint Intelligent Print Routing System. Developed for Academic Capstone Demonstration.</p>
+                    <p>Production Scheduling &bull; Multi-Branch Job Allocation &bull; Physical Constraint Verification</p>
                 </div>
+            </div>
+        </footer>
 
-                <!-- Submit Button -->
-                <button type="submit" :disabled="isLoading" class="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-brand-400 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-brand-500/25 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed">
-                    <template x-if="isLoading">
-                        <span class="flex items-center gap-2">
-                            <i class="fa-solid fa-circle-notch animate-spin"></i>
-                            <span x-text="loadingText">Signing in...</span>
-                        </span>
-                    </template>
-                    <template x-if="!isLoading">
-                        <span class="flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                            Sign In
-                        </span>
-                    </template>
+    </div>
+
+    <!-- ── MODERN JAVASCRIPT ANIMATIONS FOR CAPACIPRINT ── -->
+    <style>
+        /* Smooth Scroll-Reveal CSS */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.is-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Intersection Observer for Scroll-Reveal Animations
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            if ('IntersectionObserver' in window) {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+                revealElements.forEach(el => revealObserver.observe(el));
+            } else {
+                revealElements.forEach(el => el.classList.add('is-revealed'));
+            }
+
+            // 2. Animated Counter Numbers (for Stats Banner)
+            const statsSection = document.getElementById('stats-banner');
+            let counted = false;
+            if (statsSection && 'IntersectionObserver' in window) {
+                const statsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !counted) {
+                            counted = true;
+                            const counters = document.querySelectorAll('.counter-item');
+                            counters.forEach(counter => {
+                                const target = +counter.getAttribute('data-target');
+                                const suffix = counter.getAttribute('data-suffix') || '';
+                                const duration = 1400; // ms
+                                const stepTime = 20;
+                                const steps = duration / stepTime;
+                                const increment = target / steps;
+                                let current = 0;
+
+                                const timer = setInterval(() => {
+                                    current += increment;
+                                    if (current >= target) {
+                                        counter.textContent = target + suffix;
+                                        clearInterval(timer);
+                                    } else {
+                                        counter.textContent = Math.floor(current) + suffix;
+                                    }
+                                }, stepTime);
+                            });
+                        }
+                    });
+                }, { threshold: 0.3 });
+                statsObserver.observe(statsSection);
+            }
+
+            // 3. Header Scroll Glassmorphism State
+            const header = document.getElementById('main-header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 40) {
+                        header.classList.add('shadow-md', 'bg-white/98');
+                        header.classList.remove('shadow-xs');
+                    } else {
+                        header.classList.remove('shadow-md', 'bg-white/98');
+                        header.classList.add('shadow-xs');
+                    }
+                }, { passive: true });
+            }
+        });
+    </script>
+
+        <!-- CUSTOMER PORTAL SIGN IN MODAL (MAIN LANDING PAGE) -->
+        <div x-show="showLoginModal" x-cloak 
+             x-init="@if($errors->any()) showLoginModal = true; @endif"
+             class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm p-4 animate-fade-in-up">
+            <div @click.away="showLoginModal = false" class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 sm:p-9 relative">
+                
+                {{-- Close Button --}}
+                <button type="button" @click="showLoginModal = false" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-1.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
-            </form>
 
+                <div class="text-center mb-6">
+                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT" class="h-14 w-auto object-contain mx-auto mb-3">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E3386]/10 text-[#0E3386] text-[10px] font-black uppercase tracking-wider border border-[#0E3386]/20">
+                        <i class="fa-solid fa-user-check"></i> Customer Portal Access
+                    </span>
+                    <h3 class="text-2xl font-black text-slate-900 font-display mt-2">Customer Sign In</h3>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                        Access your active print jobs, approve quotations, and download digital proofs.
+                    </p>
+                </div>
+
+                {{-- Server Validation / Role Denial Errors --}}
+                @if($errors->any())
+                    <div class="mb-4 flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-medium leading-relaxed">
+                        <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
+                        <span>{{ $errors->first() }}</span>
+                    </div>
+                @endif
+
+                {{-- Client Error Alert --}}
+                <div x-show="authError" class="mb-4 flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-medium leading-relaxed" x-cloak>
+                    <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
+                    <span x-text="authError"></span>
+                </div>
+
+                <!-- Customer Login Form (Enforces customer-only login) -->
+                <form method="POST" action="{{ route('login.submit') }}" class="space-y-4">
+                    @csrf
+                    <input type="hidden" name="portal_type" value="customer">
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">Email Address</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="email" name="email" required x-model="loginUsername" placeholder="customer@capaciprint.com"
+                                   class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#0E3386] focus:bg-white transition-colors">
+                        </div>
+                    </div>
+
+                    <div x-data="{ showPass: false }">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">Password</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input :type="showPass ? 'text' : 'password'" name="password" required x-model="loginPassword" placeholder="••••••••"
+                                   class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#0E3386] focus:bg-white transition-colors">
+                            <button type="button" @click="showPass = !showPass" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+                                <i class="fa-solid text-xs" :class="showPass ? 'fa-eye-slash' : 'fa-eye'"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-xs pt-1">
+                        <label class="flex items-center gap-2 text-slate-600 cursor-pointer">
+                            <input type="checkbox" name="remember" class="rounded border-slate-300 text-[#0E3386]"> Remember me
+                        </label>
+                        <a href="{{ route('register') }}" class="text-[#0E3386] hover:underline font-bold">Create Account</a>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs shadow-md shadow-[#0E3386]/25 transition-all flex items-center justify-center gap-2 mt-2 cursor-pointer active:scale-95">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-[#29bce8]"></i> Sign In to Customer Portal
+                    </button>
+                </form>
+
+                {{-- Demo fast-login button for customers --}}
+                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+                    <span>1-Click Test:</span>
+                    <button type="button" @click="fillLogin('customer')" class="text-[#0E3386] hover:underline font-bold cursor-pointer">
+                        <i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Fill Customer Demo
+                    </button>
+                </div>
+
+            </div>
         </div>
     </div>
     <!-- 2. MAIN APPLICATION LAYOUT -->
@@ -1800,13 +2725,68 @@
                 formTargetDate: '',
                 formDeliveryMode: 'pickup',
                 minDate: '',
-
-                // Validations
                 quantityError: '',
                 fileError: '',
                 dateError: '',
-
                 ordersFilter: 'all',
+
+                // CRM Landing Page State
+                showLoginModal: false,
+                trackQuery: '',
+                isTracking: false,
+                trackResult: null,
+                trackError: '',
+                calcService: 'Tarpaulin Printing',
+                calcSize: 'Standard',
+                calcQuantity: 100,
+
+                get computedEstimate() {
+                    let base = 35; // Default Tarpaulin base
+                    if (this.calcService.includes('Sticker')) base = 45;
+                    else if (this.calcService.includes('DTF') || this.calcService.includes('T-Shirt')) base = 180;
+                    else if (this.calcService.includes('Calling Card')) base = 3.5;
+                    else if (this.calcService.includes('Receipt')) base = 25;
+                    else if (this.calcService.includes('Bookbinding')) base = 85;
+                    else if (this.calcService.includes('Flyer')) base = 8;
+
+                    let sizeMult = 1.0;
+                    if (this.calcSize === 'A4') sizeMult = 1.1;
+                    else if (this.calcSize === 'A3') sizeMult = 1.6;
+                    else if (this.calcSize === '2x3 ft') sizeMult = 2.0;
+                    else if (this.calcSize === '3x5 ft') sizeMult = 3.8;
+
+                    return Math.max(150, Math.round(base * sizeMult * (this.calcQuantity || 1)));
+                },
+
+                lookupPublicOrder() {
+                    if (!this.trackQuery) return;
+                    this.isTracking = true;
+                    this.trackError = '';
+                    this.trackResult = null;
+
+                    fetch('/track-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ order_number: this.trackQuery })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        this.isTracking = false;
+                        if (data.success) {
+                            this.trackResult = data.order;
+                        } else {
+                            this.trackError = data.message || 'Order not found. Please verify your order number.';
+                        }
+                    })
+                    .catch(() => {
+                        this.isTracking = false;
+                        this.trackError = 'Unable to check order status at this moment. Please try again.';
+                    });
+                },
 
                 init() {
                     const today = new Date();
@@ -1819,10 +2799,10 @@
                 fillLogin(role) {
                     if (role === 'customer') {
                         this.loginUsername = 'customer@capaciprint.com';
-                        this.loginPassword = 'password123';
+                        this.loginPassword = 'password';
                     } else {
                         this.loginUsername = 'admin@capaciprint.com';
-                        this.loginPassword = 'password123';
+                        this.loginPassword = 'password';
                     }
                     this.authError = '';
                 },

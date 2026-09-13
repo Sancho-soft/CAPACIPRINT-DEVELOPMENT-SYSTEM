@@ -45,7 +45,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $branches = Branch::all();
-        $users = User::whereIn('role', ['manager', 'staff', 'designer', 'planner', 'production', 'inventory', 'admin'])
+        $users = User::whereIn('role', ['manager', 'production_officer', 'staff', 'designer', 'planner', 'production', 'inventory', 'admin'])
                      ->doesntHave('employee')
                      ->get();
 
