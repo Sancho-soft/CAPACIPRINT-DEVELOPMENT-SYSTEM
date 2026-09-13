@@ -10,7 +10,7 @@ class NotificationController extends Controller
     public function index()
     {
         $notifications = InternalNotification::where('user_id', auth()->id())
-            ->latest()->paginate(20);
+            ->latest()->paginate(7);
         $unreadCount = InternalNotification::where('user_id', auth()->id())->where('is_read', false)->count();
         return view('production.notifications.index', compact('notifications', 'unreadCount'));
     }

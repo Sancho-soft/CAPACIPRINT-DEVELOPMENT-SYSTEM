@@ -148,22 +148,28 @@
 
                             {{-- Customer & Service --}}
                             <td class="px-5 py-4 min-w-[160px]">
-                                <span class="font-bold text-cyber-main block truncate max-w-[180px]">{{ $customerName }}</span>
-                                <span class="text-[11px] text-sky-600 dark:text-cyan-400 font-semibold block truncate max-w-[180px]">{{ $service }}</span>
+                                <span class="font-bold text-black dark:text-white block truncate max-w-[180px] text-xs leading-snug">{{ $customerName }}</span>
+                                <span class="text-[11px] text-black dark:text-slate-200 font-semibold block truncate max-w-[180px] mt-0.5">{{ $service }}</span>
                             </td>
 
                             {{-- Branch & Machine --}}
                             <td class="px-5 py-4 min-w-[150px]">
-                                <span class="font-medium text-cyber-main block truncate max-w-[160px]">{{ $branchName }}</span>
-                                <span class="text-[10px] text-cyber-muted block truncate max-w-[160px] font-mono">{{ $machineName }}</span>
+                                <span class="font-semibold text-black dark:text-white block truncate max-w-[160px] text-xs leading-tight">{{ $branchName }}</span>
+                                <span class="text-[10px] text-slate-500 dark:text-slate-400 block truncate max-w-[160px] font-mono mt-0.5">{{ $machineName }}</span>
                             </td>
 
                             {{-- Priority --}}
                             <td class="px-5 py-4 whitespace-nowrap">
-                                <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-mono">
-                                    @if($priority === 'urgent') <i class="fa-solid fa-bolt mr-0.5"></i> @endif
-                                    {{ $priority }}
-                                </span>
+                                @if(in_array($priority, ['normal', 'standard', 'low']))
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
+                                        {{ $priority }}
+                                    </span>
+                                @else
+                                    <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-mono">
+                                        @if($priority === 'urgent') <i class="fa-solid fa-bolt mr-0.5"></i> @endif
+                                        {{ $priority }}
+                                    </span>
+                                @endif
                             </td>
 
                             {{-- Status --}}

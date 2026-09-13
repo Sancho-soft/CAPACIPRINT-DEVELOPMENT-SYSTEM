@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'owner@capaciprint.com'],
             [
-                'name'     => 'Director Morningstar',
+                'name'     => 'Hearty Macpao',
                 'password' => Hash::make('password'),
                 'role'     => 'owner',
                 'phone'    => '+63 922 678 9012',
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'management@capaciprint.com'],
             [
-                'name'     => 'Director Morningstar',
+                'name'     => 'Justine Bieber',
                 'password' => Hash::make('password'),
                 'role'     => 'owner',
                 'phone'    => '+63 922 678 9012',
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'admin@capaciprint.com'],
             [
-                'name'     => 'System Admin',
+                'name'     => 'Jessie Revalde',
                 'password' => Hash::make('password'),
                 'role'     => 'admin',
                 'phone'    => '+63 900 000 0002',
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'manager@capaciprint.com'],
             [
-                'name'     => 'Branch Manager',
+                'name'     => 'Niere Lupogan',
                 'password' => Hash::make('password'),
                 'role'     => 'manager',
                 'phone'    => '+63 919 345 6789',
@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'officer@capaciprint.com'],
             [
-                'name'     => 'Alex Planner',
+                'name'     => 'Isagani Canal',
                 'password' => Hash::make('password'),
                 'role'     => 'production_officer',
                 'phone'    => '+63 919 444 5555',
@@ -76,7 +76,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'staff@capaciprint.com'],
             [
-                'name'     => 'Maria Santos',
+                'name'     => 'Alex Beniga',
                 'password' => Hash::make('password'),
                 'role'     => 'staff',
                 'phone'    => '+63 918 234 5678',
@@ -88,7 +88,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'designer@capaciprint.com'],
             [
-                'name'     => 'Rafael Creative',
+                'name'     => 'Clarence Gotas',
                 'password' => Hash::make('password'),
                 'role'     => 'designer',
                 'phone'    => '+63 917 888 9999',
@@ -100,7 +100,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'production@capaciprint.com'],
             [
-                'name'     => 'Pedro Operator',
+                'name'     => 'Kim Lupogan',
                 'password' => Hash::make('password'),
                 'role'     => 'production',
                 'phone'    => '+63 920 456 7890',
@@ -112,7 +112,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'inventory@capaciprint.com'],
             [
-                'name'     => 'Irene Warehouse',
+                'name'     => 'Mike Kosa',
                 'password' => Hash::make('password'),
                 'role'     => 'inventory',
                 'phone'    => '+63 921 777 8888',
@@ -124,7 +124,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'customer@capaciprint.com'],
             [
-                'name'     => 'Demo Customer',
+                'name'     => 'Aldren Reyes',
                 'password' => Hash::make('password'),
                 'role'     => 'customer',
                 'phone'    => '+63 912 345 6789',

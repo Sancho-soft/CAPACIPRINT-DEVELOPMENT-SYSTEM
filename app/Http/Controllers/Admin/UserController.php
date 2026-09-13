@@ -30,7 +30,7 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->latest()->paginate(6);
+        $users = $query->latest()->paginate(7);
         $branches = Branch::all();
 
         return view('admin.users.index', compact('users', 'branches'));

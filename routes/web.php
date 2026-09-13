@@ -183,6 +183,9 @@ Route::middleware(['auth', 'role:manager'])->prefix('manager')->name('manager.')
     Route::get('/reports/capacity',                         [MgrReport::class,          'capacity'])->name('reports.capacity');
     Route::get('/purchasing',                               [\App\Http\Controllers\Manager\ProcurementController::class, 'index'])->name('purchasing.index');
     Route::post('/purchasing',                              [\App\Http\Controllers\Manager\ProcurementController::class, 'store'])->name('purchasing.store');
+    Route::post('/purchasing/{purchaseRequest}/approve',    [\App\Http\Controllers\Manager\ProcurementController::class, 'approve'])->name('purchasing.approve');
+    Route::post('/purchasing/{purchaseRequest}/reject',     [\App\Http\Controllers\Manager\ProcurementController::class, 'reject'])->name('purchasing.reject');
+    Route::post('/purchasing/{purchaseRequest}/cancel',     [\App\Http\Controllers\Manager\ProcurementController::class, 'cancel'])->name('purchasing.cancel');
     Route::post('/purchasing/{purchaseRequest}/receive',    [\App\Http\Controllers\Manager\ProcurementController::class, 'markReceived'])->name('purchasing.receive');
 });
 

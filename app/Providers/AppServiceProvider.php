@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Pagination\Paginator::useTailwind();
+
         View::composer('*', function ($view) {
             $totalCapacity = Branch::where('status', 'active')->sum('max_daily_jobs');
             $activeJobs = ProductionJob::whereNotIn('status', ['completed', 'cancelled'])->count();

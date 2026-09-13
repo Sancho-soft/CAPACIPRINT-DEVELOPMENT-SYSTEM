@@ -20,7 +20,7 @@ class QuotationController extends Controller
         $quotations = Quotation::with(['user', 'printRequest'])
             ->when($request->status, fn($q, $s) => $q->where('status', $s))
             ->latest()
-            ->paginate(15);
+            ->paginate(7);
 
         return view('staff.quotations.index', compact('quotations'));
     }
@@ -150,7 +150,7 @@ class QuotationController extends Controller
      */
     public function pricingRulesIndex()
     {
-        $rules = PricingRule::latest()->paginate(15);
+        $rules = PricingRule::latest()->paginate(7);
         return view('staff.pricing-rules.index', compact('rules'));
     }
 

@@ -15,7 +15,7 @@
                     <i class="fa-solid fa-calendar-days"></i>
                 </div>
                 <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display text-cyber-main">Production Planning &amp; Scheduling</h2>
+                    <h2 class="text-xl sm:text-2xl font-black font-display text-cyber-main">Dashboard Overview</h2>
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
         />
 
         <x-dashboard.kpi-card 
-            title="RUSH &amp; URGENT PRIORITY"
+            title="RUSH & URGENT PRIORITY"
             :value="$urgentJobsCount"
             icon="fa-solid fa-bolt"
             accent="rose"
@@ -77,28 +77,59 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
-        {{-- LEFT 2 COLS: FLOOR STAGE THROUGHPUT BAR GRAPH (STRAIGHT COLUMNS) --}}
+        {{-- LEFT 2 COLS: MULTI-BRANCH WORKLOAD & STAGE FLOW BAR GRAPH (PLAIN & HIGH-RES) --}}
         <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
                     <div>
                         <div class="flex items-center gap-2.5">
                             <div class="h-8 w-8 rounded-xl bg-teal-500/10 border border-teal-500/20 text-[#009498] flex items-center justify-center text-xs shadow-xs">
-                                <i class="fa-solid fa-bars-progress"></i>
+                                <i class="fa-solid fa-chart-column" id="barChartIcon"></i>
                             </div>
-                            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Production Stage Throughput</h3>
+                            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display" id="barChartTitle">Multi-Branch Workload Distribution</h3>
                         </div>
-                        <p class="text-[11px] sm:text-xs text-cyber-muted mt-1">Real-time volume across print shop pre-press, on-press, and QC stages</p>
+                        <p class="text-[11px] sm:text-xs text-cyber-muted mt-1" id="barChartSubtitle">Live active floor job volume across network printing facilities</p>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium shrink-0">
-                        <div class="flex items-center gap-1.5">
-                            <span class="h-2.5 w-2.5 shadow-xs" style="background-color: #009498;"></span>
-                            <span class="text-cyber-muted text-[11px]">Active Stages</span>
+                    <div class="flex flex-wrap items-center gap-3 shrink-0">
+                        {{-- Quick View Toggle Pills --}}
+                        <div class="inline-flex items-center bg-cyber-sub/40 p-0.5 rounded-xl border border-cyber/80">
+                            <button type="button" id="btnViewBranch" 
+                                    class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#009498] text-white shadow-xs">
+                                Facilities
+                            </button>
+                            <button type="button" id="btnViewStage" 
+                                    class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-cyber-muted hover:text-cyber-main">
+                                Stages
+                            </button>
                         </div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="h-2.5 w-2.5 shadow-xs" style="background-color: #f43f5e;"></span>
-                            <span class="text-cyber-muted text-[11px]">Delayed</span>
+
+                        {{-- Legend for Facilities Mode (Exact from Screenshot 2) --}}
+                        <div id="branchLegend" class="flex flex-wrap items-center gap-3 text-xs font-medium">
+                            <div class="flex items-center gap-1.5">
+                                <span class="h-3 w-3 shadow-xs" style="background-color: #009498;"></span>
+                                <span class="text-cyber-main text-[11px] font-semibold">Morning Star Press</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="h-3 w-3 shadow-xs" style="background-color: #013F73;"></span>
+                                <span class="text-cyber-main text-[11px] font-semibold">Morning Star Network</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="h-3 w-3 shadow-xs" style="background-color: #7DD956;"></span>
+                                <span class="text-cyber-main text-[11px] font-semibold">Green Heart Hub</span>
+                            </div>
+                        </div>
+
+                        {{-- Legend for Stages Mode (Plain & High-Res) --}}
+                        <div id="stageLegend" class="hidden flex flex-wrap items-center gap-3 text-xs font-medium">
+                            <div class="flex items-center gap-1.5">
+                                <span class="h-3 w-3 shadow-xs" style="background-color: #009498;"></span>
+                                <span class="text-cyber-main text-[11px] font-semibold">Active Stages</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="h-3 w-3 shadow-xs" style="background-color: #f43f5e;"></span>
+                                <span class="text-cyber-main text-[11px] font-semibold">Delayed Runs</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,13 +141,13 @@
             </div>
         </div>
 
-        {{-- RIGHT 1 COL: PRIORITY & URGENCY DISTRIBUTION DONUT --}}
+        {{-- RIGHT 1 COL: QUEUE PRIORITY MIX DONUT (EXACT 4-COLOR FROM SCREENSHOT 2) --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
                 <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
                     <div>
-                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Queue Urgency Mix</h3>
-                        <p class="text-[11px] text-cyber-muted mt-0.5">Floor scheduling priority breakdown</p>
+                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Queue Priority Mix</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Floor urgency & queue pressure</p>
                     </div>
                     <div class="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xs shadow-xs shrink-0">
                         <i class="fa-solid fa-bolt"></i>
@@ -127,17 +158,24 @@
                     $totalPriorityCount = max(1, array_sum($planningPriorityBreakdown));
                     $priLabels = array_keys($planningPriorityBreakdown);
                     $priValues = array_values($planningPriorityBreakdown);
-                    $priColors = ['#f43f5e', '#f59e0b', '#009498'];
+                    $priColors = [
+                        '#f43f5e', // Rose for Rush / Urgent
+                        '#f59e0b', // Amber for High Priority
+                        '#06b6d4', // Cyan for Standard Run
+                        '#8b5cf6', // Purple for Quality Checking
+                    ];
                 @endphp
 
+                {{-- Donut Canvas Container with High-Res Center Metric --}}
                 <div class="relative flex items-center justify-center my-2 h-44 w-full">
                     <canvas id="planningPriorityDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPriorityCount }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Active Runs</span>
+                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Floor Runs</span>
                     </div>
                 </div>
 
+                {{-- Clean Priority Legend List --}}
                 <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
                     @foreach($planningPriorityBreakdown as $pLabel => $pVal)
                         @php
@@ -275,14 +313,9 @@
                             {{-- Column 6: Technician Assignee --}}
                             <td class="py-4 px-4 whitespace-nowrap">
                                 @if($j->assignedTo)
-                                    <div class="flex items-center gap-2">
-                                        <div class="h-6 w-6 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-[10px] border border-slate-200 dark:border-slate-700 shrink-0">
-                                            {{ strtoupper(substr($j->assignedTo->name, 0, 2)) }}
-                                        </div>
-                                        <span class="font-semibold text-cyber-main text-xs">{{ $j->assignedTo->name }}</span>
-                                    </div>
+                                    <span class="font-semibold text-cyber-main text-xs">{{ $j->assignedTo->name }}</span>
                                 @else
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 font-mono">
+                                    <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 font-mono">
                                         Unassigned
                                     </span>
                                 @endif
@@ -297,9 +330,15 @@
                                         default  => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
                                     };
                                 @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase font-mono border {{ $prioBadge }}">
-                                    {{ $j->priority }}
-                                </span>
+                                @if(in_array(strtolower($j->priority), ['normal', 'standard', 'low']))
+                                    <span class="text-[11px] font-bold uppercase font-mono text-slate-600 dark:text-slate-400">
+                                        {{ $j->priority }}
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase font-mono border {{ $prioBadge }}">
+                                        {{ $j->priority }}
+                                    </span>
+                                @endif
                             </td>
 
                             {{-- Column 8: Status --}}
@@ -354,112 +393,183 @@
     document.addEventListener('DOMContentLoaded', function () {
         const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
 
-        // 1. Production Stage Throughput Bar Chart (Straight Columns)
+        // ═════════════════════════════════════════════════════════════════
+        // 1. Plain & High-Resolution Bar Chart (Branch Workload & Stage Flow)
+        // ═════════════════════════════════════════════════════════════════
         const stageCanvas = document.getElementById('productionStageBarChart');
         if (stageCanvas) {
-            const stageData = @json($stageBreakdown);
-            const labels = Object.keys(stageData);
-            const values = Object.values(stageData);
+            // Facilities Data (Exact from Screenshot 2)
+            const branchLabels = @json($branchChartLabels ?? ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub']);
+            const branchValues = @json($branchActiveData ?? [6, 4, 2]);
+            const branchColors = ['#009498', '#013F73', '#7DD956'];
+            const branchHoverColors = ['#00b4b8', '#02569c', '#8ee568'];
+            const branchBorders = isDark 
+                ? ['#00c4c8', '#1e6bb8', '#9ef578'] 
+                : ['#007a7e', '#012c52', '#6bc244'];
 
-            // Palette with sample colors & cyber tokens: Teal, Navy, Green, Indigo, Rose
-            const barColors = ['#009498', '#013F73', '#7DD956', '#6366f1', '#f43f5e'];
-            const hoverColors = ['#00b4b8', '#02569c', '#8ee568', '#818cf8', '#fb7185'];
+            // Production Stages Data
+            const stageData = @json($stageBreakdown ?? []);
+            const stageLabels = Object.keys(stageData);
+            const stageValues = Object.values(stageData);
+            // Plain & High-Res: Teal for Active Stages, Rose for Delayed
+            const stageColors = ['#009498', '#009498', '#009498', '#009498', '#f43f5e'];
+            const stageHoverColors = ['#00b4b8', '#00b4b8', '#00b4b8', '#00b4b8', '#fb7185'];
+            const stageBorders = isDark 
+                ? ['#00c4c8', '#00c4c8', '#00c4c8', '#00c4c8', '#fb7185'] 
+                : ['#007a7e', '#007a7e', '#007a7e', '#007a7e', '#e11d48'];
 
-            new Chart(stageCanvas, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Jobs in Stage',
-                            data: values,
-                            backgroundColor: barColors,
-                            hoverBackgroundColor: hoverColors,
-                            borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                            borderWidth: 1,
-                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
-                            borderSkipped: false,
-                            maxBarThickness: 48,
-                            barPercentage: 0.8,
-                            categoryPercentage: 0.7
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-                            titleColor: isDark ? '#f8fafc' : '#0f172a',
-                            bodyColor: isDark ? '#94a3b8' : '#475569',
-                            borderColor: isDark ? '#334155' : '#e2e8f0',
-                            borderWidth: 1,
-                            padding: 10,
-                            cornerRadius: 6,
-                            boxPadding: 4,
-                            callbacks: {
-                                label: function(context) {
-                                    const val = context.raw || 0;
-                                    return ` ${context.label}: ${val} active jobs`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                            },
-                            ticks: {
-                                color: isDark ? '#94a3b8' : '#64748b',
-                                font: {
-                                    family: 'Inter, sans-serif',
-                                    size: 11,
-                                    weight: '600'
-                                }
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
-                            },
-                            ticks: {
-                                color: isDark ? '#94a3b8' : '#64748b',
-                                font: {
-                                    family: 'Inter, sans-serif',
-                                    size: 10
-                                }
-                            },
-                            title: {
-                                display: true,
-                                text: 'Job Volume',
-                                color: isDark ? '#64748b' : '#94a3b8',
-                                font: {
-                                    size: 10,
-                                    weight: 'bold'
-                                }
-                            }
-                        }
-                    },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
+            let barChartInstance = null;
+            let currentMode = 'branch'; // Default to Branch Facilities (matching reference Screenshot 2)
+
+            function buildBarChart(mode) {
+                currentMode = mode;
+                const isBranch = mode === 'branch';
+                const activeLabels = isBranch ? branchLabels : stageLabels;
+                const activeData = isBranch ? branchValues : stageValues;
+                const activeBg = isBranch ? branchColors : stageColors;
+                const activeHover = isBranch ? branchHoverColors : stageHoverColors;
+                const activeBorders = isBranch ? branchBorders : stageBorders;
+
+                if (barChartInstance) {
+                    barChartInstance.destroy();
                 }
-            });
+
+                barChartInstance = new Chart(stageCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: activeLabels,
+                        datasets: [
+                            {
+                                label: isBranch ? 'Active Floor Jobs' : 'Stage Volume',
+                                data: activeData,
+                                backgroundColor: activeBg,
+                                hoverBackgroundColor: activeHover,
+                                borderColor: activeBorders,
+                                borderWidth: 1.5,
+                                borderRadius: 0,          // Crisp flat straight rectangular columns
+                                borderSkipped: false,
+                                maxBarThickness: isBranch ? 56 : 48,
+                                barPercentage: 0.8,
+                                categoryPercentage: 0.7
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                                titleColor: isDark ? '#f8fafc' : '#0f172a',
+                                bodyColor: isDark ? '#94a3b8' : '#475569',
+                                borderColor: isDark ? '#334155' : '#e2e8f0',
+                                borderWidth: 1,
+                                padding: 10,
+                                cornerRadius: 8,
+                                boxPadding: 4,
+                                callbacks: {
+                                    label: function(context) {
+                                        const val = context.raw || 0;
+                                        return isBranch
+                                            ? ` Active Load: ${val} jobs`
+                                            : ` ${context.label}: ${val} jobs`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false,
+                                },
+                                ticks: {
+                                    color: isDark ? '#94a3b8' : '#64748b',
+                                    font: {
+                                        family: 'Inter, sans-serif',
+                                        size: 11,
+                                        weight: '600'
+                                    }
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                                },
+                                ticks: {
+                                    stepSize: 1,          // Whole integer counts only (no decimals)
+                                    precision: 0,
+                                    color: isDark ? '#94a3b8' : '#64748b',
+                                    font: {
+                                        family: 'Inter, sans-serif',
+                                        size: 10
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Jobs Volume',
+                                    color: isDark ? '#64748b' : '#94a3b8',
+                                    font: {
+                                        size: 10,
+                                        weight: 'bold'
+                                    }
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 700,
+                            easing: 'easeOutQuart'
+                        }
+                    }
+                });
+            }
+
+            // Initialize with Facilities Mode
+            buildBarChart('branch');
+
+            // Toggle Handler
+            const btnBranch = document.getElementById('btnViewBranch');
+            const btnStage = document.getElementById('btnViewStage');
+            const branchLegend = document.getElementById('branchLegend');
+            const stageLegend = document.getElementById('stageLegend');
+            const chartTitle = document.getElementById('barChartTitle');
+            const chartSub = document.getElementById('barChartSubtitle');
+
+            if (btnBranch && btnStage) {
+                btnBranch.addEventListener('click', function () {
+                    btnBranch.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#009498] text-white shadow-xs';
+                    btnStage.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-cyber-muted hover:text-cyber-main';
+                    if (chartTitle) chartTitle.textContent = 'Multi-Branch Workload Distribution';
+                    if (chartSub) chartSub.textContent = 'Live active floor job volume across network printing facilities';
+                    if (branchLegend) branchLegend.classList.remove('hidden');
+                    if (stageLegend) stageLegend.classList.add('hidden');
+                    buildBarChart('branch');
+                });
+
+                btnStage.addEventListener('click', function () {
+                    btnStage.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#009498] text-white shadow-xs';
+                    btnBranch.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-cyber-muted hover:text-cyber-main';
+                    if (chartTitle) chartTitle.textContent = 'Production Stage Throughput';
+                    if (chartSub) chartSub.textContent = 'Real-time volume across print shop pre-press, on-press, and QC stages';
+                    if (branchLegend) branchLegend.classList.add('hidden');
+                    if (stageLegend) stageLegend.classList.remove('hidden');
+                    buildBarChart('stage');
+                });
+            }
         }
 
-        // 2. Queue Urgency Distribution Donut Chart
+        // ═════════════════════════════════════════════════════════════════
+        // 2. Plain & High-Resolution Queue Priority Mix Donut Chart
+        // ═════════════════════════════════════════════════════════════════
         const priorityCanvas = document.getElementById('planningPriorityDonutChart');
         if (priorityCanvas) {
             const pLabels = @json($priLabels);
             const pData = @json($priValues);
-            const pColors = ['#f43f5e', '#f59e0b', '#009498'];
+            // High-resolution vibrant plain colors matching Screenshot 2
+            const pColors = ['#f43f5e', '#f59e0b', '#06b6d4', '#8b5cf6'];
 
             new Chart(priorityCanvas, {
                 type: 'doughnut',
@@ -488,14 +598,14 @@
                             borderColor: isDark ? '#334155' : '#e2e8f0',
                             borderWidth: 1,
                             padding: 10,
-                            cornerRadius: 6,
+                            cornerRadius: 8,
                             boxPadding: 4,
                             callbacks: {
                                 label: function(context) {
                                     const val = context.raw || 0;
                                     const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
                                     const pct = total > 0 ? Math.round((val / total) * 100) : 0;
-                                    return ` ${context.label}: ${val} jobs (${pct}%)`;
+                                    return ` ${context.label}: ${val} runs (${pct}%)`;
                                 }
                             }
                         }

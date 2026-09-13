@@ -12,7 +12,7 @@ class InventoryController extends Controller
     {
         $inventory = BranchInventory::with(['material', 'branch'])
             ->orderBy('status')
-            ->paginate(20);
+            ->paginate(7);
 
         $lowStockCount   = BranchInventory::where('status', 'low_stock')->count();
         $outOfStockCount = BranchInventory::where('status', 'out_of_stock')->count();

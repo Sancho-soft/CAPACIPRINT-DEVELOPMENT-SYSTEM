@@ -109,7 +109,7 @@ class ReportController extends Controller
             return $this->exportOrdersCsv($query->get());
         }
 
-        $orders   = $query->paginate(20)->withQueryString();
+        $orders   = $query->paginate(7)->withQueryString();
         $statuses = Order::statusSteps();
         $branches = Branch::where('status', 'active')->get();
 
@@ -151,7 +151,7 @@ class ReportController extends Controller
             return $this->exportProductionCsv($query->get());
         }
 
-        $jobs     = $query->paginate(20)->withQueryString();
+        $jobs     = $query->paginate(7)->withQueryString();
         $branches = Branch::where('status', 'active')->get();
 
         return view('management.reports.production', compact('jobs', 'branches'));

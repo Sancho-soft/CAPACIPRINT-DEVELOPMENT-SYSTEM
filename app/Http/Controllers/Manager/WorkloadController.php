@@ -45,7 +45,7 @@ class WorkloadController extends Controller
         $totalCapacity    = $branches->sum('max_daily_jobs');
         $avgUtilization   = $totalCapacity > 0 ? round(($totalActiveJobs / $totalCapacity) * 100, 1) : 0;
 
-        $jobs = $jobQuery->latest()->paginate(20)->withQueryString();
+        $jobs = $jobQuery->latest()->paginate(7)->withQueryString();
 
         // Branch Bar Chart Data
         $branchChartLabels = $branches->map(function ($b) {

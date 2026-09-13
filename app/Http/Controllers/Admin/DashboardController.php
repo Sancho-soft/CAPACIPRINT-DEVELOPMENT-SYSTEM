@@ -158,7 +158,7 @@ class DashboardController extends Controller
             ->get();
 
         // Recent user registrations
-        $recentUsers = User::latest()->paginate(6);
+        $recentUsers = User::latest()->paginate(7);
 
         // Orders by status
         $ordersByStatus = Order::select('status', DB::raw('count(*) as count'))

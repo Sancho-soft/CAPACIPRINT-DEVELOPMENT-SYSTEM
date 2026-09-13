@@ -28,7 +28,7 @@ class BranchController extends Controller
             $query->where('status', $request->input('status'));
         }
 
-        $branches = $query->latest()->paginate(10)->withQueryString();
+        $branches = $query->latest()->paginate(7)->withQueryString();
 
         return view('admin.branches.index', compact('branches'));
     }

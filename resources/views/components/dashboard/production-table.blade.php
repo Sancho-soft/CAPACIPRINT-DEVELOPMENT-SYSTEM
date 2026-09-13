@@ -7,7 +7,7 @@
     'emptyMessage' => 'No production jobs currently active in the queue.',
 ])
 
-<div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+<div id="press-line-queue" class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col scroll-mt-6">
     <div class="px-5 sm:px-6 py-4 border-b border-cyber/60 flex items-center justify-between">
         <div>
             <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
@@ -22,9 +22,9 @@
         @endif
     </div>
 
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto font-sans">
         <table class="w-full text-left text-xs">
-            <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]">
+            <thead class="text-slate-600 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px] bg-slate-50/50 dark:bg-transparent">
                 <tr>
                     <th class="px-4 sm:px-5 py-3.5">Job / Order</th>
                     <th class="px-4 sm:px-5 py-3.5">Customer & Service</th>
@@ -52,19 +52,19 @@
                         
                         $priority = strtolower($job->priority ?? 'normal');
                         $priorityBadge = match($priority) {
-                            'urgent' => 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
-                            'rush'   => 'bg-amber-500/15 text-amber-800 dark:text-amber-400',
-                            default  => 'bg-slate-500/15 text-slate-700 dark:text-slate-400',
+                            'urgent' => 'bg-rose-100 dark:bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 shadow-2xs',
+                            'rush'   => 'bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 shadow-2xs',
+                            default  => 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shadow-2xs',
                         };
 
                         $statusStr = strtolower($job->status ?? 'pending');
                         $statusBadge = match($statusStr) {
-                            'in_production', 'production' => 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-400',
-                            'completed', 'claimed'        => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
-                            'ready_for_pickup'            => 'bg-teal-500/15 text-teal-700 dark:text-teal-400',
-                            'delayed'                     => 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
-                            'quality_checking'            => 'bg-purple-500/15 text-purple-700 dark:text-purple-400',
-                            default                       => 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400',
+                            'in_production', 'production' => 'bg-cyan-100 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/30 shadow-2xs',
+                            'completed', 'claimed'        => 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 shadow-2xs',
+                            'ready_for_pickup'            => 'bg-teal-100 dark:bg-teal-500/20 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-500/30 shadow-2xs',
+                            'delayed'                     => 'bg-rose-100 dark:bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 shadow-2xs',
+                            'quality_checking'            => 'bg-purple-100 dark:bg-purple-500/20 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-500/30 shadow-2xs',
+                            default                       => 'bg-indigo-100 dark:bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 shadow-2xs',
                         };
 
                         $statusLabel = match($statusStr) {
@@ -85,21 +85,21 @@
                     @endphp
                     <tr class="hover:bg-cyber-hover/50 transition">
                         {{-- Job Number --}}
-                        <td class="px-4 sm:px-5 py-3.5">
-                            <span class="font-mono font-bold text-cyber-main text-xs block">{{ $jobNo }}</span>
-                            <span class="text-[10px] text-cyber-sub block mt-0.5">{{ $job->created_at ? $job->created_at->diffForHumans() : 'Active' }}</span>
+                        <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
+                            <span class="font-mono font-bold text-black dark:text-white text-xs block tracking-tight">{{ $jobNo }}</span>
+                            <span class="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5 font-medium">{{ $job->created_at ? $job->created_at->diffForHumans() : 'Active' }}</span>
                         </td>
 
                         {{-- Customer & Service --}}
                         <td class="px-4 sm:px-5 py-3.5 min-w-[150px]">
-                            <span class="font-bold text-cyber-main block truncate max-w-[180px]">{{ $customerName }}</span>
-                            <span class="text-[11px] text-sky-600 dark:text-cyan-400 font-semibold block truncate max-w-[180px]">{{ $service }}</span>
+                            <span class="font-bold text-black dark:text-white block truncate max-w-[190px] text-xs leading-snug">{{ $customerName }}</span>
+                            <span class="text-[11px] text-black dark:text-slate-200 font-semibold block truncate max-w-[190px] mt-0.5">{{ $service }}</span>
                         </td>
 
                         {{-- Material Specs --}}
                         <td class="px-4 sm:px-5 py-3.5 min-w-[150px]">
-                            <span class="text-cyber-muted block truncate max-w-[180px]">{{ $material }}</span>
-                            <span class="text-[10px] text-cyber-sub block font-mono">
+                            <span class="text-slate-700 dark:text-slate-300 font-medium block truncate max-w-[180px] text-xs">{{ $material }}</span>
+                            <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-mono mt-0.5">
                                 @if($quantity) {{ number_format($quantity) }} pcs @endif
                                 @if($size) &middot; {{ $size }} @endif
                                 @if($finishing) &middot; {{ $finishing }} @endif
@@ -107,40 +107,43 @@
                         </td>
 
                         {{-- Assigned Press & Branch --}}
-                        <td class="px-4 sm:px-5 py-3.5 min-w-[140px]">
-                            <span class="font-medium text-cyber-main block truncate max-w-[160px]">{{ $branchName }}</span>
-                            <span class="text-[10px] text-cyber-muted block truncate max-w-[160px] font-mono">{{ $machineName }}</span>
+                        <td class="px-4 sm:px-5 py-3.5 min-w-[150px]">
+                            <span class="font-semibold text-black dark:text-white block leading-tight text-xs">{{ $branchName }}</span>
+                            <span class="text-[10px] text-slate-500 dark:text-slate-400 block font-mono mt-0.5">{{ $machineName }}</span>
                         </td>
 
                         {{-- Priority --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-mono">
-                                @if($priority === 'urgent')
-                                    <i class="fa-solid fa-bolt mr-0.5"></i>
-                                @endif
-                                {{ $priority }}
-                            </span>
+                            @if(in_array($priority, ['normal', 'standard', 'low']))
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
+                                    {{ $priority }}
+                                </span>
+                            @else
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-mono">
+                                    {{ $priority }}
+                                </span>
+                            @endif
                         </td>
 
                         {{-- Status --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $statusBadge }} font-mono">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $statusBadge }} font-mono">
                                 {{ $statusLabel }}
                             </span>
                             @if($statusStr === 'delayed' && !empty($job->delay_reason))
-                                <span class="text-[9px] text-rose-400 block mt-1 truncate max-w-[120px]" title="{{ $job->delay_reason }}">
+                                <span class="text-[9px] text-rose-500 font-medium block mt-1 truncate max-w-[140px]" title="{{ $job->delay_reason }}">
                                     {{ $job->delay_reason }}
                                 </span>
                             @endif
                         </td>
 
-                        {{-- Action --}}
+                        {{-- Action (Signature Cyan Eye Button) --}}
                         <td class="px-4 sm:px-5 py-3.5 text-right whitespace-nowrap">
                             @if($detailRoute)
                                 <a href="{{ $detailRoute }}" 
-                                   class="h-8 w-8 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-300 dark:border-slate-700 hover:border-sky-400 dark:hover:border-cyan-500/40 inline-flex items-center justify-center transition-all shadow-xs group"
+                                   class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs"
                                    title="View Details">
-                                    <i class="fa-solid fa-eye text-sm text-slate-800 dark:text-slate-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"></i>
+                                    <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                                 </a>
                             @else
                                 <span class="text-cyber-sub text-xs">&mdash;</span>
@@ -158,4 +161,10 @@
             </tbody>
         </table>
     </div>
+
+    @if(method_exists($jobs, 'hasPages') && $jobs->hasPages())
+        <div class="px-5 py-3 border-t border-cyber/60 bg-cyber-sub/40">
+            {{ $jobs->appends(request()->except('jobs_page'))->fragment('press-line-queue')->links() }}
+        </div>
+    @endif
 </div>

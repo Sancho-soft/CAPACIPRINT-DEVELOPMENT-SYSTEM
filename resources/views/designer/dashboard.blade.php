@@ -10,11 +10,11 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Layout &amp; Pre-Press Studio</h1>
+            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
         </div>
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <a href="{{ route('designer.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-wand-magic-sparkles text-xs text-sky-500 dark:text-sky-400"></i> Pre-Flight Workspace
+                <i class="fa-solid fa-compass-drafting text-xs text-cyan-500 dark:text-cyan-400"></i> Design Workspace
             </a>
         </div>
     </div>
@@ -69,7 +69,7 @@
                         <th class="px-5 py-3.5">Customer &amp; Service</th>
                         <th class="px-5 py-3.5">Artwork Specs</th>
                         <th class="px-5 py-3.5">Status</th>
-                        <th class="px-5 py-3.5 text-right">Pre-Press Actions</th>
+                        <th class="px-5 py-3.5 text-right">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-cyber/60 text-cyber-main">
@@ -83,9 +83,27 @@
                                 <p class="text-[11px] text-cyber-muted mt-0.5">{{ $req->service }} &middot; {{ number_format($req->quantity) }} pcs</p>
                             </td>
                             <td class="px-5 py-3.5 whitespace-nowrap">
-                                <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-cyber-muted">
-                                    <i class="fa-solid fa-file-pdf text-xs text-rose-500/80"></i> PDF/AI &middot; CMYK 300DPI
-                                </span>
+                                @if($req->design_file_path)
+                                    @php
+                                        $ext = strtolower(pathinfo($req->design_file_path, PATHINFO_EXTENSION));
+                                        $fileIcon = match($ext) {
+                                            'pdf' => 'fa-solid fa-file-pdf text-rose-500',
+                                            'ai', 'eps' => 'fa-solid fa-file-lines text-amber-500',
+                                            'psd' => 'fa-solid fa-file-image text-indigo-500',
+                                            'jpg', 'jpeg', 'png' => 'fa-solid fa-image text-cyan-500',
+                                            default => 'fa-solid fa-file text-cyber-muted',
+                                        };
+                                        $displayName = $req->design_file_name ?? (strtoupper($ext) . ' Artwork');
+                                    @endphp
+                                    <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-cyber-main font-semibold" title="{{ $req->design_file_name ?? 'Artwork Uploaded' }}">
+                                        <i class="{{ $fileIcon }} text-xs"></i>
+                                        <span class="truncate max-w-[140px]">{{ $displayName }}</span>
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-cyber-muted italic">
+                                        <i class="fa-regular fa-file text-xs text-cyber-sub"></i> Pending Upload
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-5 py-3.5 whitespace-nowrap">
                                 @php
@@ -103,9 +121,10 @@
                                 </span>
                             </td>
                             <td class="px-5 py-3.5 text-right whitespace-nowrap">
-                                <a href="{{ route('designer.show', $req) }}" class="px-3.5 py-1.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main hover:text-cyan-500 dark:hover:text-cyan-400 font-bold text-xs transition inline-flex items-center gap-1.5 shadow-sm">
-                                    <span>Inspect Artwork</span>
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                <a href="{{ route('designer.show', $req) }}" 
+                                   class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                                   title="Inspect Artwork &amp; Proofing Canvas">
+                                    <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                                 </a>
                             </td>
                         </tr>

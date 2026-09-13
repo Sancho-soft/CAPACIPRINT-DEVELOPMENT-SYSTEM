@@ -15,7 +15,7 @@
     {{-- Profile Information Card --}}
     <div class="bg-[#111A24] border border-slate-800/80 rounded-xl shadow-md p-4 sm:p-5 relative">
         <div class="flex items-center gap-3.5 pb-3 mb-4 border-b border-slate-800/80">
-            <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 text-slate-950 font-black flex items-center justify-center text-lg font-display shadow-md shrink-0 border border-cyan-300">
+            <div class="h-12 w-12 rounded-xl bg-[#0E3386] text-sky-400 font-black flex items-center justify-center text-lg font-display shadow-md shrink-0 border border-[#0E3386]">
                 {{ strtoupper(substr($user->name, 0, 2)) }}
             </div>
             <div class="space-y-0.5">

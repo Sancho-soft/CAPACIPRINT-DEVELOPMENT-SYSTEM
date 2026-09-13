@@ -46,9 +46,9 @@
                         <div class="inline-flex items-center justify-end gap-2">
                             {{-- View History --}}
                             <a href="{{ route('staff.customers.show', $c) }}" 
-                               class="text-cyan-500 hover:text-cyan-400 transition text-sm p-1 inline-block" 
+                               class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
                                title="View Customer Profile & History">
-                                <i class="fa-solid fa-eye"></i>
+                                <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                             </a>
 
                             {{-- Create Quotation --}}

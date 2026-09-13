@@ -580,6 +580,157 @@
 
 {{-- Alpine.js (CDN with Local Fallback) --}}
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" onerror="this.onerror=null; this.src='{{ asset('assets/js/alpine.min.js') }}';"></script>
+
+{{-- Global Smart Pagination (In-Place Fast Swapping & Smooth Auto-Scroll to Top of Table) --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function findTableCard(el) {
+        if (!el) return null;
+        let current = el.parentElement;
+        while (current && current !== document.body) {
+            if (current.querySelector('table') && (
+                current.classList.contains('rounded-3xl') || 
+                current.classList.contains('rounded-2xl') || 
+                current.classList.contains('bg-cyber-card') || 
+                current.classList.contains('bg-white') || 
+                current.classList.contains('shadow-xl') || 
+                current.classList.contains('shadow-2xl') ||
+                current.classList.contains('overflow-hidden')
+            )) {
+                return current;
+            }
+            current = current.parentElement;
+        }
+        return el.closest('table')?.parentElement || el.closest('[data-pagination-container]') || el.parentElement?.parentElement || el;
+    }
+
+    function scrollToTableTop(targetEl) {
+        if (!targetEl) return;
+        const navOffset = 90; // offset for sticky/fixed top navigation header
+        const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        const targetPosition = Math.max(0, elementPosition - navOffset);
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    // 1. On full page load: if URL contains page= or pagination flag in session, smoothly view top of table
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasPageParam = urlParams.has('page') || Array.from(urlParams.keys()).some(k => k.includes('page'));
+        const pendingScroll = sessionStorage.getItem('capaciprint_scroll_pagination');
+
+        if (hasPageParam || pendingScroll) {
+            sessionStorage.removeItem('capaciprint_scroll_pagination');
+            setTimeout(function () {
+                const nav = document.querySelector('nav[data-pagination-nav], nav[aria-label="Pagination Navigation"]');
+                if (nav) {
+                    const card = findTableCard(nav);
+                    scrollToTableTop(card || nav);
+                }
+            }, 120);
+        }
+    } catch (err) {
+        console.warn('Pagination scroll check:', err);
+    }
+
+    // 2. Global click interceptor for pagination links (in-place instant view)
+    document.addEventListener('click', function (e) {
+        if (e.defaultPrevented) return;
+
+        const link = e.target.closest('nav[data-pagination-nav] a, nav[aria-label="Pagination Navigation"] a, a.pagination-link, [data-pagination-container] a[href*="page="]');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        if (!href || href === '#' || href.startsWith('javascript:')) return;
+
+        const nav = link.closest('nav');
+        const container = findTableCard(nav);
+        if (!container) return;
+
+        e.preventDefault();
+
+        // Subtle visual loading feedback
+        container.style.transition = 'opacity 0.2s ease';
+        container.style.opacity = '0.55';
+        container.style.pointerEvents = 'none';
+
+        fetch(href, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(function (res) {
+            if (!res.ok) throw new Error('Network error');
+            return res.text();
+        })
+        .then(function (html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            let newContainer = null;
+            if (container.id) {
+                newContainer = doc.getElementById(container.id);
+            }
+
+            // Match by card title / heading text if available
+            if (!newContainer) {
+                const heading = container.querySelector('h1, h2, h3, h4, h5, h6')?.textContent?.trim();
+                if (heading) {
+                    const docHeadings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                    for (let i = 0; i < docHeadings.length; i++) {
+                        if (docHeadings[i].textContent.trim() === heading) {
+                            newContainer = findTableCard(docHeadings[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Match by pagination nav position
+            if (!newContainer) {
+                const allNavs = Array.from(document.querySelectorAll('nav[data-pagination-nav], nav[aria-label="Pagination Navigation"]'));
+                const navIdx = allNavs.indexOf(nav);
+                const docNavs = Array.from(doc.querySelectorAll('nav[data-pagination-nav], nav[aria-label="Pagination Navigation"]'));
+                if (docNavs[navIdx]) {
+                    newContainer = findTableCard(docNavs[navIdx]);
+                }
+            }
+
+            if (newContainer) {
+                container.innerHTML = newContainer.innerHTML;
+                window.history.pushState({ path: href }, '', href);
+
+                if (window.Alpine && typeof window.Alpine.initTree === 'function') {
+                    window.Alpine.initTree(container);
+                }
+
+                // Smoothly scroll directly to the top of the table so the user sees the next rows immediately
+                scrollToTableTop(container);
+            } else {
+                sessionStorage.setItem('capaciprint_scroll_pagination', 'true');
+                window.location.href = href;
+            }
+        })
+        .catch(function () {
+            sessionStorage.setItem('capaciprint_scroll_pagination', 'true');
+            window.location.href = href;
+        })
+        .finally(function () {
+            container.style.opacity = '1';
+            container.style.pointerEvents = 'auto';
+        });
+    });
+
+    // Handle browser back/forward buttons with pagination states
+    window.addEventListener('popstate', function () {
+        if (window.location.search.includes('page=')) {
+            window.location.reload();
+        }
+    });
+});
+</script>
 @yield('scripts')
 </body>
 </html>

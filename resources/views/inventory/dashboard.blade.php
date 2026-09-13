@@ -1,7 +1,7 @@
 
 @extends('layouts.internal')
-@section('title', 'Raw Materials & Inventory Center')
-@section('page-title', 'Raw Materials & Inventory Center')
+@section('title', 'Dashboard Overview - Inventory')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
@@ -14,13 +14,8 @@
         <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-boxes-stacked"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Raw Materials &amp; Consumables Center</h2>
-                </div>
+            <div>
+                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h2>
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
@@ -191,11 +186,16 @@
         {{-- LEFT: CRITICAL LOW STOCK ITEMS --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
             <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
-                <div>
-                    <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Critical Stock Warnings</h3>
-                    <p class="text-[11px] text-cyber-muted mt-0.5">Supplies falling below safety buffer limits</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center text-sm shadow-xs shrink-0">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Critical Stock Warnings</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Supplies falling below safety buffer limits</p>
+                    </div>
                 </div>
-                <a href="{{ route('inventory.stock.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                <a href="{{ route('inventory.stock.index') }}" class="text-xs font-bold text-cyan-500 hover:text-cyan-400 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1.5 transition px-2.5 py-1 rounded-lg hover:bg-cyan-500/10">
                     Manage Stock <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
@@ -212,32 +212,48 @@
                     </thead>
                     <tbody class="divide-y divide-cyber/60 text-cyber-main">
                         @forelse($lowStockItems as $lItem)
-                            @php
-                                $statusBadge = $lItem->status === 'out_of_stock' 
-                                    ? 'bg-rose-500/15 text-rose-400 border-rose-500/30' 
-                                    : 'bg-amber-500/15 text-amber-400 border-amber-500/30';
-                            @endphp
                             <tr class="hover:bg-cyber-hover/50 transition">
                                 <td class="px-4 sm:px-5 py-3">
-                                    <span class="font-bold text-cyber-main block truncate max-w-[160px]">{{ $lItem->material->name ?? 'Material' }}</span>
-                                    <span class="text-[10px] text-cyber-muted block font-mono">{{ ucfirst($lItem->material->type ?? 'media') }}</span>
+                                    <span class="font-bold text-cyber-main block text-xs leading-tight">{{ $lItem->material->name ?? 'Material' }}</span>
+                                    <span class="text-[10px] text-cyber-muted inline-flex items-center gap-1 mt-0.5 font-medium">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                                        {{ ucfirst($lItem->material->type ?? 'media') }}
+                                    </span>
                                 </td>
-                                <td class="px-4 sm:px-5 py-3 text-cyber-muted truncate max-w-[120px]">
-                                    {{ $lItem->branch->name ?? 'Branch' }}
-                                </td>
-                                <td class="px-4 sm:px-5 py-3 font-mono">
-                                    <span class="font-bold text-rose-400">{{ $lItem->quantity }}</span>
-                                    <span class="text-cyber-sub text-[10px]">/ min {{ $lItem->minimum_stock }} {{ $lItem->material->unit }}</span>
+                                <td class="px-4 sm:px-5 py-3 text-xs whitespace-nowrap">
+                                    <div class="flex items-center gap-1.5 font-medium text-cyber-main">
+                                        <i class="fa-solid fa-building text-[10px] text-cyber-muted shrink-0"></i>
+                                        <span>{{ $lItem->branch->name ?? 'Branch' }}</span>
+                                    </div>
                                 </td>
                                 <td class="px-4 sm:px-5 py-3 whitespace-nowrap">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border {{ $statusBadge }} font-mono">
-                                        {{ str_replace('_', ' ', $lItem->status) }}
-                                    </span>
+                                    <div class="flex items-baseline gap-1 text-xs">
+                                        <span class="font-black tabular-nums {{ ((float)$lItem->quantity == 0 || $lItem->status === 'out_of_stock') ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400' }}">
+                                            {{ (float)$lItem->quantity }}
+                                        </span>
+                                        <span class="text-[11px] text-cyber-muted font-medium">
+                                            / min {{ (float)$lItem->minimum_stock }} {{ $lItem->material->unit }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-4 sm:px-5 py-3 whitespace-nowrap">
+                                    @if($lItem->status === 'out_of_stock' || (float)$lItem->quantity == 0)
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 shadow-xs">
+                                            <i class="fa-solid fa-circle-xmark text-[9px]"></i> Out of Stock
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 shadow-xs">
+                                            <i class="fa-solid fa-triangle-exclamation text-[9px]"></i> Low Stock
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-5 py-8 text-center text-cyber-muted text-xs">All raw material stocks are within safe operational buffers.</td>
+                                <td colspan="4" class="px-5 py-8 text-center text-cyber-muted text-xs">
+                                    <i class="fa-solid fa-circle-check text-emerald-400 text-lg mb-1 block"></i>
+                                    All raw material stocks are within safe operational buffers.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -248,11 +264,16 @@
         {{-- RIGHT: RECENT STOCK MOVEMENTS --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
             <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
-                <div>
-                    <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Recent Stock Movements</h3>
-                    <p class="text-[11px] text-cyber-muted mt-0.5">Automated job deductions and replenishment entries</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-500 flex items-center justify-center text-sm shadow-xs shrink-0">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Recent Stock Movements</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Automated job deductions and replenishment entries</p>
+                    </div>
                 </div>
-                <a href="{{ route('inventory.stock-movements.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                <a href="{{ route('inventory.stock-movements.index') }}" class="text-xs font-bold text-cyan-500 hover:text-cyan-400 dark:text-cyan-400 dark:hover:text-cyan-300 flex items-center gap-1.5 transition px-2.5 py-1 rounded-lg hover:bg-cyan-500/10">
                     All Movements <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
@@ -269,33 +290,55 @@
                     </thead>
                     <tbody class="divide-y divide-cyber/60 text-cyber-main">
                         @forelse($recentMovements as $mv)
-                            @php
-                                $mvBadge = match($mv->movement_type) {
-                                    'stock_in'   => 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-                                    'stock_out'  => 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-                                    default      => 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-                                };
-                            @endphp
                             <tr class="hover:bg-cyber-hover/50 transition">
                                 <td class="px-4 sm:px-5 py-3">
-                                    <span class="font-bold text-cyber-main block truncate max-w-[150px]">{{ $mv->material->name ?? 'Material' }}</span>
-                                    <span class="text-[10px] text-cyber-muted block">{{ $mv->branch->name ?? 'Branch Hub' }}</span>
+                                    <span class="font-bold text-cyber-main block text-xs leading-tight">{{ $mv->material->name ?? 'Material' }}</span>
+                                    <span class="text-[10px] text-cyber-muted block font-medium mt-0.5">{{ $mv->branch->name ?? 'Branch Hub' }}</span>
                                 </td>
                                 <td class="px-4 sm:px-5 py-3 whitespace-nowrap">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border {{ $mvBadge }} font-mono">
-                                        {{ str_replace('_', ' ', $mv->movement_type) }}
+                                    @if($mv->movement_type === 'stock_in')
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 shadow-xs">
+                                            <i class="fa-solid fa-arrow-down text-[9px]"></i> Stock In
+                                        </span>
+                                    @elseif($mv->movement_type === 'stock_out')
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide bg-rose-100 dark:bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-500/30 shadow-xs">
+                                            <i class="fa-solid fa-arrow-up text-[9px]"></i> Stock Out
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide bg-cyan-100 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/30 shadow-xs">
+                                            <i class="fa-solid fa-sliders text-[9px]"></i> {{ ucwords(str_replace('_', ' ', $mv->movement_type)) }}
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="px-4 sm:px-5 py-3 whitespace-nowrap">
+                                    @php
+                                        $qtyDisplay = (float)$mv->quantity;
+                                    @endphp
+                                    <div class="flex items-baseline gap-1 text-xs">
+                                        @if($mv->movement_type === 'stock_out')
+                                            <span class="font-black tabular-nums text-rose-600 dark:text-rose-400">
+                                                -{{ $qtyDisplay }}
+                                            </span>
+                                        @else
+                                            <span class="font-black tabular-nums text-emerald-600 dark:text-emerald-400">
+                                                +{{ $qtyDisplay }}
+                                            </span>
+                                        @endif
+                                        <span class="text-[11px] text-cyber-muted font-medium">{{ $mv->material->unit ?? 'units' }}</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 sm:px-5 py-3 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono text-[10px] font-medium tracking-wide shadow-2xs">
+                                        {{ $mv->reference ?? ($mv->reason ?: 'Auto Deduct') }}
                                     </span>
-                                </td>
-                                <td class="px-4 sm:px-5 py-3 font-mono font-bold whitespace-nowrap {{ $mv->movement_type === 'stock_out' ? 'text-rose-400' : 'text-emerald-400' }}">
-                                    {{ $mv->movement_type === 'stock_out' ? '-' : '+' }}{{ $mv->quantity }} {{ $mv->material->unit ?? 'units' }}
-                                </td>
-                                <td class="px-4 sm:px-5 py-3 font-mono text-cyber-sub text-[11px] whitespace-nowrap truncate max-w-[120px]">
-                                    {{ $mv->reference ?? ($mv->reason ?: 'Auto Deduct') }}
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-5 py-8 text-center text-cyber-muted text-xs">No recent inventory movements recorded.</td>
+                                <td colspan="4" class="px-5 py-8 text-center text-cyber-muted text-xs">
+                                    <i class="fa-solid fa-inbox text-cyber-muted text-lg mb-1 block"></i>
+                                    No recent inventory movements recorded.
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

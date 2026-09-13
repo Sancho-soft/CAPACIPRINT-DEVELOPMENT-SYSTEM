@@ -36,8 +36,12 @@
                             {{ $ord->status_label }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="{{ route('staff.orders.show', $ord) }}" class="text-brand-600 font-bold hover:underline">Manage &rarr;</a>
+                    <td class="px-6 py-4 text-right whitespace-nowrap">
+                        <a href="{{ route('staff.orders.show', $ord) }}" 
+                           class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                           title="Manage Order">
+                            <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
+                        </a>
                     </td>
                 </tr>
                 @empty

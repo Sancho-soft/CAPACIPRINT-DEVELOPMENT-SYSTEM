@@ -26,7 +26,7 @@
                     <td class="px-6 py-4 font-bold text-navy-900 bg-brand-50 text-sm">Amount Due</td>
                     <td class="px-6 py-4 font-black text-xl text-navy-900 bg-brand-50 font-display">₱{{ number_format($payment->amount, 2) }}</td>
                 </tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Payment Method</td><td class="px-6 py-3 font-bold text-navy-900">{{ $payment->payment_method ?? 'Cash on Pickup' }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Payment Method</td><td class="px-6 py-3 font-bold text-navy-900">{{ str_replace([' (Over-the-Counter)', ' on Pickup'], '', $payment->payment_method ?? 'Cash') }}</td></tr>
                 <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Payment Reference</td><td class="px-6 py-3 text-slate-800">{{ $payment->payment_reference ?? 'Not yet submitted' }}</td></tr>
                 <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Date Submitted</td><td class="px-6 py-3 text-slate-800">{{ $payment->paid_at?->format('F d, Y h:i A') ?? '—' }}</td></tr>
                 @if($payment->notes)<tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Notes</td><td class="px-6 py-3 text-slate-800">{{ $payment->notes }}</td></tr>@endif
@@ -45,7 +45,7 @@
                 <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wide mb-1.5">Payment Method <span class="text-red-500">*</span></label>
                 <select name="payment_method" required
                         class="block w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400 transition bg-white">
-                    <option value="Cash on Pickup">Cash on Pickup (Over-the-Counter)</option>
+                    <option value="Cash">Cash</option>
                     <option value="GCash">GCash</option>
                     <option value="Maya">Maya</option>
                     <option value="Bank Transfer">Bank Transfer</option>

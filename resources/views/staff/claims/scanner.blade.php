@@ -38,7 +38,7 @@
         />
 
         <x-dashboard.kpi-card 
-            title="CLAIMED &amp; HANDED OVER TODAY"
+            title="CLAIMED & HANDED OVER TODAY"
             :value="$todayClaimedCount ?? 0"
             icon="fa-solid fa-handshake"
             accent="emerald"
@@ -84,11 +84,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-                <span class="text-xs text-cyber-muted flex items-center gap-1.5">
-                    <i class="fa-solid fa-keyboard text-cyan-600 dark:text-cyan-400 text-xs"></i> 
-                    Hardware USB scanner triggers Enter automatically, or click Verify.
-                </span>
+            <div class="flex justify-end pt-1">
                 <button type="submit" class="bg-sky-600 hover:bg-sky-500 text-white font-black px-8 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-circle-check text-sm"></i>
                     <span>Verify &amp; Handover Order</span>
@@ -97,68 +93,11 @@
         </form>
     </div>
 
-    {{-- Orders Waiting on Shelf (Quick Handover Shelf) --}}
-    @if(isset($readyOrders) && $readyOrders->isNotEmpty())
-        <div class="bg-cyber-card border border-amber-500/30 rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-6 py-4 border-b border-amber-500/20 flex items-center justify-between bg-amber-500/5">
-                <div class="flex items-center gap-2.5">
-                    <div class="h-8 w-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xs">
-                        <i class="fa-solid fa-boxes-stacked"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Orders Ready on Branch Shelf</h3>
-                        <p class="text-[11px] text-cyber-muted mt-0.5">Quick Handover: Click any order if client does not have their phone pass</p>
-                    </div>
-                </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30">
-                    {{ $readyOrders->count() }} Waiting
-                </span>
-            </div>
-
-            <div class="divide-y divide-cyber/60 text-xs">
-                @foreach($readyOrders as $rOrd)
-                    @php
-                        $clmCode = $rOrd->claimReference?->claim_code ?? $rOrd->order_number;
-                    @endphp
-                    <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-cyber-hover/50 transition">
-                        <div class="space-y-1 min-w-0">
-                            <div class="flex items-center gap-2.5 flex-wrap">
-                                <span class="font-bold text-cyber-main text-sm font-mono">#{{ $rOrd->order_number }}</span>
-                                <span class="text-xs text-cyber-muted">&bull; {{ $rOrd->user->name ?? 'Customer' }}</span>
-                                @if($rOrd->claimReference)
-                                    <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/20">
-                                        {{ $rOrd->claimReference->claim_code }}
-                                    </span>
-                                @endif
-                            </div>
-                            <p class="text-xs text-cyber-muted">
-                                {{ $rOrd->printRequest->service ?? 'Print Order' }} &middot; {{ number_format($rOrd->printRequest->quantity ?? 1) }} pcs &middot; {{ $rOrd->printRequest->size ?? 'Standard' }}
-                            </p>
-                        </div>
-
-                        <div class="flex items-center gap-2 shrink-0">
-                            <button type="button" 
-                                    @click="code = '{{ $clmCode }}'; $nextTick(() => document.getElementById('claim_input').focus())"
-                                    class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition inline-flex items-center gap-1.5">
-                                <i class="fa-solid fa-arrow-up-from-bracket text-[10px]"></i>
-                                <span>Fill &amp; Handover</span>
-                            </button>
-                            <a href="{{ route('staff.orders.show', $rOrd->id) }}" 
-                               class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 hover:underline px-2 py-1">
-                                Details &rarr;
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
     {{-- Recent Pickup History Logs --}}
     <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
         <div class="px-6 py-4 border-b border-cyber/60">
-            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Recent Branch Pickups &amp; Claim History</h3>
-            <p class="text-[11px] text-cyber-muted mt-0.5">Recently scanned customer orders and handover confirmations</p>
+            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Recent Branch Pickups &amp; Claim Activity</h3>
+            <p class="text-[11px] text-cyber-muted mt-0.5">Live claim codes and branch handover verification logs</p>
         </div>
 
         @if($recentClaims->isEmpty())
@@ -207,17 +146,21 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 font-mono text-cyber-muted text-[11px] whitespace-nowrap">
-                                {{ $clm->claimed_at?->format('M d, Y h:i A') ?? 'Pending Handover' }}
-                            </td>
-                            <td class="px-6 py-4 text-right whitespace-nowrap">
-                                @if($clm->order_id)
-                                    <a href="{{ route('staff.orders.show', $clm->order_id) }}" 
-                                       class="h-8 w-8 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-300 dark:border-slate-700 hover:border-sky-400 dark:hover:border-cyan-500/40 inline-flex items-center justify-center transition-all shadow-xs group"
-                                       title="View Order">
-                                        <i class="fa-solid fa-eye text-sm text-slate-800 dark:text-slate-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"></i>
-                                    </a>
+                                @if($clm->is_claimed && $clm->claimed_at)
+                                    <span class="text-cyber-main">{{ $clm->claimed_at->format('M d, Y h:i A') }}</span>
+                                @else
+                                    <span class="text-amber-700/80 dark:text-amber-400/80 italic">Pending Handover</span>
                                 @endif
                             </td>
+                                <td class="px-6 py-4 text-right whitespace-nowrap">
+                                    @if($clm->order_id)
+                                        <a href="{{ route('staff.orders.show', $clm->order_id) }}" 
+                                           class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                                           title="View Order">
+                                            <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
+                                        </a>
+                                    @endif
+                                </td>
                         </tr>
                         @endforeach
                     </tbody>

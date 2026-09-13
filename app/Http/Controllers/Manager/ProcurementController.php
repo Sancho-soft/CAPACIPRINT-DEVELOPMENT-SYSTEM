@@ -13,16 +13,27 @@ class ProcurementController extends Controller
 {
     public function index()
     {
-        $userBranchId = auth()->user()->branch_id ?? Branch::first()->id ?? 1;
+        $user = auth()->user();
+        $query = PurchaseRequest::with(['material', 'user', 'branch']);
 
-        $requests = PurchaseRequest::where('branch_id', $userBranchId)
-            ->with(['material', 'user', 'branch'])
-            ->latest()
-            ->paginate(15);
+        if (!in_array($user->role, ['system_admin', 'admin', 'owner', 'management']) && $user->branch_id) {
+            $query->where('branch_id', $user->branch_id);
+        }
+
+        $requests = $query->latest()->paginate(10);
+
+        $statsQuery = PurchaseRequest::query();
+        if (!in_array($user->role, ['system_admin', 'admin', 'owner', 'management']) && $user->branch_id) {
+            $statsQuery->where('branch_id', $user->branch_id);
+        }
+
+        $pendingCount = (clone $statsQuery)->where('status', 'pending')->count();
+        $approvedCount = (clone $statsQuery)->where('status', 'approved')->count();
+        $totalSpent = (clone $statsQuery)->whereIn('status', ['approved', 'received'])->sum('total_amount');
 
         $materials = Material::where('is_active', true)->get();
 
-        return view('manager.purchasing.index', compact('requests', 'materials'));
+        return view('manager.purchasing.index', compact('requests', 'materials', 'pendingCount', 'approvedCount', 'totalSpent'));
     }
 
     public function store(Request $request)
@@ -105,5 +116,89 @@ class ProcurementController extends Controller
         );
 
         return redirect()->back()->with('success', 'Stock delivery received and inventory automatically updated!');
+    }
+
+    public function approve(PurchaseRequest $purchaseRequest)
+    {
+        $user = auth()->user();
+        if (!in_array($user->role, ['system_admin', 'admin', 'owner', 'management'])) {
+            return redirect()->back()->with('error', 'Unauthorized. Only executive management or administrators can approve purchase requests.');
+        }
+
+        if ($purchaseRequest->status !== 'pending') {
+            return redirect()->back()->with('error', 'Only pending purchase requests can be approved.');
+        }
+
+        $purchaseRequest->update(['status' => 'approved']);
+
+        AuditLog::record(
+            'Purchase Request Approved',
+            'Procurement',
+            "Purchase Request #{$purchaseRequest->id} approved by {$user->name} for ₱" . number_format($purchaseRequest->total_amount, 2),
+            ['status' => 'pending'],
+            ['status' => 'approved']
+        );
+
+        return redirect()->back()->with('success', "Purchase Request #{$purchaseRequest->id} approved successfully.");
+    }
+
+    public function reject(Request $request, PurchaseRequest $purchaseRequest)
+    {
+        $user = auth()->user();
+        if (!in_array($user->role, ['system_admin', 'admin', 'owner', 'management'])) {
+            return redirect()->back()->with('error', 'Unauthorized. Only executive management or administrators can reject purchase requests.');
+        }
+
+        if ($purchaseRequest->status !== 'pending') {
+            return redirect()->back()->with('error', 'Only pending purchase requests can be rejected.');
+        }
+
+        $reason = $request->input('reason');
+        $updatedNotes = $purchaseRequest->notes;
+        if (!empty($reason)) {
+            $updatedNotes = ($updatedNotes ? $updatedNotes . "\n" : '') . "[Rejection Reason]: " . $reason;
+        }
+
+        $purchaseRequest->update([
+            'status' => 'rejected',
+            'notes'  => $updatedNotes,
+        ]);
+
+        AuditLog::record(
+            'Purchase Request Rejected',
+            'Procurement',
+            "Purchase Request #{$purchaseRequest->id} rejected by {$user->name}",
+            ['status' => 'pending'],
+            ['status' => 'rejected']
+        );
+
+        return redirect()->back()->with('success', "Purchase Request #{$purchaseRequest->id} rejected.");
+    }
+
+    public function cancel(PurchaseRequest $purchaseRequest)
+    {
+        $user = auth()->user();
+        $canCancel = ($purchaseRequest->requested_by === $user->id) || in_array($user->role, ['system_admin', 'admin', 'owner', 'management']);
+
+        if (!$canCancel) {
+            return redirect()->back()->with('error', 'Unauthorized. You can only cancel requests you submitted.');
+        }
+
+        if ($purchaseRequest->status !== 'pending') {
+            return redirect()->back()->with('error', 'Only pending purchase requests can be cancelled.');
+        }
+
+        $id = $purchaseRequest->id;
+        $purchaseRequest->delete();
+
+        AuditLog::record(
+            'Purchase Request Cancelled',
+            'Procurement',
+            "Purchase Request #{$id} was withdrawn/cancelled by {$user->name}",
+            ['status' => 'pending'],
+            null
+        );
+
+        return redirect()->back()->with('success', "Purchase Request #{$id} has been withdrawn and cancelled.");
     }
 }

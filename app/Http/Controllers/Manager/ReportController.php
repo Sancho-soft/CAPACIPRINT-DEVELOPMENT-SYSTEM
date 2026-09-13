@@ -54,7 +54,7 @@ class ReportController extends Controller
             return $this->exportProductionCsv($query->get());
         }
 
-        $jobs = $query->latest()->paginate(15)->withQueryString();
+        $jobs = $query->latest()->paginate(7)->withQueryString();
         $selectedStatus = $request->get('status', '');
         $searchQuery    = $request->get('search', '');
 

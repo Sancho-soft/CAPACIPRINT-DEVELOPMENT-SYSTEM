@@ -25,7 +25,7 @@ class OrderController extends Controller
             $query->where('payment_status', $payment);
         }
 
-        $orders = $query->paginate(15);
+        $orders = $query->paginate(7);
         return view('staff.orders.index', compact('orders'));
     }
 
