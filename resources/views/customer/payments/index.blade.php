@@ -6,7 +6,6 @@
 <div class="space-y-6 w-full">
     <div>
         <h2 class="text-2xl font-black text-cyber-main font-display">My Payments</h2>
-        <p class="text-sm text-cyber-muted mt-1">Track payment status and submit your transaction references here.</p>
     </div>
 
     @if($payments->isEmpty())
@@ -35,9 +34,9 @@
                 <tbody class="bg-white divide-y divide-slate-100">
                     @foreach($payments as $payment)
                     <tr class="hover:bg-slate-50/50 transition">
-                        <td class="px-6 py-4 font-bold text-navy-900">#{{ $payment->order->order_number ?? '—' }}</td>
+                        <td class="px-6 py-4 font-mono font-bold text-navy-900">#{{ $payment->order?->order_number ?? ('ORD-' . str_pad($payment->order_id ?? $payment->id, 3, '0', STR_PAD_LEFT)) }}</td>
                         <td class="px-6 py-4 font-bold text-navy-900">₱{{ number_format($payment->amount, 2) }}</td>
-                        <td class="px-6 py-4 font-semibold text-slate-700">{{ $payment->payment_method ?? 'Cash on Pickup' }}</td>
+                        <td class="px-6 py-4 font-semibold text-slate-700">{{ str_replace([' (Over-the-Counter)', ' on Pickup'], '', $payment->payment_method ?? 'Cash') }}</td>
                         <td class="px-6 py-4 text-slate-600">{{ $payment->payment_reference ?? '—' }}</td>
                         <td class="px-6 py-4 text-slate-500">{{ $payment->paid_at?->format('M d, Y') ?? '—' }}</td>
                         <td class="px-6 py-4">
@@ -47,7 +46,10 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('customer.payments.show', $payment) }}"
-                               class="text-brand-500 hover:text-brand-700 font-bold text-xs">View</a>
+                               class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-[#06B6D4] text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-white border border-cyan-500/20 hover:border-[#06B6D4] transition shadow-xs"
+                               title="View Payment Details">
+                                <i class="fa-solid fa-eye text-xs"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

@@ -106,4 +106,19 @@ class PrintRequest extends Model
             default              => 'gray',
         };
     }
+
+    public function getStatusBadgeClassAttribute(): string
+    {
+        return match ($this->status) {
+            'submitted'          => 'bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-400',
+            'quotation'          => 'bg-indigo-100 text-indigo-800 dark:bg-indigo-500/15 dark:text-indigo-400',
+            'payment'            => 'bg-orange-100 text-orange-800 dark:bg-orange-500/15 dark:text-orange-400',
+            'branch_recommended' => 'bg-purple-100 text-purple-800 dark:bg-purple-500/15 dark:text-purple-400',
+            'production'         => 'bg-cyan-100 text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-400',
+            'completed'          => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-400',
+            'ready_for_pickup'   => 'bg-teal-100 text-teal-800 dark:bg-teal-500/15 dark:text-teal-400',
+            'claimed'            => 'bg-slate-100 text-slate-800 dark:bg-slate-500/15 dark:text-slate-400',
+            default              => 'bg-slate-100 text-slate-700 dark:bg-slate-500/15 dark:text-slate-400',
+        };
+    }
 }

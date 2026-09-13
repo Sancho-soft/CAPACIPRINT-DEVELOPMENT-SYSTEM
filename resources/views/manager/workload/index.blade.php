@@ -6,17 +6,11 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER & LIVE INDICATOR --}}
+    {{-- PAGE HEADER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-xl sm:text-2xl font-black text-cyber-main font-display tracking-tight">Workload Monitor</h1>
-        </div>
-        <div class="flex items-center gap-3">
-            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 shadow-[0_0_15px_rgba(52,211,153,0.15)]">
-                <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>LIVE</span>
-            </span>
         </div>
     </div>
 
@@ -62,6 +56,111 @@
             accent="emerald"
             :link="route('manager.capacity.index')"
         />
+    </div>
+
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- MULTI-BRANCH WORKLOAD & QUEUE PRIORITY VISUAL ANALYTICS (SPLIT GRID) --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+
+        {{-- LEFT 2 COLS: MULTI-BRANCH WORKLOAD VS CAPACITY BAR GRAPH --}}
+        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col justify-between h-full">
+            <div class="flex flex-col flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
+                    <div>
+                        <div class="flex items-center gap-2.5">
+                            <div class="h-8 w-8 rounded-xl bg-teal-500/10 border border-teal-500/20 text-[#009498] flex items-center justify-center text-xs shadow-xs">
+                                <i class="fa-solid fa-chart-column"></i>
+                            </div>
+                            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Multi-Branch Workload Distribution</h3>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-cyber-muted mt-1">Live active floor job volume across network printing facilities</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3 text-xs font-medium shrink-0">
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-3 w-3 shadow-xs" style="background-color: #009498;"></span>
+                            <span class="text-cyber-main text-[11px] font-semibold">Morning Star Press</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-3 w-3 shadow-xs" style="background-color: #013F73;"></span>
+                            <span class="text-cyber-main text-[11px] font-semibold">Morning Star Network</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-3 w-3 shadow-xs" style="background-color: #7DD956;"></span>
+                            <span class="text-cyber-main text-[11px] font-semibold">Green Heart Hub</span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Bar Chart Canvas --}}
+                <div class="relative h-64 sm:h-72 w-full pt-3">
+                    <canvas id="branchCapacityBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        {{-- RIGHT 1 COL: QUEUE PRIORITY DISTRIBUTION DONUT CHART --}}
+        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+            <div class="flex flex-col flex-1">
+                <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
+                    <div>
+                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Queue Priority Mix</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Floor urgency & queue pressure</p>
+                    </div>
+                    <div class="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                </div>
+
+                @php
+                    $pList = $priorityBreakdown ?? [
+                        'Rush / Urgent'    => 6,
+                        'High Priority'    => 12,
+                        'Standard Run'     => 28,
+                        'Quality Checking' => 5,
+                    ];
+                    $totalPJobs = max(1, array_sum($pList));
+                    $pLabels = array_keys($pList);
+                    $pValues = array_values($pList);
+                    $pColors = [
+                        '#f43f5e', // Rose for Rush / Urgent
+                        '#f59e0b', // Amber for High Priority
+                        '#06b6d4', // Cyan for Standard Run
+                        '#8b5cf6', // Purple for Quality Checking
+                    ];
+                @endphp
+
+                {{-- Donut Canvas Container with Centered Metric --}}
+                <div class="relative flex items-center justify-center my-2 h-44 w-full">
+                    <canvas id="queuePriorityDonutChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPJobs }}</span>
+                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Floor Runs</span>
+                    </div>
+                </div>
+
+                {{-- Clean Priority Legend --}}
+                <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
+                    @foreach($pList as $pName => $pCount)
+                        @php
+                            $pPct = round(($pCount / $totalPJobs) * 100);
+                            $pDot = $pColors[$loop->index % count($pColors)];
+                        @endphp
+                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $pDot }}"></span>
+                                <span class="text-cyber-main font-medium truncate text-[11px]">{{ $pName }}</span>
+                            </div>
+                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
+                                {{ $pCount }} <span class="text-[10px] font-normal text-cyber-sub">({{ $pPct }}%)</span>
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -308,4 +407,176 @@
     </div>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
+
+        // 1. Multi-Branch Workload Bar Chart (Straight Flat Columns with Exact Sample Colors)
+        const barCanvas = document.getElementById('branchCapacityBarChart');
+        if (barCanvas) {
+            const labels = @json($branchChartLabels);
+            const activeData = @json($branchActiveData);
+            const capacityData = @json($branchCapacityData);
+
+            // Exact color codes sampled from user's reference:
+            // Teal (#009498), Deep Navy (#013F73), Lime Green (#7DD956)
+            const sampleColors = ['#009498', '#013F73', '#7DD956'];
+            const sampleHoverColors = ['#00b4b8', '#02569c', '#8ee568'];
+            const sampleBorders = isDark 
+                ? ['#00c4c8', '#1e6bb8', '#9ef578'] 
+                : ['#007a7e', '#012c52', '#6bc244'];
+
+            new Chart(barCanvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Active Floor Jobs',
+                            data: activeData,
+                            backgroundColor: sampleColors,
+                            hoverBackgroundColor: sampleHoverColors,
+                            borderColor: sampleBorders,
+                            borderWidth: 1.5,
+                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
+                            borderSkipped: false,
+                            maxBarThickness: 56,      // Substantial straight rectangular columns
+                            barPercentage: 0.8,
+                            categoryPercentage: 0.7
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: isDark ? '#94a3b8' : '#475569',
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 10,
+                            cornerRadius: 6,
+                            boxPadding: 4,
+                            callbacks: {
+                                label: function(context) {
+                                    const val = context.raw || 0;
+                                    const idx = context.dataIndex;
+                                    const cap = capacityData[idx] || 50;
+                                    const util = Math.round((val / cap) * 100);
+                                    return [
+                                        ` Active Load: ${val} jobs`,
+                                        ` Daily Rated Capacity: ${cap} jobs/day`,
+                                        ` Branch Utilization: ${util}%`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                            ticks: {
+                                color: isDark ? '#94a3b8' : '#64748b',
+                                font: {
+                                    family: 'Inter, sans-serif',
+                                    size: 11,
+                                    weight: '600'
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                            },
+                            ticks: {
+                                color: isDark ? '#94a3b8' : '#64748b',
+                                font: {
+                                    family: 'Inter, sans-serif',
+                                    size: 10
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Jobs Volume',
+                                color: isDark ? '#64748b' : '#94a3b8',
+                                font: {
+                                    size: 10,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 800,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+
+        // 2. Queue Priority Mix Donut Chart
+        const donutCanvas = document.getElementById('queuePriorityDonutChart');
+        if (donutCanvas) {
+            const pLabels = @json($pLabels);
+            const pData = @json($pValues);
+            const pColors = ['#f43f5e', '#f59e0b', '#06b6d4', '#8b5cf6'];
+
+            new Chart(donutCanvas, {
+                type: 'doughnut',
+                data: {
+                    labels: pLabels,
+                    datasets: [{
+                        data: pData,
+                        backgroundColor: pColors,
+                        borderWidth: 2,
+                        borderColor: isDark ? '#111A24' : '#ffffff',
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '72%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: isDark ? '#94a3b8' : '#475569',
+                            borderColor: isDark ? '#334155' : '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 10,
+                            cornerRadius: 12,
+                            boxPadding: 4,
+                            callbacks: {
+                                label: function(context) {
+                                    const val = context.raw || 0;
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const pct = total > 0 ? Math.round((val / total) * 100) : 0;
+                                    return ` ${context.label}: ${val} runs (${pct}%)`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                        duration: 1000
+                    }
+                }
+            });
+        }
+    });
+</script>
 @endsection

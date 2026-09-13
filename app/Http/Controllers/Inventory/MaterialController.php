@@ -16,7 +16,7 @@ class MaterialController extends Controller
             ->when($request->type, fn($q, $t) => $q->where('type', $t))
             ->withCount('branchInventory')
             ->latest()
-            ->paginate(15);
+            ->paginate(7);
 
         return view('inventory.materials.index', compact('materials'));
     }

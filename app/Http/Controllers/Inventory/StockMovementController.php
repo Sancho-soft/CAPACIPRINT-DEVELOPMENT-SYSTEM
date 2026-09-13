@@ -17,7 +17,7 @@ class StockMovementController extends Controller
             ->when($request->branch_id, fn($q, $b) => $q->where('branch_id', $b))
             ->when($request->type,      fn($q, $t) => $q->where('movement_type', $t))
             ->latest()
-            ->paginate(20);
+            ->paginate(7);
 
         $branches = Branch::where('status', 'active')->get();
 

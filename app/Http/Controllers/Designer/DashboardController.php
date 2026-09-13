@@ -18,15 +18,16 @@ class DashboardController extends Controller
                 $q->whereNotNull('design_file_path')
                   ->orWhereHas('designProofs');
             })
+            ->where('status', '!=', 'cancelled')
             ->latest()
-            ->take(10)
-            ->get();
+            ->paginate(7);
 
         // 2. Accurate KPI metrics
         $needsProofCount = PrintRequest::where(function ($q) {
                 $q->whereNotNull('design_file_path')
                   ->orWhereHas('designProofs');
             })
+            ->where('status', '!=', 'cancelled')
             ->doesntHave('designProofs')
             ->count();
 

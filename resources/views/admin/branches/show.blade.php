@@ -60,7 +60,7 @@
                 @forelse($branch->employees as $emp)
                     <div class="py-3 flex items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
-                            <div class="h-8 w-8 rounded-xl bg-cyber-sub border border-cyber text-cyber-main flex items-center justify-center font-black text-xs">
+                            <div class="h-8 w-8 rounded-xl bg-[#0E3386] border border-[#0E3386] text-sky-400 flex items-center justify-center font-black text-xs shadow-xs">
                                 {{ strtoupper(substr($emp->name, 0, 2)) }}
                             </div>
                             <div>

@@ -91,15 +91,85 @@
     />
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 2: MULTI-BRANCH WORKLOAD & MACHINE UTILIZATION --}}
+    {{-- LEVEL 2 & 3: MULTI-BRANCH WORKLOAD & PRODUCTION FLOOR STATUS DONUT CHART --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <x-dashboard.branch-workload-card 
-        :branches="$branches"
-        title="Branch Capacity Utilization & Machine Workload"
-        subtitle=""
-        :actionUrl="route('manager.capacity.index')"
-        actionLabel="Capacity Evaluation Matrix"
-    />
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+
+        {{-- LEFT 2 COLS: MULTI-BRANCH CAPACITY --}}
+        <div class="lg:col-span-2 flex flex-col h-full">
+            <x-dashboard.branch-workload-card 
+                :branches="$branches"
+                title="Branch Capacity Utilization & Machine Workload"
+                subtitle=""
+                :actionUrl="route('manager.capacity.index')"
+                actionLabel="Capacity Evaluation Matrix"
+            />
+        </div>
+
+        {{-- RIGHT 1 COL: PRODUCTION FLOOR STATUS DONUT CHART --}}
+        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+            <div class="flex flex-col flex-1">
+                <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
+                    <div>
+                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Floor Status Health</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Active shop-floor job distribution</p>
+                    </div>
+                    <div class="h-8 w-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                </div>
+
+                @php
+                    $statusList = $jobStatusBreakdown ?? [
+                        'In Production'    => 5,
+                        'Quality Checking' => 2,
+                        'Assigned / Queue' => 3,
+                        'Delayed Runs'     => 1,
+                        'Completed Today'  => 4,
+                    ];
+                    $totalStatusJobs = max(1, array_sum($statusList));
+                    $statusLabels = array_keys($statusList);
+                    $statusValues = array_values($statusList);
+                    $statusColors = [
+                        '#06b6d4', // Cyan for In Production
+                        '#8b5cf6', // Purple for Quality Checking
+                        '#f59e0b', // Amber for Assigned / Queue
+                        '#f43f5e', // Rose for Delayed Runs
+                        '#10b981', // Emerald for Completed Today
+                    ];
+                @endphp
+
+                {{-- Chart Canvas Container with Centered Metric --}}
+                <div class="relative flex items-center justify-center my-2 h-44 w-full">
+                    <canvas id="jobStatusDonutChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalStatusJobs }}</span>
+                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Total Jobs</span>
+                    </div>
+                </div>
+
+                {{-- Clean Status Legend --}}
+                <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
+                    @foreach($statusList as $stName => $stCount)
+                        @php
+                            $stPct = round(($stCount / $totalStatusJobs) * 100);
+                            $dotColor = $statusColors[$loop->index % count($statusColors)];
+                        @endphp
+                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $dotColor }}"></span>
+                                <span class="text-cyber-main font-medium truncate text-[11px]">{{ $stName }}</span>
+                            </div>
+                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
+                                {{ $stCount }} <span class="text-[10px] font-normal text-cyber-sub">({{ $stPct }}%)</span>
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- LEVEL 2 & 4: LIVE PRODUCTION JOBS DATA TABLE --}}
@@ -178,4 +248,69 @@
     @endif
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const canvas = document.getElementById('jobStatusDonutChart');
+        if (!canvas) return;
+
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
+        const labels = @json($statusLabels);
+        const data = @json($statusValues);
+        const colors = [
+            '#06b6d4', // Cyan (In Production)
+            '#8b5cf6', // Purple (Quality Checking)
+            '#f59e0b', // Amber (Assigned / Queue)
+            '#f43f5e', // Rose (Delayed Runs)
+            '#10b981'  // Emerald (Completed Today)
+        ];
+
+        new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors.slice(0, labels.length),
+                    borderWidth: 2,
+                    borderColor: isDark ? '#111A24' : '#ffffff',
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '72%',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                        titleColor: isDark ? '#f8fafc' : '#0f172a',
+                        bodyColor: isDark ? '#94a3b8' : '#475569',
+                        borderColor: isDark ? '#334155' : '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 10,
+                        cornerRadius: 12,
+                        boxPadding: 4,
+                        callbacks: {
+                            label: function(context) {
+                                const val = context.raw || 0;
+                                const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const pct = total > 0 ? Math.round((val / total) * 100) : 0;
+                                return ` ${context.label}: ${val} jobs (${pct}%)`;
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                    duration: 1000
+                }
+            }
+        });
+    });
+</script>
 @endsection

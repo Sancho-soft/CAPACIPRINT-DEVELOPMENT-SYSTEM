@@ -33,7 +33,7 @@ class EmployeeController extends Controller
             $query->where('availability_status', $request->input('status'));
         }
 
-        $employees = $query->latest()->paginate(10)->withQueryString();
+        $employees = $query->latest()->paginate(7)->withQueryString();
         $branches = Branch::all();
 
         return view('admin.employees.index', compact('employees', 'branches'));

@@ -17,7 +17,7 @@ class PaymentController extends Controller
             ->payments()
             ->with('order.printRequest')
             ->latest()
-            ->paginate(10);
+            ->paginate(7);
 
         return view('customer.payments.index', compact('payments'));
     }

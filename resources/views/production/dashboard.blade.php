@@ -1,6 +1,6 @@
 @extends('layouts.internal')
-@section('title', 'Production Dashboard')
-@section('page-title', 'Production Dashboard')
+@section('title', 'Dashboard Overview - Production')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
@@ -10,7 +10,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Production Dashboard</h1>
+            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
         </div>
 
         {{-- Right Quick Navigation Actions --}}
@@ -143,7 +143,7 @@
 
         @if($pressMachines->hasPages())
             <div class="px-5 py-3 border-t border-cyber/60 bg-cyber-sub/40">
-                {{ $pressMachines->fragment('press-equipment-fleet')->links() }}
+                {{ $pressMachines->appends(request()->except('machines_page'))->fragment('press-equipment-fleet')->links() }}
             </div>
         @endif
     </div>
@@ -151,11 +151,11 @@
 
 </div>
 
-{{-- In-Place Pagination Script (Zero Jump / No Header Scrolling) --}}
+{{-- In-Place Pagination Script (Zero Jump / No Header Scrolling for both tables) --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function (e) {
-        const link = e.target.closest('#press-equipment-fleet nav a, #press-equipment-fleet .pagination a, #press-equipment-fleet a[href*="page="]');
+        const link = e.target.closest('#press-equipment-fleet nav a, #press-equipment-fleet .pagination a, #press-equipment-fleet a[href*="machines_page="], #press-line-queue nav a, #press-line-queue .pagination a, #press-line-queue a[href*="jobs_page="]');
         if (!link) return;
 
         const href = link.getAttribute('href');
@@ -163,11 +163,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         e.preventDefault();
 
-        const container = document.getElementById('press-equipment-fleet');
+        const container = link.closest('#press-equipment-fleet, #press-line-queue');
         if (!container) {
             window.location.href = href;
             return;
         }
+
+        const containerId = container.id;
 
         // Lock current scroll position
         const currentScrollY = window.scrollY;
@@ -187,9 +189,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            const newFleet = doc.getElementById('press-equipment-fleet');
-            if (newFleet) {
-                container.innerHTML = newFleet.innerHTML;
+            const newContainer = doc.getElementById(containerId);
+            if (newContainer) {
+                container.innerHTML = newContainer.innerHTML;
                 window.history.pushState({ path: href }, '', href);
                 // Keep the exact scroll position untouched so the page does not jump to header
                 window.scrollTo({ top: currentScrollY, behavior: 'instant' });

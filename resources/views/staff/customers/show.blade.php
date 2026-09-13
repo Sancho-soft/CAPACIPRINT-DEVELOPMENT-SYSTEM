@@ -6,7 +6,7 @@
 <div class="max-w-5xl mx-auto space-y-6">
     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
         <div class="flex items-center gap-4">
-            <div class="h-14 w-14 rounded-full bg-brand-500 text-white font-bold text-xl flex items-center justify-center font-display">
+            <div class="h-14 w-14 rounded-2xl bg-[#0E3386] text-sky-400 font-bold text-xl flex items-center justify-center font-display border border-[#0E3386] shadow-sm">
                 {{ strtoupper(substr($user->name, 0, 2)) }}
             </div>
             <div>

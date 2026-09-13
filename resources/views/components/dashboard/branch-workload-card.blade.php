@@ -6,7 +6,7 @@
     'actionLabel' => 'Manage Branches',
 ])
 
-<div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
+<div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl space-y-4 h-full flex flex-col justify-between">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
         <div>
             <div class="flex items-center gap-2">
@@ -24,7 +24,7 @@
         @endif
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1 flex-1">
         @forelse($branches as $b)
             @php
                 $activeJobs = $b->active_jobs_count ?? ($b->active_jobs ?? 0);
@@ -56,15 +56,15 @@
                 $totalMachines = $b->machines_count ?? ($b->machines ? $b->machines->count() : 0);
             @endphp
 
-            <a href="{{ $actionUrl ?? route('management.branches.index') }}" class="p-4 sm:p-5 rounded-2xl border border-cyber bg-cyber-sub/60 hover:border-cyan-500/40 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-3 group cursor-pointer block">
+            <a href="{{ $actionUrl ?? route('management.branches.index') }}" class="p-4 sm:p-5 rounded-2xl border border-cyber bg-cyber-sub/60 hover:border-cyan-500/40 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 flex flex-col justify-between space-y-3 group cursor-pointer block h-full">
                 {{-- Header --}}
                 <div class="flex items-start justify-between gap-2">
-                    <div class="min-w-0">
-                        <h4 class="font-black text-cyber-main text-sm truncate font-display group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0"></span>
-                            <span class="truncate">{{ $b->name }}</span>
+                    <div class="min-w-0 flex-1">
+                        <h4 class="font-black text-cyber-main text-xs sm:text-sm font-display group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors flex items-start gap-1.5 leading-snug min-h-[2.5rem]">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0 mt-1"></span>
+                            <span class="line-clamp-2" title="{{ $b->name }}">{{ $b->name }}</span>
                         </h4>
-                        <span class="text-[10px] text-cyber-muted flex items-center gap-1 mt-0.5">
+                        <span class="text-[10px] text-cyber-muted flex items-center gap-1 mt-1 font-mono">
                             <i class="fa-solid fa-location-dot text-[9px] text-cyan-600 dark:text-cyan-400"></i>
                             {{ $b->location ?? 'Hub' }}
                         </span>
@@ -75,20 +75,20 @@
                 </div>
 
                 {{-- Key Spec Metrics --}}
-                <div class="space-y-1.5 text-xs text-cyber-muted font-medium bg-cyber-card/60 p-3 rounded-xl border border-cyber/50">
-                    <div class="flex justify-between items-center">
-                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Press Machines:</span>
-                        <span class="font-mono font-bold text-cyber-main">
-                            <strong class="text-cyan-600 dark:text-cyan-400 font-extrabold">{{ $availMachines }}</strong> / {{ $totalMachines }} operational
+                <div class="space-y-2 text-xs text-cyber-muted font-medium bg-cyber-card/60 p-3 rounded-xl border border-cyber/50">
+                    <div class="flex justify-between items-center text-[11px]">
+                        <span class="text-slate-500 dark:text-slate-400">Press Fleet:</span>
+                        <span class="font-mono font-bold text-cyber-main text-right">
+                            <strong class="text-cyan-600 dark:text-cyan-400 font-extrabold">{{ $availMachines }}</strong> / {{ $totalMachines }} online
                         </span>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Active Jobs on Floor:</span>
-                        <span class="font-mono font-bold text-cyber-main">{{ $activeJobs }} jobs</span>
+                    <div class="flex justify-between items-center text-[11px]">
+                        <span class="text-slate-500 dark:text-slate-400">Active Jobs:</span>
+                        <span class="font-mono font-bold text-cyber-main text-right">{{ $activeJobs }} jobs</span>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-[11px] text-slate-500 dark:text-slate-400">Daily Rated Capacity:</span>
-                        <span class="font-mono font-bold text-slate-600 dark:text-slate-300">{{ $b->max_daily_jobs ?? 25 }} jobs/day</span>
+                    <div class="flex justify-between items-center text-[11px]">
+                        <span class="text-slate-500 dark:text-slate-400">Rated Capacity:</span>
+                        <span class="font-mono font-bold text-slate-600 dark:text-slate-300 text-right">{{ $b->max_daily_jobs ?? 25 }}/day</span>
                     </div>
                 </div>
 

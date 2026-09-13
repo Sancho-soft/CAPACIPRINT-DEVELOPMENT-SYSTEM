@@ -345,11 +345,11 @@
                     <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('management.orders.index') }}"
-                   title="Orders Overview"
+                   title="Order Management"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('management.orders.*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-layer-group w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Orders Overview</span>
+                    <span x-show="!sidebarCollapsed" class="truncate">Order Management</span>
                 </a>
                 <a href="{{ route('management.branches.index') }}"
                    title="Branch Performance"
@@ -444,7 +444,7 @@
                             type="button"
                             class="flex items-center gap-3 p-1.5 pr-3 rounded-2xl bg-cyber-sub border border-cyber hover:border-cyan-500/40 text-cyber-main transition shadow-sm group focus:outline-none select-none cursor-pointer"
                             :class="profileOpen ? 'ring-2 ring-cyan-500/30 border-cyan-500/50' : ''">
-                        <div class="h-9 w-9 rounded-xl bg-slate-800 text-sky-400 font-bold flex items-center justify-center text-xs shrink-0 border border-slate-700 group-hover:scale-105 transition-transform">
+                        <div class="h-9 w-9 rounded-xl bg-[#0E3386] text-sky-400 font-bold flex items-center justify-center text-xs shrink-0 border border-[#0E3386] group-hover:scale-105 transition-transform shadow-xs">
                             {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                         </div>
                         <div class="text-left leading-tight hidden sm:block">

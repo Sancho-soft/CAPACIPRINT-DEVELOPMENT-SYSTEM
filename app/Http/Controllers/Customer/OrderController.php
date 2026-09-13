@@ -17,7 +17,7 @@ class OrderController extends Controller
             ->orders()
             ->with(['printRequest', 'quotation'])
             ->latest()
-            ->paginate(10);
+            ->paginate(7);
 
         return view('customer.orders.index', compact('orders'));
     }

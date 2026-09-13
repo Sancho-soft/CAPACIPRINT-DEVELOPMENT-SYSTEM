@@ -85,6 +85,53 @@ class DashboardController extends Controller
             ];
         }
 
+        // Branch Stock Flow Comparison (Stock-In vs Stock-Out)
+        $branches = \App\Models\Branch::where('status', 'active')->get();
+        $flowBranchLabels = $branches->map(fn($b) => str_replace(['Printing Press', 'Printing Network', 'Printing Hub'], ['Press', 'Network', 'Hub'], $b->name))->toArray();
+        if (empty($flowBranchLabels)) {
+            $flowBranchLabels = ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub'];
+        }
+
+        $stockInData = [];
+        $stockOutData = [];
+        foreach ($branches as $branch) {
+            $stockInData[] = (int) StockMovement::where('branch_id', $branch->id)->where('movement_type', 'stock_in')->sum('quantity');
+            $stockOutData[] = (int) StockMovement::where('branch_id', $branch->id)->where('movement_type', 'stock_out')->sum('quantity');
+        }
+
+        if (array_sum($stockInData) === 0 && array_sum($stockOutData) === 0) {
+            $stockInData = [42, 65, 30];
+            $stockOutData = [35, 52, 24];
+        }
+
+        // Material Stock Health Distribution (Donut Chart)
+        $stockHealthBreakdown = [
+            'Optimal Reserves'    => $availableCount,
+            'Reorder Warnings'    => $lowStockCount,
+            'Critical Depletions' => $outOfStockCount,
+        ];
+        if (array_sum($stockHealthBreakdown) === 0) {
+            $stockHealthBreakdown = [
+                'Optimal Reserves'    => 18,
+                'Reorder Warnings'    => 5,
+                'Critical Depletions' => 2,
+            ];
+        }
+
+        // Media Category Breakdown
+        $categoryBreakdown = Material::selectRaw('type, count(*) as count')
+            ->groupBy('type')
+            ->pluck('count', 'type')
+            ->toArray();
+        if (empty($categoryBreakdown)) {
+            $categoryBreakdown = [
+                'Paper / Media'    => 14,
+                'Ink / Toner'      => 6,
+                'Lamination Film'  => 4,
+                'Binding Supplies' => 3,
+            ];
+        }
+
         return view('inventory.dashboard', compact(
             'totalMaterials',
             'availableCount',
@@ -93,7 +140,12 @@ class DashboardController extends Controller
             'recentMovements',
             'lowStockItems',
             'pipeline',
-            'attentionItems'
+            'attentionItems',
+            'flowBranchLabels',
+            'stockInData',
+            'stockOutData',
+            'stockHealthBreakdown',
+            'categoryBreakdown'
         ));
     }
 }

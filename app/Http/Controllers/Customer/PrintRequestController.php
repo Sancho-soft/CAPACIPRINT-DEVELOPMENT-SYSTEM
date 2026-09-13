@@ -17,7 +17,7 @@ class PrintRequestController extends Controller
         $printRequests = $request->user()
             ->printRequests()
             ->latest()
-            ->paginate(10);
+            ->paginate(7);
 
         return view('customer.print-requests.index', compact('printRequests'));
     }

@@ -17,7 +17,7 @@ class QuotationController extends Controller
             ->quotations()
             ->with('printRequest')
             ->latest()
-            ->paginate(10);
+            ->paginate(7);
 
         return view('customer.quotations.index', compact('quotations'));
     }

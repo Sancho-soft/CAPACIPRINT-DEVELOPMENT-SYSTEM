@@ -16,7 +16,7 @@ class InventoryController extends Controller
             ->when($request->branch_id, fn($q, $b) => $q->where('branch_id', $b))
             ->when($request->status,    fn($q, $s) => $q->where('status', $s));
 
-        $inventory = $query->orderBy('status')->paginate(20);
+        $inventory = $query->orderBy('status')->paginate(7);
         $branches  = Branch::where('status', 'active')->get();
 
         return view('inventory.stock.index', compact('inventory', 'branches'));

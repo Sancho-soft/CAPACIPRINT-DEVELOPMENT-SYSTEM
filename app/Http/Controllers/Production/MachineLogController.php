@@ -14,7 +14,7 @@ class MachineLogController extends Controller
     {
         $logs = MachineLog::with(['machine.branch', 'reporter'])
             ->latest()
-            ->paginate(15);
+            ->paginate(7);
 
         $machines = Machine::all();
 

@@ -15,7 +15,7 @@ class NotificationController extends Controller
         $notifications = $request->user()
             ->notifications()
             ->latest()
-            ->paginate(20);
+            ->paginate(7);
 
         $unreadCount = $request->user()->notifications()->where('is_read', false)->count();
 

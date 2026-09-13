@@ -54,7 +54,7 @@ class DesignController extends Controller
             });
         }
 
-        $printRequests = $query->latest()->paginate(12)->withQueryString();
+        $printRequests = $query->latest()->paginate(7)->withQueryString();
 
         return view('designer.index', compact('printRequests', 'counts'));
     }

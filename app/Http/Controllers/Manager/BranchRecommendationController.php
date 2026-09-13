@@ -14,7 +14,7 @@ class BranchRecommendationController extends Controller
     {
         $recommendations = BranchRecommendation::with(['printRequest.user', 'recommendedBranch', 'createdBy'])
             ->latest()
-            ->paginate(15);
+            ->paginate(7);
 
         return view('manager.recommendations.index', compact('recommendations'));
     }

@@ -199,7 +199,7 @@
                             type="button"
                             class="flex items-center gap-3 p-1.5 pr-3 rounded-2xl bg-cyber-sub border border-cyber hover:border-cyan-500/40 text-cyber-main transition shadow-sm group focus:outline-none select-none cursor-pointer"
                             :class="profileOpen ? 'ring-2 ring-cyan-500/30 border-cyan-500/50' : ''">
-                        <div class="h-9 w-9 rounded-xl bg-slate-800 text-sky-400 font-bold flex items-center justify-center text-sm shrink-0 border border-slate-700 group-hover:scale-105 transition-transform">
+                        <div class="h-9 w-9 rounded-xl bg-[#0E3386] text-sky-400 font-bold flex items-center justify-center text-sm shrink-0 border border-[#0E3386] group-hover:scale-105 transition-transform shadow-xs">
                             {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                         </div>
                         <div class="text-left leading-tight hidden sm:block">

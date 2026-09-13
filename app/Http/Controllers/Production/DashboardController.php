@@ -40,7 +40,7 @@ class DashboardController extends Controller
               ->orWhere(fn($sq) => $sq->whereNull('assigned_to')->when($branchId, fn($bq) => $bq->where('branch_id', $branchId)));
         })->where('status', 'delayed')->count();
 
-        // Shop-floor production jobs prioritized by urgency (Urgent -> Rush -> Normal)
+        // Shop-floor production jobs prioritized by urgency (Paginated at 7 per page)
         $myJobs = ProductionJob::where(function($q) use ($userId, $branchId) {
             $q->where('assigned_to', $userId)
               ->orWhere(fn($sq) => $sq->whereNull('assigned_to')->when($branchId, fn($bq) => $bq->where('branch_id', $branchId)));
@@ -49,13 +49,13 @@ class DashboardController extends Controller
         ->with(['order.user', 'order.printRequest', 'branch', 'machine'])
         ->orderByRaw("CASE priority WHEN 'urgent' THEN 0 WHEN 'rush' THEN 1 ELSE 2 END")
         ->latest()
-        ->take(10)
-        ->get();
+        ->paginate(7, ['*'], 'jobs_page')
+        ->fragment('press-line-queue');
 
-        // Shop Floor Press Machines (Paginated at 9 per page)
+        // Shop Floor Press Machines (Paginated at 7 per page)
         $pressMachines = Machine::when($branchId, fn($q) => $q->where('branch_id', $branchId))
             ->orderBy('id', 'asc')
-            ->paginate(9)
+            ->paginate(7, ['*'], 'machines_page')
             ->fragment('press-equipment-fleet');
 
         // Commercial Printing Pipeline for Shop Floor

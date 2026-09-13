@@ -85,10 +85,10 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- LEVEL 2 & 3: MULTI-BRANCH LOAD & SERVICES BREAKDOWN --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         {{-- LEFT 2 COLS: MULTI-BRANCH WORKLOAD --}}
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 flex flex-col h-full">
             <x-dashboard.branch-workload-card 
                 :branches="$branches"
                 title="Branch Capacity & Equipment Utilization"
@@ -98,53 +98,67 @@
             />
         </div>
 
-        {{-- RIGHT 1 COL: PRINT SERVICES MIX --}}
-        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between">
-            <div>
+        {{-- RIGHT 1 COL: PRINT SERVICES MIX PIE / DONUT CHART --}}
+        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+            <div class="flex flex-col flex-1">
                 <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
                     <div>
                         <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Print Services Mix</h3>
+                        <p class="text-[11px] text-cyber-muted mt-0.5">Order volume distribution across categories</p>
                     </div>
-                    <i class="fa-solid fa-chart-pie text-cyan-400 text-sm"></i>
+                    <div class="h-8 w-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
                 </div>
 
-                <div class="pt-4 space-y-3">
-                    @php
-                        $serviceList = !empty($serviceBreakdown) ? $serviceBreakdown : [
-                            'Document Printing' => 4,
-                            'Flyers & Brochures' => 6,
-                            'Tarpaulin Banner' => 3,
-                            'Calling Cards' => 2,
-                        ];
-                        $totalSvc = max(1, array_sum($serviceList));
-                    @endphp
+                @php
+                    $serviceList = !empty($serviceBreakdown) ? $serviceBreakdown : [
+                        'Tarpaulin Printing' => 4,
+                        'Flyers & Brochures' => 3,
+                        'Document Printing'  => 2,
+                        'Stickers & Labels'  => 2,
+                    ];
+                    $totalSvc = max(1, array_sum($serviceList));
+                    $chartLabels = array_keys($serviceList);
+                    $chartValues = array_values($serviceList);
+                    $colorPalette = [
+                        '#06b6d4', // Cyan
+                        '#6366f1', // Indigo
+                        '#10b981', // Emerald
+                        '#f59e0b', // Amber
+                        '#ec4899', // Pink
+                        '#8b5cf6', // Purple
+                        '#3b82f6', // Blue
+                    ];
+                @endphp
 
+                {{-- Chart Canvas Container with Centered Metric --}}
+                <div class="relative flex items-center justify-center my-2 h-44 w-full">
+                    <canvas id="servicesPieChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalSvc }}</span>
+                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Orders</span>
+                    </div>
+                </div>
+
+                {{-- Clean Grid Legend --}}
+                <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
                     @foreach($serviceList as $sName => $sCount)
                         @php
                             $sPct = round(($sCount / $totalSvc) * 100);
-                            $sColor = match($loop->index % 4) {
-                                0 => 'bg-cyan-400',
-                                1 => 'bg-indigo-400',
-                                2 => 'bg-emerald-400',
-                                default => 'bg-amber-400',
-                            };
+                            $colorHex = $colorPalette[$loop->index % count($colorPalette)];
                         @endphp
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-center text-xs font-medium">
-                                <span class="text-cyber-main font-semibold truncate max-w-[170px]">{{ $sName }}</span>
-                                <span class="text-cyber-muted font-mono">{{ $sCount }} ({{ $sPct }}%)</span>
+                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $colorHex }}"></span>
+                                <span class="text-cyber-main font-medium truncate text-[11px]">{{ $sName }}</span>
                             </div>
-                            <div class="w-full h-2 bg-cyber-base rounded-full overflow-hidden border border-cyber/50">
-                                <div class="h-full rounded-full {{ $sColor }}" style="width: {{ $sPct }}%"></div>
-                            </div>
+                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
+                                {{ $sCount }} <span class="text-[10px] font-normal text-cyber-sub">({{ $sPct }}%)</span>
+                            </span>
                         </div>
                     @endforeach
                 </div>
-            </div>
-
-            <div class="pt-4 mt-4 border-t border-cyber/80 flex items-center justify-between text-[11px] text-cyber-muted">
-                <span>Total Request Categories</span>
-                <span class="font-mono font-bold text-cyan-400">{{ count($serviceList) }} Services</span>
             </div>
         </div>
 
@@ -162,4 +176,71 @@
     />
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const canvas = document.getElementById('servicesPieChart');
+        if (!canvas) return;
+
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
+        const labels = @json($chartLabels);
+        const data = @json($chartValues);
+        const colors = [
+            '#06b6d4', // Cyan
+            '#6366f1', // Indigo
+            '#10b981', // Emerald
+            '#f59e0b', // Amber
+            '#ec4899', // Pink
+            '#8b5cf6', // Purple
+            '#3b82f6'  // Blue
+        ];
+
+        new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors.slice(0, labels.length),
+                    borderWidth: 2,
+                    borderColor: isDark ? '#111A24' : '#ffffff',
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '72%',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                        titleColor: isDark ? '#f8fafc' : '#0f172a',
+                        bodyColor: isDark ? '#94a3b8' : '#475569',
+                        borderColor: isDark ? '#334155' : '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 10,
+                        cornerRadius: 12,
+                        boxPadding: 4,
+                        callbacks: {
+                            label: function(context) {
+                                const val = context.raw || 0;
+                                const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const pct = total > 0 ? Math.round((val / total) * 100) : 0;
+                                return ` ${context.label}: ${val} orders (${pct}%)`;
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true,
+                    duration: 1000
+                }
+            }
+        });
+    });
+</script>
 @endsection

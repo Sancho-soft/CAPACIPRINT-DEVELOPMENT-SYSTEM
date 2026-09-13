@@ -23,7 +23,7 @@ class AuditLogController extends Controller
             });
         }
 
-        $logs = $query->latest()->paginate(25);
+        $logs = $query->latest()->paginate(7);
         $modules = AuditLog::select('module')->distinct()->pluck('module');
 
         return view('management.audit-logs.index', compact('logs', 'modules'));

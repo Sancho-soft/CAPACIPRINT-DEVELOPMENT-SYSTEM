@@ -141,17 +141,11 @@
                                     </span>
                                 </td>
                                 <td class="px-4 sm:px-5 py-3.5 text-right whitespace-nowrap">
-                                    @if($isPrimaryAction)
-                                        <a href="{{ route('staff.print-requests.show', $req->id) }}" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition inline-flex items-center gap-1.5">
-                                            <span>{{ $reqActionLabel }}</span>
-                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('staff.print-requests.show', $req->id) }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 inline-flex items-center gap-1 hover:underline">
-                                            <span>{{ $reqActionLabel }}</span>
-                                            <i class="fa-solid fa-chevron-right text-[9px]"></i>
-                                        </a>
-                                    @endif
+                                    <a href="{{ route('staff.print-requests.show', $req->id) }}" 
+                                       class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                                       title="{{ $isPrimaryAction ? 'Verify Specifications' : $reqActionLabel }}">
+                                        <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @empty
@@ -209,9 +203,10 @@
                                     ₱{{ number_format($q->total_price, 2) }}
                                 </td>
                                 <td class="px-4 sm:px-5 py-3.5 text-right whitespace-nowrap">
-                                    <a href="{{ route('staff.quotations.show', $q->id) }}" class="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-cyan-400 dark:hover:text-cyan-300 inline-flex items-center gap-1 hover:underline">
-                                        <span>View</span>
-                                        <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                                    <a href="{{ route('staff.quotations.show', $q->id) }}" 
+                                       class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                                       title="View Quotation">
+                                        <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                                     </a>
                                 </td>
                             </tr>

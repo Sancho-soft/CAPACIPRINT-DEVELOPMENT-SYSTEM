@@ -13,7 +13,7 @@ class ProcurementController extends Controller
     {
         $requests = PurchaseRequest::with(['material', 'user', 'branch'])
             ->latest()
-            ->paginate(20);
+            ->paginate(7);
 
         $pendingCount = PurchaseRequest::where('status', 'pending')->count();
         $approvedCount = PurchaseRequest::where('status', 'approved')->count();

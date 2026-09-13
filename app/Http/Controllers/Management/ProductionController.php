@@ -10,7 +10,7 @@ class ProductionController extends Controller
     public function index()
     {
         $jobs = ProductionJob::with(['order.user', 'order.printRequest', 'branch', 'assignedTo'])
-            ->latest()->paginate(20);
+            ->latest()->paginate(7);
 
         return view('management.production.index', compact('jobs'));
     }

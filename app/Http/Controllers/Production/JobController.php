@@ -24,7 +24,7 @@ class JobController extends Controller
         }
 
         $jobs = $query->orderByRaw("CASE priority WHEN 'urgent' THEN 0 WHEN 'rush' THEN 1 ELSE 2 END")
-            ->latest()->paginate(15);
+            ->latest()->paginate(7);
 
         return view('production.jobs.index', compact('jobs'));
     }

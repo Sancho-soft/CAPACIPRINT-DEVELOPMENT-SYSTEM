@@ -102,17 +102,25 @@
                             <td class="px-6 py-4 font-mono text-cyber-muted">
                                 {{ $req->deadline?->format('M d, Y') ?? '—' }}
                             </td>
-                            <td class="px-6 py-4">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border {{ $req->status_badge_class }}">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-xs font-bold uppercase tracking-wider font-mono {{ match($req->status) {
+                                    'submitted' => 'text-amber-600 dark:text-amber-400',
+                                    'quotation' => 'text-indigo-600 dark:text-indigo-400',
+                                    'payment'   => 'text-orange-600 dark:text-orange-400',
+                                    'production'=> 'text-cyan-600 dark:text-cyan-400',
+                                    'completed' => 'text-emerald-600 dark:text-emerald-400',
+                                    'cancelled' => 'text-rose-600 dark:text-rose-400',
+                                    default     => 'text-slate-600 dark:text-slate-400',
+                                } }}">
                                     {{ $req->status_label }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <div class="inline-flex items-center justify-end gap-2">
                                     <a href="{{ route('staff.print-requests.show', $req) }}"
-                                       class="h-8 w-8 rounded-xl bg-cyber-sub hover:bg-cyan-500/20 text-cyber-muted hover:text-cyan-400 border border-cyber hover:border-cyan-500/40 flex items-center justify-center transition shadow-sm"
+                                       class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs"
                                        title="Review Specifications &amp; Artwork">
-                                        <i class="fa-solid fa-eye text-xs"></i>
+                                        <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                                     </a>
                                     @if($req->status === 'submitted')
                                     <a href="{{ route('staff.quotations.create', ['print_request_id' => $req->id]) }}" 

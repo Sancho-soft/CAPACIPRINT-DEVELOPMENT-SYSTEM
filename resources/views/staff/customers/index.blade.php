@@ -3,7 +3,7 @@
 @section('page-title', 'Customer Directory')
 
 @section('content')
-<div class="space-y-6 max-w-7xl">
+<div class="space-y-6">
     <div class="flex items-center justify-between">
         <div>
             <h2 class="text-2xl font-bold text-navy-900 font-display">Customers Directory</h2>
@@ -46,9 +46,9 @@
                         <div class="inline-flex items-center justify-end gap-2">
                             {{-- View History --}}
                             <a href="{{ route('staff.customers.show', $c) }}" 
-                               class="text-cyan-500 hover:text-cyan-400 transition text-sm p-1 inline-block" 
+                               class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
                                title="View Customer Profile & History">
-                                <i class="fa-solid fa-eye"></i>
+                                <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                             </a>
 
                             {{-- Create Quotation --}}
@@ -60,10 +60,9 @@
 
                             {{-- Send Direct Notification --}}
                             <button type="button"
-                                    onclick="openNotifyModal({{ json_encode([
-                                        'id' => $c->id,
-                                        'name' => $c->name
-                                    ]) }})"
+                                    data-id="{{ $c->id }}"
+                                    data-name="{{ $c->name }}"
+                                    onclick="openNotifyModal(this)"
                                     class="text-indigo-500 hover:text-indigo-400 transition text-sm p-1 inline-block"
                                     title="Send Direct Portal Notification">
                                 <i class="fa-solid fa-paper-plane"></i>
@@ -71,12 +70,11 @@
 
                             {{-- Edit Contact Details --}}
                             <button type="button"
-                                    onclick="openEditCustomerModal({{ json_encode([
-                                        'id' => $c->id,
-                                        'name' => $c->name,
-                                        'email' => $c->email,
-                                        'phone' => $c->phone
-                                    ]) }})"
+                                    data-id="{{ $c->id }}"
+                                    data-name="{{ $c->name }}"
+                                    data-email="{{ $c->email }}"
+                                    data-phone="{{ $c->phone }}"
+                                    onclick="openEditCustomerModal(this)"
                                     class="text-slate-500 hover:text-slate-700 transition text-sm p-1 inline-block"
                                     title="Edit Contact Info">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -174,19 +172,21 @@
 </div>
 
 <script>
-    function openNotifyModal(c) {
-        document.getElementById('notify-cust-name').textContent = c.name;
+    function openNotifyModal(target) {
+        const data = target.dataset || target;
+        document.getElementById('notify-cust-name').textContent = data.name;
         const form = document.getElementById('notify-form');
-        form.action = '/staff/customers/' + c.id + '/notify';
+        form.action = '/staff/customers/' + data.id + '/notify';
         document.getElementById('notify-modal').classList.remove('hidden');
     }
 
-    function openEditCustomerModal(c) {
-        document.getElementById('edit-cust-name').value = c.name;
-        document.getElementById('edit-cust-email').value = c.email;
-        document.getElementById('edit-cust-phone').value = c.phone || '';
+    function openEditCustomerModal(target) {
+        const data = target.dataset || target;
+        document.getElementById('edit-cust-name').value = data.name || '';
+        document.getElementById('edit-cust-email').value = data.email || '';
+        document.getElementById('edit-cust-phone').value = data.phone || '';
         const form = document.getElementById('edit-customer-form');
-        form.action = '/staff/customers/' + c.id;
+        form.action = '/staff/customers/' + data.id;
         document.getElementById('edit-customer-modal').classList.remove('hidden');
     }
 </script>

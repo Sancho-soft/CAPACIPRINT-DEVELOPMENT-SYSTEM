@@ -19,7 +19,7 @@ class CapacityController extends Controller
             ->whereIn('status', ['quotation', 'payment', 'branch_recommended'])
             ->whereDoesntHave('branchRecommendation', fn($q) => $q->where('status', 'confirmed'))
             ->latest()
-            ->paginate(10);
+            ->paginate(7);
 
         $branches = Branch::where('status', 'active')
             ->withCount([

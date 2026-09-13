@@ -20,7 +20,7 @@ class PrintRequestController extends Controller
                   ->orWhere('service', 'like', "%$search%");
         }
 
-        $printRequests = $query->paginate(15);
+        $printRequests = $query->paginate(7);
 
         return view('staff.print-requests.index', compact('printRequests'));
     }
