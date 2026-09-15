@@ -22,6 +22,20 @@
         background-color: rgba(255, 255, 255, 0.12) !important;
         border-color: rgba(255, 255, 255, 0.2) !important;
     }
+    /* Keep inputs clean and plain; prevent browser autofill blue/yellow background discoloration */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+        -webkit-text-fill-color: #0f172a !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+    html.dark input:-webkit-autofill,
+    html.dark-theme input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px #182332 inset !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
 </style>
 
 <div class="min-h-screen flex items-center justify-center bg-[#F1F3F7] dark:bg-[#070C12] py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden transition-colors duration-300"
@@ -97,9 +111,6 @@
             {{-- Bottom Tagline & Carousel Indicator --}}
             <div class="relative z-10 space-y-4">
                 <div class="space-y-2">
-                    <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#29bce8]/20 border border-[#29bce8]/40 text-[#29bce8] text-[10px] font-bold uppercase tracking-wider">
-                        Commercial Print Network
-                    </div>
                     <h2 class="hero-title text-2xl sm:text-3xl font-extrabold text-white font-display leading-tight drop-shadow-sm">
                         Precision in Every Print,<br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] to-sky-300">Intelligent Routing</span>
@@ -122,7 +133,7 @@
         <div class="lg:col-span-7 flex flex-col justify-center px-4 sm:px-8 py-6 sm:py-8">
 
             {{-- Form Header --}}
-            <div class="mb-6">
+            <div class="mb-6 text-center">
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight transition-colors">Create an account</h1>
                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5">
                     Already have an account?
@@ -169,16 +180,13 @@
                 <div>
                     <label for="email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Email address</label>
                     <input id="email" name="email" type="email" value="{{ old('email') }}" required
-                           placeholder="juan.delacruz@example.com"
+                           placeholder="Enter your email address"
                            class="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-slate-900 placeholder-slate-400 border border-slate-300 focus:border-[#0E3386] focus:ring-2 focus:ring-[#0E3386]/20 dark:bg-[#182332]/70 dark:hover:bg-[#182332] dark:focus:bg-[#1b2839] dark:border-slate-700/80 dark:focus:border-[#29bce8] dark:focus:ring-1 dark:focus:ring-[#29bce8] dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm transition-all outline-none">
                 </div>
 
-                {{-- Contact Phone (Optional) --}}
+                {{-- Contact Phone --}}
                 <div>
-                    <div class="flex items-center justify-between mb-1.5">
-                        <label for="phone" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Phone number</label>
-                        <span class="text-[11px] text-slate-400">Optional</span>
-                    </div>
+                    <label for="phone" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Phone number</label>
                     <input id="phone" name="phone" type="tel" value="{{ old('phone') }}"
                            placeholder="+63 912 345 6789"
                            class="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-slate-900 placeholder-slate-400 border border-slate-300 focus:border-[#0E3386] focus:ring-2 focus:ring-[#0E3386]/20 dark:bg-[#182332]/70 dark:hover:bg-[#182332] dark:focus:bg-[#1b2839] dark:border-slate-700/80 dark:focus:border-[#29bce8] dark:focus:ring-1 dark:focus:ring-[#29bce8] dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm transition-all outline-none">
@@ -214,55 +222,17 @@
                     </div>
                 </div>
 
-                {{-- Terms & Conditions Checkbox --}}
-                <div class="pt-1">
-                    <label class="inline-flex items-center gap-2.5 cursor-pointer text-xs text-slate-600 dark:text-slate-400 select-none">
-                        <input type="checkbox" id="terms" required
-                               class="w-4 h-4 rounded bg-white dark:bg-[#182332] border-slate-300 dark:border-slate-700 text-[#0E3386] focus:ring-[#0E3386] dark:focus:ring-[#29bce8] focus:ring-offset-0 cursor-pointer">
-                        <span>I agree to the <a href="#" class="text-slate-800 dark:text-slate-200 underline font-medium hover:text-[#0E3386] dark:hover:text-white transition">Terms &amp; Conditions</a></span>
-                    </label>
-                </div>
+
 
                 {{-- Primary Submit Button --}}
-                <button type="submit"
-                        class="w-full flex items-center justify-center gap-2 bg-[#0E3386] hover:bg-[#0a2663] active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-[#0E3386]/25 cursor-pointer">
-                    <i class="fa-solid fa-user-plus text-[#29bce8]"></i>
-                    <span>Create account</span>
-                </button>
+                <div class="pt-2">
+                    <button type="submit"
+                            class="w-full flex items-center justify-center gap-2 bg-[#0E3386] hover:bg-[#0a2663] active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-[#0E3386]/25 cursor-pointer">
+                        <i class="fa-solid fa-user-plus text-[#29bce8]"></i>
+                        <span>Create account</span>
+                    </button>
+                </div>
             </form>
-
-            {{-- Divider --}}
-            <div class="relative flex items-center justify-center my-5">
-                <div class="border-t border-slate-200 dark:border-slate-800 w-full"></div>
-                <span class="bg-white dark:bg-[#111A24] px-3 text-[11px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold absolute transition-colors">
-                    Or register with
-                </span>
-            </div>
-
-            {{-- Quick Options / Fast Test --}}
-            <div class="grid grid-cols-2 gap-3" x-data>
-                <button type="button"
-                        class="flex items-center justify-center gap-2.5 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#182332]/60 dark:hover:bg-[#182332] border border-slate-200 hover:border-slate-300 dark:border-slate-700/70 text-xs font-semibold text-slate-700 dark:text-slate-300 dark:hover:text-white transition cursor-pointer">
-                    <i class="fa-brands fa-google text-rose-500"></i>
-                    <span>Google</span>
-                </button>
-
-                <button type="button"
-                        @click="
-                            firstName = 'Juan';
-                            lastName = 'Dela Cruz';
-                            updateFullName();
-                            document.getElementById('email').value = 'customer_' + Math.floor(Math.random()*9000+1000) + '@example.com';
-                            document.getElementById('password').value = 'password';
-                            document.getElementById('password_confirmation').value = 'password';
-                            document.getElementById('terms').checked = true;
-                        "
-                        class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#182332]/60 dark:hover:bg-[#182332] border border-slate-200 hover:border-slate-300 dark:border-slate-700/70 text-xs font-semibold text-[#0E3386] dark:text-[#29bce8] hover:underline transition cursor-pointer"
-                        title="Fill sample customer credentials">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span>Quick Fill</span>
-                </button>
-            </div>
         </div>
     </div>
 </div>

@@ -21,11 +21,8 @@
                 {{-- Form --}}
                 <div class="px-8 pb-8 pt-2">
                     <div class="text-center mb-6">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-wider border border-amber-500/20 mb-2">
-                            <i class="fa-solid fa-shield-halved"></i> Staff &amp; Operations ERP
-                        </span>
-                        <h2 class="text-2xl font-black text-slate-900 dark:text-slate-100 font-display">Staff Portal Sign In</h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Internal production scheduling &amp; multi-branch operations</p>
+                        <h2 class="text-2xl font-black text-slate-900 dark:text-slate-100 font-display">Welcome Back</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Sign in to your account</p>
                     </div>
 
                     {{-- Validation errors --}}
@@ -48,10 +45,9 @@
                                     <i class="fa-solid fa-envelope text-sm"></i>
                                 </span>
                                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
-                                       :placeholder="emailFocused ? 'Enter your registered email' : ''"
-                                       @focus="emailFocused = true" @blur="emailFocused = false"
+                                       placeholder="Enter your email address"
                                        autocomplete="off" data-lpignore="true"
-                                       class="flex-1 py-3 px-4 text-sm text-slate-800 dark:text-slate-200 bg-transparent border-none focus:ring-0 focus:outline-none @error('email') bg-red-50 @enderror">
+                                       class="flex-1 py-3 px-4 text-sm text-slate-800 dark:text-slate-200 bg-transparent border-none focus:ring-0 focus:outline-none placeholder-slate-400 dark:placeholder-slate-500 @error('email') bg-red-50 @enderror">
                             </div>
                         </div>
 
@@ -63,10 +59,9 @@
                                     <i class="fa-solid fa-lock text-sm"></i>
                                 </span>
                                 <input id="password" name="password" :type="show ? 'text' : 'password'" required
-                                       :placeholder="passFocused ? 'Enter your password' : ''"
-                                       @focus="passFocused = true" @blur="passFocused = false"
+                                       placeholder="Enter your password"
                                        autocomplete="new-password" data-lpignore="true"
-                                       class="flex-1 py-3 px-4 text-sm text-slate-800 dark:text-slate-200 bg-transparent border-none focus:ring-0 focus:outline-none">
+                                       class="flex-1 py-3 px-4 text-sm text-slate-800 dark:text-slate-200 bg-transparent border-none focus:ring-0 focus:outline-none placeholder-slate-400 dark:placeholder-slate-500">
                                 <button type="button" @click="show = !show"
                                         class="flex items-center justify-center w-12 text-slate-500 hover:text-[#0E3386] dark:hover:text-sky-400 transition border-l border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 shrink-0">
                                     <i class="fa-solid text-sm" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
@@ -85,15 +80,9 @@
                         <button type="submit" id="login-btn"
                                 class="w-full flex justify-center items-center gap-2 bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-lg shadow-[#0E3386]/25 active:scale-[0.98] cursor-pointer">
                             <i class="fa-solid fa-arrow-right-to-bracket text-[#29bce8]"></i>
-                            Sign In to Operations
+                            Sign In
                         </button>
                     </form>
-
-                    {{-- Fast 1-Click Demo Fill for Staff --}}
-                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500" x-data>
-                        <span>1-Click Test:</span>
-                        <button type="button" @click="document.getElementById('email').value='manager@capaciprint.com'; document.getElementById('password').value='password';" class="text-[#0E3386] dark:text-sky-400 font-bold hover:underline cursor-pointer">Fill Staff Demo</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -120,6 +109,20 @@
             color: #FFFFFF !important;
             background-color: rgba(255, 255, 255, 0.12) !important;
             border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        /* Keep inputs clean and plain; prevent browser autofill blue/yellow background discoloration */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+            -webkit-text-fill-color: #0f172a !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        html.dark input:-webkit-autofill,
+        html.dark-theme input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px #182332 inset !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
     </style>
 
@@ -182,9 +185,6 @@
                 {{-- Bottom Tagline & Carousel Indicator --}}
                 <div class="relative z-10 space-y-4">
                     <div class="space-y-2">
-                        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#29bce8]/20 border border-[#29bce8]/40 text-[#29bce8] text-[10px] font-bold uppercase tracking-wider">
-                            Customer Portal
-                        </div>
                         <h2 class="hero-title text-2xl sm:text-3xl font-extrabold text-white font-display leading-tight drop-shadow-sm">
                             Precision in Every Print,<br>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] to-sky-300">Intelligent Routing</span>
@@ -207,7 +207,7 @@
             <div class="lg:col-span-7 flex flex-col justify-center px-4 sm:px-8 py-6 sm:py-8">
 
                 {{-- Form Header --}}
-                <div class="mb-6">
+                <div class="mb-6 text-center">
                     <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight transition-colors">Welcome back</h1>
                     <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5">
                         Don't have an account?
@@ -228,28 +228,33 @@
                 @endif
 
                 {{-- Customer Login Form --}}
-                <form method="POST" action="{{ route('login.submit') }}" class="space-y-4" autocomplete="off">
+                <form method="POST" action="{{ route('login.submit') }}" class="space-y-4" autocomplete="off"
+                      x-data
+                      x-init="setTimeout(() => { if (!{{ json_encode(old('email')) }}) { let el = document.getElementById('email'); if(el) el.value = ''; } let p = document.getElementById('password'); if(p) p.value = ''; }, 50)">
                     @csrf
                     <input type="hidden" name="portal_type" value="customer">
+
+                    {{-- Fake hidden inputs to intercept Chromium/Edge aggressive password manager auto-fill --}}
+                    <input type="text" name="fake_username" style="display:none" aria-hidden="true" autocomplete="username">
+                    <input type="password" name="fake_password" style="display:none" aria-hidden="true" autocomplete="new-password">
 
                     {{-- Email Address --}}
                     <div>
                         <label for="email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Email address</label>
-                        <input id="email" name="email" type="email" value="{{ old('email') }}" required
-                               placeholder="name@example.com"
-                               class="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-slate-900 placeholder-slate-400 border border-slate-300 focus:border-[#0E3386] focus:ring-2 focus:ring-[#0E3386]/20 dark:bg-[#182332]/70 dark:hover:bg-[#182332] dark:focus:bg-[#1b2839] dark:border-slate-700/80 dark:focus:border-[#29bce8] dark:focus:ring-1 dark:focus:ring-[#29bce8] dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm transition-all outline-none">
+                        <input id="email" name="email" type="email" value="" required
+                               placeholder="Enter your email address"
+                               autocomplete="off"
+                               class="w-full bg-white hover:bg-slate-50/80 focus:bg-white text-slate-900 placeholder-slate-400 border border-slate-300 focus:border-[#0E3386] focus:ring-2 focus:ring-[#0E3386]/20 dark:bg-[#182332] dark:hover:bg-[#182332] dark:focus:bg-[#1b2839] dark:border-slate-700/80 dark:focus:border-[#29bce8] dark:focus:ring-1 dark:focus:ring-[#29bce8] dark:text-white dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm transition-all outline-none">
                     </div>
 
                     {{-- Password with Eye Toggle --}}
                     <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <label for="password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Password</label>
-                            <a href="#" class="text-xs text-slate-500 dark:text-slate-400 hover:text-[#0E3386] dark:hover:text-[#29bce8] transition">Forgot password?</a>
-                        </div>
+                        <label for="password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Password</label>
                         <div class="relative">
                             <input id="password" name="password" :type="showPass ? 'text' : 'password'" required
                                    placeholder="Enter your password"
-                                   class="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-slate-900 placeholder-slate-400 border border-slate-300 focus:border-[#0E3386] focus:ring-2 focus:ring-[#0E3386]/20 dark:bg-[#182332]/70 dark:hover:bg-[#182332] dark:focus:bg-[#1b2839] dark:border-slate-700/80 dark:focus:border-[#29bce8] dark:focus:ring-1 dark:focus:ring-[#29bce8] dark:text-white dark:placeholder-slate-500 rounded-xl pl-4 pr-11 py-3 text-sm transition-all outline-none">
+                                   autocomplete="new-password"
+                                   class="w-full bg-white hover:bg-slate-50/80 focus:bg-white text-slate-900 placeholder-slate-400 border border-slate-300 focus:border-[#0E3386] focus:ring-2 focus:ring-[#0E3386]/20 dark:bg-[#182332] dark:hover:bg-[#182332] dark:focus:bg-[#1b2839] dark:border-slate-700/80 dark:focus:border-[#29bce8] dark:focus:ring-1 dark:focus:ring-[#29bce8] dark:text-white dark:placeholder-slate-500 rounded-xl pl-4 pr-11 py-3 text-sm transition-all outline-none">
                             <button type="button" @click="showPass = !showPass" tabindex="-1"
                                     class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-[#29bce8] transition-colors p-1"
                                     title="Toggle password visibility">
@@ -263,7 +268,7 @@
                         <label class="inline-flex items-center gap-2 cursor-pointer text-xs text-slate-600 dark:text-slate-400 select-none">
                             <input type="checkbox" name="remember"
                                    class="w-4 h-4 rounded bg-white dark:bg-[#182332] border-slate-300 dark:border-slate-700 text-[#0E3386] focus:ring-[#0E3386] dark:focus:ring-[#29bce8] focus:ring-offset-0 cursor-pointer">
-                            <span>Remember me on this device</span>
+                            <span>Remember me</span>
                         </label>
                     </div>
 
@@ -283,21 +288,18 @@
                     </span>
                 </div>
 
-                {{-- Quick Options / Fast Test --}}
-                <div class="grid grid-cols-2 gap-3" x-data>
-                    <button type="button"
-                            class="flex items-center justify-center gap-2.5 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#182332]/60 dark:hover:bg-[#182332] border border-slate-200 hover:border-slate-300 dark:border-slate-700/70 text-xs font-semibold text-slate-700 dark:text-slate-300 dark:hover:text-white transition cursor-pointer">
-                        <i class="fa-brands fa-google text-rose-500"></i>
-                        <span>Google</span>
-                    </button>
-
-                    <button type="button"
-                            @click="document.getElementById('email').value='customer@capaciprint.com'; document.getElementById('password').value='password';"
-                            class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-[#182332]/60 dark:hover:bg-[#182332] border border-slate-200 hover:border-slate-300 dark:border-slate-700/70 text-xs font-semibold text-[#0E3386] dark:text-[#29bce8] hover:underline transition cursor-pointer"
-                            title="Fill sample customer credentials">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Demo Customer</span>
-                    </button>
+                {{-- Single Social Sign-In: Official Google Button --}}
+                <div>
+                    <a href="{{ route('auth.google') }}"
+                       class="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white hover:bg-slate-50 dark:bg-[#182332]/80 dark:hover:bg-[#182332] border border-slate-200 hover:border-slate-300 dark:border-slate-700/80 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 shadow-xs hover:shadow-sm transition-all cursor-pointer">
+                        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                        </svg>
+                        <span>Continue with Google</span>
+                    </a>
                 </div>
 
             </div>

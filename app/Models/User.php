@@ -21,6 +21,8 @@ class User extends Authenticatable
         'address',
         'branch_id',
         'is_archived',
+        'google_id',
+        'avatar',
     ];
 
     protected $hidden = [
