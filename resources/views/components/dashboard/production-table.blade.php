@@ -24,7 +24,7 @@
 
     <div class="overflow-x-auto font-sans">
         <table class="w-full text-left text-xs">
-            <thead class="text-slate-600 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px] bg-slate-50/50 dark:bg-transparent">
+            <thead class="text-slate-600 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]" style="background: rgba(13,21,32,0.7);">
                 <tr>
                     <th class="px-4 sm:px-5 py-3.5">Job / Order</th>
                     <th class="px-4 sm:px-5 py-3.5">Customer & Service</th>
@@ -83,7 +83,7 @@
                             $detailRoute = route('production.jobs.show', $job->id);
                         }
                     @endphp
-                    <tr class="hover:bg-cyber-hover/50 transition">
+                    <tr class="transition-colors" style="" onmouseenter="this.style.background='rgba(30,41,59,0.4)'" onmouseleave="this.style.background=''">
                         {{-- Job Number --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
                             <span class="font-mono font-bold text-black dark:text-white text-xs block tracking-tight">{{ $jobNo }}</span>

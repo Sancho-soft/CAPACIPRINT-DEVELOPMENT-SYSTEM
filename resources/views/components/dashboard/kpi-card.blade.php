@@ -21,7 +21,7 @@
         default            => 'text-cyan-600 dark:text-cyan-400',
     };
 
-    $iconColor = 'text-slate-400 dark:text-slate-400';
+    $iconColor = 'text-slate-400 dark:text-slate-500';
 
     $activeClasses = match($accent) {
         'rose'    => 'ring-2 ring-rose-500/40 border-rose-500/60 bg-rose-500/[0.03]',
@@ -32,7 +32,14 @@
 @endphp
 
 <{{ $link ? 'a href='.$link : 'div' }} 
-    class="bg-cyber-card rounded-2xl border p-4 sm:p-5 flex items-center justify-between gap-2 shadow-sm transition-all duration-200 group {{ $active ? $activeClasses : 'border-cyber hover:border-slate-300 dark:hover:border-slate-700' }} {{ $link ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-md' : '' }}"
+    class="bg-cyber-card rounded-2xl border p-4 sm:p-5 flex items-center justify-between gap-2 shadow-sm transition-all duration-200 group {{ $active ? $activeClasses : 'border-cyber ' . match($accent) {
+        'emerald'          => 'hover:border-emerald-500/50 dark:hover:border-emerald-500/40',
+        'amber'            => 'hover:border-amber-500/50 dark:hover:border-amber-500/40',
+        'rose'             => 'hover:border-rose-500/50 dark:hover:border-rose-500/40',
+        'indigo', 'purple' => 'hover:border-indigo-500/50 dark:hover:border-indigo-500/40',
+        'teal'             => 'hover:border-teal-500/50 dark:hover:border-teal-500/40',
+        default            => 'hover:border-cyan-500/50 dark:hover:border-cyan-500/40',
+    } }} {{ $link ? 'cursor-pointer hover:-translate-y-0.5 hover:shadow-md' : '' }}"
 >
     <div class="flex items-center gap-3 min-w-0">
         @if(!empty($icon))

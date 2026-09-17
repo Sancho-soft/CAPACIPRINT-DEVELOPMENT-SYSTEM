@@ -10,8 +10,8 @@
     {{-- PAGE HEADER: INVENTORY & MATERIALS CENTER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/8 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div>
@@ -111,11 +111,11 @@
 
                     <div class="flex items-center gap-3.5 text-xs font-medium shrink-0">
                         <div class="flex items-center gap-1.5">
-                            <span class="h-3 w-3 shadow-xs" style="background-color: rgba(0, 148, 152, 0.75);"></span>
+                            <span class="h-3 w-5 rounded-sm shadow-xs" style="background: linear-gradient(135deg, #10b981, #34d399);"></span>
                             <span class="text-cyber-main text-[11px] font-semibold">Stock In</span>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <span class="h-3 w-3 shadow-xs" style="background-color: rgba(15, 76, 129, 0.75);"></span>
+                            <span class="h-3 w-5 rounded-sm shadow-xs" style="background: linear-gradient(135deg, #f43f5e, #fb7185);"></span>
                             <span class="text-cyber-main text-[11px] font-semibold">Stock Out</span>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                     <canvas id="stockHealthDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalHealthCount }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Stock Items</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest" style="color: #94A3B8; letter-spacing: 0.12em;">Stock Items</span>
                     </div>
                 </div>
 
@@ -162,7 +162,7 @@
                             $hPct = round(($hVal / $totalHealthCount) * 100);
                             $hDot = $healthColors[$loop->index % count($healthColors)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition" style="transition: background 0.15s;" onmouseenter="this.style.background='rgba(255,255,255,0.06)'" onmouseleave="this.style.background='transparent'">
                             <div class="flex items-center gap-2 min-w-0">
                                 <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $hDot }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $hLabel }}</span>
@@ -185,7 +185,7 @@
 
         {{-- LEFT: CRITICAL LOW STOCK ITEMS --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+            <div class="px-5 sm:px-6 py-4 border-b border-cyber/50 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center text-sm shadow-xs shrink-0">
                         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -202,7 +202,7 @@
 
             <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
-                    <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
+                    <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]" style="background: rgba(13,21,32,0.75);">
                         <tr>
                             <th class="px-4 sm:px-5 py-3">Material</th>
                             <th class="px-4 sm:px-5 py-3">Branch</th>
@@ -212,7 +212,7 @@
                     </thead>
                     <tbody class="divide-y divide-cyber/60 text-cyber-main">
                         @forelse($lowStockItems as $lItem)
-                            <tr class="hover:bg-cyber-hover/50 transition">
+                            <tr class="transition-colors" onmouseenter="this.style.background='rgba(30,41,59,0.4)'" onmouseleave="this.style.background=''">
                                 <td class="px-4 sm:px-5 py-3">
                                     <span class="font-bold text-cyber-main block text-xs leading-tight">{{ $lItem->material->name ?? 'Material' }}</span>
                                     <span class="text-[10px] text-cyber-muted inline-flex items-center gap-1 mt-0.5 font-medium">
@@ -263,7 +263,7 @@
 
         {{-- RIGHT: RECENT STOCK MOVEMENTS --}}
         <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+            <div class="px-5 sm:px-6 py-4 border-b border-cyber/50 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-500 flex items-center justify-center text-sm shadow-xs shrink-0">
                         <i class="fa-solid fa-arrow-right-arrow-left"></i>
@@ -280,7 +280,7 @@
 
             <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
-                    <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
+                    <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]" style="background: rgba(13,21,32,0.75);">
                         <tr>
                             <th class="px-4 sm:px-5 py-3">Material</th>
                             <th class="px-4 sm:px-5 py-3">Type</th>
@@ -290,7 +290,7 @@
                     </thead>
                     <tbody class="divide-y divide-cyber/60 text-cyber-main">
                         @forelse($recentMovements as $mv)
-                            <tr class="hover:bg-cyber-hover/50 transition">
+                            <tr class="transition-colors" onmouseenter="this.style.background='rgba(30,41,59,0.4)'" onmouseleave="this.style.background=''">
                                 <td class="px-4 sm:px-5 py-3">
                                     <span class="font-bold text-cyber-main block text-xs leading-tight">{{ $mv->material->name ?? 'Material' }}</span>
                                     <span class="text-[10px] text-cyber-muted block font-medium mt-0.5">{{ $mv->branch->name ?? 'Branch Hub' }}</span>
@@ -369,28 +369,32 @@
                         {
                             label: 'Stock In',
                             data: stockInData,
-                            backgroundColor: 'rgba(0, 148, 152, 0.72)',
-                            hoverBackgroundColor: 'rgba(0, 148, 152, 0.92)',
-                            borderColor: isDark ? 'rgba(0, 196, 200, 0.6)' : 'rgba(0, 122, 126, 0.6)',
-                            borderWidth: 1,
-                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
-                            borderSkipped: false,
-                            maxBarThickness: 42,
-                            barPercentage: 0.75,
-                            categoryPercentage: 0.65
+                            backgroundColor: isDark
+                                ? 'rgba(16, 185, 129, 0.82)'
+                                : 'rgba(16, 185, 129, 0.88)',
+                            hoverBackgroundColor: '#10b981',
+                            borderColor: 'transparent',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            borderSkipped: 'bottom',
+                            maxBarThickness: 40,
+                            barPercentage: 0.72,
+                            categoryPercentage: 0.62
                         },
                         {
                             label: 'Stock Out',
                             data: stockOutData,
-                            backgroundColor: 'rgba(15, 76, 129, 0.72)',
-                            hoverBackgroundColor: 'rgba(15, 76, 129, 0.92)',
-                            borderColor: isDark ? 'rgba(30, 107, 184, 0.6)' : 'rgba(1, 44, 82, 0.6)',
-                            borderWidth: 1,
-                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
-                            borderSkipped: false,
-                            maxBarThickness: 42,
-                            barPercentage: 0.75,
-                            categoryPercentage: 0.65
+                            backgroundColor: isDark
+                                ? 'rgba(244, 63, 94, 0.78)'
+                                : 'rgba(244, 63, 94, 0.84)',
+                            hoverBackgroundColor: '#f43f5e',
+                            borderColor: 'transparent',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            borderSkipped: 'bottom',
+                            maxBarThickness: 40,
+                            barPercentage: 0.72,
+                            categoryPercentage: 0.62
                         }
                     ]
                 },
@@ -423,40 +427,51 @@
                             grid: {
                                 display: false,
                             },
+                            border: {
+                                color: isDark ? 'rgba(51,65,85,0.4)' : 'rgba(203,213,225,0.7)',
+                            },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
                                 font: {
                                     family: 'Inter, sans-serif',
                                     size: 11,
                                     weight: '600'
-                                }
+                                },
+                                padding: 6
                             }
                         },
                         y: {
                             beginAtZero: true,
                             grid: {
-                                color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                                color: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(148,163,184,0.18)',
+                                lineWidth: 1,
+                            },
+                            border: {
+                                dash: [4, 4],
+                                color: 'transparent',
                             },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
                                 font: {
                                     family: 'Inter, sans-serif',
                                     size: 10
-                                }
+                                },
+                                padding: 8
                             },
                             title: {
                                 display: true,
                                 text: 'Quantity Volume',
-                                color: isDark ? '#64748b' : '#94a3b8',
+                                color: isDark ? '#475569' : '#94a3b8',
                                 font: {
                                     size: 10,
                                     weight: 'bold'
-                                }
+                                },
+                                padding: { bottom: 6 }
                             }
                         }
                     },
                     animation: {
-                        duration: 800,
+                        duration: 900,
                         easing: 'easeOutQuart'
                     }
                 }
@@ -468,7 +483,7 @@
         if (healthCanvas) {
             const hLabels = @json($healthLabels);
             const hData = @json($healthValues);
-            const hColors = ['rgba(16, 185, 129, 0.78)', 'rgba(245, 158, 11, 0.78)', 'rgba(244, 63, 94, 0.78)'];
+            const hColors = ['#10b981', '#f59e0b', '#f43f5e'];
 
             new Chart(healthCanvas, {
                 type: 'doughnut',
@@ -477,15 +492,14 @@
                     datasets: [{
                         data: hData,
                         backgroundColor: hColors,
-                        borderWidth: 2,
-                        borderColor: isDark ? '#111A24' : '#ffffff',
-                        hoverOffset: 6
+                        borderWidth: 0,
+                        hoverOffset: 4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '72%',
+                    cutout: '62%',
                     plugins: {
                         legend: {
                             display: false

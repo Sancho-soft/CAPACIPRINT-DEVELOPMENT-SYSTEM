@@ -42,7 +42,7 @@ Expected $stages array format:
         <div class="flex items-center min-w-[760px] justify-between gap-2 relative">
 
             {{-- Background Connecting Line --}}
-            <div class="absolute top-[20px] left-10 right-10 h-0.5 sm:h-1 bg-slate-300 dark:bg-slate-700 z-0 rounded-full"></div>
+            <div class="absolute top-[20px] left-10 right-10 h-0.5 sm:h-1 rounded-full z-0" style="background: linear-gradient(90deg, rgba(71,85,105,0.3) 0%, rgba(100,116,139,0.55) 50%, rgba(71,85,105,0.3) 100%);"></div>
 
             @foreach($stages as $index => $stage)
             @php

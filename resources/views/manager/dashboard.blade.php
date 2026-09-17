@@ -9,8 +9,8 @@
     {{-- PAGE HEADER: BRANCH & CAPACITY COMMAND HUB --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/8 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="flex items-center gap-4 sm:gap-5">
@@ -144,7 +144,7 @@
                     <canvas id="jobStatusDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalStatusJobs }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Total Jobs</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest" style="color: #94A3B8; letter-spacing: 0.12em;">Total Jobs</span>
                     </div>
                 </div>
 
@@ -155,7 +155,7 @@
                             $stPct = round(($stCount / $totalStatusJobs) * 100);
                             $dotColor = $statusColors[$loop->index % count($statusColors)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition" style="transition: background 0.15s;" onmouseenter="this.style.background='rgba(255,255,255,0.06)'" onmouseleave="this.style.background='transparent'">
                             <div class="flex items-center gap-2 min-w-0">
                                 <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $dotColor }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $stName }}</span>
@@ -214,7 +214,7 @@
                     $badgeClass  = $isOverdue ? 'bg-rose-500/15 text-rose-400' : ($isDown ? 'bg-amber-500/15 text-amber-400' : 'bg-cyan-500/15 text-cyan-400');
                     $badgeLabel  = $isOverdue ? 'OVERDUE' : ($isDown ? strtoupper($machine->status) : 'DUE SOON');
                 @endphp
-                <div class="bg-cyber-sub/50 rounded-xl border {{ $borderClass }} p-3.5 space-y-2">
+                <div class="rounded-xl border {{ $borderClass }} p-3.5 space-y-2" style="background: rgba(13,21,32,0.85);">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-print {{ $iconColor }} text-xs"></i>
@@ -260,8 +260,8 @@
         const colors = [
             '#06b6d4', // Cyan (In Production)
             '#8b5cf6', // Purple (Quality Checking)
-            '#f59e0b', // Amber (Assigned / Queue)
             '#f43f5e', // Rose (Delayed Runs)
+            '#f59e0b', // Amber (Assigned / Queue)
             '#10b981'  // Emerald (Completed Today)
         ];
 
@@ -272,15 +272,14 @@
                 datasets: [{
                     data: data,
                     backgroundColor: colors.slice(0, labels.length),
-                    borderWidth: 2,
-                    borderColor: isDark ? '#111A24' : '#ffffff',
-                    hoverOffset: 6
+                    borderWidth: 0,
+                    hoverOffset: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '72%',
+                cutout: '62%',
                 plugins: {
                     legend: {
                         display: false
@@ -307,7 +306,8 @@
                 animation: {
                     animateScale: true,
                     animateRotate: true,
-                    duration: 1000
+                    duration: 900,
+                    easing: 'easeInOutQuart'
                 }
             }
         });
