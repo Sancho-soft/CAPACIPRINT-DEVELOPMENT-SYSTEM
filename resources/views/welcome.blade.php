@@ -188,11 +188,11 @@
                     <a href="#tracking" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Track Order</a>
                 </nav>
 
-                {{-- Customer Sign In Modal Trigger on Main Landing Page --}}
+                {{-- Customer Sign In on Main Landing Page --}}
                 <div class="flex items-center gap-3">
-                    <button type="button" @click="showLoginModal = true" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white text-xs font-bold transition-all shadow-md shadow-[#0E3386]/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white text-xs font-bold transition-all shadow-md shadow-[#0E3386]/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
                         <i class="fa-solid fa-arrow-right-to-bracket text-xs text-[#29bce8]"></i> Customer Sign In
-                    </button>
+                    </a>
                 </div>
             </div>
         </header>

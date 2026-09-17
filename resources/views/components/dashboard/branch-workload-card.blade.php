@@ -98,8 +98,8 @@
                         <span class="text-cyber-muted">Capacity Utilization</span>
                         <span class="{{ $statusColor['text'] }} font-mono text-xs">{{ $pct }}%</span>
                     </div>
-                    <div class="w-full h-2 bg-cyber-base rounded-full overflow-hidden border border-cyber/60 p-0.5">
-                        <div class="h-full rounded-full transition-all duration-500 ease-out {{ $statusColor['bar'] }}"
+                    <div class="w-full h-2.5 rounded-full overflow-hidden" style="background: rgba(30,41,59,0.7);">
+                        <div class="h-full rounded-full transition-all duration-500 ease-out {{ $statusColor['bar'] }} opacity-90"
                              style="width: {{ $pct }}%"></div>
                     </div>
                 </div>
