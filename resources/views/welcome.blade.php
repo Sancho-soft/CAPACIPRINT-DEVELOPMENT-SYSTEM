@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-slate-50">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-slate-50 overflow-x-hidden">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <title>CAPACIPRINT — Intelligent Print Routing</title>
 
     <!-- Fonts (CDN with Local Fallback) -->
@@ -161,25 +161,25 @@
     <!-- ══════════════════════════════════════════════════════════ -->
     <!-- 1. CAPACIPRINT ENTERPRISE DSS PUBLIC LANDING PAGE          -->
     <!-- ══════════════════════════════════════════════════════════ -->
-    <div x-show="!isLoggedIn" class="min-h-screen bg-[#F4F6F9] text-slate-800 flex flex-col justify-between selection:bg-[#0E3386] selection:text-white font-sans antialiased">
+    <div x-show="!isLoggedIn" class="min-h-screen bg-[#F4F6F9] text-slate-800 flex flex-col justify-between selection:bg-[#0E3386] selection:text-white font-sans antialiased overflow-x-hidden w-full max-w-full">
         
-        <!-- Clean Modern Top Navigation Bar (Branded Cubs Blue & Sky Blue) -->
-        <header id="main-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs text-slate-800 transition-all duration-300">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Clean Modern Top Navigation Bar (Fully Responsive Mobile + Desktop) -->
+        <header id="main-header" x-data="{ mobileNavOpen: false }" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs text-slate-800 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
                 
                 {{-- Brand Identity --}}
-                <a href="{{ route('landing') }}" class="flex items-center gap-3.5 group shrink-0 mr-4">
-                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
-                    <div class="border-l border-slate-300 pl-3.5 flex flex-col justify-center">
-                        <span class="block font-display font-black text-xl text-slate-900 tracking-tight leading-none">
+                <a href="{{ route('landing') }}" class="flex items-center gap-2 sm:gap-3.5 group shrink-0">
+                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT Logo" class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+                    <div class="border-l border-slate-300 pl-2 sm:pl-3.5 flex flex-col justify-center">
+                        <span class="block font-display font-black text-base sm:text-xl text-slate-900 tracking-tight leading-none">
                             CAPACI<span class="text-[#0E3386]">PRINT</span><span class="text-[#29bce8]">.</span>
                         </span>
-                        <span class="text-[9px] font-bold uppercase tracking-widest text-[#0E3386] mt-1 block">Intelligent Print Routing</span>
+                        <span class="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-[#0E3386] mt-0.5 sm:mt-1 hidden xs:block">Intelligent Print Routing</span>
                     </div>
                 </a>
 
-                {{-- Clean Navigation Menu --}}
-                <nav class="hidden lg:flex items-center gap-8 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                {{-- Clean Desktop Navigation Menu --}}
+                <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-bold text-slate-600 uppercase tracking-wider">
                     <a href="#hero" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Home</a>
                     <a href="#services" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Print Services</a>
                     <a href="#decision-engine" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Routing Engine</a>
@@ -188,19 +188,52 @@
                     <a href="#tracking" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Track Order</a>
                 </nav>
 
-                {{-- Customer Sign In on Main Landing Page --}}
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white text-xs font-bold transition-all shadow-md shadow-[#0E3386]/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-                        <i class="fa-solid fa-arrow-right-to-bracket text-xs text-[#29bce8]"></i> Customer Sign In
+                {{-- Customer Sign In + Mobile Hamburger Menu Toggle --}}
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white text-xs font-bold transition-all shadow-md shadow-[#0E3386]/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shrink-0">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-xs text-[#29bce8]"></i>
+                        <span class="hidden sm:inline">Customer </span>Sign In
+                    </a>
+
+                    {{-- Mobile Hamburger Button --}}
+                    <button type="button" 
+                            @click="mobileNavOpen = !mobileNavOpen" 
+                            aria-label="Toggle navigation menu"
+                            class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#0E3386]/20">
+                        <i :class="mobileNavOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" class="text-lg text-slate-800"></i>
+                    </button>
+                </div>
+            </div>
+
+            {{-- Mobile Dropdown Drawer --}}
+            <div x-show="mobileNavOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-2"
+                 @click.away="mobileNavOpen = false" 
+                 class="lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-md px-4 py-4 space-y-2 text-xs font-bold uppercase tracking-wider text-slate-700 shadow-xl" 
+                 x-cloak>
+                <a @click="mobileNavOpen = false" href="#hero" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Home</a>
+                <a @click="mobileNavOpen = false" href="#services" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Print Services</a>
+                <a @click="mobileNavOpen = false" href="#decision-engine" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Routing Engine</a>
+                <a @click="mobileNavOpen = false" href="#problem" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Why CapaciPrint</a>
+                <a @click="mobileNavOpen = false" href="#branches" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Branch Capacity</a>
+                <a @click="mobileNavOpen = false" href="#tracking" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Track Order</a>
+                <div class="pt-2 border-t border-slate-100">
+                    <a href="{{ route('customer.portal') }}" class="block text-center py-2.5 px-4 rounded-xl bg-[#0E3386] text-white font-bold tracking-normal normal-case text-xs">
+                        Open Customer Portal &rarr;
                     </a>
                 </div>
             </div>
         </header>
 
-        <main class="flex-1">
+        <main class="flex-1 w-full max-w-full overflow-x-hidden">
 
-            <!-- ── HERO SECTION: CINEMATIC COMMERCIAL PRINT PRODUCTION ── -->
-            <section id="hero" class="relative min-h-[85vh] lg:min-h-[90vh] bg-slate-950 text-white overflow-hidden flex items-center justify-center border-b border-slate-800">
+            <!-- ── HERO SECTION: CINEMATIC COMMERCIAL PRINT PRODUCTION (RESPONSIVE) ── -->
+            <section id="hero" class="relative min-h-[80vh] sm:min-h-[85vh] lg:min-h-[90vh] bg-slate-950 text-white overflow-hidden flex items-center justify-center border-b border-slate-800 w-full">
                 
                 {{-- Background Press Floor Photo with Cinematic Dark Radial Overlay --}}
                 <div class="absolute inset-0 z-0">
@@ -209,42 +242,42 @@
                     <div class="absolute inset-0 bg-radial at-center from-transparent via-slate-950/40 to-slate-950/90"></div>
                     
                     {{-- Ambient Subtle Animated Glow Orbs in Signature Blues --}}
-                    <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-[#0E3386]/30 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
-                    <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#29bce8]/15 rounded-full blur-3xl pointer-events-none animate-float"></div>
+                    <div class="absolute top-1/4 left-1/3 w-72 sm:w-96 h-72 sm:h-96 bg-[#0E3386]/30 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+                    <div class="absolute bottom-1/3 right-1/4 w-60 sm:w-80 h-60 sm:h-80 bg-[#29bce8]/15 rounded-full blur-3xl pointer-events-none animate-float"></div>
                 </div>
 
                 {{-- Centered Heroic Typography & Content --}}
-                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center flex flex-col items-center">
+                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 text-center flex flex-col items-center w-full">
                     
-                    {{-- Badged Pill in Signature Cubs Blue & Sky Blue --}}
-                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0E3386]/40 border border-[#29bce8]/40 text-[#29bce8] text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-md shadow-lg shadow-[#0E3386]/20 animate-fade-in-up">
-                        <span class="h-2 w-2 rounded-full bg-[#29bce8] animate-ping"></span>
-                        Multi-Branch Commercial Digital Printing Platform
+                    {{-- Badged Pill in Signature Cubs Blue & Sky Blue (Wrapped Gracefully on Mobile) --}}
+                    <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#0E3386]/40 border border-[#29bce8]/40 text-[#29bce8] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-5 sm:mb-6 backdrop-blur-md shadow-lg shadow-[#0E3386]/20 animate-fade-in-up max-w-[94vw] text-center">
+                        <span class="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#29bce8] animate-ping shrink-0"></span>
+                        <span class="break-words">Multi-Branch Digital Printing Platform</span>
                     </div>
 
-                    {{-- Main Headline in Signature Gradient --}}
-                    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-display tracking-tight leading-[1.05] animate-fade-in-up" style="animation-delay: 0.15s;">
+                    {{-- Main Headline in Signature Gradient (Scales smoothly from 32px on phone to 96px on desktop) --}}
+                    <h1 class="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-display tracking-tight leading-[1.08] animate-fade-in-up drop-shadow-2xl max-w-full break-words" style="animation-delay: 0.15s;">
                         Print Your Brand <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] via-[#60a5fa] to-[#93c5fd]">Into Reality.</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] via-[#60a5fa] to-[#93c5fd] drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">Into Reality.</span>
                     </h1>
 
                     {{-- Centered Subtitle --}}
-                    <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed animate-fade-in-up" style="animation-delay: 0.25s;">
-                        From bold outdoor banners to precision vinyl decals and corporate apparel, CapaciPrint coordinates multi-facility press capacity, substrate stock, and deadlines before routing every job to the optimal branch.
+                    <p class="mt-4 sm:mt-6 text-sm sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in-up drop-shadow-md px-2" style="animation-delay: 0.25s;">
+                        Your One-Stop for All Your Printing Needs.
                     </p>
 
-                    {{-- Centered Dual Pill CTAs in Signature Palette --}}
-                    <div class="mt-9 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.35s;">
-                        <a href="#services" class="px-8 py-4 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#0E3386]/30 border border-[#29bce8]/40 transition-all transform hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 flex items-center gap-2.5 cursor-pointer">
+                    {{-- Centered Dual Pill CTAs in Signature Palette (Full Width Stack on Mobile, Row on Desktop) --}}
+                    <div class="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0 animate-fade-in-up" style="animation-delay: 0.35s;">
+                        <a href="#services" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#0E3386]/30 border border-[#29bce8]/40 transition-all transform hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 flex items-center justify-center gap-2.5 cursor-pointer">
                             Explore Our Services <i class="fa-solid fa-arrow-right text-xs text-[#29bce8]"></i>
                         </a>
-                        <a href="#decision-engine" class="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 hover:border-[#29bce8]/60 text-white font-bold text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center gap-2.5">
-                            <i class="fa-solid fa-microchip text-[#29bce8]"></i> View Allocation Engine
+                        <a href="#decision-engine" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 hover:border-[#29bce8]/60 text-white font-bold text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-2.5">
+                            <i class="fa-solid fa-bolt text-[#29bce8]"></i> See How We Route Fast
                         </a>
                     </div>
 
                     {{-- Scroll Indicator --}}
-                    <div class="mt-14 flex flex-col items-center gap-1.5 text-slate-400 text-[11px] font-mono uppercase tracking-widest animate-bounce">
+                    <div class="mt-10 sm:mt-14 flex flex-col items-center gap-1.5 text-slate-400 text-[11px] font-mono uppercase tracking-widest animate-bounce">
                         <span>Scroll</span>
                         <i class="fa-solid fa-chevron-down text-[#29bce8]"></i>
                     </div>
@@ -252,167 +285,180 @@
                 </div>
             </section>
 
-            <!-- ── SECTION: TRUST & CAPABILITIES BANNER (WITH ANIMATED COUNTERS) ── -->
-            <div id="stats-banner" class="bg-slate-900 border-b border-slate-800 text-slate-300 py-7">
+            <!-- ── SECTION: TRUST & CAPABILITIES BANNER (RESPONSIVE GRID) ── -->
+            <div id="stats-banner" class="bg-[#0c131c] border-b border-slate-800 text-slate-300 py-6 sm:py-7">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                        <div class="border-r border-slate-800 last:border-0 pr-4">
-                            <span class="block text-3xl font-black text-[#29bce8] font-display counter-item" data-target="3">0</span>
-                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Production Facilities</span>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+                        <div class="border-r border-slate-800 pr-2 sm:pr-4">
+                            <span class="block text-2xl sm:text-3xl font-black text-[#29bce8] font-display counter-item" data-target="3">0</span>
+                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Production Facilities</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Centralized Network</span>
                         </div>
-                        <div class="border-r border-slate-800 last:border-0 pr-4">
-                            <span class="block text-3xl font-black text-white font-display counter-item" data-target="100" data-suffix="%">0%</span>
-                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Feasibility Verified</span>
+                        <div class="border-r-0 md:border-r border-slate-800 sm:pr-4">
+                            <span class="block text-2xl sm:text-3xl font-black text-white font-display counter-item" data-target="100" data-suffix="%">0%</span>
+                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Pre-Flight Feasibility</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Zero Print Rejection</span>
                         </div>
-                        <div class="border-r border-slate-800 last:border-0 pr-4">
-                            <span class="block text-3xl font-black text-[#29bce8] font-display counter-item" data-target="4" data-suffix="-Factor">0</span>
-                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Routing Allocation Weights</span>
+                        <div class="border-r border-slate-800 pr-2 sm:pr-4">
+                            <span class="block text-2xl sm:text-3xl font-black text-[#29bce8] font-display counter-item" data-target="4" data-suffix="-Way">0</span>
+                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Intelligent Balancing</span>
+                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Zero Machine Overload</span>
                         </div>
                         <div>
-                            <span class="block text-3xl font-black text-white font-display flex items-center justify-center gap-2">
-                                <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping"></span> Live
+                            <span class="block text-2xl sm:text-3xl font-black text-white font-display flex items-center justify-center gap-1.5 sm:gap-2">
+                                <span class="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-emerald-400 animate-ping"></span> Live
                             </span>
-                            <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Real-Time Floor Sync</span>
+                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Real-Time Floor Sync</span>
+                            <span class="text-[9px] sm:text-[10px] text-emerald-400/80 block font-mono mt-0.5">Continuous Queue Feeds</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- ── SECTION: COMMERCIAL PRINT CAPABILITIES & SERVICES ── -->
-            <section id="services" class="py-20 lg:py-28 bg-[#F4F6F9] border-b border-slate-200">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="services" class="py-20 lg:py-28 bg-[#F8FAFC] border-b border-slate-200 relative overflow-hidden">
+                {{-- Subtle Ambient Radial Glow for Visual Warmth --}}
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-[#0E3386]/5 via-[#29bce8]/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     
-                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Our Printing Capabilities</span>
-                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
-                            Commercial Print Solutions
+                    {{-- Section Header --}}
+                    <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16 reveal-on-scroll">
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight">
+                            Our Services
                         </h2>
-                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
-                            Industrial roll-to-roll solvent presses, high-precision contour vinyl plotters, dual-platen DTF apparel heat transfer units, and digital duplicators.
+                        <p class="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                            Explore our comprehensive range of high-quality printing solutions tailored for businesses, schools, and individuals.
                         </p>
                     </div>
 
-                    {{-- 4-Card Photographic Grid with Hover Elevation --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        
-                        {{-- Product 1: Tarpaulins --}}
-                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll">
-                            <div class="relative h-56 overflow-hidden bg-slate-900">
-                                <img src="{{ asset('images/sample-tarpaulin.jpg') }}" alt="Heavy-Duty Tarpaulin Banners" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
-                                    Solvent Press
-                                </span>
-                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-emerald-950/85 backdrop-blur-md text-[10px] font-bold text-emerald-300 border border-emerald-500/30">
-                                    Same-Day / 24h
-                                </span>
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                <div>
-                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Tarpaulin Banners</h3>
-                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                                        Heavyweight 13oz weatherproof vinyl with brass eyelets, hemmed edges, and solvent UV ink for maximum outdoor durability.
-                                    </p>
+                    {{-- Interactive Services Showcase Carousel --}}
+                    <div x-data="{
+                            active: 0,
+                            total: 4,
+                            timer: null,
+                            touchStartX: 0,
+                            next() {
+                                this.active = (this.active + 1) % this.total;
+                            },
+                            prev() {
+                                this.active = (this.active - 1 + this.total) % this.total;
+                            },
+                            startAuto() {
+                                this.timer = setInterval(() => { this.next(); }, 6000);
+                            },
+                            stopAuto() {
+                                if (this.timer) clearInterval(this.timer);
+                            }
+                        }"
+                        x-init="startAuto()"
+                        @mouseenter="stopAuto()"
+                        @mouseleave="startAuto()"
+                        class="relative max-w-md sm:max-w-lg lg:max-w-[500px] mx-auto px-4 sm:px-0 reveal-on-scroll">
+
+                        {{-- Card Outer Frame with Multi-Layer Ambient Elevation --}}
+                        <div class="bg-white rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(14,51,134,0.12),0_10px_25px_-5px_rgba(0,0,0,0.04)] border border-slate-200/90 relative select-none"
+                             @touchstart="touchStartX = $event.changedTouches[0].screenX"
+                             @touchend="
+                                if ($event.changedTouches[0].screenX < touchStartX - 40) next();
+                                if ($event.changedTouches[0].screenX > touchStartX + 40) prev();
+                             ">
+                            
+                            {{-- Sliding Track --}}
+                            <div class="flex transition-transform duration-500 ease-out"
+                                 :style="`transform: translateX(-${active * 100}%);`">
+                                
+                                {{-- Slide 1: Tarpaulin, Laser, T-Shirt, Offset --}}
+                                <div class="w-full shrink-0 bg-white">
+                                    <img src="{{ asset('images/services/service-slide-1.jpg') }}" 
+                                         alt="Commercial Print Services - Tarpaulin, Laser, T-Shirt, and Offset Printing" 
+                                         class="w-full h-auto block select-none" 
+                                         draggable="false"
+                                         loading="eager">
                                 </div>
-                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">Roll-to-Roll</span>
-                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
-                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
-                                    </a>
+
+                                {{-- Slide 2: Posters, Stickers, Company IDs, Risograph --}}
+                                <div class="w-full shrink-0 bg-white">
+                                    <img src="{{ asset('images/services/service-slide-2.jpg') }}" 
+                                         alt="Commercial Print Services - Posters, Stickers, Company ID, and Risograph" 
+                                         class="w-full h-auto block select-none" 
+                                         draggable="false"
+                                         loading="lazy">
+                                </div>
+
+                                {{-- Slide 3: Business Cards, Flyers, Lanyards, Mugs, Photocopy, Booth --}}
+                                <div class="w-full shrink-0 bg-white">
+                                    <img src="{{ asset('images/services/service-slide-3.jpg') }}" 
+                                         alt="Commercial Print Services - Business Cards, Flyers, Lanyards, and Magic Mugs" 
+                                         class="w-full h-auto block select-none" 
+                                         draggable="false"
+                                         loading="lazy">
+                                </div>
+
+                                {{-- Slide 4: Sintra Board, Standee, Pins, Fans, Ref Magnets, Menus --}}
+                                <div class="w-full shrink-0 bg-white">
+                                    <img src="{{ asset('images/services/service-slide-4.jpg') }}" 
+                                         alt="Commercial Print Services - Sintra Board, Pull-Up Banners, Button Pins, and Menus" 
+                                         class="w-full h-auto block select-none" 
+                                         draggable="false"
+                                         loading="lazy">
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Product 2: Stickers & Decals --}}
-                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll" style="transition-delay: 100ms;">
-                            <div class="relative h-56 overflow-hidden bg-slate-900">
-                                <img src="{{ asset('images/sample-stickers.jpg') }}" alt="Vinyl Stickers and Decals" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
-                                    Plotter Cutter
-                                </span>
-                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-sky-950/85 backdrop-blur-md text-[10px] font-bold text-sky-300 border border-sky-500/30">
-                                    1–2 Days
-                                </span>
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                <div>
-                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Stickers &amp; Decals</h3>
-                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                                        Waterproof contour-cut vinyl decals with scratch-resistant matte or high-gloss UV laminate finish for packaging and branding.
-                                    </p>
-                                </div>
-                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">Die-Cut / Kiss-Cut</span>
-                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
-                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
-                                    </a>
-                                </div>
-                            </div>
+                        {{-- Previous Button (Clean Studio Light Style) --}}
+                        <button @click="prev()"
+                                type="button"
+                                aria-label="Previous Slide"
+                                class="absolute left-1 sm:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200/90 shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
+                            <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
+                        </button>
+
+                        {{-- Next Button (Clean Studio Light Style) --}}
+                        <button @click="next()"
+                                type="button"
+                                aria-label="Next Slide"
+                                class="absolute right-1 sm:-right-12 lg:-right-16 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200/90 shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
+                            <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
+                        </button>
+
+                        {{-- Pagination Dots (Clean Studio Light Style) --}}
+                        <div class="flex items-center justify-center gap-2.5 mt-8">
+                            <button @click="active = 0" type="button" aria-label="Slide 1"
+                                    :class="active === 0 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
+                            <button @click="active = 1" type="button" aria-label="Slide 2"
+                                    :class="active === 1 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
+                            <button @click="active = 2" type="button" aria-label="Slide 3"
+                                    :class="active === 2 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
+                            <button @click="active = 3" type="button" aria-label="Slide 4"
+                                    :class="active === 3 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
                         </div>
 
-                        {{-- Product 3: DTF Apparel --}}
-                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll" style="transition-delay: 200ms;">
-                            <div class="relative h-56 overflow-hidden bg-slate-900">
-                                <img src="{{ asset('images/sample-apparel.jpg') }}" alt="Apparel & DTF Transfer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
-                                    Heat Press / DTF
-                                </span>
-                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-indigo-950/85 backdrop-blur-md text-[10px] font-bold text-indigo-300 border border-indigo-500/30">
-                                    2–3 Days
-                                </span>
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                <div>
-                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Apparel &amp; DTF</h3>
-                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                                        Full-color Direct-to-Film transfers on cotton, polyester, corporate uniforms, event hoodies, and activewear with high wash-fastness.
-                                    </p>
-                                </div>
-                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">Garment Transfer</span>
-                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
-                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
-                                    </a>
-                                </div>
-                            </div>
+                        {{-- Customer Action CTA Button --}}
+                        <div class="mt-8 text-center">
+                            <a href="{{ route('customer.portal') }}" 
+                               class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#0E3386]/20 border border-[#29bce8]/40 transition-all transform hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 cursor-pointer">
+                                <span>Request Custom Print Job</span>
+                                <i class="fa-solid fa-arrow-right text-[11px] text-[#29bce8]"></i>
+                            </a>
+                            <p class="text-[11px] text-slate-400 mt-2 font-mono">Online submission &bull; Instant proof review &bull; Live order tracking</p>
                         </div>
-
-                        {{-- Product 4: Receipts & Carbonless Forms --}}
-                        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#0E3386]/50 transition-all duration-300 flex flex-col group reveal-on-scroll" style="transition-delay: 300ms;">
-                            <div class="relative h-56 overflow-hidden bg-slate-900">
-                                <img src="{{ asset('images/sample-receipts.jpg') }}" alt="Carbonless Receipts and Invoices" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-black text-[#29bce8] uppercase tracking-wider border border-[#29bce8]/40">
-                                    Duplicator
-                                </span>
-                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-[10px] font-bold text-slate-300 border border-slate-500/30">
-                                    2–4 Days
-                                </span>
-                            </div>
-                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                <div>
-                                    <h3 class="text-lg font-black text-slate-900 font-display group-hover:text-[#0E3386] transition-colors">Receipts &amp; Forms</h3>
-                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
-                                        Carbonless duplicate and triplicate NCR paper pads, sequentially numbered with precise tear perforations for official business invoices.
-                                    </p>
-                                </div>
-                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                                    <span class="text-[11px] font-bold text-slate-400 uppercase font-mono">NCR Numbered</span>
-                                    <a href="{{ route('customer.portal') }}" class="text-xs font-bold text-[#0E3386] hover:text-[#0a2663] flex items-center gap-1.5 cursor-pointer group-hover:translate-x-1 transition-all">
-                                        Request Job <i class="fa-solid fa-chevron-right text-[10px] text-[#29bce8]"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </section>
 
             <!-- ── SECTION: THE CAPACIPRINT DECISION SUPPORT ENGINE (CORE CAPSTONE ARCHITECTURE) ── -->
-            <section id="decision-engine" class="py-20 lg:py-28 bg-[#0B1118] text-white border-b border-slate-800">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="decision-engine" class="py-20 lg:py-28 bg-[#0F172A] text-white border-b border-slate-800 relative overflow-hidden">
+                {{-- Ambient Cyan/Navy Radial Glow --}}
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-[#29bce8]/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     
                     <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <span class="text-xs font-black text-[#29bce8] uppercase tracking-widest block mb-2 font-mono">Algorithmic Architecture</span>
                         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display tracking-tight">
                             The 3-Stage Intelligent Routing Engine
                         </h2>
@@ -427,11 +473,15 @@
                         {{-- Stage 1 --}}
                         <div class="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-6 reveal-on-scroll">
                             <div class="space-y-3">
-                                <div class="flex items-center justify-between">
+                                <div>
                                     <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 01</span>
-                                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-rose-950/80 text-rose-300 border border-rose-800/60">Hard Constraint</span>
                                 </div>
-                                <h3 class="text-xl font-black text-white font-display">Constraint-Based Rule Filtering</h3>
+                                <div>
+                                    <h3 class="text-xl font-black text-white font-display">Constraint-Based Rule Filtering</h3>
+                                    <div class="text-[11px] font-mono text-emerald-400 font-bold flex items-center gap-1.5 mt-1.5">
+                                        <i class="fa-solid fa-circle-check text-[10px]"></i> Automated Physical Verification
+                                    </div>
+                                </div>
                                 <p class="text-xs text-slate-300 leading-relaxed">
                                     Disqualifies any branch that cannot physically fulfill the job. Validates printer width capability, substrate stock in inventory, assigned machine operators, and remaining shift hours before deadline.
                                 </p>
@@ -446,11 +496,15 @@
                         {{-- Stage 2 --}}
                         <div class="p-8 rounded-2xl bg-slate-900/90 border-2 border-[#29bce8]/70 shadow-xl shadow-[#0E3386]/20 transition-all flex flex-col justify-between space-y-6 relative reveal-on-scroll" style="transition-delay: 100ms;">
                             <div class="space-y-3">
-                                <div class="flex items-center justify-between">
+                                <div>
                                     <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 02</span>
-                                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#0E3386] text-white border border-[#29bce8] font-bold">Scoring Formula</span>
                                 </div>
-                                <h3 class="text-xl font-black text-white font-display">Multi-Factor Weighted Scoring</h3>
+                                <div>
+                                    <h3 class="text-xl font-black text-white font-display">Multi-Factor Weighted Scoring</h3>
+                                    <div class="text-[11px] font-mono text-[#29bce8] font-bold flex items-center gap-1.5 mt-1.5">
+                                        <i class="fa-solid fa-bolt text-[10px]"></i> Smart Queue Load Balancing
+                                    </div>
+                                </div>
                                 <p class="text-xs text-slate-300 leading-relaxed">
                                     Ranks all remaining eligible branches using verified operational weights to balance machine wear, staff availability, current queue density, and delivery safety margins.
                                 </p>
@@ -478,11 +532,15 @@
                         {{-- Stage 3 --}}
                         <div class="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-6 reveal-on-scroll" style="transition-delay: 200ms;">
                             <div class="space-y-3">
-                                <div class="flex items-center justify-between">
+                                <div>
                                     <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 03</span>
-                                    <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-sky-950/80 text-sky-300 border border-sky-800/60">Floor Scheduling</span>
                                 </div>
-                                <h3 class="text-xl font-black text-white font-display">Rule-Based Floor Dispatch</h3>
+                                <div>
+                                    <h3 class="text-xl font-black text-white font-display">Rule-Based Floor Dispatch</h3>
+                                    <div class="text-[11px] font-mono text-sky-400 font-bold flex items-center gap-1.5 mt-1.5">
+                                        <i class="fa-solid fa-tablet-screen-button text-[10px]"></i> Live Shop-Floor Dispatch
+                                    </div>
+                                </div>
                                 <p class="text-xs text-slate-300 leading-relaxed">
                                     Dispatches confirmed jobs into prioritized production queues. Uses Earliest Due Date (EDD) heuristics and setup-time batching so operators print identical substrates together to minimize waste.
                                 </p>
@@ -497,16 +555,33 @@
                     </div>
 
                     {{-- Interactive Specimen Showcase (Full Width & Spacious) --}}
-                    <div class="bg-slate-900/90 rounded-2xl border border-slate-800 p-8 lg:p-10 shadow-2xl reveal-on-scroll">
+                    <div class="bg-slate-900/95 rounded-2xl border border-slate-800/90 p-6 sm:p-8 lg:p-9 shadow-2xl reveal-on-scroll">
                         <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
                             <div>
-                                <span class="text-xs font-black text-[#29bce8] uppercase tracking-widest font-mono">Live Routing Specimen</span>
-                                <h4 class="text-2xl font-black text-white font-display mt-1">Tarpaulin Banner (3 &times; 5 ft, 20 units)</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Requested Deadline: Today, 4:00 PM &bull; Priority: Rush Job &bull; Total Area: 300 sq.ft</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-[#29bce8]"></span>
+                                    <span class="text-xs font-bold text-[#29bce8] uppercase tracking-wider">Live Job Evaluation Specimen</span>
+                                </div>
+                                <h4 class="text-xl sm:text-2xl font-black text-white font-display mt-1">Tarpaulin Banner (3 &times; 5 ft, 20 units)</h4>
+                                <div class="flex flex-wrap items-center gap-2 mt-2.5">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/60 text-slate-300 text-xs font-medium">
+                                        <i class="fa-regular fa-clock text-amber-400 text-[11px]"></i> Due: <strong class="text-white font-semibold">Today, 4:00 PM</strong>
+                                    </span>
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-medium">
+                                        <i class="fa-solid fa-bolt text-rose-400 text-[11px]"></i> <strong class="text-rose-200 font-semibold">Rush Order</strong>
+                                    </span>
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/60 text-slate-300 text-xs font-medium">
+                                        <i class="fa-solid fa-layer-group text-[#29bce8] text-[11px]"></i> Area: <strong class="text-white font-semibold">300 sq.ft</strong>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
-                                    <i class="fa-solid fa-check-circle mr-1"></i> Automated Allocation Passed
+                            <div class="flex items-center">
+                                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold shadow-sm">
+                                    <span class="relative flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                    </span>
+                                    Real-Time Route Assigned
                                 </span>
                             </div>
                         </div>
@@ -515,61 +590,131 @@
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6">
                             
                             {{-- Branch 1: Ineligible --}}
-                            <div class="p-5 rounded-xl bg-slate-950/60 border border-rose-900/60 text-slate-300 flex flex-col justify-between">
+                            <div class="p-5 rounded-xl bg-slate-950/70 border border-rose-900/50 text-slate-300 flex flex-col justify-between transition hover:border-rose-800/80">
                                 <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <h5 class="font-bold text-white text-sm">Branch 1 &mdash; Central Hub</h5>
-                                        <span class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold uppercase border border-rose-800">Disqualified</span>
+                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/60">
+                                        <div>
+                                            <h5 class="font-bold text-white text-sm">Branch 1</h5>
+                                            <p class="text-[11px] text-slate-400">Central Hub</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 rounded-md bg-rose-950/80 text-rose-300 text-[10px] font-bold uppercase tracking-wider border border-rose-800/60">
+                                            Disqualified
+                                        </span>
                                     </div>
-                                    <div class="space-y-1.5 text-xs font-mono text-slate-400">
-                                        <div class="flex justify-between"><span>Roll Press:</span> <strong class="text-emerald-400">✓ 3.2m OK</strong></div>
-                                        <div class="flex justify-between"><span>13oz Media:</span> <strong class="text-emerald-400">✓ In Stock</strong></div>
-                                        <div class="flex justify-between"><span>Operators:</span> <strong class="text-emerald-400">✓ 4 On Duty</strong></div>
-                                        <div class="flex justify-between"><span>Cutoff Margin:</span> <strong class="text-rose-400 font-black">✕ Violates Cutoff</strong></div>
+                                    <div class="space-y-2.5 text-xs">
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-print text-slate-500 w-3.5 text-center"></i> Press Capable</span>
+                                            <span class="text-slate-200 font-medium">3.2m Solvent</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-box text-slate-500 w-3.5 text-center"></i> Substrate Stock</span>
+                                            <span class="text-emerald-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> In Stock</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-slate-500 w-3.5 text-center"></i> Queue Status</span>
+                                            <span class="text-rose-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> 95% Load</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-slate-500 w-3.5 text-center"></i> Est. Finish</span>
+                                            <span class="text-rose-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-xmark text-[11px]"></i> 5:30 PM (Late)</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 pt-3 border-t border-rose-900/40 text-[11px] text-rose-400 font-medium">
-                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Cannot complete before 4:00 PM cutoff due to existing heavy roll queue.
+                                <div class="mt-5 pt-3.5 border-t border-rose-900/40">
+                                    <div class="flex items-center justify-between text-xs mb-2">
+                                        <span class="text-slate-400">Allocation Score</span>
+                                        <span class="text-rose-400 font-bold">0 / 100</span>
+                                    </div>
+                                    <div class="p-2.5 rounded-lg bg-rose-950/50 border border-rose-900/60 text-[11px] text-rose-300 font-medium flex items-center gap-2">
+                                        <i class="fa-solid fa-ban text-rose-400 shrink-0"></i>
+                                        <span>Violates 4:00 PM rush cutoff</span>
+                                    </div>
                                 </div>
                             </div>
 
                             {{-- Branch 2: Recommended (Cubs Blue & Cyan Glow) --}}
-                            <div class="p-5 rounded-xl bg-gradient-to-br from-[#0E3386]/30 via-slate-900 to-slate-900 border-2 border-[#29bce8] text-white flex flex-col justify-between relative shadow-xl shadow-[#0E3386]/30">
+                            <div class="p-5 rounded-xl bg-gradient-to-br from-[#0E3386]/25 via-slate-900 to-slate-950 border-2 border-[#29bce8] text-white flex flex-col justify-between relative shadow-xl shadow-[#0E3386]/25">
                                 <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <h5 class="font-bold text-white text-sm">Branch 2 &mdash; South Press Plant</h5>
-                                        <span class="px-2.5 py-0.5 rounded bg-[#0E3386] text-white border border-[#29bce8] text-[10px] font-black uppercase">Recommended</span>
+                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#29bce8]/20">
+                                        <div>
+                                            <h5 class="font-bold text-white text-sm">Branch 2</h5>
+                                            <p class="text-[11px] text-[#29bce8]">South Press Plant</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 rounded-md bg-[#0E3386] text-[#29bce8] border border-[#29bce8] text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                                            <i class="fa-solid fa-star text-[9px] text-[#29bce8]"></i> Recommended
+                                        </span>
                                     </div>
-                                    <div class="space-y-1.5 text-xs font-mono text-slate-300">
-                                        <div class="flex justify-between"><span>Machine Load:</span> <strong class="text-white">61% (Available)</strong></div>
-                                        <div class="flex justify-between"><span>13oz Media:</span> <strong class="text-emerald-400">✓ 1,200 sq.ft Ready</strong></div>
-                                        <div class="flex justify-between"><span>Operators:</span> <strong class="text-emerald-400">✓ 3 Certified Staff</strong></div>
-                                        <div class="flex justify-between"><span>Lead Margin:</span> <strong class="text-emerald-400 font-bold">✓ +2.5 Hours Safety</strong></div>
+                                    <div class="space-y-2.5 text-xs">
+                                        <div class="flex items-center justify-between text-slate-300">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-print text-[#29bce8] w-3.5 text-center"></i> Press Capable</span>
+                                            <span class="text-white font-medium">3.2m Solvent</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-300">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-box text-[#29bce8] w-3.5 text-center"></i> Substrate Stock</span>
+                                            <span class="text-emerald-400 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> 1,200 sq.ft Ready</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-300">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-[#29bce8] w-3.5 text-center"></i> Queue Status</span>
+                                            <span class="text-[#29bce8] font-semibold flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-[10px]"></i> 61% (Optimal)</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-300">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-[#29bce8] w-3.5 text-center"></i> Est. Finish</span>
+                                            <span class="text-emerald-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-check text-[11px]"></i> 2:30 PM (+1.5h)</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 pt-3 border-t border-[#29bce8]/30 flex items-center justify-between text-xs font-mono">
-                                    <span class="text-[#29bce8] font-bold">Overall Score: 84 / 100</span>
-                                    <span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Highest Match</span>
+                                <div class="mt-5 pt-3.5 border-t border-[#29bce8]/30">
+                                    <div class="flex items-center justify-between text-xs mb-2">
+                                        <span class="text-slate-300">Allocation Score</span>
+                                        <span class="text-[#29bce8] font-bold">96 / 100</span>
+                                    </div>
+                                    <div class="p-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-[11px] text-emerald-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-emerald-400 shrink-0"></i>
+                                        <span>Optimal capacity &amp; fast turnaround</span>
+                                    </div>
                                 </div>
                             </div>
 
                             {{-- Branch 3: High Capacity --}}
-                            <div class="p-5 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 flex flex-col justify-between">
+                            <div class="p-5 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-300 flex flex-col justify-between transition hover:border-slate-700">
                                 <div>
-                                    <div class="flex items-center justify-between mb-3">
-                                        <h5 class="font-bold text-white text-sm">Branch 3 &mdash; North Workshop</h5>
-                                        <span class="px-2 py-0.5 rounded bg-amber-950/60 text-amber-300 text-[10px] font-bold uppercase border border-amber-800/60">Near Capacity</span>
+                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/60">
+                                        <div>
+                                            <h5 class="font-bold text-white text-sm">Branch 3</h5>
+                                            <p class="text-[11px] text-slate-400">North Workshop</p>
+                                        </div>
+                                        <span class="px-2.5 py-1 rounded-md bg-amber-950/80 text-amber-300 text-[10px] font-bold uppercase tracking-wider border border-amber-800/60">
+                                            Near Capacity
+                                        </span>
                                     </div>
-                                    <div class="space-y-1.5 text-xs font-mono text-slate-400">
-                                        <div class="flex justify-between"><span>Machine Load:</span> <strong class="text-amber-400 font-bold">88% (Heavy)</strong></div>
-                                        <div class="flex justify-between"><span>13oz Media:</span> <strong class="text-emerald-400">✓ In Stock</strong></div>
-                                        <div class="flex justify-between"><span>Operators:</span> <strong class="text-emerald-400">✓ 2 Staff</strong></div>
-                                        <div class="flex justify-between"><span>Lead Margin:</span> <strong class="text-amber-400 font-bold">Marginal (+0.4h)</strong></div>
+                                    <div class="space-y-2.5 text-xs">
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-print text-slate-500 w-3.5 text-center"></i> Press Capable</span>
+                                            <span class="text-slate-200 font-medium">3.2m Solvent</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-box text-slate-500 w-3.5 text-center"></i> Substrate Stock</span>
+                                            <span class="text-emerald-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> In Stock</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-slate-500 w-3.5 text-center"></i> Queue Status</span>
+                                            <span class="text-amber-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> 88% (Heavy)</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-slate-400">
+                                            <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-slate-500 w-3.5 text-center"></i> Est. Finish</span>
+                                            <span class="text-amber-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation text-[11px]"></i> 4:10 PM (At Risk)</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex items-center justify-between">
-                                    <span>Overall Score: 63 / 100</span>
-                                    <span class="text-amber-400">Queue Congestion</span>
+                                <div class="mt-5 pt-3.5 border-t border-slate-800">
+                                    <div class="flex items-center justify-between text-xs mb-2">
+                                        <span class="text-slate-400">Allocation Score</span>
+                                        <span class="text-amber-400 font-bold">63 / 100</span>
+                                    </div>
+                                    <div class="p-2.5 rounded-lg bg-amber-950/50 border border-amber-900/60 text-[11px] text-amber-300 font-medium flex items-center gap-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-400 shrink-0"></i>
+                                        <span>High floor queue congestion</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -584,88 +729,143 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
                     <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Operational Bottlenecks</span>
+                        <span class="text-xs font-bold text-[#0E3386] uppercase tracking-wider block mb-2">The CapaciPrint Difference</span>
                         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
-                            When Every Branch Plans in Isolation
+                            Why Traditional Print Shops Miss Deadlines
+                            <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-[#0E3386] to-[#29bce8]">— And How We Guarantee Yours.</span>
                         </h2>
-                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
-                            Commercial print shops manage multi-stage operations: setup times, solvent drying, media stock, and customer commitments. When branches operate as disconnected units, manual planning causes severe bottlenecks.
+                        <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+                            Most commercial print delays happen before ink ever hits the paper. See how unified multi-branch coordination turns chaotic guesswork into reliable, on-time delivery.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-stretch">
                         
-                        {{-- Problem Side --}}
-                        <div class="p-8 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-6 reveal-on-scroll">
-                            <div class="flex items-center gap-3">
-                                <div class="h-10 w-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center text-lg">
-                                    <i class="fa-solid fa-phone-slash"></i>
+                        {{-- Problem Side (Legacy / Siloed) --}}
+                        <div class="p-7 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-sm flex flex-col justify-between reveal-on-scroll">
+                            <div>
+                                <div class="flex items-center justify-between gap-3 border-b border-slate-200/80 pb-5 mb-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-11 w-11 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
+                                            <i class="fa-solid fa-phone-slash"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-base sm:text-lg font-black text-slate-900 font-display">Traditional Siloed Shops</h4>
+                                            <span class="text-xs text-rose-600 font-medium">Manual phone calls &bull; Spreadsheets</span>
+                                        </div>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 text-[10px] font-bold uppercase tracking-wider shrink-0 border border-rose-200">
+                                        The Slow Way
+                                    </span>
                                 </div>
-                                <div>
-                                    <h4 class="text-lg font-black text-slate-900 font-display">Traditional Siloed Coordination</h4>
-                                    <span class="text-xs text-rose-600 font-medium">Manual phone calls &bull; Disconnected spreadsheets</span>
-                                </div>
+
+                                <ul class="space-y-5">
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Manual Phone Checking</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Staff repeatedly call operators to ask if wide-format machines are free.</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Outdated Paper Sheets</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Substrate stock is tracked manually on separate store sheets, causing surprise stockouts.</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Guesswork &amp; Bottlenecks</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Jobs pile up at one branch while another shop's roll printer sits completely idle.</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Zero Order Visibility</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Customers must constantly call or visit the shop just to ask if their print is ready.</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <ul class="space-y-4 text-xs sm:text-sm text-slate-700">
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
-                                    <span>Counter staff repeatedly call press operators to ask if wide-format machines are free.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
-                                    <span>Substrate inventory is checked manually on outdated, separate store sheets.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
-                                    <span>Jobs are scheduled by subjective guess-work without visibility into other branches' capacity.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-xmark text-rose-500 mt-1 shrink-0"></i>
-                                    <span>Rush orders cause operator overtime at one shop while another shop's roll printer sits idle.</span>
-                                </li>
-                            </ul>
-
-                            <div class="p-4 rounded-xl bg-rose-100/60 border border-rose-200 text-xs font-bold text-rose-800 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-exclamation"></i>
-                                Result: Machine idle time in one branch, delay overruns and lost clients in another.
+                            <div class="mt-8 p-4 rounded-xl bg-rose-100/70 border border-rose-200/80 text-xs text-rose-900 flex items-center gap-3">
+                                <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base shrink-0"></i>
+                                <span><strong class="font-bold">Result:</strong> Unpredictable delays, machine idle time, and stressful rush overruns.</span>
                             </div>
                         </div>
 
-                        {{-- Solution Side in Cubs Blue --}}
-                        <div class="p-8 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-6 reveal-on-scroll" style="transition-delay: 150ms;">
-                            <div class="flex items-center gap-3">
-                                <div class="h-10 w-10 rounded-xl bg-[#0E3386]/10 text-[#0E3386] flex items-center justify-center text-lg">
-                                    <i class="fa-solid fa-network-wired"></i>
+                        {{-- Solution Side (The CapaciPrint Way) --}}
+                        <div class="p-7 sm:p-8 rounded-2xl bg-white border-2 border-[#29bce8] shadow-xl shadow-[#0E3386]/10 flex flex-col justify-between relative ring-1 ring-[#29bce8]/20 reveal-on-scroll" style="transition-delay: 150ms;">
+                            <div>
+                                <div class="flex items-center justify-between gap-3 border-b border-sky-100 pb-5 mb-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-11 w-11 rounded-xl bg-[#0E3386]/10 text-[#0E3386] flex items-center justify-center text-lg shrink-0">
+                                            <i class="fa-solid fa-network-wired"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-base sm:text-lg font-black text-slate-900 font-display">CapaciPrint Network</h4>
+                                            <span class="text-xs text-[#0E3386] font-medium">Automated routing &bull; Real-time sync</span>
+                                        </div>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wider shrink-0 border border-emerald-300/80 flex items-center gap-1">
+                                        <i class="fa-solid fa-check text-[10px]"></i> The CapaciPrint Way
+                                    </span>
                                 </div>
-                                <div>
-                                    <h4 class="text-lg font-black text-slate-900 font-display">CapaciPrint Intelligent Print Routing</h4>
-                                    <span class="text-xs text-[#0E3386] font-medium">Automated constraint checks &bull; Balanced multi-branch dispatch</span>
-                                </div>
+
+                                <ul class="space-y-5">
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Instant Feasibility Check</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Intake algorithm validates press dimensions and resolution before accepting the order.</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Live Substrate Allocation</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">System verifies square-footage stock across all 3 facilities in real time.</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Dynamic Load Balancing</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Dispatches to the least congested branch to beat your target deadline with safety margin.</span>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3.5">
+                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                            <i class="fa-solid fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-slate-900 font-bold block text-sm">Live QR Claim Tracking</strong>
+                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Track your job in real-time with instant scan status from print floor to packaging.</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <ul class="space-y-4 text-xs sm:text-sm text-slate-700">
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
-                                    <span>Intake instantly validates machine specs, media stock, and cutoffs before accepting orders.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
-                                    <span>Multi-criteria scoring assigns jobs to the least congested facility capable of hitting the target.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
-                                    <span>Shop-floor tablets give press operators organized, prioritized queues by earliest due date.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fa-solid fa-check text-[#0E3386] mt-1 shrink-0"></i>
-                                    <span>Clients track live progress with serialized QR claim tags from printing to packaging.</span>
-                                </li>
-                            </ul>
-
-                            <div class="p-4 rounded-xl bg-[#0E3386]/10 border border-[#0E3386]/20 text-xs font-bold text-[#0E3386] flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check text-[#29bce8]"></i>
-                                Result: Balanced branch utilization, predictable turnaround times, and guaranteed feasibility.
+                            <div class="mt-8 p-4 rounded-xl bg-emerald-50 border border-emerald-200/80 text-xs text-emerald-950 flex items-center gap-3">
+                                <i class="fa-solid fa-circle-check text-emerald-600 text-base shrink-0"></i>
+                                <span><strong class="font-bold">Result:</strong> Guaranteed feasibility, balanced utilization, and 100% on-time pickup.</span>
                             </div>
                         </div>
 
@@ -678,7 +878,6 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
                     <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Centralized Network</span>
                         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
                             Live Multi-Branch Operations
                         </h2>
@@ -690,22 +889,23 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         
                         {{-- Facility 1 --}}
-                        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 space-y-5 reveal-on-scroll">
+                        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-[#0E3386]/40 transition-all duration-300 space-y-5 reveal-on-scroll group">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                                 <div>
-                                    <h4 class="font-black text-slate-900 font-display text-lg">Central Hub</h4>
+                                    <h4 class="font-black text-slate-900 font-display text-lg group-hover:text-[#0E3386] transition-colors">Central Hub</h4>
                                     <span class="text-xs text-slate-500 font-mono">Morning Star Press</span>
                                 </div>
-                                <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase border border-emerald-200">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200 shadow-sm">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
                                     Operational
                                 </span>
                             </div>
                             <div class="space-y-3 text-xs">
                                 <div>
-                                    <div class="flex justify-between text-slate-600 font-mono mb-1"><span>Current Workload</span><span class="font-bold text-[#0E3386]">68%</span></div>
-                                    <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#0E3386] w-[68%] transition-all duration-1000"></div></div>
+                                    <div class="flex justify-between text-slate-600 font-mono mb-1.5"><span>Current Workload</span><span class="font-bold text-[#0E3386]">68%</span></div>
+                                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5"><div class="h-full rounded-full bg-gradient-to-r from-[#29bce8] to-[#0E3386] w-[68%] transition-all duration-1000 shadow-sm"></div></div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2">
+                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100">
                                     <span>Presses: <strong class="text-slate-800">4 Solvent Roll</strong></span>
                                     <span>Operators: <strong class="text-slate-800">6 On Shift</strong></span>
                                     <span>Daily Cap: <strong class="text-slate-800">2,500 sq.ft</strong></span>
@@ -715,22 +915,23 @@
                         </div>
 
                         {{-- Facility 2 --}}
-                        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 space-y-5 reveal-on-scroll" style="transition-delay: 100ms;">
+                        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-emerald-500/40 transition-all duration-300 space-y-5 reveal-on-scroll group" style="transition-delay: 100ms;">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                                 <div>
-                                    <h4 class="font-black text-slate-900 font-display text-lg">South Press Plant</h4>
+                                    <h4 class="font-black text-slate-900 font-display text-lg group-hover:text-emerald-700 transition-colors">South Press Plant</h4>
                                     <span class="text-xs text-slate-500 font-mono">Morning Star Network</span>
                                 </div>
-                                <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase border border-emerald-200">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200 shadow-sm">
+                                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
                                     Optimal Capacity
                                 </span>
                             </div>
                             <div class="space-y-3 text-xs">
                                 <div>
-                                    <div class="flex justify-between text-slate-600 font-mono mb-1"><span>Current Workload</span><span class="font-bold text-emerald-600">52%</span></div>
-                                    <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 w-[52%] transition-all duration-1000"></div></div>
+                                    <div class="flex justify-between text-slate-600 font-mono mb-1.5"><span>Current Workload</span><span class="font-bold text-emerald-600">52%</span></div>
+                                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5"><div class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-600 w-[52%] transition-all duration-1000 shadow-sm"></div></div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2">
+                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100">
                                     <span>Presses: <strong class="text-slate-800">3 UV &amp; Solvent</strong></span>
                                     <span>Operators: <strong class="text-slate-800">4 On Shift</strong></span>
                                     <span>Daily Cap: <strong class="text-slate-800">1,800 sq.ft</strong></span>
@@ -740,22 +941,23 @@
                         </div>
 
                         {{-- Facility 3 --}}
-                        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 space-y-5 reveal-on-scroll" style="transition-delay: 200ms;">
+                        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-amber-500/40 transition-all duration-300 space-y-5 reveal-on-scroll group" style="transition-delay: 200ms;">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                                 <div>
-                                    <h4 class="font-black text-slate-900 font-display text-lg">North Workshop</h4>
+                                    <h4 class="font-black text-slate-900 font-display text-lg group-hover:text-amber-800 transition-colors">North Workshop</h4>
                                     <span class="text-xs text-slate-500 font-mono">Green Heart Hub</span>
                                 </div>
-                                <span class="px-2.5 py-1 rounded-full bg-sky-50 text-[#0E3386] text-[10px] font-black uppercase border border-sky-200">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-[11px] font-bold border border-amber-200 shadow-sm">
+                                    <span class="h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
                                     Active Load
                                 </span>
                             </div>
                             <div class="space-y-3 text-xs">
                                 <div>
-                                    <div class="flex justify-between text-slate-600 font-mono mb-1"><span>Current Workload</span><span class="font-bold text-[#0E3386]">74%</span></div>
-                                    <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-[#0E3386] w-[74%] transition-all duration-1000"></div></div>
+                                    <div class="flex justify-between text-slate-600 font-mono mb-1.5"><span>Current Workload</span><span class="font-bold text-amber-600">74%</span></div>
+                                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5"><div class="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500 w-[74%] transition-all duration-1000 shadow-sm"></div></div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2">
+                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100">
                                     <span>Presses: <strong class="text-slate-800">2 DTF &amp; Duplicator</strong></span>
                                     <span>Operators: <strong class="text-slate-800">3 On Shift</strong></span>
                                     <span>Daily Cap: <strong class="text-slate-800">1,200 pcs</strong></span>
@@ -775,7 +977,6 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         
                         <div class="lg:col-span-6 space-y-6 reveal-on-scroll">
-                            <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block font-mono">Shop-Floor Execution</span>
                             <h2 class="text-3xl sm:text-4xl font-black text-slate-950 font-display tracking-tight">
                                 Mandatory 4-Point Floor Quality Control
                             </h2>
@@ -856,30 +1057,26 @@
                 </div>
             </section>
 
-            <!-- ── SECTION: PUBLIC ORDER TRACKING ── -->
-            <section id="tracking" class="py-20 lg:py-28 bg-[#F4F6F9] border-b border-slate-200">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- ── SECTION: PUBLIC ORDER TRACKING (COMPACT & CLEAN) ── -->
+            <section id="tracking" class="py-12 lg:py-16 bg-[#F4F6F9] border-b border-slate-200">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     
-                    <div class="max-w-2xl mx-auto mb-10 reveal-on-scroll">
-                        <span class="text-xs font-black text-[#0E3386] uppercase tracking-widest block mb-2 font-mono">Live Order Lookup</span>
-                        <h2 class="text-3xl sm:text-4xl font-black text-slate-950 font-display tracking-tight">
+                    <div class="mb-6 reveal-on-scroll">
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-950 font-display tracking-tight">
                             Track Your Order Progress
                         </h2>
-                        <p class="mt-3 text-sm text-slate-600 leading-relaxed">
-                            Enter your official reference number (e.g. <button type="button" @click="trackQuery = 'ORD-001'; lookupPublicOrder()" class="font-mono font-bold text-[#0E3386] underline cursor-pointer hover:text-[#0a2663]">ORD-001</button>) to inspect assigned facility routing, production status, and estimated completion.
-                        </p>
                     </div>
 
-                    {{-- Tracking Search Box --}}
-                    <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 text-left reveal-on-scroll">
-                        <form @submit.prevent="lookupPublicOrder()" class="flex flex-col sm:flex-row gap-3">
+                    {{-- Tracking Search Box (Compressed & Proportional) --}}
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4 text-left reveal-on-scroll">
+                        <form @submit.prevent="lookupPublicOrder()" class="flex flex-col sm:flex-row gap-2.5">
                             <div class="relative flex-1">
                                 <i class="fa-solid fa-barcode absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                                <input type="text" x-model="trackQuery" required placeholder="Enter Order Number (e.g. ORD-001)"
-                                       class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-300 rounded-2xl text-xs sm:text-sm font-mono font-bold text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0E3386] focus:bg-white uppercase transition-colors">
+                                <input type="text" x-model="trackQuery" required placeholder="Enter order number (e.g. ORD-001)..."
+                                       class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0E3386] focus:bg-white transition-colors">
                             </div>
                             <button type="submit" :disabled="isTracking"
-                                    class="px-8 py-4 rounded-2xl bg-[#0E3386] hover:bg-[#0a2663] text-white font-black text-xs sm:text-sm shadow-md shadow-[#0E3386]/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shrink-0 active:scale-95">
+                                    class="px-6 py-3.5 rounded-xl bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs sm:text-sm shadow-md shadow-[#0E3386]/15 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shrink-0 active:scale-95">
                                 <template x-if="isTracking">
                                     <span class="flex items-center gap-2">
                                         <i class="fa-solid fa-circle-notch animate-spin"></i> Locating...
@@ -893,23 +1090,31 @@
                             </button>
                         </form>
 
+                        {{-- Quick Sample Pill --}}
+                        <div class="flex items-center gap-2 text-[11px] text-slate-500 pt-1">
+                            <span>Quick test:</span>
+                            <button type="button" @click="trackQuery = 'ORD-001'; lookupPublicOrder()" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-[#0E3386] hover:text-white text-[#0E3386] font-mono font-semibold transition-colors cursor-pointer">
+                                ORD-001
+                            </button>
+                        </div>
+
                         {{-- Tracking Error --}}
-                        <div x-show="trackError" class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium flex items-start gap-2.5" x-cloak>
+                        <div x-show="trackError" class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium flex items-start gap-2.5" x-cloak>
                             <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
                             <span x-text="trackError"></span>
                         </div>
 
                         {{-- Tracking Result --}}
-                        <div x-show="trackResult" class="p-6 sm:p-7 rounded-2xl bg-slate-50 border border-slate-200 space-y-5" x-cloak>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-2">
+                        <div x-show="trackResult" class="p-5 sm:p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-4" x-cloak>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-3 gap-2">
                                 <div>
                                     <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Job Record</span>
-                                    <h3 class="text-xl font-black text-slate-900 font-mono" x-text="'#' + trackResult?.order_number"></h3>
+                                    <h3 class="text-lg font-black text-slate-900 font-mono" x-text="'#' + trackResult?.order_number"></h3>
                                 </div>
-                                <span class="px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider bg-[#0E3386] text-white w-fit font-mono shadow-xs" x-text="trackResult?.status_label"></span>
+                                <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#0E3386] text-white w-fit font-mono shadow-xs" x-text="trackResult?.status_label"></span>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
                                 <div>
                                     <span class="text-slate-400 text-[11px] block">Service Type:</span>
                                     <strong class="text-slate-900 text-sm" x-text="trackResult?.service"></strong>
@@ -930,11 +1135,11 @@
 
                             {{-- Progress Bar --}}
                             <div class="pt-2">
-                                <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-2 font-mono">
+                                <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-1.5 font-mono">
                                     <span>Production Queue Progression</span>
                                     <span class="text-[#0E3386]" x-text="trackResult?.progress_percent + '%'"></span>
                                 </div>
-                                <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+                                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                                     <div class="h-full bg-gradient-to-r from-[#0E3386] to-[#29bce8] rounded-full transition-all duration-700" :style="'width: ' + trackResult?.progress_percent + '%'"></div>
                                 </div>
                             </div>
@@ -946,24 +1151,24 @@
 
         </main>
 
-        <!-- ── FOOTER: ENTERPRISE COMMERCIAL PRINTING (CUBS BLUE BRANDED) ── -->
-        <footer class="bg-slate-950 text-slate-400 text-xs py-14 border-t border-slate-900">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800">
+        <!-- ── FOOTER: ENTERPRISE COMMERCIAL PRINTING (COMPACT & BALANCED) ── -->
+        <footer class="bg-slate-950 text-slate-400 text-xs py-10 border-t border-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
                     <div class="flex items-center gap-3.5">
-                        <img src="{{ asset('images/caplogo.png') }}" class="h-10 w-auto object-contain" alt="CAPACIPRINT">
+                        <img src="{{ asset('images/caplogo.png') }}" class="h-9 w-auto object-contain" alt="CAPACIPRINT">
                         <div class="border-l border-slate-800 pl-3.5">
                             <span class="font-display font-black text-white tracking-tight text-base block leading-none">
                                 CAPACI<span class="text-[#29bce8]">PRINT</span>
                             </span>
-                            <span class="text-[9px] text-[#29bce8] uppercase tracking-widest mt-1 block font-semibold">Intelligent Print Routing</span>
+                            <span class="text-[9px] text-[#29bce8] uppercase tracking-widest mt-1 block font-semibold">Multi-Branch Print Network</span>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-6 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                    <div class="flex flex-wrap items-center gap-5 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
                         <a href="#services" class="hover:text-white transition-colors">Services</a>
                         <a href="#decision-engine" class="hover:text-white transition-colors">Routing Engine</a>
-                        <a href="#problem" class="hover:text-white transition-colors">Architecture</a>
+                        <a href="#problem" class="hover:text-white transition-colors">Why CapaciPrint</a>
                         <a href="#branches" class="hover:text-white transition-colors">Branch Status</a>
                         <a href="#tracking" class="hover:text-white transition-colors">Track Order</a>
                         <a href="{{ route('customer.portal') }}" class="text-[#29bce8] hover:text-white transition-colors flex items-center gap-1.5 font-bold">
@@ -972,9 +1177,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
-                    <p>&copy; {{ date('Y') }} CapaciPrint Intelligent Print Routing System. Developed for Academic Capstone Demonstration.</p>
-                    <p>Production Scheduling &bull; Multi-Branch Job Allocation &bull; Physical Constraint Verification</p>
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 font-mono">
+                    <p>&copy; {{ date('Y') }} CapaciPrint Multi-Branch Commercial Printing Network. All rights reserved.</p>
+                    <p>Wide-Format Banners &bull; Precision Decals &bull; Apparel &amp; DTF Transfers</p>
                 </div>
             </div>
         </footer>
