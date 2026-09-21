@@ -90,7 +90,7 @@
         </div>
 
         {{-- Role Navigation Links — SCROLLABLE MIDDLE --}}
-        <nav class="flex-1 min-h-0 px-2.5 py-3 space-y-1 overflow-y-auto no-scrollbar text-[13px]">
+        <nav id="sidebar-nav" class="flex-1 min-h-0 px-2.5 py-3 space-y-1 overflow-y-auto no-scrollbar text-[13px]">
 
             {{-- ROLE 7: SYSTEM ADMINISTRATOR --}}
             @if(auth()->user()->isAdmin())
@@ -512,5 +512,29 @@
 
     </div>
 </div>
+<script>
+(function () {
+    const NAV_KEY = 'sidebar_scroll_pos';
+    const nav = document.getElementById('sidebar-nav');
+
+    // ── Restore position immediately (before first paint if possible) ──
+    if (nav) {
+        const saved = sessionStorage.getItem(NAV_KEY);
+        if (saved !== null) {
+            nav.scrollTop = parseInt(saved, 10);
+        }
+    }
+
+    // ── Save position whenever any sidebar link is clicked ──
+    if (nav) {
+        nav.addEventListener('click', function (e) {
+            const link = e.target.closest('a[href]');
+            if (link) {
+                sessionStorage.setItem(NAV_KEY, nav.scrollTop);
+            }
+        });
+    }
+})();
+</script>
 @endsection
 

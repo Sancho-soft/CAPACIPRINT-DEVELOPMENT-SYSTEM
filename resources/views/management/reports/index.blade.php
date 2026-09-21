@@ -9,8 +9,8 @@
     {{-- PAGE HEADER: EXECUTIVE REPORTS HUB --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/8 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
             <div class="flex items-center gap-4">
@@ -91,11 +91,11 @@
 
                     <div class="flex items-center gap-3.5 text-xs font-medium shrink-0">
                         <div class="flex items-center gap-1.5">
-                            <span class="h-3 w-3 shadow-xs" style="background-color: #009498;"></span>
+                            <span class="h-3 w-5 rounded-sm shadow-xs" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);"></span>
                             <span class="text-cyber-main text-[11px] font-semibold">Revenue (₱K)</span>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <span class="h-3 w-3 shadow-xs" style="background-color: #013F73;"></span>
+                            <span class="h-3 w-5 rounded-sm shadow-xs" style="background: linear-gradient(135deg, #6366f1, #818cf8);"></span>
                             <span class="text-cyber-main text-[11px] font-semibold">Orders Count</span>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     <canvas id="branchRevenueDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-xl font-black font-display text-cyber-main leading-tight">₱{{ number_format($totalShare / 1000, 0) }}k</span>
-                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Total Sales</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest" style="color: #94A3B8; letter-spacing: 0.12em;">Total Sales</span>
                     </div>
                 </div>
 
@@ -142,7 +142,7 @@
                             $bPct = round(($bVal / $totalShare) * 100);
                             $bDot = $shareColors[$loop->index % count($shareColors)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition" style="transition: background 0.15s;" onmouseenter="this.style.background='rgba(255,255,255,0.06)'" onmouseleave="this.style.background='transparent'">
                             <div class="flex items-center gap-2 min-w-0">
                                 <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $bDot }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $bTitle }}</span>
@@ -274,29 +274,29 @@
                         {
                             label: 'Revenue (₱K)',
                             data: revenues,
-                            backgroundColor: '#009498',
-                            hoverBackgroundColor: '#00b4b8',
-                            borderColor: isDark ? '#00c4c8' : '#007a7e',
-                            borderWidth: 1.5,
-                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
-                            borderSkipped: false,
+                            backgroundColor: isDark ? 'rgba(6,182,212,0.82)' : 'rgba(6,182,212,0.88)',
+                            hoverBackgroundColor: '#06b6d4',
+                            borderColor: 'transparent',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            borderSkipped: 'bottom',
                             maxBarThickness: 36,
-                            barPercentage: 0.75,
-                            categoryPercentage: 0.65,
+                            barPercentage: 0.72,
+                            categoryPercentage: 0.62,
                             yAxisID: 'y'
                         },
                         {
                             label: 'Order Volume',
                             data: orders,
-                            backgroundColor: '#013F73',
-                            hoverBackgroundColor: '#02569c',
-                            borderColor: isDark ? '#1e6bb8' : '#012c52',
-                            borderWidth: 1.5,
-                            borderRadius: 0,          // 100% STRAIGHT (flat top, no rounded curves)
-                            borderSkipped: false,
+                            backgroundColor: isDark ? 'rgba(99,102,241,0.78)' : 'rgba(99,102,241,0.84)',
+                            hoverBackgroundColor: '#6366f1',
+                            borderColor: 'transparent',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            borderSkipped: 'bottom',
                             maxBarThickness: 36,
-                            barPercentage: 0.75,
-                            categoryPercentage: 0.65,
+                            barPercentage: 0.72,
+                            categoryPercentage: 0.62,
                             yAxisID: 'y1'
                         }
                     ]
@@ -330,16 +330,14 @@
                     },
                     scales: {
                         x: {
-                            grid: {
-                                display: false,
+                            grid: { display: false },
+                            border: {
+                                color: isDark ? 'rgba(51,65,85,0.4)' : 'rgba(203,213,225,0.7)',
                             },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
-                                font: {
-                                    family: 'Inter, sans-serif',
-                                    size: 11,
-                                    weight: '600'
-                                }
+                                font: { family: 'Inter, sans-serif', size: 11, weight: '600' },
+                                padding: 6
                             }
                         },
                         y: {
@@ -348,26 +346,22 @@
                             position: 'left',
                             beginAtZero: true,
                             grid: {
-                                color: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                                color: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(148,163,184,0.18)',
+                                lineWidth: 1,
                             },
+                            border: { dash: [4, 4], color: 'transparent' },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
-                                font: {
-                                    family: 'Inter, sans-serif',
-                                    size: 10
-                                },
-                                callback: function(val) {
-                                    return '₱' + val + 'k';
-                                }
+                                font: { family: 'Inter, sans-serif', size: 10 },
+                                padding: 8,
+                                callback: function(val) { return '₱' + val + 'k'; }
                             },
                             title: {
                                 display: true,
                                 text: 'Revenue (₱)',
-                                color: isDark ? '#64748b' : '#94a3b8',
-                                font: {
-                                    size: 10,
-                                    weight: 'bold'
-                                }
+                                color: isDark ? '#475569' : '#94a3b8',
+                                font: { size: 10, weight: 'bold' },
+                                padding: { bottom: 6 }
                             }
                         },
                         y1: {
@@ -375,31 +369,23 @@
                             display: true,
                             position: 'right',
                             beginAtZero: true,
-                            grid: {
-                                drawOnChartArea: false,
-                            },
+                            grid: { drawOnChartArea: false },
+                            border: { color: 'transparent' },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
-                                font: {
-                                    family: 'Inter, sans-serif',
-                                    size: 10
-                                }
+                                font: { family: 'Inter, sans-serif', size: 10 },
+                                padding: 8
                             },
                             title: {
                                 display: true,
                                 text: 'Orders',
-                                color: isDark ? '#64748b' : '#94a3b8',
-                                font: {
-                                    size: 10,
-                                    weight: 'bold'
-                                }
+                                color: isDark ? '#475569' : '#94a3b8',
+                                font: { size: 10, weight: 'bold' },
+                                padding: { bottom: 6 }
                             }
                         }
                     },
-                    animation: {
-                        duration: 800,
-                        easing: 'easeOutQuart'
-                    }
+                    animation: { duration: 900, easing: 'easeOutQuart' }
                 }
             });
         }
@@ -409,7 +395,7 @@
         if (shareCanvas) {
             const sLabels = @json($shareLabels);
             const sData = @json($shareValues);
-            const sColors = ['#009498', '#013F73', '#7DD956'];
+            const sColors = ['#06b6d4', '#6366f1', '#10b981'];
 
             new Chart(shareCanvas, {
                 type: 'doughnut',
@@ -418,15 +404,14 @@
                     datasets: [{
                         data: sData,
                         backgroundColor: sColors,
-                        borderWidth: 2,
-                        borderColor: isDark ? '#111A24' : '#ffffff',
-                        hoverOffset: 6
+                        borderWidth: 0,
+                        hoverOffset: 4
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '72%',
+                    cutout: '62%',
                     plugins: {
                         legend: {
                             display: false
