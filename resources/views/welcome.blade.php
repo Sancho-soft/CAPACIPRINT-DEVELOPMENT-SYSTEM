@@ -233,21 +233,40 @@
         <main class="flex-1 w-full max-w-full overflow-x-hidden">
 
             <!-- ── HERO SECTION: CINEMATIC COMMERCIAL PRINT PRODUCTION (RESPONSIVE) ── -->
-            <section id="hero" class="relative min-h-[80vh] sm:min-h-[85vh] lg:min-h-[90vh] bg-slate-950 text-white overflow-hidden flex items-center justify-center border-b border-slate-800 w-full">
+            <section id="hero" x-data="heroVideoController()" class="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-[95vh] bg-slate-950 text-white overflow-hidden flex items-center justify-center border-b border-slate-800 w-full">
                 
-                {{-- Background Press Floor Photo with Cinematic Dark Radial Overlay --}}
-                <div class="absolute inset-0 z-0">
-                    <img src="{{ asset('images/press-floor-dark.jpg') }}" alt="Commercial Print Facility" class="w-full h-full object-cover object-center filter brightness-[0.36] contrast-[1.2] scale-100 transition-transform duration-1000 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/50 to-slate-950"></div>
-                    <div class="absolute inset-0 bg-radial at-center from-transparent via-slate-950/40 to-slate-950/90"></div>
+                {{-- Dual High-Resolution Commercial Print Production Video Feeds with Seamless Crossfade --}}
+                <div class="absolute inset-0 z-0 overflow-hidden bg-slate-950 pointer-events-none">
+                    
+                    {{-- Feed 1: Wide-Format Industrial Banner Printing Press (mstar.mp4) --}}
+                    <video id="hero-video-1" 
+                           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out will-change-[opacity,transform]"
+                           :class="currentFeed === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+                           style="transform: translate3d(0, 0, 0); backface-visibility: hidden; filter: contrast(1.12) brightness(0.68) saturate(1.18); -webkit-filter: contrast(1.12) brightness(0.68) saturate(1.18);"
+                           autoplay muted playsinline preload="auto">
+                        <source src="{{ asset('videos/mstar.mp4') }}" type="video/mp4">
+                    </video>
+
+                    {{-- Feed 2: High-Speed Automated Commercial Sheetfed Press (mstarnet.mp4) --}}
+                    <video id="hero-video-2" 
+                           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out will-change-[opacity,transform]"
+                           :class="currentFeed === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+                           style="transform: translate3d(0, 0, 0); backface-visibility: hidden; filter: contrast(1.12) brightness(0.68) saturate(1.18); -webkit-filter: contrast(1.12) brightness(0.68) saturate(1.18);"
+                           muted playsinline preload="auto">
+                        <source src="{{ asset('videos/mstarnet.mp4') }}" type="video/mp4">
+                    </video>
+
+                    {{-- Balanced Cinematic Overlay: preserves crisp video details while providing AAA contrast for text --}}
+                    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/40 to-slate-950/85"></div>
+                    <div class="absolute inset-0 bg-radial at-center from-transparent via-slate-950/30 to-slate-950/75"></div>
                     
                     {{-- Ambient Subtle Animated Glow Orbs in Signature Blues --}}
-                    <div class="absolute top-1/4 left-1/3 w-72 sm:w-96 h-72 sm:h-96 bg-[#0E3386]/30 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+                    <div class="absolute top-1/4 left-1/3 w-72 sm:w-96 h-72 sm:h-96 bg-[#0E3386]/25 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
                     <div class="absolute bottom-1/3 right-1/4 w-60 sm:w-80 h-60 sm:h-80 bg-[#29bce8]/15 rounded-full blur-3xl pointer-events-none animate-float"></div>
                 </div>
 
                 {{-- Centered Heroic Typography & Content --}}
-                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 text-center flex flex-col items-center w-full">
+                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 text-center flex flex-col items-center w-full">
                     
                     {{-- Badged Pill in Signature Cubs Blue & Sky Blue (Wrapped Gracefully on Mobile) --}}
                     <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#0E3386]/40 border border-[#29bce8]/40 text-[#29bce8] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-5 sm:mb-6 backdrop-blur-md shadow-lg shadow-[#0E3386]/20 animate-fade-in-up max-w-[94vw] text-center">
@@ -258,7 +277,7 @@
                     {{-- Main Headline in Signature Gradient (Scales smoothly from 32px on phone to 96px on desktop) --}}
                     <h1 class="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-display tracking-tight leading-[1.08] animate-fade-in-up drop-shadow-2xl max-w-full break-words" style="animation-delay: 0.15s;">
                         Print Your Brand <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] via-[#60a5fa] to-[#93c5fd] drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">Into Reality.</span>
+                        <span class="text-white drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">Into Reality.</span>
                     </h1>
 
                     {{-- Centered Subtitle --}}
@@ -276,44 +295,10 @@
                         </a>
                     </div>
 
-                    {{-- Scroll Indicator --}}
-                    <div class="mt-10 sm:mt-14 flex flex-col items-center gap-1.5 text-slate-400 text-[11px] font-mono uppercase tracking-widest animate-bounce">
-                        <span>Scroll</span>
-                        <i class="fa-solid fa-chevron-down text-[#29bce8]"></i>
-                    </div>
 
                 </div>
             </section>
 
-            <!-- ── SECTION: TRUST & CAPABILITIES BANNER (RESPONSIVE GRID) ── -->
-            <div id="stats-banner" class="bg-[#0c131c] border-b border-slate-800 text-slate-300 py-6 sm:py-7">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
-                        <div class="border-r border-slate-800 pr-2 sm:pr-4">
-                            <span class="block text-2xl sm:text-3xl font-black text-[#29bce8] font-display counter-item" data-target="3">0</span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Production Facilities</span>
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Centralized Network</span>
-                        </div>
-                        <div class="border-r-0 md:border-r border-slate-800 sm:pr-4">
-                            <span class="block text-2xl sm:text-3xl font-black text-white font-display counter-item" data-target="100" data-suffix="%">0%</span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Pre-Flight Feasibility</span>
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Zero Print Rejection</span>
-                        </div>
-                        <div class="border-r border-slate-800 pr-2 sm:pr-4">
-                            <span class="block text-2xl sm:text-3xl font-black text-[#29bce8] font-display counter-item" data-target="4" data-suffix="-Way">0</span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Intelligent Balancing</span>
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Zero Machine Overload</span>
-                        </div>
-                        <div>
-                            <span class="block text-2xl sm:text-3xl font-black text-white font-display flex items-center justify-center gap-1.5 sm:gap-2">
-                                <span class="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-emerald-400 animate-ping"></span> Live
-                            </span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Real-Time Floor Sync</span>
-                            <span class="text-[9px] sm:text-[10px] text-emerald-400/80 block font-mono mt-0.5">Continuous Queue Feeds</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- ── SECTION: COMMERCIAL PRINT CAPABILITIES & SERVICES ── -->
             <section id="services" class="py-20 lg:py-28 bg-[#F8FAFC] border-b border-slate-200 relative overflow-hidden">
@@ -354,10 +339,10 @@
                         x-init="startAuto()"
                         @mouseenter="stopAuto()"
                         @mouseleave="startAuto()"
-                        class="relative max-w-md sm:max-w-lg lg:max-w-[500px] mx-auto px-4 sm:px-0 reveal-on-scroll">
+                        class="relative max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-[640px] mx-auto px-4 sm:px-0 reveal-on-scroll">
 
                         {{-- Card Outer Frame with Multi-Layer Ambient Elevation --}}
-                        <div class="bg-white rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(14,51,134,0.12),0_10px_25px_-5px_rgba(0,0,0,0.04)] border border-slate-200/90 relative select-none"
+                        <div class="bg-white rounded-3xl overflow-hidden shadow-[0_25px_60px_-15px_rgba(14,51,134,0.18),0_12px_28px_-6px_rgba(0,0,0,0.08)] border border-slate-200/90 relative select-none transition-shadow duration-300 hover:shadow-[0_30px_70px_-12px_rgba(14,51,134,0.24)]"
                              @touchstart="touchStartX = $event.changedTouches[0].screenX"
                              @touchend="
                                 if ($event.changedTouches[0].screenX < touchStartX - 40) next();
@@ -410,7 +395,7 @@
                         <button @click="prev()"
                                 type="button"
                                 aria-label="Previous Slide"
-                                class="absolute left-1 sm:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200/90 shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
+                                class="absolute -left-3 sm:-left-14 lg:-left-16 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200 shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
                             <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
                         </button>
 
@@ -418,34 +403,34 @@
                         <button @click="next()"
                                 type="button"
                                 aria-label="Next Slide"
-                                class="absolute right-1 sm:-right-12 lg:-right-16 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200/90 shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
+                                class="absolute -right-3 sm:-right-14 lg:-right-16 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200 shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
                             <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
                         </button>
 
                         {{-- Pagination Dots (Clean Studio Light Style) --}}
-                        <div class="flex items-center justify-center gap-2.5 mt-8">
+                        <div class="flex items-center justify-center gap-2 mt-8">
                             <button @click="active = 0" type="button" aria-label="Slide 1"
-                                    :class="active === 0 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    :class="active === 0 ? 'bg-[#0E3386] w-7 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
                                     class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
                             <button @click="active = 1" type="button" aria-label="Slide 2"
-                                    :class="active === 1 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    :class="active === 1 ? 'bg-[#0E3386] w-7 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
                                     class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
                             <button @click="active = 2" type="button" aria-label="Slide 3"
-                                    :class="active === 2 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    :class="active === 2 ? 'bg-[#0E3386] w-7 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
                                     class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
                             <button @click="active = 3" type="button" aria-label="Slide 4"
-                                    :class="active === 3 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
+                                    :class="active === 3 ? 'bg-[#0E3386] w-7 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
                                     class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
                         </div>
 
                         {{-- Customer Action CTA Button --}}
                         <div class="mt-8 text-center">
                             <a href="{{ route('customer.portal') }}" 
-                               class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#0E3386]/20 border border-[#29bce8]/40 transition-all transform hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 cursor-pointer">
+                               class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#0E3386]/20 border border-[#29bce8]/40 transition-all transform hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 cursor-pointer">
                                 <span>Request Custom Print Job</span>
-                                <i class="fa-solid fa-arrow-right text-[11px] text-[#29bce8]"></i>
+                                <i class="fa-solid fa-arrow-right text-xs text-[#29bce8]"></i>
                             </a>
-                            <p class="text-[11px] text-slate-400 mt-2 font-mono">Online submission &bull; Instant proof review &bull; Live order tracking</p>
+                            <p class="text-xs text-slate-500 mt-2 font-mono">Online submission &bull; Instant proof review &bull; Live order tracking</p>
                         </div>
                     </div>
                 </div>
@@ -3468,6 +3453,85 @@
                         workloadAcceptable: activeWorkload < 75,
                         deadlineAchievable: this.simUrgent ? (activeWorkload < 50) : true
                     };
+                }
+            };
+        }
+
+        // Dual-Feed High-Resolution Background Video Controller
+        function heroVideoController() {
+            return {
+                currentFeed: 1,
+                isTransitioning: false,
+
+                init() {
+                    this.$nextTick(() => {
+                        const v1 = document.getElementById('hero-video-1');
+                        const v2 = document.getElementById('hero-video-2');
+
+                        if (v1) {
+                            v1.muted = true;
+                            const playPromise = v1.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {
+                                    v1.muted = true;
+                                    v1.play().catch(() => {});
+                                });
+                            }
+
+                            // Trigger crossfade when video 1 reaches end
+                            v1.addEventListener('ended', () => {
+                                this.setFeed(2);
+                            });
+
+                            // Smooth fallback crossfade 0.35s before video completes
+                            v1.addEventListener('timeupdate', () => {
+                                if (v1.duration && v1.currentTime >= v1.duration - 0.35) {
+                                    if (this.currentFeed === 1 && !this.isTransitioning) {
+                                        this.setFeed(2);
+                                    }
+                                }
+                            });
+                        }
+
+                        if (v2) {
+                            v2.muted = true;
+                            // Pre-buffer video 2 so transition is instantaneous
+                            v2.load();
+
+                            // Trigger crossfade when video 2 reaches end
+                            v2.addEventListener('ended', () => {
+                                this.setFeed(1);
+                            });
+
+                            // Smooth fallback crossfade 0.35s before video completes
+                            v2.addEventListener('timeupdate', () => {
+                                if (v2.duration && v2.currentTime >= v2.duration - 0.35) {
+                                    if (this.currentFeed === 2 && !this.isTransitioning) {
+                                        this.setFeed(1);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                },
+
+                setFeed(feedNumber) {
+                    if (this.currentFeed === feedNumber && !this.isTransitioning) return;
+                    this.currentFeed = feedNumber;
+                    this.isTransitioning = true;
+
+                    const targetVid = document.getElementById(feedNumber === 1 ? 'hero-video-1' : 'hero-video-2');
+                    if (targetVid) {
+                        targetVid.currentTime = 0;
+                        const p = targetVid.play();
+                        if (p !== undefined) {
+                            p.catch(() => {});
+                        }
+                    }
+
+                    setTimeout(() => {
+                        this.isTransitioning = false;
+                    }, 1100);
                 }
             };
         }

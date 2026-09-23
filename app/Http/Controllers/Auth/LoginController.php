@@ -96,9 +96,16 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        $isStaff = $user && ($user->isInternal() || $user->role !== 'customer');
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($isStaff) {
+            return redirect()->route('staff.portal');
+        }
 
         return redirect()->route('landing');
     }
