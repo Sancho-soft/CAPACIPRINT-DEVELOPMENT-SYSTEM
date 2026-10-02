@@ -43,8 +43,8 @@ class User extends Authenticatable
     public function isAdmin(): bool             { return in_array($this->role, ['admin', 'system_admin']); }
     public function isManager(): bool           { return $this->role === 'manager'; }
     public function isProductionOfficer(): bool { return in_array($this->role, ['production_officer', 'planner']); }
-    public function isStaff(): bool             { return $this->role === 'staff'; }
-    public function isDesigner(): bool          { return $this->role === 'designer'; }
+    public function isStaff(): bool             { return in_array($this->role, ['staff', 'designer']); }
+    public function isDesigner(): bool          { return $this->isStaff(); }
     public function isProduction(): bool        { return $this->role === 'production'; }
     public function isInventory(): bool         { return $this->role === 'inventory'; }
     public function isCustomer(): bool          { return $this->role === 'customer'; }
@@ -64,7 +64,7 @@ class User extends Authenticatable
             'manager'            => 'Branch Manager',
             'production_officer' => 'Production Officer',
             'staff'              => 'Customer Service (CS)',
-            'designer'           => 'Layout Designer',
+            'designer'           => 'Customer Service (CS)',
             'production'         => 'Production Operator',
             'inventory'          => 'Inventory Staff',
             'customer'           => 'Customer',

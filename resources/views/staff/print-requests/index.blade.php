@@ -121,9 +121,9 @@
                             <td class="px-6 py-4 text-right">
                                 <div class="inline-flex items-center justify-end gap-2">
                                     <a href="{{ route('staff.print-requests.show', $req) }}"
-                                       class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs"
+                                       class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center"
                                        title="Review Specifications &amp; Artwork">
-                                        <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                     </a>
                                     @if($req->status === 'submitted')
                                     <a href="{{ route('staff.quotations.create', ['print_request_id' => $req->id]) }}" 

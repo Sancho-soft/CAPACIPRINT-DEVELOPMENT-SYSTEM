@@ -62,7 +62,7 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('customer.print-requests.show', $req) }}"
-                               class="text-cyan-500 hover:text-cyan-400 transition text-sm p-1 inline-block"
+                               class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center"
                                title="View Print Request Details">
                                 <i class="fa-solid fa-eye"></i>
                             </a>

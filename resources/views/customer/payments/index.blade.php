@@ -46,9 +46,9 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('customer.payments.show', $payment) }}"
-                               class="inline-flex items-center justify-center h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-[#06B6D4] text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-white border border-cyan-500/20 hover:border-[#06B6D4] transition shadow-xs"
+                               class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center"
                                title="View Payment Details">
-                                <i class="fa-solid fa-eye text-xs"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </a>
                         </td>
                     </tr>

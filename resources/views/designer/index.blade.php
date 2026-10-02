@@ -12,8 +12,8 @@
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Inspect client artwork, run pre-flight checks, generate digital proofs, and upload final production-ready vector files.</p>
         </div>
         <div class="flex items-center gap-2">
-            <a href="{{ route('designer.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 dark:bg-[#111A24] dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-800 flex items-center gap-2 transition shadow-xs">
-                <i class="fa-solid fa-gauge-high text-xs text-cyan-600 dark:text-cyan-400"></i> Back to Dashboard
+            <a href="{{ route('staff.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 dark:bg-[#111A24] dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-800 flex items-center gap-2 transition shadow-xs">
+                <i class="fa-solid fa-gauge-high text-xs text-cyan-600 dark:text-cyan-400"></i> Staff Dashboard
             </a>
         </div>
     </div>

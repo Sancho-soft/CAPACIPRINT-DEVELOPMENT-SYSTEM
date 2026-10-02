@@ -154,9 +154,9 @@
                             </td>
                             <td class="px-4 sm:px-6 py-3.5 text-right whitespace-nowrap">
                                 <a href="{{ route('staff.print-requests.show', $req->id) }}" 
-                                   class="px-3.5 py-1.5 rounded-xl bg-[#0E3386]/10 hover:bg-[#0E3386] text-[#0E3386] hover:text-white dark:text-sky-400 border border-[#0E3386]/20 inline-flex items-center gap-1.5 text-xs font-bold transition shadow-xs">
-                                    <i class="fa-solid fa-eye text-xs"></i>
-                                    <span>{{ $isPrimaryAction ? 'Verify Specs' : 'View' }}</span>
+                                   class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center"
+                                   title="{{ $isPrimaryAction ? 'Verify Specs' : 'View Print Request' }}">
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
                             </td>
                         </tr>

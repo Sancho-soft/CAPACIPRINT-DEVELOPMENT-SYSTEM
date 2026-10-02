@@ -87,8 +87,8 @@
                 @endif
 
                 <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
-                    <a href="{{ Storage::url($proof->proof_file_path) }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs transition">
-                        <i class="fa-solid fa-eye"></i> View Proof
+                    <a href="{{ Storage::url($proof->proof_file_path) }}" target="_blank" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-500 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 font-bold text-xs transition shadow-xs">
+                        <i class="fa-solid fa-eye text-xs text-cyan-500 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i> View Proof
                     </a>
 
                     @if($proof->status === 'pending_review')

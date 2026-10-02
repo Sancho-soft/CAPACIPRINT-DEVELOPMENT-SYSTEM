@@ -4,14 +4,27 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-navy-900 font-display">Customers Directory</h2>
-            <p class="text-sm text-slate-500 mt-1">Manage customer profiles, send direct portal notices, and issue quotations.</p>
+            <h2 class="text-2xl font-bold text-navy-900 dark:text-white font-display">Customers Directory</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage customer profiles, send direct portal notices, and issue quotations.</p>
         </div>
-        <form method="GET">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search customer name or email..."
-                   class="rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
+        <form method="GET" class="relative flex items-center">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500 dark:text-cyan-400"></i>
+            </div>
+            <input type="text" 
+                   name="search" 
+                   value="{{ request('search') }}" 
+                   placeholder="Search customer name or email..."
+                   class="w-full sm:w-80 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 pl-9 pr-8 py-2 text-xs font-medium text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none transition shadow-2xs">
+            @if(request('search'))
+                <a href="{{ route('staff.customers.index') }}" 
+                   class="absolute right-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs p-1"
+                   title="Clear Search">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+            @endif
         </form>
     </div>
 
@@ -46,9 +59,9 @@
                         <div class="inline-flex items-center justify-end gap-2">
                             {{-- View History --}}
                             <a href="{{ route('staff.customers.show', $c) }}" 
-                               class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                               class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-block" 
                                title="View Customer Profile & History">
-                                <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </a>
 
                             {{-- Create Quotation --}}

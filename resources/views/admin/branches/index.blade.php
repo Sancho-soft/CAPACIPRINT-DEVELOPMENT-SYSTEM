@@ -129,8 +129,8 @@
 
                 {{-- Action Footer --}}
                 <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                    <a href="{{ route('admin.branches.show', $b) }}" class="px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 border border-cyan-500/30 text-cyan-400 hover:text-slate-950 text-xs font-bold transition flex items-center gap-2 shadow-sm">
-                        <i class="fa-solid fa-eye text-xs"></i> View Node Status
+                    <a href="{{ route('admin.branches.show', $b) }}" class="group px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 border border-cyan-500/30 text-cyan-500 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 text-xs font-bold transition flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-eye text-xs text-cyan-500 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i> View Node Status
                     </a>
                     <div class="flex items-center gap-2">
                         <a href="{{ route('admin.branches.edit', $b) }}" class="h-9 w-9 rounded-xl bg-[#0D1520] hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-slate-400 hover:text-cyan-400 flex items-center justify-center text-xs transition shadow-sm" title="Edit Branch">

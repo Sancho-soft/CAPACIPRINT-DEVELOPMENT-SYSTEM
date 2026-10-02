@@ -148,10 +148,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
 });
 
 // ─────────────────────────────────────────────────────────────────
-// LAYOUT DESIGNER (role: designer)
+// ARTWORK & PRE-PRESS WORKSPACE (role: staff, designer)
 // ─────────────────────────────────────────────────────────────────
-Route::middleware(['auth', 'role:designer'])->prefix('designer')->name('designer.')->group(function () {
-    Route::get('/dashboard', [\App\Http\Controllers\Designer\DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'role:designer,staff'])->prefix('designer')->name('designer.')->group(function () {
+    Route::get('/dashboard', fn() => redirect()->route('designer.index'))->name('dashboard');
 });
 
 // ─────────────────────────────────────────────────────────────────
@@ -289,7 +289,7 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
             return redirect()->to(match($role) {
                 'customer'           => route('customer.dashboard'),
                 'staff'              => route('staff.dashboard'),
-                'designer'           => route('designer.dashboard'),
+                'designer'           => route('staff.dashboard'),
                 'manager'            => route('manager.dashboard'),
                 'production_officer' => route('manager.production-planning.index'),
                 'production'         => route('production.dashboard'),

@@ -94,15 +94,15 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 6. Layout Designer
+        // 6. Pre-Press & Customer Service Staff
         User::updateOrCreate(
             ['email' => 'designer@capaciprint.com'],
             [
                 'name'     => 'Clarence Gotas',
                 'password' => Hash::make('password'),
-                'role'     => 'designer',
+                'role'     => 'staff',
                 'phone'    => '+63 917 888 9999',
-                'address'  => 'Pre-Press Studio',
+                'address'  => 'Pre-Press & CS Studio',
             ]
         );
 

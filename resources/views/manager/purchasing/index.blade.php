@@ -167,8 +167,8 @@
                                             'can_cancel' => (auth()->id() === $req->requested_by) || auth()->user()->isAdmin(),
                                         ]) }}; detailsModalOpen = true;"
                                         title="View PR Details"
-                                        class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-cyber bg-cyber-sub text-cyber-main hover:bg-cyber-card text-xs font-bold transition shadow-xs cursor-pointer">
-                                    <i class="fa-solid fa-eye text-xs text-cyber-muted"></i>
+                                        class="group inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-cyan-500/25 bg-cyan-500/10 hover:bg-cyan-500 text-cyan-500 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 text-xs font-bold transition shadow-xs cursor-pointer">
+                                    <i class="fa-solid fa-eye text-xs text-cyan-500 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
                                     <span>Details</span>
                                 </button>
 

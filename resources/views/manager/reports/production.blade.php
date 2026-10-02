@@ -199,9 +199,9 @@
                             <td class="px-5 py-4 text-right whitespace-nowrap">
                                 @if($detailRoute)
                                     <a href="{{ $detailRoute }}" 
-                                       class="h-8 w-8 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-300 dark:border-slate-700 hover:border-sky-400 dark:hover:border-cyan-500/40 inline-flex items-center justify-center transition-all shadow-xs group"
+                                       class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center"
                                        title="View Job Details">
-                                        <i class="fa-solid fa-eye text-sm text-slate-800 dark:text-slate-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                     </a>
                                 @else
                                     <span class="text-cyber-muted">&mdash;</span>

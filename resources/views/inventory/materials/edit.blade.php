@@ -8,7 +8,7 @@
         <a href="{{ route('inventory.materials.index') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-navy-900 transition">
             <i class="fa-solid fa-arrow-left"></i> Back to Catalog
         </a>
-        <a href="{{ route('inventory.materials.show', $material) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-600 hover:text-cyan-700 transition">
+        <a href="{{ route('inventory.materials.show', $material) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition">
             <i class="fa-solid fa-eye"></i> View Details
         </a>
     </div>

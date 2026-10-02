@@ -138,7 +138,7 @@
 
                             <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
                                 <a href="{{ Storage::url($proof->proof_file_path) }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition">
-                                    <i class="fa-solid fa-eye text-cyan-600 dark:text-cyan-400"></i> View Proof
+                                    <i class="fa-solid fa-eye text-cyan-500 dark:text-cyan-400"></i> View Proof
                                 </a>
 
                                 @if($proof->status === 'approved' && !$proof->production_file_path)

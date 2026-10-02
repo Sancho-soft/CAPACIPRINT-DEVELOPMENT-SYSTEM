@@ -185,9 +185,9 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('customer.orders.show', $order) }}"
-                               class="inline-flex items-center justify-center h-8 w-8 rounded-lg text-cyan-400 hover:bg-cyan-500/10 transition"
+                               class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center"
                                title="View Order Details">
-                                <i class="fa-solid fa-eye text-base"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </a>
                         </td>
                     </tr>

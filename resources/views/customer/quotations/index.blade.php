@@ -167,8 +167,8 @@
                                 </form>
                                 @endif
                                 <a href="{{ route('customer.quotations.show', $quotation) }}"
-                                   class="p-1.5 text-cyber-muted hover:text-cyan-400 transition" title="View Details">
-                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                   class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center" title="View Details">
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
                             </div>
                         </td>

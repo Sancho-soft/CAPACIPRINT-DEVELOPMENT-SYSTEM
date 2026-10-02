@@ -86,7 +86,7 @@
                                             'status' => $usr->is_archived ? 'Archived' : 'Active',
                                             'created_at' => $usr->created_at ? $usr->created_at->format('M d, Y g:i A') : 'N/A'
                                         ]) }})" 
-                                        class="text-cyan-400 hover:text-cyan-300 transition text-sm p-1 inline-block" 
+                                        class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center cursor-pointer" 
                                         title="View Account Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>

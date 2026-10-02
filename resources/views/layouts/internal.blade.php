@@ -181,6 +181,13 @@
                     <i class="fa-solid fa-file-signature w-5 text-center text-sm shrink-0"></i>
                     <span x-show="!sidebarCollapsed" class="truncate">Customer Requests</span>
                 </a>
+                <a href="{{ route('designer.index') }}"
+                   title="Artwork &amp; Proofs"
+                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('designer.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
+                    <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-sm shrink-0"></i>
+                    <span x-show="!sidebarCollapsed" class="truncate">Artwork &amp; Proofs</span>
+                </a>
                 <a href="{{ route('staff.quotations.index') }}"
                    title="Quotations"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
@@ -246,28 +253,7 @@
                 </a>
             @endif
 
-            {{-- ROLE 7: LAYOUT DESIGNER / PRE-PRESS --}}
-            @if(auth()->user()->isDesigner() || auth()->user()->isStaff() || auth()->user()->isAdmin())
-                <p x-show="!sidebarCollapsed" x-cloak class="px-3 pt-3 pb-1 text-[10px] uppercase font-extrabold text-slate-400 dark:text-slate-500 tracking-wider">Design &amp; Pre-Press</p>
-                <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
-                @if(auth()->user()->isDesigner() || auth()->user()->isAdmin())
-                    <a href="{{ route('designer.dashboard') }}"
-                       title="Dashboard"
-                       :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('designer.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
-                        <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
-                        <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
-                    </a>
-                @endif
-                <a href="{{ route('designer.index') }}"
-                   title="Design Workspace"
-                   :class="sidebarCollapsed ? 'justify-center px-0' : ''"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('designer.index*') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
-                    <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Design Workspace</span>
-                </a>
-            @endif
 
             {{-- ROLE 4: PRODUCTION STAFF --}}
             @if(auth()->user()->isProduction() || auth()->user()->isAdmin())
