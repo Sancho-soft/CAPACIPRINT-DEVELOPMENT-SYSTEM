@@ -253,6 +253,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/users',     [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::post('/users',    [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
     Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+    Route::put('/users/{user}/password', [\App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::put('/users/{user}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.update-role');
     Route::post('/users/{user}/toggle-archive', [\App\Http\Controllers\Admin\UserController::class, 'toggleArchive'])->name('users.toggle-archive');
     Route::get('/branches',         [\App\Http\Controllers\Admin\BranchController::class,   'index'])->name('branches.index');

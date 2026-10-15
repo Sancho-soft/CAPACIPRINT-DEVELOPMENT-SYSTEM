@@ -479,15 +479,33 @@
 
         {{-- Session Flash Alert --}}
         @if(session('success'))
-            <div class="mx-6 mt-6 p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-2xl text-xs text-emerald-300 flex items-center gap-3 shadow-lg backdrop-blur-md">
-                <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-                <p class="font-medium">{{ session('success') }}</p>
+            <div x-data="{ show: true }"
+                 x-show="show"
+                 x-init="setTimeout(() => show = false, 3500)"
+                 x-transition:leave="transition ease-in duration-300"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="mx-6 mt-6 p-4 bg-emerald-500/15 border border-emerald-500/30 rounded-2xl text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-3 shadow-lg backdrop-blur-md">
+                <i class="fa-solid fa-circle-check text-emerald-500 dark:text-emerald-400 text-base"></i>
+                <p class="font-semibold flex-1">{{ session('success') }}</p>
+                <button type="button" @click="show = false" class="text-emerald-600/70 hover:text-emerald-800 dark:text-emerald-300/70 dark:hover:text-emerald-100 transition p-1">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
             </div>
         @endif
         @if(session('error'))
-            <div class="mx-6 mt-6 p-4 bg-red-950/40 border border-red-500/30 rounded-2xl text-xs text-red-300 flex items-center gap-3 shadow-lg backdrop-blur-md">
-                <i class="fa-solid fa-circle-exclamation text-red-400 text-base"></i>
-                <p class="font-medium">{{ session('error') }}</p>
+            <div x-data="{ show: true }"
+                 x-show="show"
+                 x-init="setTimeout(() => show = false, 5000)"
+                 x-transition:leave="transition ease-in duration-300"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="mx-6 mt-6 p-4 bg-rose-500/15 border border-rose-500/30 rounded-2xl text-xs text-rose-700 dark:text-rose-300 flex items-center gap-3 shadow-lg backdrop-blur-md">
+                <i class="fa-solid fa-circle-exclamation text-rose-500 dark:text-rose-400 text-base"></i>
+                <p class="font-semibold flex-1">{{ session('error') }}</p>
+                <button type="button" @click="show = false" class="text-rose-600/70 hover:text-rose-800 dark:text-rose-300/70 dark:hover:text-rose-100 transition p-1">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
             </div>
         @endif
 
