@@ -98,7 +98,8 @@
                     <tr class="bg-cyber-sub/80 border-b border-cyber text-cyber-muted uppercase tracking-wider font-bold text-[11px]">
                         <th class="py-4 px-6">Quotation No.</th>
                         <th class="py-4 px-6">Service Details</th>
-                        <th class="py-4 px-6">Quantity &amp; Size</th>
+                        <th class="py-4 px-6">Quantity</th>
+                        <th class="py-4 px-6">Size</th>
                         <th class="py-4 px-6">Valid Until</th>
                         <th class="py-4 px-6">Status</th>
                         <th class="py-4 px-6 text-right">Total Price</th>
@@ -122,10 +123,15 @@
                             <span class="text-[11px] text-cyber-muted">{{ $quotation->printRequest->material ?? 'Standard Material' }}</span>
                         </td>
 
-                        {{-- Quantity & Size --}}
+                        {{-- Quantity --}}
                         <td class="py-4 px-6 whitespace-nowrap">
-                            <span class="font-bold block text-cyber-main">{{ $quotation->printRequest->quantity ?? '—' }} copies</span>
-                            <span class="text-[11px] text-cyan-400 font-semibold">{{ $quotation->printRequest->size ?? 'Standard' }}</span>
+                            <span class="font-bold text-cyber-main">{{ number_format($quotation->printRequest->quantity ?? 0) }}</span>
+                            <span class="block text-[10px] text-cyber-muted">copies</span>
+                        </td>
+
+                        {{-- Size --}}
+                        <td class="py-4 px-6 whitespace-nowrap">
+                            <span class="font-semibold text-cyan-400">{{ $quotation->printRequest->size ?? '—' }}</span>
                         </td>
 
                         {{-- Valid Until --}}
@@ -200,8 +206,12 @@
                         <span class="font-bold text-cyber-main">{{ $quotation->printRequest->service ?? '—' }}</span>
                     </div>
                     <div class="flex justify-between py-1 border-b border-cyber/50">
-                        <span class="text-cyber-muted">Quantity &amp; Size</span>
-                        <span class="font-bold text-cyber-main">{{ $quotation->printRequest->quantity ?? '—' }} copies · {{ $quotation->printRequest->size ?? '' }}</span>
+                        <span class="text-cyber-muted">Quantity</span>
+                        <span class="font-bold text-cyber-main">{{ number_format($quotation->printRequest->quantity ?? 0) }} copies</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-cyber/50">
+                        <span class="text-cyber-muted">Size</span>
+                        <span class="font-bold text-cyan-400">{{ $quotation->printRequest->size ?? '—' }}</span>
                     </div>
                     <div class="flex justify-between py-1 border-b border-cyber/50">
                         <span class="text-cyber-muted">Valid Until</span>

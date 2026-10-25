@@ -39,13 +39,13 @@
     <div class="grid grid-cols-2 gap-4">
         <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm">
             <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Order Status</p>
-            <span class="inline-block mt-2 px-3 py-1 text-xs font-bold rounded-full uppercase
+            <span class="inline-block mt-2 text-xs font-bold uppercase
                 {{ match($order->status) {
-                    'submitted'   => 'bg-blue-100 text-blue-800',
-                    'quotation'   => 'bg-amber-100 text-amber-800',
-                    'production'  => 'bg-cyan-100 text-cyan-800',
-                    'completed'   => 'bg-green-100 text-green-800',
-                    default       => 'bg-slate-100 text-slate-600',
+                    'submitted'   => 'text-blue-600 dark:text-blue-400',
+                    'quotation'   => 'text-amber-600 dark:text-amber-400',
+                    'production'  => 'text-cyan-600 dark:text-cyan-400',
+                    'completed'   => 'text-emerald-600 dark:text-emerald-400',
+                    default       => 'text-slate-500 dark:text-slate-400',
                 } }}">{{ $order->status_label }}</span>
         </div>
         <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm">

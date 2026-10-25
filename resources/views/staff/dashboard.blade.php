@@ -32,48 +32,40 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 4 KEY CUSTOMER SERVICE METRICS (INSIDE PARENT CARD) --}}
+    {{-- 4 KEY CUSTOMER SERVICE METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber pb-3">
-            <h3 class="text-xs font-black uppercase tracking-wider text-cyber-main font-display flex items-center gap-2">
-                <i class="fa-solid fa-chart-line text-[#0E3386] dark:text-sky-400"></i> Customer Service Key Performance Indicators
-            </h3>
-            <span class="text-[11px] text-cyber-muted font-medium">Live Desk Overview</span>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            <x-dashboard.kpi-card 
-                title="NEW PRINT REQUESTS"
-                :value="$newRequestsCount"
-                icon="fa-solid fa-file-circle-plus"
-                accent="cyan"
-                :link="route('staff.print-requests.index')"
-            />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <x-dashboard.kpi-card 
+            title="NEW PRINT REQUESTS"
+            :value="$newRequestsCount"
+            icon="fa-solid fa-file-circle-plus"
+            accent="cyan"
+            :link="route('staff.print-requests.index')"
+        />
 
-            <x-dashboard.kpi-card 
-                title="PENDING QUOTATIONS"
-                :value="$pendingQuotesCount"
-                icon="fa-solid fa-file-invoice-dollar"
-                accent="amber"
-                :link="route('staff.quotations.index')"
-            />
+        <x-dashboard.kpi-card 
+            title="PENDING QUOTATIONS"
+            :value="$pendingQuotesCount"
+            icon="fa-solid fa-file-invoice-dollar"
+            accent="amber"
+            :link="route('staff.quotations.index')"
+        />
 
-            <x-dashboard.kpi-card 
-                title="PAYMENT VERIFICATIONS"
-                :value="$pendingPaymentOrders->count()"
-                icon="fa-solid fa-credit-card"
-                accent="emerald"
-                :link="route('staff.orders.index', ['payment_status' => 'submitted'])"
-            />
+        <x-dashboard.kpi-card 
+            title="PAYMENT VERIFICATIONS"
+            :value="$pendingPaymentOrders->count()"
+            icon="fa-solid fa-credit-card"
+            accent="emerald"
+            :link="route('staff.orders.index', ['payment_status' => 'submitted'])"
+        />
 
-            <x-dashboard.kpi-card 
-                title="READY FOR PICKUP"
-                :value="$readyForPickupCount"
-                icon="fa-solid fa-box-open"
-                accent="indigo"
-                :link="route('staff.orders.index', ['status' => 'ready_for_pickup'])"
-            />
-        </div>
+        <x-dashboard.kpi-card 
+            title="READY FOR PICKUP"
+            :value="$readyForPickupCount"
+            icon="fa-solid fa-box-open"
+            accent="indigo"
+            :link="route('staff.orders.index', ['status' => 'ready_for_pickup'])"
+        />
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}

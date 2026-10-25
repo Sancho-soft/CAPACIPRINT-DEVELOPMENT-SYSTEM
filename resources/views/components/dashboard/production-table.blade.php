@@ -27,7 +27,8 @@
             <thead class="text-slate-600 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]" style="background: rgba(13,21,32,0.7);">
                 <tr>
                     <th class="px-4 sm:px-5 py-3.5">Job / Order</th>
-                    <th class="px-4 sm:px-5 py-3.5">Customer & Service</th>
+                    <th class="px-4 sm:px-5 py-3.5">Customer</th>
+                    <th class="px-4 sm:px-5 py-3.5">Service</th>
                     <th class="px-4 sm:px-5 py-3.5">Material & Specs</th>
                     <th class="px-4 sm:px-5 py-3.5">Assigned Press</th>
                     <th class="px-4 sm:px-5 py-3.5">Priority</th>
@@ -90,10 +91,14 @@
                             <span class="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5 font-medium">{{ $job->created_at ? $job->created_at->diffForHumans() : 'Active' }}</span>
                         </td>
 
-                        {{-- Customer & Service --}}
-                        <td class="px-4 sm:px-5 py-3.5 min-w-[150px]">
-                            <span class="font-bold text-black dark:text-white block truncate max-w-[190px] text-xs leading-snug">{{ $customerName }}</span>
-                            <span class="text-[11px] text-black dark:text-slate-200 font-semibold block truncate max-w-[190px] mt-0.5">{{ $service }}</span>
+                        {{-- Customer --}}
+                        <td class="px-4 sm:px-5 py-3.5 min-w-[130px]">
+                            <span class="font-bold text-black dark:text-white block truncate max-w-[180px] text-xs leading-snug">{{ $customerName }}</span>
+                        </td>
+
+                        {{-- Service --}}
+                        <td class="px-4 sm:px-5 py-3.5 min-w-[130px]">
+                            <span class="text-xs text-black dark:text-slate-200 font-semibold block truncate max-w-[180px]">{{ $service }}</span>
                         </td>
 
                         {{-- Material Specs --}}
@@ -152,7 +157,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="px-5 py-10 text-center text-cyber-muted text-xs">
+                        <td colspan="8" class="px-5 py-10 text-center text-cyber-muted text-xs">
                             <i class="fa-solid fa-box-archive text-cyber-sub text-3xl mb-2 block"></i>
                             {{ $emptyMessage }}
                         </td>

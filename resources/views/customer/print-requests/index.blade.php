@@ -33,7 +33,8 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">ID</th>
                         <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Service</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Qty / Size</th>
+                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Quantity</th>
+                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Size</th>
                         <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Deadline</th>
                         <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Status</th>
                         <th class="px-6 py-3 text-right text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Action</th>
@@ -44,18 +45,19 @@
                     <tr class="hover:bg-slate-50/50 transition">
                         <td class="px-6 py-4 font-bold text-navy-900">#{{ $req->id }}</td>
                         <td class="px-6 py-4 font-semibold text-slate-800">{{ $req->service }}</td>
-                        <td class="px-6 py-4 text-slate-600">{{ $req->quantity }} × {{ $req->size }}</td>
+                        <td class="px-6 py-4 text-slate-600 font-medium">{{ number_format($req->quantity) }}</td>
+                        <td class="px-6 py-4 text-slate-600">{{ $req->size ?? '—' }}</td>
                         <td class="px-6 py-4 text-slate-600">{{ $req->deadline?->format('M d, Y') ?? '—' }}</td>
                         <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 text-[11px] font-bold rounded uppercase
+                            <span class="text-xs font-bold uppercase
                                 {{ match($req->status) {
-                                    'submitted'   => 'bg-blue-100 text-blue-800',
-                                    'quotation'   => 'bg-amber-100 text-amber-800',
-                                    'payment'     => 'bg-orange-100 text-orange-800',
-                                    'production'  => 'bg-cyan-100 text-cyan-800',
-                                    'completed'   => 'bg-green-100 text-green-800',
-                                    'cancelled'   => 'bg-slate-100 text-slate-500',
-                                    default       => 'bg-slate-100 text-slate-600',
+                                    'submitted'   => 'text-blue-600 dark:text-blue-400',
+                                    'quotation'   => 'text-amber-600 dark:text-amber-400',
+                                    'payment'     => 'text-orange-600 dark:text-orange-400',
+                                    'production'  => 'text-cyan-600 dark:text-cyan-400',
+                                    'completed'   => 'text-emerald-600 dark:text-emerald-400',
+                                    'cancelled'   => 'text-slate-500 dark:text-slate-400',
+                                    default       => 'text-slate-500 dark:text-slate-400',
                                 } }}">
                                 {{ $req->status_label }}
                             </span>

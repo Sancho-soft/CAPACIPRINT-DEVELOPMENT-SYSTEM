@@ -1164,7 +1164,6 @@
 
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 font-mono">
                     <p>&copy; {{ date('Y') }} CapaciPrint Multi-Branch Commercial Printing Network. All rights reserved.</p>
-                    <p>Wide-Format Banners &bull; Precision Decals &bull; Apparel &amp; DTF Transfers</p>
                 </div>
             </div>
         </footer>

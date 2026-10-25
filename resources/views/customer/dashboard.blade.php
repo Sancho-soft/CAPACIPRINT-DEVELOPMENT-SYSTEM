@@ -27,41 +27,47 @@
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 3 KPI METRICS WITH COLORED ACCENTS --}}
+    {{-- 3 KPI METRICS WITH COLORED ACCENTS (CLICKABLE CARDS) --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {{-- Card 1: Active Orders (Cyan) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
+        <a href="{{ route('customer.orders.index', ['status' => 'active']) }}"
+           title="View Active Orders"
+           class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/50 hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-200 group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
+                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-cyan-400 transition-all"></i>
                 <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE ORDERS</div>
             </div>
             <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-white font-display">{{ $activeOrdersCount }}</div>
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $activeOrdersCount }}</div>
             </div>
-        </div>
+        </a>
 
         {{-- Card 2: Pending Quotations (Amber) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
+        <a href="{{ route('customer.quotations.index', ['status' => 'pending']) }}"
+           title="View Pending Quotations"
+           class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/50 hover:shadow-amber-500/10 hover:-translate-y-1 transition-all duration-200 group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
+                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-amber-400 transition-all"></i>
                 <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PENDING QUOTATIONS</div>
             </div>
             <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-white font-display">{{ $pendingQuotesCount }}</div>
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $pendingQuotesCount }}</div>
             </div>
-        </div>
+        </a>
 
         {{-- Card 3: Completed Orders (Emerald) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
+        <a href="{{ route('customer.orders.index', ['status' => 'completed']) }}"
+           title="View Completed Orders"
+           class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/50 hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-200 group cursor-pointer block">
             <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-clipboard-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
+                <i class="fa-solid fa-clipboard-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 group-hover:text-emerald-400 transition-all"></i>
                 <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">COMPLETED ORDERS</div>
             </div>
             <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-white font-display">{{ $completedOrdersCount }}</div>
+                <div class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ $completedOrdersCount }}</div>
             </div>
-        </div>
+        </a>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -92,7 +98,7 @@
                         {{ $latestOrder->printRequest->size ?? '' }}
                     </p>
                 </div>
-                <span class="px-3 py-1 text-xs font-bold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                <span class="text-xs font-bold uppercase text-cyan-600 dark:text-cyan-400">
                     {{ $latestOrder->status_label }}
                 </span>
             </div>
@@ -169,16 +175,16 @@
                         <td class="px-6 py-4 font-bold text-white">{{ $order->order_number }}</td>
                         <td class="px-6 py-4 text-slate-300">{{ $order->printRequest->service ?? '—' }}</td>
                         <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 text-[11px] font-bold rounded uppercase
+                            <span class="text-xs font-bold uppercase
                                 {{ match($order->status) {
-                                    'submitted'   => 'bg-blue-500/10 text-blue-400 border border-blue-500/20',
-                                    'quotation'   => 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
-                                    'payment'     => 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
-                                    'production'  => 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
-                                    'completed'   => 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-                                    'ready_for_pickup' => 'bg-teal-500/10 text-teal-400 border border-teal-500/20',
-                                    'claimed'     => 'bg-slate-500/10 text-slate-400 border border-slate-500/20',
-                                    default       => 'bg-slate-500/10 text-slate-400 border border-slate-500/20',
+                                    'submitted'   => 'text-blue-600 dark:text-blue-400',
+                                    'quotation'   => 'text-amber-600 dark:text-amber-400',
+                                    'payment'     => 'text-orange-600 dark:text-orange-400',
+                                    'production'  => 'text-cyan-600 dark:text-cyan-400',
+                                    'completed'   => 'text-emerald-600 dark:text-emerald-400',
+                                    'ready_for_pickup' => 'text-teal-600 dark:text-teal-400',
+                                    'claimed'     => 'text-slate-500 dark:text-slate-400',
+                                    default       => 'text-slate-500 dark:text-slate-400',
                                 } }}">
                                 {{ $order->status_label }}
                             </span>

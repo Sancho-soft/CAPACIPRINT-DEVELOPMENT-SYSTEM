@@ -4,14 +4,30 @@
 
 @section('content')
 <div class="space-y-6 w-full">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h2 class="text-2xl font-black text-cyber-main font-display">My Orders</h2>
             <p class="text-sm text-cyber-muted mt-1">Monitor all your print orders and their live production progress.</p>
         </div>
         <a href="{{ route('customer.print-requests.create') }}"
-           class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-2">
+           class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-2 self-start sm:self-auto">
             <i class="fa-solid fa-plus"></i> New Request
+        </a>
+    </div>
+
+    {{-- Filter Tabs --}}
+    <div class="flex flex-wrap items-center gap-2">
+        <a href="{{ route('customer.orders.index') }}"
+           class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition {{ !request('status') && !request('filter') ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'bg-cyber-card border border-cyber text-cyber-muted hover:text-cyber-main' }}">
+            All Orders
+        </a>
+        <a href="{{ route('customer.orders.index', ['status' => 'active']) }}"
+           class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 {{ request('status') === 'active' || request('filter') === 'active' ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'bg-cyber-card border border-cyber text-cyber-muted hover:text-cyber-main' }}">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Active Orders
+        </a>
+        <a href="{{ route('customer.orders.index', ['status' => 'completed']) }}"
+           class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 {{ request('status') === 'completed' || request('filter') === 'completed' ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/20' : 'bg-cyber-card border border-cyber text-cyber-muted hover:text-cyber-main' }}">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Completed Orders
         </a>
     </div>
 
@@ -51,16 +67,16 @@
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 text-[11px] font-bold rounded uppercase
+                            <span class="text-xs font-bold uppercase
                                 {{ match($order->status) {
-                                    'submitted'   => 'bg-blue-100 text-blue-800',
-                                    'quotation'   => 'bg-amber-100 text-amber-800',
-                                    'payment'     => 'bg-orange-100 text-orange-800',
-                                    'production'  => 'bg-cyan-100 text-cyan-800',
-                                    'completed'   => 'bg-green-100 text-green-800',
-                                    'ready_for_pickup' => 'bg-teal-100 text-teal-800',
-                                    'claimed'     => 'bg-slate-100 text-slate-600',
-                                    default       => 'bg-slate-100 text-slate-600',
+                                    'submitted'   => 'text-blue-600 dark:text-blue-400',
+                                    'quotation'   => 'text-amber-600 dark:text-amber-400',
+                                    'payment'     => 'text-orange-600 dark:text-orange-400',
+                                    'production'  => 'text-cyan-600 dark:text-cyan-400',
+                                    'completed'   => 'text-emerald-600 dark:text-emerald-400',
+                                    'ready_for_pickup' => 'text-teal-600 dark:text-teal-400',
+                                    'claimed'     => 'text-slate-500 dark:text-slate-400',
+                                    default       => 'text-slate-500 dark:text-slate-400',
                                 } }}">
                                 {{ $order->status_label }}
                             </span>
