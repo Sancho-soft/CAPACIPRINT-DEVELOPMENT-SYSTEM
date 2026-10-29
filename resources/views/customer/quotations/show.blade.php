@@ -39,122 +39,118 @@
     @php
         $qty = max(1, (int)($quotation->printRequest->quantity ?? 1));
         $unitPrice = $quotation->total_price / $qty;
-        $downPayment = $quotation->total_price * 0.80;
-        $balancePayment = $quotation->total_price * 0.20;
+        $downPayment = $quotation->total_price * 0.50;
+        $balancePayment = $quotation->total_price * 0.50;
     @endphp
 
-    <div class="bg-white text-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-2xl space-y-7">
-        
-        {{-- Header: Logo + Company Info (Left) | QUOTATION (Right) --}}
-        <div class="flex items-start justify-between gap-4 border-b border-slate-900 pb-5">
-            <div class="flex items-center gap-4">
-                <img src="{{ asset('images/morning-star-logo.png') }}" 
-                     alt="Morning Star Printing Press Co." 
-                     class="h-16 w-16 sm:h-20 sm:w-20 object-contain shrink-0">
-                <div>
-                    <h1 class="text-lg sm:text-2xl font-black text-slate-950 tracking-tight font-display uppercase leading-tight">
-                        MORNING STAR
-                    </h1>
-                    <h2 class="text-xs sm:text-sm font-black text-slate-800 uppercase tracking-wider">
-                        PRINTING PRESS CO.
-                    </h2>
-                    <p class="text-[11px] text-slate-700 font-medium mt-1">G/F La Fontana Bldg., Bolton Street, Davao City</p>
-                    <p class="text-[11px] text-slate-700 font-medium">315-1064 &bull; 0917 685 0444 &bull; 0933 859 8980</p>
-                </div>
-            </div>
+    <div class="bg-white text-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-2xl space-y-5">
 
-            <div class="text-right shrink-0">
-                <h2 class="text-2xl sm:text-4xl font-black text-slate-950 font-display tracking-tight uppercase">
-                    QUOTATION
-                </h2>
-                <span class="inline-block mt-1 font-mono text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded border border-slate-300">
-                    #{{ $quotation->quotation_number }}
-                </span>
+        {{-- Header: Logo LEFT + Company Name CENTER --}}
+        <div class="flex items-center gap-5 pb-4 border-b border-slate-900">
+            <img src="{{ asset('images/morning-star-logo.png') }}"
+                 alt="Morning Star Printing Press Co."
+                 class="h-20 w-20 sm:h-24 sm:w-24 object-contain shrink-0">
+            <div class="flex-1 text-center">
+                <h1 class="text-xl sm:text-2xl font-black text-slate-950 uppercase tracking-[0.15em] leading-tight">
+                    MORNING  STAR  PRINTING  PRESS  CO.
+                </h1>
+                <p class="text-[12px] text-slate-700 font-medium mt-1">G/F La Fontana Bldg., Bolton Street, Davao City</p>
+                <p class="text-[12px] text-slate-700 font-medium">315-1064 &bull; 0917 685 0444 &bull; 0933 859 8980</p>
             </div>
         </div>
 
-        {{-- Customer & Transaction Meta (Clean Softened Underlines) --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3.5 text-xs">
-            <div class="space-y-3">
-                <div class="flex items-baseline">
-                    <span class="font-bold text-slate-900 w-32 shrink-0">Customer Name:</span>
-                    <span class="border-b border-slate-300 flex-1 font-semibold text-slate-950 px-2 min-h-[22px]">
+        {{-- QUOTATION Title — Centered Standalone --}}
+        <div class="text-center py-1">
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-widest">QUOTATION</h2>
+        </div>
+
+        {{-- Customer Info — Bordered Grid (Physical Form Style) --}}
+        <div class="text-xs">
+            <table class="border-collapse w-full">
+                <tr>
+                    <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 w-28 bg-slate-50">Date:</td>
+                    <td class="border border-slate-900 py-1.5 px-2 text-slate-950 font-semibold">
+                        {{ $quotation->created_at->format('m/d/Y') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 bg-slate-50">Company:</td>
+                    <td class="border border-slate-900 py-1.5 px-2 text-slate-950">
                         {{ $quotation->user->name ?? 'Valued Customer' }}
-                    </span>
-                </div>
-                <div class="flex items-baseline">
-                    <span class="font-bold text-slate-900 w-32 shrink-0">Address:</span>
-                    <span class="border-b border-slate-300 flex-1 text-slate-800 px-2 min-h-[22px]">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 bg-slate-50">Address:</td>
+                    <td class="border border-slate-900 py-1.5 px-2 text-slate-800">
                         {{ $quotation->user->address ?? 'Davao City' }}
-                    </span>
-                </div>
-            </div>
-
-            <div class="space-y-3">
-                <div class="flex items-baseline">
-                    <span class="font-bold text-slate-900 w-28 shrink-0">Date:</span>
-                    <span class="border-b border-slate-300 flex-1 font-semibold text-slate-950 px-2 min-h-[22px]">
-                        {{ $quotation->created_at->format('F d, Y') }}
-                    </span>
-                </div>
-                <div class="flex items-baseline">
-                    <span class="font-bold text-slate-900 w-28 shrink-0">Contact No.:</span>
-                    <span class="border-b border-slate-300 flex-1 text-slate-800 px-2 min-h-[22px]">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 bg-slate-50">Contact No.:</td>
+                    <td class="border border-slate-900 py-1.5 px-2 text-slate-800">
                         {{ $quotation->user->phone ?? '—' }}
-                    </span>
-                </div>
-            </div>
+                    </td>
+                </tr>
+            </table>
         </div>
 
-        {{-- Accounting Table (Seamless & Compact, No Artificial Void) --}}
-        <div class="overflow-hidden border border-slate-900 rounded-lg">
+        {{-- Accounting Table: QTY | DESCRIPTION | U/P | AMOUNT --}}
+        <div class="overflow-hidden border border-slate-900">
             <table class="w-full text-left text-xs border-collapse">
                 <thead>
                     <tr class="bg-slate-100 font-bold uppercase text-[11px] text-slate-900 border-b border-slate-900">
-                        <th class="py-2.5 px-3 w-[15%] text-center border-r border-slate-900">Quantity</th>
-                        <th class="py-2.5 px-4 w-[55%] border-r border-slate-900">Description</th>
-                        <th class="py-2.5 px-3 w-[15%] text-right border-r border-slate-900">Unit Price</th>
-                        <th class="py-2.5 px-4 w-[15%] text-right">Amount</th>
+                        <th class="py-2 px-3 w-[12%] text-center border-r border-slate-900">QTY</th>
+                        <th class="py-2 px-4 w-[58%] border-r border-slate-900">DESCRIPTION</th>
+                        <th class="py-2 px-3 w-[15%] text-right border-r border-slate-900">U/P</th>
+                        <th class="py-2 px-3 w-[15%] text-right">AMOUNT</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-200">
-                    <tr class="align-top">
-                        <td class="py-3 px-3 text-center font-bold text-slate-950 border-r border-slate-900">
-                            {{ number_format($qty) }} {{ $qty > 1 ? 'pcs' : 'pc' }}
+                <tbody>
+                    {{-- Data Row --}}
+                    <tr class="align-top border-b border-slate-300">
+                        <td class="py-2.5 px-3 text-center font-bold text-slate-950 border-r border-slate-900">
+                            {{ number_format($qty) }}
                         </td>
-                        <td class="py-3 px-4 space-y-1 border-r border-slate-900">
-                            <span class="font-black text-sm text-slate-950 block">
+                        <td class="py-2.5 px-4 border-r border-slate-900">
+                            <span class="font-bold text-slate-950 block">
                                 {{ $quotation->printRequest->service ?? 'Custom Print Service' }}
                             </span>
-                            <div class="text-[11px] text-slate-700 space-y-0.5">
-                                <p><strong>Size:</strong> {{ $quotation->printRequest->size ?? 'Standard Specification' }}</p>
-                                <p><strong>Material:</strong> {{ $quotation->printRequest->material ?? 'Standard Media' }}</p>
+                            <div class="text-[11px] text-slate-700 space-y-0.5 mt-0.5">
+                                <p>{{ $quotation->printRequest->size ?? '' }}</p>
+                                @if($quotation->printRequest->material)
+                                    <p>{{ $quotation->printRequest->material }}</p>
+                                @endif
                                 @if($quotation->printRequest->finishing)
-                                    <p><strong>Finishing / Binding:</strong> {{ $quotation->printRequest->finishing }}</p>
+                                    <p>{{ $quotation->printRequest->finishing }}</p>
                                 @endif
                                 @if($quotation->notes)
-                                    <p class="italic text-slate-600 mt-1"><strong>Special Notes:</strong> {{ $quotation->notes }}</p>
+                                    <p class="italic text-slate-600">{{ $quotation->notes }}</p>
                                 @endif
-                            </div>
                         </td>
-                        <td class="py-3 px-3 text-right font-mono font-bold text-slate-900 border-r border-slate-900">
-                            ₱{{ number_format($unitPrice, 2) }}
+                        <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-900 border-r border-slate-900 align-top">
+                            {{ number_format($unitPrice, 2) }}
                         </td>
-                        <td class="py-3 px-4 text-right font-mono font-bold text-slate-950">
-                            ₱{{ number_format($quotation->total_price, 2) }}
+                        <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-950 align-top">
+                            {{ number_format($quotation->total_price, 2) }}
                         </td>
                     </tr>
-
-                    {{-- Total Summary Row directly connected --}}
-                    <tr class="font-bold text-sm bg-slate-50 border-t border-slate-900">
-                        <td colspan="2" class="py-2.5 px-4 text-slate-600 text-xs italic border-r border-slate-900">
-                            Official pricing inclusive of standard materials, pre-press setup &amp; processing.
+                    {{-- 8 Empty Rows (Physical Form Style) --}}
+                    @for($i = 0; $i < 8; $i++)
+                    <tr class="border-b border-slate-200">
+                        <td class="py-2 px-3 border-r border-slate-900">&nbsp;</td>
+                        <td class="py-2 px-4 border-r border-slate-900">&nbsp;</td>
+                        <td class="py-2 px-3 border-r border-slate-900">&nbsp;</td>
+                        <td class="py-2 px-3">&nbsp;</td>
+                    </tr>
+                    @endfor
+                    {{-- TOTAL Row --}}
+                    <tr class="border-t border-slate-900 bg-slate-50 font-bold">
+                        <td colspan="2" class="py-2.5 px-4 text-center font-black text-slate-900 border-r border-slate-900 uppercase tracking-wider text-xs">
+                            TOTAL
                         </td>
-                        <td class="py-2.5 px-3 text-right uppercase tracking-wider font-black text-slate-900 border-r border-slate-900">
-                            Total:
-                        </td>
-                        <td class="py-2.5 px-4 text-right font-black font-mono text-base text-slate-950">
-                            ₱{{ number_format($quotation->total_price, 2) }}
+                        <td class="py-2.5 px-3 border-r border-slate-900">&nbsp;</td>
+                        <td class="py-2.5 px-3 text-right font-black font-mono text-slate-950">
+                            {{ number_format($quotation->total_price, 2) }}
                         </td>
                     </tr>
                 </tbody>
@@ -162,34 +158,30 @@
         </div>
 
         {{-- Terms & Sign-off --}}
-        <div class="pt-2 flex flex-col sm:flex-row items-start justify-between gap-8 text-xs">
-            <div class="space-y-2 min-w-[280px]">
-                <div>
-                    <span class="font-black text-slate-950 uppercase tracking-wider underline block mb-1">Terms:</span>
-                    <div class="pl-4 space-y-1 text-slate-800 font-medium">
-                        <p>: 80% down payment <span class="font-bold text-slate-950 font-mono">(₱{{ number_format($downPayment, 2) }})</span></p>
-                        <p>: 20% after completion <span class="font-bold text-slate-950 font-mono">(₱{{ number_format($balancePayment, 2) }})</span></p>
-                    </div>
-                </div>
-                
-                <div class="pt-2 flex items-baseline gap-2">
+        <div class="pt-1 flex flex-col sm:flex-row items-end justify-between gap-6 text-xs">
+            <div class="space-y-1">
+                <span class="font-black text-slate-950 uppercase tracking-wider underline block">TERMS:</span>
+                <p class="text-slate-800 font-medium">50% Downpayment</p>
+                <p class="text-slate-800 font-medium">50% after completion</p>
+                <p class="text-slate-800 font-medium">GCash No. 09176850444 Judith M</p>
+                <div class="pt-1 flex items-baseline gap-2">
                     <span class="font-bold text-slate-950">Due Date:</span>
-                    <span class="border-b border-slate-300 px-2 font-bold text-slate-950 min-w-[160px]">
+                    <span class="border-b border-slate-900 px-2 font-bold text-slate-950 min-w-[140px]">
                         {{ $quotation->valid_until ? $quotation->valid_until->format('F d, Y') : now()->addDays(7)->format('F d, Y') }}
                     </span>
                 </div>
             </div>
 
-            <div class="text-center sm:text-right shrink-0 w-full sm:w-auto">
-                <p class="font-bold text-slate-900 mb-8 text-left sm:text-right">Prepared by:</p>
-                <div class="inline-block text-center min-w-[220px]">
-                    <div class="border-b border-slate-900 pb-1">
-                        <span class="font-bold text-slate-950 block text-xs">Alex Beniga</span>
-                    </div>
-                    <span class="font-black text-slate-950 uppercase tracking-wider text-[11px] block mt-1">
-                        Customer Service
+            <div class="text-center shrink-0 min-w-[200px]">
+                {{-- Signature space --}}
+                <div class="h-10 border-b border-slate-900 w-full"></div>
+                <div class="mt-1 flex items-center justify-between gap-2">
+                    <span class="font-bold text-slate-900">Prepared by:</span>
+                    <span class="font-bold text-slate-950 text-[11px]">
+                        {{ auth()->user()->name ?? 'Customer Service' }}
                     </span>
                 </div>
+                <p class="text-[11px] text-slate-700 text-right">Customer service</p>
             </div>
         </div>
 
@@ -200,7 +192,7 @@
     <div class="bg-cyber-card border border-cyber p-6 rounded-2xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
             <h4 class="font-black text-cyber-main text-sm font-display">Confirm &amp; Proceed with this Quotation</h4>
-            <p class="text-xs text-cyber-muted mt-0.5">Upon confirmation, your order is routed to production and initial 80% down payment invoice is generated.</p>
+            <p class="text-xs text-cyber-muted mt-0.5">Upon confirmation, your order is routed to production and the 50% down payment invoice is generated.</p>
         </div>
         <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
             <form method="POST" action="{{ route('customer.quotations.decline', $quotation) }}">
