@@ -20,7 +20,7 @@
         <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3 text-xs">
             <h3 class="font-bold text-navy-900 border-b border-slate-100 pb-2">Customer &amp; Payment Status</h3>
             <p><span class="text-slate-400 block">Customer Name</span><strong class="text-slate-800 text-sm">{{ $order->user->name ?? '—' }}</strong></p>
-            <p><span class="text-slate-400 block">Payment Reference</span><strong class="text-slate-800">{{ $order->payment->payment_reference ?? 'Not submitted' }}</strong></p>
+            <p><span class="text-slate-400 block">Payment Reference</span><strong class="text-slate-800 font-mono">{{ $order->payment?->display_reference ?? '—' }}</strong></p>
             <p><span class="text-slate-400 block">Payment Status</span>
                 <span class="inline-block mt-1 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase {{ match($order->payment_status) { 'confirmed'=>'bg-emerald-100 text-emerald-800', 'submitted'=>'bg-amber-100 text-amber-800', default=>'bg-slate-100 text-slate-600' } }}">
                     {{ $order->payment_status_label }}

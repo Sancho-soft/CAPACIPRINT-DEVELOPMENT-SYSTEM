@@ -81,7 +81,7 @@ class DashboardController extends Controller
         foreach ($pendingPaymentOrders as $pOrd) {
             $attentionItems[] = [
                 'title'        => "Payment Verification Required: {$pOrd->order_number}",
-                'description'  => "Customer: " . ($pOrd->user->name ?? 'Client') . " submitted payment proof for ₱" . number_format($pOrd->payment->amount ?? 0, 2) . " (Ref: " . ($pOrd->payment->payment_reference ?? 'N/A') . ")",
+                'description'  => "Customer: " . ($pOrd->user->name ?? 'Client') . " submitted payment proof for ₱" . number_format($pOrd->payment->amount ?? 0, 2) . " (Ref: " . ($pOrd->payment->display_reference ?? 'N/A') . ")",
                 'severity'     => 'critical',
                 'icon'         => 'fa-solid fa-credit-card',
                 'badge'        => 'PAYMENT PENDING',

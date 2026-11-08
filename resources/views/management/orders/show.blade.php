@@ -209,7 +209,7 @@
                     @if($order->payment)
                     <div class="flex items-center justify-between py-1 text-slate-400">
                         <span>Payment Reference</span>
-                        <span class="font-mono font-bold text-black dark:text-white">{{ $order->payment->payment_reference ?? '—' }}</span>
+                        <span class="font-mono font-bold text-black dark:text-white">{{ $order->payment->display_reference ?? '—' }}</span>
                     </div>
                     @endif
                 </div>

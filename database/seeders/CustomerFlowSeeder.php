@@ -176,7 +176,7 @@ class CustomerFlowSeeder extends Seeder
                 'user_id'           => $c3->id,
                 'payment_method'    => 'GCash',
                 'amount'            => 2350.00,
-                'payment_reference' => 'PAY-GCASH-98214',
+                'payment_reference' => 'Ref No. 987654321012345',
                 'status'            => 'confirmed',
                 'paid_at'           => Carbon::now()->subDay(),
             ]
@@ -260,7 +260,7 @@ class CustomerFlowSeeder extends Seeder
                 'user_id'           => $c4->id,
                 'payment_method'    => 'Bank Transfer',
                 'amount'            => 3150.00,
-                'payment_reference' => 'PAY-BDO-55192',
+                'payment_reference' => 'PAY-2026-551920',
                 'status'            => 'confirmed',
                 'paid_at'           => Carbon::now()->subDays(2),
             ]
@@ -356,7 +356,7 @@ class CustomerFlowSeeder extends Seeder
                 'user_id'           => $c5->id,
                 'payment_method'    => 'Bank Transfer',
                 'amount'            => 4200.00,
-                'payment_reference' => 'PAY-CC-77189',
+                'payment_reference' => 'PAY-2026-771890',
                 'status'            => 'confirmed',
                 'paid_at'           => Carbon::now()->subDays(3),
             ]
@@ -438,7 +438,7 @@ class CustomerFlowSeeder extends Seeder
                 'user_id'           => $c6->id,
                 'payment_method'    => 'Bank Transfer',
                 'amount'            => 2800.00,
-                'payment_reference' => 'PAY-BPI-44219',
+                'payment_reference' => 'PAY-2026-442190',
                 'status'            => 'submitted',
                 'paid_at'           => Carbon::now()->subHours(4),
                 'notes'             => 'Transferred via BPI Mobile Banking. Awaiting staff receipt verification.',

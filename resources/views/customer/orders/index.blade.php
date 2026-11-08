@@ -42,19 +42,19 @@
         </div>
         @else
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-slate-100 text-sm">
-                <thead class="bg-slate-50">
+            <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                <thead class="bg-white dark:bg-[#111A24] border-b border-slate-200 dark:border-slate-800">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Order No.</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Service</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Branch</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Est. Completion</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Payment</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-right text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Action</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Order No.</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Service</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Branch</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Est. Completion</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Payment</th>
+                        <th class="px-6 py-3.5 text-left text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3.5 text-right text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">Action</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-slate-100">
+                <tbody class="bg-white dark:bg-[#111A24] divide-y divide-slate-200 dark:divide-slate-800">
                     @foreach($orders as $order)
                     <tr class="hover:bg-slate-50/50 transition">
                         <td class="px-6 py-4 font-bold text-navy-900">#{{ $order->order_number }}</td>
@@ -92,7 +92,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-6 py-4 border-t border-slate-100">
+        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800">
             {{ $orders->links() }}
         </div>
         @endif

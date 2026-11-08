@@ -106,7 +106,12 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Payment</p>
-                <p class="font-bold text-navy-900 mt-0.5">Ref: {{ $order->payment->payment_reference ?? 'Not submitted' }}</p>
+                <p class="font-bold text-navy-900 mt-0.5">
+                    {{ str_replace([' (Over-the-Counter)', ' on Pickup'], '', $order->payment->payment_method ?? 'Cash') }}
+                    @if($order->payment->display_reference !== '—')
+                        &middot; Ref: <span class="font-mono text-xs">{{ $order->payment->display_reference }}</span>
+                    @endif
+                </p>
             </div>
             <div class="text-right">
                 <p class="text-xl font-black text-navy-900 font-display">₱{{ number_format($order->payment->amount, 2) }}</p>

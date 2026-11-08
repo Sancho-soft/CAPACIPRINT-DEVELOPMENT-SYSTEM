@@ -27,7 +27,7 @@
                     <td class="px-6 py-4 font-black text-xl text-navy-900 bg-brand-50 font-display">₱{{ number_format($payment->amount, 2) }}</td>
                 </tr>
                 <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Payment Method</td><td class="px-6 py-3 font-bold text-navy-900">{{ str_replace([' (Over-the-Counter)', ' on Pickup'], '', $payment->payment_method ?? 'Cash') }}</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Payment Reference</td><td class="px-6 py-3 text-slate-800">{{ $payment->payment_reference ?? 'Not yet submitted' }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Payment Reference</td><td class="px-6 py-3 text-slate-800 font-mono">{{ $payment->display_reference }}</td></tr>
                 <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Date Submitted</td><td class="px-6 py-3 text-slate-800">{{ $payment->paid_at?->format('F d, Y h:i A') ?? '—' }}</td></tr>
                 @if($payment->notes)<tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Notes</td><td class="px-6 py-3 text-slate-800">{{ $payment->notes }}</td></tr>@endif
             </tbody>
@@ -35,27 +35,40 @@
     </div>
 
     @if($payment->status === 'pending')
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm p-6 space-y-4">
-        <h3 class="font-bold text-navy-900">Submit Payment Reference</h3>
-        <p class="text-sm text-slate-500">After transferring the amount, select your payment method and enter your transaction/reference number below. Our team will verify and confirm.</p>
+    <div class="bg-white border border-slate-100 rounded-xl shadow-sm p-6 space-y-4" x-data="{ method: '{{ old('payment_method', 'GCash') }}' }">
+        <h3 class="font-bold text-navy-900">Submit Payment Details</h3>
+        <p class="text-sm text-slate-500">Select your preferred payment method below. For online payments, enter your transaction reference number. For cash, you can pay directly upon claiming your order.</p>
 
         <form method="POST" action="{{ route('customer.payments.submit', $payment) }}" class="space-y-4">
             @csrf
             <div>
                 <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wide mb-1.5">Payment Method <span class="text-red-500">*</span></label>
-                <select name="payment_method" required
+                <select name="payment_method" required x-model="method"
                         class="block w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400 transition bg-white">
-                    <option value="Cash">Cash</option>
+                    <option value="Cash">Cash on Pickup / Over-the-Counter</option>
                     <option value="GCash">GCash</option>
                     <option value="Maya">Maya</option>
                     <option value="Bank Transfer">Bank Transfer</option>
                 </select>
             </div>
-            <div>
+
+            {{-- Reference for Electronic / Online Payments --}}
+            <div x-show="method !== 'Cash'" x-cloak>
                 <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wide mb-1.5">Payment Reference / Transaction ID <span class="text-red-500">*</span></label>
-                <input type="text" name="payment_reference" required placeholder="e.g. GCash Ref #12345678 or Cash OTC"
+                <input type="text" name="payment_reference" :required="method !== 'Cash'" 
+                       :placeholder="method === 'GCash' ? 'e.g. Ref No. 987654321012345' : (method === 'Bank Transfer' ? 'e.g. PAY-2026-847291' : 'e.g. Ref No. 987654321012345')"
                        class="block w-full rounded-lg border border-slate-200 px-3.5 py-2.5 text-sm focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400 transition">
             </div>
+
+            {{-- Cash Explanatory Banner --}}
+            <div x-show="method === 'Cash'" class="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-800 dark:text-cyan-300 flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-info mt-0.5 text-cyan-600 dark:text-cyan-400 shrink-0"></i>
+                <div>
+                    <p class="font-bold">No Reference Code Required for Cash</p>
+                    <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">Please prepare the exact payment amount (₱{{ number_format($payment->amount, 2) }}) upon claiming your printed order at the counter.</p>
+                </div>
+            </div>
+
             <div>
                 <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wide mb-1.5">Additional Notes</label>
                 <textarea name="notes" rows="2" placeholder="Any additional information..."
@@ -63,7 +76,7 @@
             </div>
             <button type="submit"
                     class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl text-sm transition shadow">
-                <i class="fa-solid fa-paper-plane mr-2"></i> Submit Payment Reference
+                <i class="fa-solid fa-paper-plane mr-2"></i> Submit Payment Details
             </button>
         </form>
     </div>

@@ -556,9 +556,12 @@ class OperationalSeeder extends Seeder
                         1, 3    => 'Bank Transfer',
                         default => 'Cash',
                     };
-                    $payRef = ($pm === 'Cash')
-                        ? sprintf('OTC-CASH-%04d', $orderCounter)
-                        : "PAY-{$yearNum}-" . strtoupper(Str::random(6));
+                    $payRef = match ($pm) {
+                        'Cash'          => null,
+                        'GCash'         => 'Ref No. 9' . str_pad(rand(10000000000000, 99999999999999), 14, '0', STR_PAD_LEFT),
+                        'Maya'          => 'Ref No. 8' . str_pad(rand(10000000000000, 99999999999999), 14, '0', STR_PAD_LEFT),
+                        default         => "PAY-{$yearNum}-" . str_pad(rand(100000, 999999), 6, '0', STR_PAD_LEFT), // Bank Transfer e.g. PAY-2026-847291
+                    };
 
                     Payment::updateOrCreate(
                         ['order_id' => $order->id],

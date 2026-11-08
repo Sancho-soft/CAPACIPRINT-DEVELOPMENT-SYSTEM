@@ -14,10 +14,19 @@ class PrintRequestController extends Controller
      */
     public function index(Request $request)
     {
-        $printRequests = $request->user()
-            ->printRequests()
-            ->latest()
-            ->paginate(7);
+        $query = $request->user()->printRequests()->latest();
+
+        if ($search = $request->get('search')) {
+            $cleanSearch = ltrim($search, '#');
+            $query->where(function ($q) use ($search, $cleanSearch) {
+                $q->where('id', 'like', "%{$cleanSearch}%")
+                  ->orWhere('service', 'like', "%{$search}%")
+                  ->orWhere('status', 'like', "%{$search}%")
+                  ->orWhere('material', 'like', "%{$search}%");
+            });
+        }
+
+        $printRequests = $query->paginate(7)->withQueryString();
 
         return view('customer.print-requests.index', compact('printRequests'));
     }

@@ -184,8 +184,10 @@
 
         /* Dividers */
         html.dark-theme main .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
-        html.dark main .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
-            border-color: rgba(30,41,59,0.6) !important;
+        html.dark main .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+        html.dark-theme main .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
+        html.dark main .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+            border-color: rgba(30,41,59,0.8) !important;
         }
 
         /* Text colors — dark headings become light */
@@ -407,7 +409,13 @@
         }
 
         /* Dividers */
-        html.light-theme .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]) {
+        html.light-theme .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]),
+        html.light-theme .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
+        html.light-theme .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+            border-color: #E2E8F0 !important;
+        }
+        html.light-theme .border-slate-200,
+        html.light-theme .border-slate-100 {
             border-color: #E2E8F0 !important;
         }
 
