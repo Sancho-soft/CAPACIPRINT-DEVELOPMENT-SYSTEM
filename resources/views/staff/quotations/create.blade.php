@@ -17,7 +17,6 @@
                     <h2 class="text-base sm:text-lg font-black text-slate-950 font-display uppercase tracking-tight">
                         Morning Star Printing Press Co.
                     </h2>
-                    <p class="text-xs text-slate-500 font-medium">Prepare Official Quotation for Client Print Request</p>
                 </div>
             </div>
             <span class="text-xs font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-xl border border-blue-200">
@@ -59,10 +58,10 @@
                 return q > 0 ? (this.total / q) : this.total;
             },
             get downPayment() {
-                return this.total * 0.80;
+                return this.total * 0.50;
             },
             get balancePayment() {
-                return this.total * 0.20;
+                return this.total * 0.50;
             }
         }">
             @csrf
@@ -70,7 +69,7 @@
             {{-- Request Selection --}}
             <div>
                 <label class="block font-bold text-slate-800 mb-1.5">
-                    Select Print Request <span class="text-red-500">*</span>
+                    Select Print Request
                 </label>
                 <select name="print_request_id" 
                         x-model="selectedId" 
@@ -96,23 +95,23 @@
             {{-- 3-Part Cost Inputs --}}
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Base Cost (₱) <span class="text-red-500">*</span></label>
+                    <label class="block font-bold text-slate-700 mb-1">Base Cost (₱)</label>
                     <input type="number" step="0.01" name="base_cost" x-model="baseCost" required
                            class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs font-bold text-slate-900 focus:border-blue-500 focus:outline-none transition">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Material Cost (₱) <span class="text-red-500">*</span></label>
+                    <label class="block font-bold text-slate-700 mb-1">Material Cost (₱)</label>
                     <input type="number" step="0.01" name="material_cost" x-model="materialCost" required
                            class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs font-bold text-slate-900 focus:border-blue-500 focus:outline-none transition">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Finishing Cost (₱) <span class="text-red-500">*</span></label>
+                    <label class="block font-bold text-slate-700 mb-1">Finishing Cost (₱)</label>
                     <input type="number" step="0.01" name="finishing_cost" x-model="finishingCost" required
                            class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs font-bold text-slate-900 focus:border-blue-500 focus:outline-none transition">
                 </div>
             </div>
 
-            {{-- Live Quotation Summary Card (Matches Physical Accounting & 80/20 Terms) --}}
+            {{-- Live Quotation Summary Card (Matches Physical Accounting & 50/50 Terms) --}}
             <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
                     <div class="flex items-center gap-2.5">
@@ -127,15 +126,15 @@
                     <span class="text-2xl sm:text-3xl font-black font-display text-blue-600 tracking-tight" x-text="'₱' + (parseFloat(total)||0).toFixed(2)">₱0.00</span>
                 </div>
 
-                {{-- Official Morning Star Terms Breakdown --}}
+                {{-- Official Morning Star Terms Breakdown (50% Downpayment, 50% after completion) --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                     <div class="p-3 bg-white rounded-xl border border-slate-200">
-                        <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Official Terms: Down Payment (80%)</span>
+                        <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">50% Downpayment</span>
                         <span class="text-base font-black text-slate-900 font-mono" x-text="'₱' + downPayment.toFixed(2)">₱0.00</span>
                         <span class="text-[10px] text-slate-400 block mt-0.5">Required before press floor start</span>
                     </div>
                     <div class="p-3 bg-white rounded-xl border border-slate-200">
-                        <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Official Terms: Upon Completion (20%)</span>
+                        <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">50% After Completion</span>
                         <span class="text-base font-black text-slate-900 font-mono" x-text="'₱' + balancePayment.toFixed(2)">₱0.00</span>
                         <span class="text-[10px] text-slate-400 block mt-0.5">Settled upon claiming / delivery</span>
                     </div>
@@ -145,7 +144,7 @@
             {{-- Valid Until & Notes --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Due Date / Valid Until <span class="text-red-500">*</span></label>
+                    <label class="block font-bold text-slate-700 mb-1">Due Date / Valid Until</label>
                     <input type="date" name="valid_until" value="{{ now()->addDays(14)->format('Y-m-d') }}" required
                            class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-blue-500 focus:outline-none transition font-medium">
                 </div>

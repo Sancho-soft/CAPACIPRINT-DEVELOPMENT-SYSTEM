@@ -147,36 +147,94 @@
 </div>
 
 <!-- Edit Customer Contact Modal -->
-<div id="edit-customer-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-    <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 w-full max-w-md shadow-2xl space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-base font-black text-navy-900 font-display flex items-center gap-2">
-                <i class="fa-solid fa-user-pen text-slate-600"></i> Edit Customer Info
-            </h3>
-            <button type="button" onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
-                <i class="fa-solid fa-xmark text-lg"></i>
+<div id="edit-customer-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 dark:bg-black/75 backdrop-blur-xs p-4 transition-all">
+    <div class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden transition-all transform animate-in fade-in zoom-in-95 duration-150">
+        {{-- Modal Header --}}
+        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-sm shrink-0 shadow-2xs">
+                    <i class="fa-solid fa-user-pen"></i>
+                </div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-tight">Edit Customer Info</h3>
+            </div>
+            <button type="button" 
+                    onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" 
+                    class="h-8 w-8 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center justify-center transition cursor-pointer"
+                    title="Close">
+                <i class="fa-solid fa-xmark text-sm"></i>
             </button>
         </div>
-        <form id="edit-customer-form" method="POST" action="" class="space-y-4 text-xs">
+
+        {{-- Modal Form --}}
+        <form id="edit-customer-form" method="POST" action="">
             @csrf
             @method('PUT')
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Full Name</label>
-                <input type="text" id="edit-cust-name" name="name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:ring-2 focus:ring-slate-500 focus:outline-none">
+
+            <div class="p-6 space-y-4 text-xs">
+                {{-- Full Name --}}
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                        Full Name
+                    </label>
+                    <div class="relative flex items-center">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-xs">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <input type="text" 
+                               id="edit-cust-name" 
+                               name="name" 
+                               required 
+                               placeholder="e.g. Juan Dela Cruz"
+                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-2xs">
+                    </div>
+                </div>
+
+                {{-- Email Address --}}
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                        Email Address
+                    </label>
+                    <div class="relative flex items-center">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-xs">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <input type="email" 
+                               id="edit-cust-email" 
+                               name="email" 
+                               required 
+                               placeholder="customer@example.com"
+                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-2xs">
+                    </div>
+                </div>
+
+                {{-- Phone Number --}}
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                        Phone Number
+                    </label>
+                    <div class="relative flex items-center">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-xs">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <input type="text" 
+                               id="edit-cust-phone" 
+                               name="phone" 
+                               placeholder="+63 912 345 6789"
+                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-2xs">
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Email Address</label>
-                <input type="email" id="edit-cust-email" name="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:ring-2 focus:ring-slate-500 focus:outline-none">
-            </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Phone Number</label>
-                <input type="text" id="edit-cust-phone" name="phone" placeholder="+63 912 345 6789" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:ring-2 focus:ring-slate-500 focus:outline-none">
-            </div>
-            <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
-                <button type="button" onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition">
+
+            {{-- Footer Actions (Full-width divider bar) --}}
+            <div class="px-6 py-4 bg-slate-50/80 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-end gap-2.5">
+                <button type="button" 
+                        onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" 
+                        class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-xs transition cursor-pointer">
                     Cancel
                 </button>
-                <button type="submit" class="px-4 py-2 bg-navy-900 hover:bg-navy-800 text-white font-black rounded-xl transition shadow-md">
+                <button type="submit" 
+                        class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-sm shadow-emerald-600/30 hover:shadow transition cursor-pointer">
+                    <i class="fa-solid fa-check text-xs"></i>
                     Save Changes
                 </button>
             </div>
@@ -202,5 +260,12 @@
         form.action = '/staff/customers/' + data.id;
         document.getElementById('edit-customer-modal').classList.remove('hidden');
     }
+
+    // Close on outside backdrop click
+    document.getElementById('edit-customer-modal')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.add('hidden');
+        }
+    });
 </script>
 @endsection

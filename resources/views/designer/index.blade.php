@@ -98,7 +98,8 @@
                 <thead class="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800/80 text-[10px] bg-slate-50/50 dark:bg-[#0D1520]">
                     <tr>
                         <th class="px-6 py-4">Request #</th>
-                        <th class="px-6 py-4">Customer &amp; Service</th>
+                        <th class="px-6 py-4">Customer</th>
+                        <th class="px-6 py-4">Service</th>
                         <th class="px-6 py-4">Specifications</th>
                         <th class="px-6 py-4">Client Artwork</th>
                         <th class="px-6 py-4">Proof Status</th>
@@ -115,10 +116,14 @@
                                 <span class="block text-[11px] text-slate-400 mt-0.5">{{ $req->created_at->format('M d, Y') }}</span>
                             </td>
 
-                            {{-- Customer & Service --}}
-                            <td class="px-6 py-4">
-                                <p class="font-bold text-slate-900 dark:text-white text-xs">{{ $req->user->name ?? 'Customer' }}</p>
-                                <p class="text-[11px] text-cyan-700 dark:text-cyan-400 font-medium mt-0.5">{{ $req->service }}</p>
+                            {{-- Customer --}}
+                            <td class="px-6 py-4 font-bold text-slate-900 dark:text-white text-xs">
+                                {{ $req->user->name ?? 'Customer' }}
+                            </td>
+
+                            {{-- Service --}}
+                            <td class="px-6 py-4 font-medium text-slate-800 dark:text-slate-200 text-xs">
+                                {{ $req->service }}
                             </td>
 
                             {{-- Specifications --}}
@@ -175,7 +180,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-12 text-center text-slate-400 dark:text-slate-500">
+                            <td colspan="7" class="px-6 py-12 text-center text-slate-400 dark:text-slate-500">
                                 <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300 dark:text-slate-600 block"></i>
                                 <p class="text-sm font-medium text-slate-600 dark:text-slate-400">No design requests found in this queue.</p>
                                 <p class="text-xs text-slate-400 mt-0.5">Try clearing your search query or selecting a different status filter.</p>
