@@ -5,32 +5,23 @@
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto">
 
-    {{-- Header Banner --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    {{-- Page Header: Dashboard Overview --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="text-xl sm:text-2xl font-black font-display text-cyber-main">Dashboard Overview</h2>
+        </div>
 
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display text-cyber-main">Dashboard Overview</h2>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full md:w-auto justify-start md:justify-end">
-                <a href="{{ route('manager.capacity.index') }}" 
-                   class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700 flex items-center gap-2 transition shadow-xs">
-                    <i class="fa-solid fa-calculator text-cyan-600 dark:text-cyan-400"></i>
-                    <span>Capacity Evaluation</span>
-                </a>
-                <a href="{{ route('manager.workload.index') }}" 
-                   class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line text-xs"></i>
-                    <span>Workload Monitor</span>
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <a href="{{ route('manager.capacity.index') }}" 
+               class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700 flex items-center gap-2 transition shadow-xs">
+                <i class="fa-solid fa-calculator text-cyan-600 dark:text-cyan-400"></i>
+                <span>Capacity Evaluation</span>
+            </a>
+            <a href="{{ route('manager.workload.index') }}" 
+               class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-xs"></i>
+                <span>Workload Monitor</span>
+            </a>
         </div>
     </div>
 
@@ -158,11 +149,11 @@
                     $totalPriorityCount = max(1, array_sum($planningPriorityBreakdown));
                     $priLabels = array_keys($planningPriorityBreakdown);
                     $priValues = array_values($planningPriorityBreakdown);
-                    $priColors = [
-                        '#f43f5e', // Rose for Rush / Urgent
-                        '#f59e0b', // Amber for High Priority
-                        '#06b6d4', // Cyan for Standard Run
-                        '#8b5cf6', // Purple for Quality Checking
+                    $priBgClasses = [
+                        'bg-rose-500',
+                        'bg-amber-500',
+                        'bg-cyan-500',
+                        'bg-purple-500',
                     ];
                 @endphp
 
@@ -180,11 +171,11 @@
                     @foreach($planningPriorityBreakdown as $pLabel => $pVal)
                         @php
                             $pPct = round(($pVal / $totalPriorityCount) * 100);
-                            $pDot = $priColors[$loop->index % count($priColors)];
+                            $dotBg = $priBgClasses[$loop->index % count($priBgClasses)];
                         @endphp
                         <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $pDot }}"></span>
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs {{ $dotBg }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $pLabel }}</span>
                             </div>
                             <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
@@ -389,18 +380,31 @@
 
 </div>
 
+{{-- JSON Configuration Bridge for Chart.js (Eliminates inline Blade tags in JS) --}}
+<script type="application/json" id="planning-chart-data">
+{!! json_encode([
+    'branchLabels' => $branchChartLabels ?? ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub'],
+    'branchValues' => $branchActiveData ?? [6, 4, 2],
+    'stageData'    => $stageBreakdown ?? [],
+    'priLabels'    => $priLabels ?? [],
+    'priValues'    => $priValues ?? [],
+]) !!}
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
+        const chartDataEl = document.getElementById('planning-chart-data');
+        const chartData = chartDataEl ? JSON.parse(chartDataEl.textContent || '{}') : {};
 
         // ═════════════════════════════════════════════════════════════════
         // 1. Plain & High-Resolution Bar Chart (Branch Workload & Stage Flow)
         // ═════════════════════════════════════════════════════════════════
         const stageCanvas = document.getElementById('productionStageBarChart');
         if (stageCanvas) {
-            // Facilities Data (Exact from Screenshot 2)
-            const branchLabels = @json($branchChartLabels ?? ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub']);
-            const branchValues = @json($branchActiveData ?? [6, 4, 2]);
+            // Facilities Data
+            const branchLabels = chartData.branchLabels || ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub'];
+            const branchValues = chartData.branchValues || [6, 4, 2];
             const branchColors = ['#009498', '#013F73', '#7DD956'];
             const branchHoverColors = ['#00b4b8', '#02569c', '#8ee568'];
             const branchBorders = isDark 
@@ -408,7 +412,7 @@
                 : ['#007a7e', '#012c52', '#6bc244'];
 
             // Production Stages Data
-            const stageData = @json($stageBreakdown ?? []);
+            const stageData = chartData.stageData || {};
             const stageLabels = Object.keys(stageData);
             const stageValues = Object.values(stageData);
             // Plain & High-Res: Teal for Active Stages, Rose for Delayed
@@ -566,8 +570,8 @@
         // ═════════════════════════════════════════════════════════════════
         const priorityCanvas = document.getElementById('planningPriorityDonutChart');
         if (priorityCanvas) {
-            const pLabels = @json($priLabels);
-            const pData = @json($priValues);
+            const pLabels = chartData.priLabels || [];
+            const pData = chartData.priValues || [];
             // High-resolution vibrant plain colors matching Screenshot 2
             const pColors = ['#f43f5e', '#f59e0b', '#06b6d4', '#8b5cf6'];
 

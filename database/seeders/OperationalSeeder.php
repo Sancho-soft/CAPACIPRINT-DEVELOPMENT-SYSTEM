@@ -49,7 +49,7 @@ class OperationalSeeder extends Seeder
             ['name' => 'Morning Star Printing Press'],
             [
                 'location'       => 'Branch A',
-                'address'        => 'Central Press Complex, Hub 1, Metro Operations',
+                'address'        => '132 Bolton Street, Poblacion District, Davao City, 8000',
                 'phone'          => '+63 917 111 2233',
                 'manager_name'   => $managerUser->name ?? 'Niere Lupogan',
                 'status'         => 'active',
@@ -61,7 +61,7 @@ class OperationalSeeder extends Seeder
             ['name' => 'Morning Star Printing Network'],
             [
                 'location'       => 'Branch B',
-                'address'        => 'North Commercial Corridor, Suite 402, North Hub',
+                'address'        => 'Ground Floor, The Paper Tree Building, Bolton Street, Barangay 35-D, Poblacion District, Davao City, 8000',
                 'phone'          => '+63 917 222 3344',
                 'manager_name'   => $managerUser->name ?? 'Niere Lupogan',
                 'status'         => 'active',
@@ -73,7 +73,7 @@ class OperationalSeeder extends Seeder
             ['name' => 'Green Heart Printing Hub'],
             [
                 'location'       => 'Branch C',
-                'address'        => 'South Tech District, Building B, South Node',
+                'address'        => 'A. Pichon Street corner Magallanes Street, Poblacion District, Davao City, 8000',
                 'phone'          => '+63 917 333 4455',
                 'manager_name'   => $managerUser->name ?? 'Niere Lupogan',
                 'status'         => 'active',

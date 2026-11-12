@@ -133,11 +133,11 @@
                 <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('manager.dashboard') }}"
-                   title="Dashboard"
+                   title="Branch Dashboard"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.dashboard') ? 'bg-cyan-500/10 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 font-bold border border-cyan-200/80 dark:border-cyan-500/20 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
                     <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
+                    <span x-show="!sidebarCollapsed" class="truncate">Branch Dashboard</span>
                 </a>
                 <a href="{{ route('manager.purchasing.index') }}"
                    title="Purchase Requests"
@@ -224,11 +224,11 @@
                 <div x-show="sidebarCollapsed" x-cloak class="w-full border-t border-slate-200 dark:border-slate-800/80 my-2"></div>
 
                 <a href="{{ route('manager.production-planning.index') }}"
-                   title="Planning Dashboard"
+                   title="Dashboard"
                    :class="sidebarCollapsed ? 'justify-center px-0' : ''"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition {{ request()->routeIs('manager.production-planning.*') ? 'bg-[#0E3386]/10 dark:bg-[#0E3386]/25 text-[#0E3386] dark:text-sky-400 font-bold border border-[#0E3386]/30 shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 font-medium border border-transparent' }}">
-                    <i class="fa-solid fa-calendar-days w-5 text-center text-sm shrink-0"></i>
-                    <span x-show="!sidebarCollapsed" class="truncate">Production Planning</span>
+                    <i class="fa-solid fa-gauge-high w-5 text-center text-sm shrink-0"></i>
+                    <span x-show="!sidebarCollapsed" class="truncate">Dashboard</span>
                 </a>
                 <a href="{{ route('manager.capacity.index') }}"
                    title="Capacity Evaluation"

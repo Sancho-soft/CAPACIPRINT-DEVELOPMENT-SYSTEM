@@ -77,11 +77,15 @@ Expected $stages array format:
                     {{ $stage['label'] }}
                 </span>
 
-                {{-- Step Count Badge (Only show when there are active items) --}}
+                {{-- Step Count Badge --}}
                 <div class="mt-1.5 min-h-[20px] flex items-center justify-center">
                     @if($hasItems)
                     <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold font-mono {{ $badgeStyle }} group-hover:bg-sky-500/20 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
                         {{ $count }} {{ $count == 1 ? 'item' : 'items' }}
+                    </span>
+                    @else
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium font-mono text-slate-400 dark:text-slate-500 bg-slate-100/60 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 transition-colors">
+                        0 items
                     </span>
                     @endif
                 </div>

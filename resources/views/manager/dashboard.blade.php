@@ -6,33 +6,23 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: BRANCH & CAPACITY COMMAND HUB --}}
+    {{-- PAGE HEADER: BRANCH & CAPACITY OPERATIONS HUB --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
+        </div>
 
-        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-industry"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
-                <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
-                </a>
-                <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-calendar-days text-xs text-cyan-400"></i> Plan Schedule
-                </a>
-                <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-boxes-packing text-xs text-amber-400"></i> Material Reorders
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
+            </a>
+            <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-calendar-days text-xs text-cyan-600 dark:text-cyan-400"></i> Plan Schedule
+            </a>
+            <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-boxes-packing text-xs text-amber-500 dark:text-amber-400"></i> Material Reorders
+            </a>
         </div>
     </div>
 
@@ -137,6 +127,13 @@
                         '#f43f5e', // Rose for Delayed Runs
                         '#10b981', // Emerald for Completed Today
                     ];
+                    $statusDotClasses = [
+                        'bg-cyan-500',
+                        'bg-purple-500',
+                        'bg-amber-500',
+                        'bg-rose-500',
+                        'bg-emerald-500',
+                    ];
                 @endphp
 
                 {{-- Chart Canvas Container with Centered Metric --}}
@@ -144,7 +141,7 @@
                     <canvas id="jobStatusDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalStatusJobs }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-widest" style="color: #94A3B8; letter-spacing: 0.12em;">Total Jobs</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Total Jobs</span>
                     </div>
                 </div>
 
@@ -153,11 +150,11 @@
                     @foreach($statusList as $stName => $stCount)
                         @php
                             $stPct = round(($stCount / $totalStatusJobs) * 100);
-                            $dotColor = $statusColors[$loop->index % count($statusColors)];
+                            $dotClass = $statusDotClasses[$loop->index % count($statusDotClasses)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition" style="transition: background 0.15s;" onmouseenter="this.style.background='rgba(255,255,255,0.06)'" onmouseleave="this.style.background='transparent'">
+                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition hover:bg-slate-100 dark:hover:bg-slate-800/50">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $dotColor }}"></span>
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs {{ $dotClass }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $stName }}</span>
                             </div>
                             <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
@@ -214,7 +211,7 @@
                     $badgeClass  = $isOverdue ? 'bg-rose-500/15 text-rose-400' : ($isDown ? 'bg-amber-500/15 text-amber-400' : 'bg-cyan-500/15 text-cyan-400');
                     $badgeLabel  = $isOverdue ? 'OVERDUE' : ($isDown ? strtoupper($machine->status) : 'DUE SOON');
                 @endphp
-                <div class="rounded-xl border {{ $borderClass }} p-3.5 space-y-2" style="background: rgba(13,21,32,0.85);">
+                <div class="rounded-xl border {{ $borderClass }} p-3.5 space-y-2 bg-slate-50 dark:bg-slate-900/80">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-print {{ $iconColor }} text-xs"></i>
@@ -249,14 +246,24 @@
 
 </div>
 
+<script type="application/json" id="manager-donut-chart-data">
+{
+    "labels": @json($statusLabels),
+    "data": @json($statusValues)
+}
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const canvas = document.getElementById('jobStatusDonutChart');
         if (!canvas) return;
 
+        const dataScript = document.getElementById('manager-donut-chart-data');
+        const parsed = dataScript ? JSON.parse(dataScript.textContent) : { labels: [], data: [] };
+        const labels = parsed.labels || [];
+        const data = parsed.data || [];
+
         const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
-        const labels = @json($statusLabels);
-        const data = @json($statusValues);
         const colors = [
             '#06b6d4', // Cyan (In Production)
             '#8b5cf6', // Purple (Quality Checking)

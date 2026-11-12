@@ -94,9 +94,9 @@
 
                     {{-- Address Badge --}}
                     @if($b->address)
-                        <div class="text-xs text-slate-300 bg-[#0D1520] px-3.5 py-2.5 rounded-2xl border border-slate-800/80 flex items-center gap-2 font-medium">
+                        <div class="text-xs text-slate-300 bg-[#0D1520] px-3.5 py-2.5 rounded-2xl border border-slate-800/80 flex items-center gap-2 font-medium" title="{{ $b->address }}">
                             <i class="fa-solid fa-map-pin text-cyan-400 text-xs shrink-0"></i>
-                            <span class="truncate">{{ $b->address }}</span>
+                            <span class="truncate" title="{{ $b->address }}">{{ $b->address }}</span>
                         </div>
                     @endif
 

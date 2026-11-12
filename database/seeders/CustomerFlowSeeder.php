@@ -21,13 +21,13 @@ class CustomerFlowSeeder extends Seeder
     {
         $defaultPassword = Hash::make('password123');
         $branchA = Branch::firstOrCreate(['name' => 'Morning Star Printing Press'], [
-            'location' => 'Branch A', 'status' => 'active', 'max_daily_jobs' => 85
+            'location' => 'Branch A', 'address' => '132 Bolton Street, Poblacion District, Davao City, 8000', 'status' => 'active', 'max_daily_jobs' => 85
         ]);
         $branchB = Branch::firstOrCreate(['name' => 'Morning Star Printing Network'], [
-            'location' => 'Branch B', 'status' => 'active', 'max_daily_jobs' => 60
+            'location' => 'Branch B', 'address' => 'Ground Floor, The Paper Tree Building, Bolton Street, Barangay 35-D, Poblacion District, Davao City, 8000', 'status' => 'active', 'max_daily_jobs' => 60
         ]);
         $branchC = Branch::firstOrCreate(['name' => 'Green Heart Printing Hub'], [
-            'location' => 'Branch C', 'status' => 'active', 'max_daily_jobs' => 50
+            'location' => 'Branch C', 'address' => 'A. Pichon Street corner Magallanes Street, Poblacion District, Davao City, 8000', 'status' => 'active', 'max_daily_jobs' => 50
         ]);
 
         $prodUser = User::where('role', 'production')->first();
