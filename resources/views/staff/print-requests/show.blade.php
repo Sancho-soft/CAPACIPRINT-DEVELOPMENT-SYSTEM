@@ -74,7 +74,7 @@
 
             @if($printRequest->quotation)
             <a href="{{ route('staff.quotations.show', $printRequest->quotation) }}" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-4 py-2 rounded-xl text-xs">
-                View Quotation #{{ $printRequest->quotation->quotation_number }}
+                View Quotation #{{ $printRequest->quotation->formatted_number }}
             </a>
             @endif
         </div>

@@ -518,10 +518,11 @@ class OperationalSeeder extends Seeder
                     );
 
                     // 2. Historical Quote
+                    $quoteNum = sprintf('%05d', $histPr->id);
                     $quote = Quotation::updateOrCreate(
-                        ['quotation_number' => $quoteNum],
+                        ['print_request_id' => $histPr->id],
                         [
-                            'print_request_id' => $histPr->id,
+                            'quotation_number' => $quoteNum,
                             'user_id'          => $customerUser->id ?? 1,
                             'base_cost'        => round($unitPrice * 0.60, 2),
                             'material_cost'    => round($unitPrice * 0.25, 2),

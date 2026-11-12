@@ -52,7 +52,6 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                         <h3 class="text-lg font-bold text-cyber-main">Select Print Service</h3>
-                        <p class="text-xs text-cyber-muted mt-0.5">Choose the service that matches your product type.</p>
                     </div>
                 </div>
 

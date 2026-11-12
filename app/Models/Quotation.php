@@ -63,4 +63,12 @@ class Quotation extends Model
             default     => 'bg-slate-100 text-slate-600',
         };
     }
+
+    public function getFormattedNumberAttribute(): string
+    {
+        if (preg_match('/(\d+)$/', (string)$this->quotation_number, $matches)) {
+            return str_pad($matches[1], 5, '0', STR_PAD_LEFT);
+        }
+        return str_pad($this->print_request_id ?? $this->id, 5, '0', STR_PAD_LEFT);
+    }
 }

@@ -85,7 +85,7 @@
             <tbody class="divide-y divide-slate-100">
                 @forelse($quotations as $q)
                 <tr class="hover:bg-slate-50/50 transition">
-                    <td class="px-6 py-4 font-bold text-navy-900">{{ $q->quotation_number }}</td>
+                    <td class="px-6 py-4 font-bold text-navy-900">#{{ $q->formatted_number }}</td>
                     <td class="px-6 py-4 font-semibold text-slate-800">{{ $q->user->name ?? '—' }}</td>
                     <td class="px-6 py-4 text-slate-700">{{ $q->printRequest->service ?? '—' }}</td>
                     <td class="px-6 py-4 font-black text-navy-900 text-sm">₱{{ number_format($q->total_price, 2) }}</td>

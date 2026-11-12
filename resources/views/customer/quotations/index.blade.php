@@ -97,6 +97,7 @@
                 <thead>
                     <tr class="bg-cyber-sub/80 border-b border-cyber text-cyber-muted uppercase tracking-wider font-bold text-[11px]">
                         <th class="py-4 px-6">Quotation No.</th>
+                        <th class="py-4 px-6">Date Created</th>
                         <th class="py-4 px-6">Service Details</th>
                         <th class="py-4 px-6">Quantity</th>
                         <th class="py-4 px-6">Size</th>
@@ -112,9 +113,13 @@
                         {{-- Quotation No. --}}
                         <td class="py-4 px-6 whitespace-nowrap">
                             <a href="{{ route('customer.quotations.show', $quotation) }}" class="font-black text-sm text-cyber-main hover:text-cyan-400 font-display transition">
-                                #{{ $quotation->quotation_number }}
+                                #{{ $quotation->formatted_number }}
                             </a>
-                            <p class="text-[10px] text-cyber-muted mt-0.5">Created {{ $quotation->created_at->format('M d, Y') }}</p>
+                        </td>
+
+                        {{-- Date Created --}}
+                        <td class="py-4 px-6 whitespace-nowrap text-cyber-muted font-medium">
+                            {{ $quotation->created_at->format('M d, Y') }}
                         </td>
 
                         {{-- Service Details --}}
@@ -193,7 +198,7 @@
                 <div class="flex justify-between items-start gap-2">
                     <div>
                         <p class="text-[10px] uppercase font-bold text-cyber-muted tracking-wider">Quotation No.</p>
-                        <h4 class="text-base font-black text-cyber-main font-display">#{{ $quotation->quotation_number }}</h4>
+                        <h4 class="text-base font-black text-cyber-main font-display">#{{ $quotation->formatted_number }}</h4>
                     </div>
                     <span class="px-2.5 py-1 text-[10px] font-black rounded-lg uppercase tracking-wider {{ $quotation->status_badge_class }}">
                         {{ $quotation->status_label }}
@@ -201,6 +206,10 @@
                 </div>
 
                 <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between py-1 border-b border-cyber/50">
+                        <span class="text-cyber-muted">Date Created</span>
+                        <span class="font-bold text-cyber-main">{{ $quotation->created_at->format('M d, Y') }}</span>
+                    </div>
                     <div class="flex justify-between py-1 border-b border-cyber/50">
                         <span class="text-cyber-muted">Service</span>
                         <span class="font-bold text-cyber-main">{{ $quotation->printRequest->service ?? '—' }}</span>

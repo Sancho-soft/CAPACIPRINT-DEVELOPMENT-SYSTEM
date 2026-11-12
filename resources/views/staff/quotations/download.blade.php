@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quotation #{{ $quotation->quotation_number }} - Morning Star Printing Press Co.</title>
+    <title>Quotation #{{ $quotation->formatted_number }} - Morning Star Printing Press Co.</title>
     <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null; this.src='{{ asset('assets/js/tailwindcss.js') }}';"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onerror="this.onerror=null; this.href='{{ asset('assets/fontawesome/css/all.min.css') }}';">
     <style>
@@ -32,7 +32,7 @@
                 <img src="{{ asset('images/morning-star-logo.png') }}" alt="Logo" class="h-8 w-8 object-contain rounded-full bg-white p-0.5">
                 <div>
                     <span class="text-xs font-black font-display tracking-wide block">MORNING STAR PRINTING PRESS CO.</span>
-                    <span class="text-[10px] text-slate-400">Official Printable Quotation Form &middot; #{{ $quotation->quotation_number }}</span>
+                    <span class="text-[10px] text-slate-400">Official Printable Quotation Form &middot; #{{ $quotation->formatted_number }}</span>
                 </div>
             </div>
             <div class="flex items-center gap-2">

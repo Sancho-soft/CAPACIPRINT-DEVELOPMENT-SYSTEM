@@ -1,6 +1,6 @@
 @extends('layouts.internal')
 @section('title', 'Quotation Details')
-@section('page-title', 'Quotation #' . $quotation->quotation_number)
+@section('page-title', 'Quotation #' . $quotation->formatted_number)
 
 @section('content')
 <div class="max-w-4xl mx-auto space-y-6">

@@ -21,8 +21,10 @@ class QuotationController extends Controller
 
         // Search by quotation number, customer name, or service
         if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
+            $cleanSearch = ltrim($search, '#');
+            $query->where(function ($q) use ($search, $cleanSearch) {
                 $q->where('quotation_number', 'like', "%{$search}%")
+                  ->orWhere('quotation_number', 'like', "%{$cleanSearch}%")
                   ->orWhereHas('user', function ($uq) use ($search) {
                       $uq->where('name', 'like', "%{$search}%")
                          ->orWhere('email', 'like', "%{$search}%");
@@ -100,7 +102,7 @@ class QuotationController extends Controller
 
         DB::transaction(function () use ($data, $pr, $total) {
             $quotation = Quotation::create([
-                'quotation_number' => 'QT-' . strtoupper(Str::random(8)),
+                'quotation_number' => str_pad($pr->id, 5, '0', STR_PAD_LEFT),
                 'print_request_id' => $pr->id,
                 'user_id'          => $pr->user_id,
                 'base_cost'        => $data['base_cost'],

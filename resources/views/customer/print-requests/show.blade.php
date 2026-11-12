@@ -135,7 +135,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Linked Quotation</p>
-                <p class="font-bold text-navy-900 mt-0.5">#{{ $printRequest->quotation->quotation_number }}</p>
+                <p class="font-bold text-navy-900 mt-0.5">#{{ $printRequest->quotation->formatted_number }}</p>
             </div>
             <div class="text-right">
                 <p class="text-xl font-black text-navy-900 font-display">₱{{ number_format($printRequest->quotation->total_price, 2) }}</p>

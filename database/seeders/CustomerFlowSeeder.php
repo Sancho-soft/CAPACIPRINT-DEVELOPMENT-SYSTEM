@@ -98,9 +98,9 @@ class CustomerFlowSeeder extends Seeder
         );
 
         Quotation::updateOrCreate(
-            ['quotation_number' => 'QT-2026-301'],
+            ['print_request_id' => $pr2->id],
             [
-                'print_request_id' => $pr2->id,
+                'quotation_number' => str_pad($pr2->id, 5, '0', STR_PAD_LEFT),
                 'user_id'          => $c2->id,
                 'base_cost'        => 3200.00,
                 'material_cost'    => 1100.00,
@@ -144,9 +144,9 @@ class CustomerFlowSeeder extends Seeder
         );
 
         $qt3 = Quotation::updateOrCreate(
-            ['quotation_number' => 'QT-2026-302'],
+            ['print_request_id' => $pr3->id],
             [
-                'print_request_id' => $pr3->id,
+                'quotation_number' => str_pad($pr3->id, 5, '0', STR_PAD_LEFT),
                 'user_id'          => $c3->id,
                 'base_cost'        => 1600.00,
                 'material_cost'    => 500.00,
@@ -228,9 +228,9 @@ class CustomerFlowSeeder extends Seeder
         );
 
         $qt4 = Quotation::updateOrCreate(
-            ['quotation_number' => 'QT-2026-303'],
+            ['print_request_id' => $pr4->id],
             [
-                'print_request_id' => $pr4->id,
+                'quotation_number' => str_pad($pr4->id, 5, '0', STR_PAD_LEFT),
                 'user_id'          => $c4->id,
                 'base_cost'        => 2000.00,
                 'material_cost'    => 850.00,
@@ -324,9 +324,9 @@ class CustomerFlowSeeder extends Seeder
         );
 
         $qt5 = Quotation::updateOrCreate(
-            ['quotation_number' => 'QT-2026-304'],
+            ['print_request_id' => $pr5->id],
             [
-                'print_request_id' => $pr5->id,
+                'quotation_number' => str_pad($pr5->id, 5, '0', STR_PAD_LEFT),
                 'user_id'          => $c5->id,
                 'base_cost'        => 2800.00,
                 'material_cost'    => 900.00,
@@ -406,9 +406,9 @@ class CustomerFlowSeeder extends Seeder
         );
 
         $qt6 = Quotation::updateOrCreate(
-            ['quotation_number' => 'QT-2026-305'],
+            ['print_request_id' => $pr6->id],
             [
-                'print_request_id' => $pr6->id,
+                'quotation_number' => str_pad($pr6->id, 5, '0', STR_PAD_LEFT),
                 'user_id'          => $c6->id,
                 'base_cost'        => 2000.00,
                 'material_cost'    => 500.00,

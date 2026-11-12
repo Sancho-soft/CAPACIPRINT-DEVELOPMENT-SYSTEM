@@ -1,5 +1,5 @@
 @extends('layouts.customer')
-@section('title', 'Quotation #' . $quotation->quotation_number)
+@section('title', 'Quotation #' . $quotation->formatted_number)
 @section('page-title', 'Quotation Details')
 
 @section('content')
