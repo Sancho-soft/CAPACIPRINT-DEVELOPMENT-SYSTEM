@@ -81,11 +81,17 @@
                                 {{ $order->status_label }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-right space-x-3">
-                            <a href="{{ route('customer.orders.tracking', $order) }}"
-                               class="text-brand-500 hover:text-brand-700 font-bold text-xs">Track</a>
-                            <a href="{{ route('customer.orders.show', $order) }}"
-                               class="text-navy-600 hover:text-navy-900 font-bold text-xs">Details</a>
+                        <td class="px-6 py-4 text-right whitespace-nowrap">
+                            <div class="inline-flex items-center justify-end gap-2">
+                                <a href="{{ route('customer.orders.tracking', $order) }}"
+                                   class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs transition inline-flex items-center justify-center">
+                                    Track
+                                </a>
+                                <a href="{{ route('customer.orders.show', $order) }}"
+                                   class="px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition inline-flex items-center justify-center">
+                                    Details
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

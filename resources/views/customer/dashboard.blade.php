@@ -106,7 +106,7 @@
             {{-- Progress bar & steps --}}
             <div class="relative">
                 <div class="absolute top-4 left-0 right-0 h-1 bg-slate-800 z-0"></div>
-                <div class="absolute top-4 left-0 h-1 bg-cyan-400 z-0 transition-all duration-700 shadow-[0_0_10px_rgba(6,182,212,0.5)]" style="width: {{ $pct }}%"></div>
+                <div class="absolute top-4 left-0 h-1 bg-cyan-400 z-0 transition-all duration-700 shadow-[0_0_10px_rgba(6,182,212,0.5)]" @style(['width: ' . $pct . '%'])></div>
                 <div class="relative flex justify-between z-10">
                     @foreach($labels as $i => $label)
                     <div class="flex flex-col items-center">
