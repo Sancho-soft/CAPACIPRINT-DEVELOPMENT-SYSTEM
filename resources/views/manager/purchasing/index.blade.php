@@ -17,28 +17,18 @@
 }">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER --}}
+    {{-- PAGE HEADER (UNBOXED & CLEAN)                             --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-cart-flatbed"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Material Purchase Requests</h1>
-                    <p class="text-xs sm:text-sm text-cyber-muted mt-0.5">Submit replenishment orders and manage material procurement for printing facilities.</p>
-                </div>
-            </div>
-
-            <button @click="newPrModalOpen = true" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-brand-500/20 text-xs sm:text-sm transition cursor-pointer shrink-0">
-                <i class="fa-solid fa-plus text-xs"></i>
-                <span>Create Purchase Request</span>
-            </button>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Material Purchase Requests</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Submit replenishment orders and manage material procurement for printing facilities.</p>
         </div>
+
+        <button @click="newPrModalOpen = true" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-xs text-xs transition cursor-pointer shrink-0">
+            <i class="fa-solid fa-plus text-xs"></i>
+            <span>Create Purchase Request</span>
+        </button>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}

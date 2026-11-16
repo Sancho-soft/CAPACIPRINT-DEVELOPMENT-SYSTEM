@@ -7,28 +7,24 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: INVENTORY & MATERIALS CENTER --}}
+    {{-- PAGE HEADER: INVENTORY & MATERIALS CENTER (UNBOXED & CLEAN) --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Dashboard Overview</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time inventory telemetry, buffer limits, and raw material health across facilities.</p>
+        </div>
 
-        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h2>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
-                <a href="{{ route('inventory.stock-movements.create') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-plus text-xs"></i> Record Movement
-                </a>
-                <a href="{{ route('inventory.materials.create') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-box text-xs text-cyan-400"></i> New Material
-                </a>
-                <a href="{{ route('inventory.reports.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-file-waveform text-xs text-amber-400"></i> Stock Reports
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <a href="{{ route('inventory.stock-movements.create') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-plus text-xs"></i> Record Movement
+            </a>
+            <a href="{{ route('inventory.materials.create') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-box text-xs text-cyan-500 dark:text-cyan-400"></i> New Material
+            </a>
+            <a href="{{ route('inventory.reports.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-file-waveform text-xs text-amber-500 dark:text-amber-400"></i> Stock Reports
+            </a>
         </div>
     </div>
 

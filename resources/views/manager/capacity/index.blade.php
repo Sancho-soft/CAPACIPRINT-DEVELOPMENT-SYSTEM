@@ -5,29 +5,20 @@
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
-    {{-- Header Banner --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    {{-- Page Header (Clean & Unboxed) --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Multi-Factor Capacity Evaluation Engine</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Multi-branch workload scoring, press availability, and intelligent routing allocation.</p>
+        </div>
 
-        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-calculator"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Multi-Factor Capacity Evaluation Engine</h2>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2.5 shrink-0">
-                <a href="{{ route('manager.recommendations.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-building-circle-check text-cyan-400 text-xs"></i> Saved Recommendations
-                </a>
-                <a href="{{ route('manager.workload.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-chart-line text-emerald-400 text-xs"></i> Workload Matrix
-                </a>
-            </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+            <a href="{{ route('manager.recommendations.index') }}" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 font-bold text-xs transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-building-circle-check text-cyan-500 text-xs"></i> Saved Recommendations
+            </a>
+            <a href="{{ route('manager.workload.index') }}" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 font-bold text-xs transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-chart-line text-emerald-500 text-xs"></i> Workload Matrix
+            </a>
         </div>
     </div>
 

@@ -6,68 +6,54 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 1. PAGE HEADER & AUDIT ACTIONS (EXPORT & PRINT)           --}}
+    {{-- 1. PAGE HEADER & AUDIT ACTIONS (UNBOXED & CLEAN)          --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-white dark:bg-cyber-card border border-slate-200/80 dark:border-cyber rounded-3xl p-6 sm:p-7 shadow-xs dark:shadow-2xl print:border-none print:shadow-none print:p-0 z-30">
-        {{-- Decorative blur layer safely isolated with overflow-hidden --}}
-        <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
-            <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Material Stock Audit &amp; Health Reports</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Cross-branch substrate balances, reorder threshold alerts, and inventory valuation.</p>
         </div>
 
-        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-navy-900 dark:text-cyber-main">Material Stock Audit &amp; Health Reports</h2>
-                </div>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            {{-- Export CSV Dropdown Menu (Emerald Green Theme) --}}
+            <div class="relative z-50" x-data="{ exportOpen: false }" @click.outside="exportOpen = false">
+                <button @click="exportOpen = !exportOpen" 
+                        type="button" 
+                        class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-file-csv text-sm"></i>
+                    <span>Export CSV</span>
+                    <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" :class="exportOpen ? 'rotate-180' : ''"></i>
+                </button>
 
-            {{-- Audit Actions: Multi-CSV Export Dropdown --}}
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 print:hidden">
-
-                {{-- Export CSV Dropdown Menu (Emerald Green Theme) --}}
-                <div class="relative z-50" x-data="{ exportOpen: false }" @click.outside="exportOpen = false">
-                    <button @click="exportOpen = !exportOpen" 
-                            type="button" 
-                            class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm shadow-emerald-600/25 transition flex items-center gap-2 cursor-pointer">
-                        <i class="fa-solid fa-file-csv text-sm"></i>
-                        <span>Export CSV</span>
-                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" :class="exportOpen ? 'rotate-180' : ''"></i>
-                    </button>
-
-                    <div x-show="exportOpen" 
-                         x-transition:enter="transition ease-out duration-150"
-                         x-transition:enter-start="opacity-0 scale-95 -translate-y-1"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-100"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
-                         class="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-cyber-card border border-slate-200 dark:border-cyber shadow-2xl z-[100] p-1.5 space-y-1"
-                         style="display: none;">
-                        <a href="{{ request()->fullUrlWithQuery(['export' => 'stock_csv']) }}" 
-                           class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-cyber-sub transition">
-                            <div class="h-7 w-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
-                                <i class="fa-solid fa-boxes-stacked"></i>
-                            </div>
-                            <div>
-                                <div class="font-bold text-navy-900 dark:text-white">Full Stock Balances</div>
-                                <div class="text-[10px] text-slate-400">All substrates and quantities</div>
-                            </div>
-                        </a>
-                        <a href="{{ request()->fullUrlWithQuery(['export' => 'reorder_csv']) }}" 
-                           class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-cyber-sub transition">
-                            <div class="h-7 w-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                            </div>
-                            <div>
-                                <div class="font-bold text-navy-900 dark:text-white">Urgent Reorder List</div>
-                                <div class="text-[10px] text-slate-400">Items below minimum stock</div>
-                            </div>
-                        </a>
-                    </div>
+                <div x-show="exportOpen" 
+                     x-transition:enter="transition ease-out duration-150"
+                     x-transition:enter-start="opacity-0 scale-95 -translate-y-1"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-100"
+                     x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
+                     class="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-cyber-card border border-slate-200 dark:border-cyber shadow-2xl z-[100] p-1.5 space-y-1"
+                     style="display: none;">
+                    <a href="{{ request()->fullUrlWithQuery(['export' => 'stock_csv']) }}" 
+                       class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-cyber-sub transition">
+                        <div class="h-7 w-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-navy-900 dark:text-white">Full Stock Balances</div>
+                            <div class="text-[10px] text-slate-400">All substrates and quantities</div>
+                        </div>
+                    </a>
+                    <a href="{{ request()->fullUrlWithQuery(['export' => 'reorder_csv']) }}" 
+                       class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-cyber-sub transition">
+                        <div class="h-7 w-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-navy-900 dark:text-white">Urgent Reorder List</div>
+                            <div class="text-[10px] text-slate-400">Items below minimum stock</div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

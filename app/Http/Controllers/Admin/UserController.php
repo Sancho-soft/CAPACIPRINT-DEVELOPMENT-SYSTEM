@@ -12,10 +12,41 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    protected array $allowedRoles = [
+        'owner',
+        'management',
+        'admin',
+        'system_admin',
+        'manager',
+        'production_officer',
+        'planner',
+        'staff',
+        'designer',
+        'production',
+        'inventory',
+        'customer',
+    ];
+
     public function index(Request $request)
     {
-        // Only allow managing executive roles
-        $query = User::with('branch')->whereIn('role', ['owner', 'management', 'admin', 'system_admin', 'manager']);
+        $query = User::with('branch');
+
+        // Optional Role Filter
+        if ($role = $request->get('role')) {
+            if ($role === 'internal') {
+                $query->whereIn('role', ['owner', 'management', 'admin', 'system_admin', 'manager', 'production_officer', 'planner', 'staff', 'designer', 'production', 'inventory']);
+            } else {
+                $query->where('role', $role);
+            }
+        } else {
+            // Default to all internal accounts
+            $query->whereIn('role', ['owner', 'management', 'admin', 'system_admin', 'manager', 'production_officer', 'planner', 'staff', 'designer', 'production', 'inventory']);
+        }
+
+        // Branch filter
+        if ($branchId = $request->get('branch_id')) {
+            $query->where('branch_id', $branchId);
+        }
 
         if ($request->boolean('archived')) {
             $query->where('is_archived', true);
@@ -30,7 +61,7 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->latest()->paginate(7);
+        $users = $query->latest()->paginate(7)->withQueryString();
         $branches = Branch::all();
 
         return view('admin.users.index', compact('users', 'branches'));
@@ -41,7 +72,7 @@ class UserController extends Controller
         $data = $request->validate([
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'role'      => ['required', 'string', 'in:owner,management,admin,system_admin,manager'],
+            'role'      => ['required', 'string', Rule::in($this->allowedRoles)],
             'branch_id' => ['nullable', 'exists:branches,id'],
             'password'  => ['required', 'string', 'min:8'],
         ]);
@@ -56,26 +87,22 @@ class UserController extends Controller
         ]);
 
         AuditLog::record(
-            'Executive Account Created',
+            'User Account Created',
             'User Management',
-            "Created executive account {$user->name} ({$user->email}) with role {$user->role}",
+            "Created account for {$user->name} ({$user->email}) with role {$user->role_label}",
             null,
             $user->toArray()
         );
 
-        return redirect()->back()->with('success', "Executive account {$user->name} created successfully.");
+        return redirect()->back()->with('success', "Account for {$user->name} ({$user->role_label}) created successfully.");
     }
 
     public function update(Request $request, User $user)
     {
-        if (!in_array($user->role, ['owner', 'management', 'admin', 'system_admin', 'manager'])) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $data = $request->validate([
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'role'      => ['required', 'string', 'in:owner,management,admin,system_admin,manager'],
+            'role'      => ['required', 'string', Rule::in($this->allowedRoles)],
             'branch_id' => ['nullable', 'exists:branches,id'],
             'password'  => ['nullable', 'string', 'min:8'],
         ]);
@@ -96,9 +123,9 @@ class UserController extends Controller
         $user->update($updateData);
 
         AuditLog::record(
-            'Executive Account Updated',
+            'User Account Updated',
             'User Management',
-            "Updated account details for {$user->name}",
+            "Updated account details for {$user->name} ({$user->role_label})",
             $old,
             $user->fresh()->toArray()
         );
@@ -108,10 +135,6 @@ class UserController extends Controller
 
     public function resetPassword(Request $request, User $user)
     {
-        if (!in_array($user->role, ['owner', 'management', 'admin', 'system_admin', 'manager'])) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $data = $request->validate([
             'password' => ['required', 'string', 'min:8'],
         ]);
@@ -121,7 +144,7 @@ class UserController extends Controller
         ]);
 
         AuditLog::record(
-            'Executive Account Password Reset',
+            'User Account Password Reset',
             'User Management',
             "Reset password for {$user->name}",
             null,
@@ -133,17 +156,13 @@ class UserController extends Controller
 
     public function toggleArchive(User $user)
     {
-        if (!in_array($user->role, ['owner', 'management', 'admin', 'system_admin', 'manager'])) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $user->is_archived = !$user->is_archived;
         $user->save();
 
         $actionText = $user->is_archived ? 'Archived' : 'Restored';
 
         AuditLog::record(
-            "Executive Account {$actionText}",
+            "User Account {$actionText}",
             'User Management',
             "{$actionText} account {$user->name} ({$user->email})",
             null,

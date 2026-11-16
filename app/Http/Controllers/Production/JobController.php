@@ -23,8 +23,17 @@ class JobController extends Controller
             $query->where('status', $status);
         }
 
+        if ($search = $request->get('search')) {
+            $cleanSearch = ltrim(trim($search), '#');
+            $query->where(function ($q) use ($search, $cleanSearch) {
+                $q->where('job_number', 'like', "%{$cleanSearch}%")
+                  ->orWhereHas('order.user', fn($uq) => $uq->where('name', 'like', "%{$search}%"))
+                  ->orWhereHas('order.printRequest', fn($pq) => $pq->where('service', 'like', "%{$search}%"));
+            });
+        }
+
         $jobs = $query->orderByRaw("CASE priority WHEN 'urgent' THEN 0 WHEN 'rush' THEN 1 ELSE 2 END")
-            ->latest()->paginate(7);
+            ->latest()->paginate(7)->withQueryString();
 
         return view('production.jobs.index', compact('jobs'));
     }

@@ -6,30 +6,21 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: EXECUTIVE REPORTS HUB --}}
+    {{-- PAGE HEADER: EXECUTIVE REPORTS HUB (UNBOXED & CLEAN)     --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/8 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Executive Analytics &amp; Reports</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">High-level enterprise reports, operational throughput, and cross-branch performance.</p>
+        </div>
 
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Executive Analytics &amp; Reports</h2>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-                <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm cursor-pointer">
-                    <i class="fa-solid fa-print text-cyan-400 text-xs"></i> Print Summary
-                </button>
-                <a href="{{ route('management.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-chart-line text-xs text-indigo-400"></i> Executive Dashboard
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs cursor-pointer">
+                <i class="fa-solid fa-print text-cyan-500 dark:text-cyan-400 text-xs"></i> Print Summary
+            </button>
+            <a href="{{ route('management.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-chart-line text-xs text-indigo-500 dark:text-indigo-400"></i> Executive Dashboard
+            </a>
         </div>
     </div>
 

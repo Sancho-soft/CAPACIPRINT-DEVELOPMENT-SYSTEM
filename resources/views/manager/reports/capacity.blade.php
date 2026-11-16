@@ -6,33 +6,26 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: CAPACITY REPORT --}}
+    {{-- PAGE HEADER: CAPACITY REPORT (UNBOXED & CLEAN)            --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <a href="{{ route('manager.reports.index') }}" class="h-12 w-12 rounded-2xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main flex items-center justify-center text-lg shadow-sm transition hover:scale-105 shrink-0" title="Back to Reports Hub">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">NETWORK TELEMETRY</span>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch Capacity Utilization &amp; Fleet Workload</h2>
-                </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <a href="{{ route('manager.reports.index') }}" class="h-10 w-10 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main flex items-center justify-center text-sm shadow-xs transition hover:scale-105 shrink-0" title="Back to Reports Hub">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Branch Capacity Utilization &amp; Fleet Workload</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Real-time telemetry and press utilization statistics across branch fleet.</p>
             </div>
+        </div>
 
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-                <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm cursor-pointer">
-                    <i class="fa-solid fa-print text-emerald-400 text-xs"></i> Print Matrix
-                </button>
-                <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm cursor-pointer">
+                <i class="fa-solid fa-print text-emerald-400 text-xs"></i> Print Matrix
+            </button>
+            <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
+            </a>
         </div>
     </div>
 

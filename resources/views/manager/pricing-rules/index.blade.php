@@ -5,28 +5,18 @@
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto" x-data="{ showCreateModal: false }">
 
-    {{-- Page Header --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#0E3386]/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-[#0E3386]/15 border border-[#0E3386]/30 text-[#0E3386] dark:text-sky-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-calculator"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Pricing Calculation Rules Matrix</h2>
-                    <p class="text-xs text-cyber-muted mt-1">Manage standard baseline rates, substrate costs, and finishing pricing multipliers across the network.</p>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-3 shrink-0">
-                <button @click="showCreateModal = true" 
-                        class="bg-[#0E3386] hover:bg-[#1442a8] text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-[#0E3386]/25 transition flex items-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-plus text-xs"></i> Add Pricing Rule
-                </button>
-            </div>
+    {{-- Page Header (Unboxed & Clean) --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Pricing Calculation Rules Matrix</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Manage standard baseline rates, substrate costs, and finishing pricing multipliers across the network.</p>
         </div>
+
+        <button @click="showCreateModal = true" 
+                class="inline-flex items-center gap-2 bg-[#0E3386] hover:bg-[#1442a8] text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-xs transition cursor-pointer shrink-0">
+            <i class="fa-solid fa-plus text-xs"></i>
+            <span>Add Pricing Rule</span>
+        </button>
     </div>
 
     {{-- Rules Table Card --}}

@@ -5,41 +5,37 @@
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto">
 
-    {{-- Header Banner --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <a href="{{ route('inventory.materials.index') }}" 
-                   class="h-11 w-11 rounded-2xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main flex items-center justify-center transition shadow-sm shrink-0" 
-                   title="Back to Materials Catalog">
-                    <i class="fa-solid fa-arrow-left text-xs"></i>
-                </a>
-                <div>
-                    <div class="flex items-center gap-2.5 flex-wrap">
-                        <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">{{ $material->name }}</h2>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-mono">
-                            {{ $material->type_label }}
-                        </span>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider {{ $material->is_active ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/10 text-slate-400 border border-slate-500/30' }} font-mono">
-                            {{ $material->is_active ? 'Active' : 'Inactive' }}
-                        </span>
-                    </div>
-                    <p class="text-xs text-cyber-muted mt-1">
-                        Base Stocking Unit: <strong class="text-cyber-main">{{ $material->unit }}</strong> &middot; Registered {{ $material->created_at ? $material->created_at->format('M d, Y') : 'Recently' }}
-                    </p>
+    {{-- Header Banner (Unboxed & Clean) --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <a href="{{ route('inventory.materials.index') }}" 
+               class="h-10 w-10 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main flex items-center justify-center transition shadow-xs shrink-0" 
+               title="Back to Materials Catalog">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+            </a>
+            <div>
+                <div class="flex items-center gap-2.5 flex-wrap">
+                    <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">{{ $material->name }}</h1>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 font-mono">
+                        {{ $material->type_label }}
+                    </span>
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider {{ $material->is_active ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/10 text-slate-400 border border-slate-500/30' }} font-mono">
+                        {{ $material->is_active ? 'Active' : 'Inactive' }}
+                    </span>
                 </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Base Stocking Unit: <strong class="text-slate-900 dark:text-white">{{ $material->unit }}</strong> &middot; Registered {{ $material->created_at ? $material->created_at->format('M d, Y') : 'Recently' }}
+                </p>
             </div>
+        </div>
 
-            <div class="flex items-center gap-2.5 shrink-0">
-                <a href="{{ route('inventory.materials.edit', $material) }}" class="px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 border border-amber-500/30 font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-pen-to-square text-xs"></i> Edit Material
-                </a>
-                <a href="{{ route('inventory.stock-movements.create') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-plus text-xs"></i> Record Movement
-                </a>
-            </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+            <a href="{{ route('inventory.materials.edit', $material) }}" class="px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold text-xs shadow-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-pen-to-square text-xs"></i> Edit Material
+            </a>
+            <a href="{{ route('inventory.stock-movements.create') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-plus text-xs"></i> Record Movement
+            </a>
         </div>
     </div>
 
