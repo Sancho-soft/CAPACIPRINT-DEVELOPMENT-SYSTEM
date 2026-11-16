@@ -760,9 +760,201 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Handle browser back/forward buttons with pagination states
     window.addEventListener('popstate', function () {
-        if (window.location.search.includes('page=')) {
+        if (window.location.search.includes('page=') || window.location.search.includes('search=')) {
             window.location.reload();
         }
+    });
+
+    // 3. Global Live Search & Filter (Auto-updates table on typing and filter change)
+    function findSearchTableCard(form) {
+        if (!form) return null;
+        
+        // 1. Explicit data-table-target or id attribute
+        if (form.dataset.tableTarget) {
+            const el = document.getElementById(form.dataset.tableTarget);
+            if (el) return el;
+        }
+
+        // 2. If form is inside the card
+        let parent = form.parentElement;
+        while (parent && parent !== document.body) {
+            if (parent.querySelector('table, tbody, [data-empty-state], .empty-state') && (
+                parent.classList.contains('overflow-hidden') ||
+                parent.classList.contains('rounded-3xl') ||
+                parent.classList.contains('rounded-2xl') ||
+                parent.classList.contains('rounded-xl') ||
+                parent.classList.contains('bg-cyber-card') ||
+                parent.classList.contains('bg-white')
+            )) {
+                return parent;
+            }
+            parent = parent.parentElement;
+        }
+
+        // 3. Look for table card siblings or in main content container
+        const mainArea = form.closest('.space-y-6, .space-y-5, main, [class*="max-w-"]') || document.body;
+        const allCards = mainArea.querySelectorAll('.overflow-hidden, .bg-white, .bg-cyber-card, [class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-xl"]');
+        for (let i = 0; i < allCards.length; i++) {
+            const c = allCards[i];
+            if (!c.contains(form) && (c.querySelector('table, tbody') || c.id?.includes('table') || c.classList.contains('overflow-hidden'))) {
+                return c;
+            }
+        }
+
+        // 4. Fallback to any table card on the page
+        const firstTable = document.querySelector('table');
+        if (firstTable) {
+            return findTableCard(firstTable);
+        }
+        return null;
+    }
+
+    let liveSearchDebounce = null;
+    let liveSearchAbort = null;
+
+    function triggerGlobalLiveSearch(form, activeInput) {
+        if (!form) return;
+        const container = findSearchTableCard(form);
+        if (!container) return;
+
+        if (liveSearchAbort) {
+            liveSearchAbort.abort();
+        }
+        liveSearchAbort = new AbortController();
+
+        // Visual loading spinner feedback on magnifying glass
+        const searchIcon = form.querySelector('.fa-magnifying-glass');
+        let prevIconClass = null;
+        if (searchIcon) {
+            prevIconClass = searchIcon.className;
+            searchIcon.className = 'fa-solid fa-spinner fa-spin text-xs text-cyan-500';
+        }
+
+        container.style.transition = 'opacity 0.15s ease';
+        container.style.opacity = '0.55';
+
+        // Collect all form data (search, status, date_from, sort_by, etc.)
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+        for (const [key, val] of formData.entries()) {
+            if (val !== '' && val !== null) {
+                params.append(key, val);
+            }
+        }
+
+        const actionUrl = form.getAttribute('action') || window.location.pathname;
+        const targetUrl = new URL(actionUrl, window.location.origin);
+        targetUrl.search = params.toString();
+
+        const isInputActive = (activeInput && document.activeElement === activeInput);
+        const cursorPos = activeInput ? (activeInput.selectionStart || activeInput.value.length) : 0;
+
+        fetch(targetUrl.toString(), {
+            signal: liveSearchAbort.signal,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(function (res) {
+            if (!res.ok) throw new Error('Live search request failed');
+            return res.text();
+        })
+        .then(function (html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            let newContainer = null;
+            if (container.id) {
+                newContainer = doc.getElementById(container.id);
+            }
+            if (!newContainer) {
+                const formAction = form.getAttribute('action');
+                let docForm = null;
+                if (formAction) {
+                    docForm = doc.querySelector(`form[action="${formAction}"]`);
+                }
+                if (!docForm) {
+                    docForm = doc.querySelector('form:has(input[name="search"]), form:has(input[placeholder*="Search" i])') || doc.querySelector('form');
+                }
+                if (docForm) {
+                    newContainer = findSearchTableCard(docForm);
+                }
+            }
+            if (!newContainer) {
+                const docTable = doc.querySelector('table');
+                if (docTable) newContainer = findTableCard(docTable);
+            }
+
+            if (newContainer && container) {
+                container.innerHTML = newContainer.innerHTML;
+                window.history.replaceState(null, '', targetUrl.toString());
+
+                if (window.Alpine && typeof window.Alpine.initTree === 'function') {
+                    window.Alpine.initTree(container);
+                }
+
+                if (isInputActive) {
+                    const refreshedInput = container.querySelector('input[name="search"], input[placeholder*="Search" i]') || activeInput;
+                    if (refreshedInput && refreshedInput !== activeInput) {
+                        refreshedInput.focus();
+                        try { refreshedInput.setSelectionRange(cursorPos, cursorPos); } catch (e) {}
+                    }
+                }
+            } else {
+                window.location.href = targetUrl.toString();
+            }
+        })
+        .catch(function (err) {
+            if (err.name !== 'AbortError') {
+                console.error('Live search error:', err);
+            }
+        })
+        .finally(function () {
+            container.style.opacity = '1';
+            if (searchIcon && prevIconClass) {
+                searchIcon.className = prevIconClass;
+            }
+        });
+    }
+
+    // Auto-search on typing
+    document.addEventListener('input', function (e) {
+        const input = e.target;
+        if (!input || input.tagName !== 'INPUT') return;
+        const isSearch = (input.name === 'search' || input.id?.includes('search') || (input.placeholder && input.placeholder.toLowerCase().includes('search')));
+        if (!isSearch) return;
+
+        const form = input.form;
+        if (!form || (form.method && form.method.toUpperCase() !== 'GET')) return;
+
+        clearTimeout(liveSearchDebounce);
+        liveSearchDebounce = setTimeout(function () {
+            triggerGlobalLiveSearch(form, input);
+        }, 250);
+    });
+
+    // Auto-search on select/date change inside search forms (e.g. status filter, date filter, sort_by)
+    document.addEventListener('change', function (e) {
+        const el = e.target;
+        if (!el || (el.tagName !== 'SELECT' && el.type !== 'date')) return;
+        const form = el.form;
+        if (!form || (form.method && form.method.toUpperCase() !== 'GET')) return;
+        if (!form.querySelector('input[name="search"], input[id*="search"], input[placeholder*="Search" i]')) return;
+
+        clearTimeout(liveSearchDebounce);
+        triggerGlobalLiveSearch(form, form.querySelector('input[name="search"], input[id*="search"]'));
+    });
+
+    // Intercept form submit (pressing Enter or clicking Search/Filter button)
+    document.addEventListener('submit', function (e) {
+        const form = e.target;
+        if (!form || (form.method && form.method.toUpperCase() !== 'GET')) return;
+        const searchInput = form.querySelector('input[name="search"], input[id*="search"], input[placeholder*="Search" i]');
+        if (!searchInput) return;
+
+        e.preventDefault();
+        clearTimeout(liveSearchDebounce);
+        triggerGlobalLiveSearch(form, searchInput);
     });
 });
 </script>

@@ -33,7 +33,7 @@
 
     {{-- Filter Card --}}
     <div class="bg-[#111A24] p-5 rounded-3xl border border-slate-800/80 shadow-xl">
-        <form method="GET" action="{{ route('admin.branches.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+        <form method="GET" action="{{ route('admin.branches.index') }}" data-table-target="branches-grid-card" class="grid grid-cols-1 sm:grid-cols-12 gap-4">
             <div class="sm:col-span-7">
                 <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Search Branches</label>
                 <div class="relative">
@@ -69,7 +69,7 @@
     </div>
 
     {{-- Branches Grid --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div id="branches-grid-card" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($branches as $b)
             <div class="bg-[#111A24] rounded-3xl border border-slate-800/80 shadow-xl hover:border-cyan-500/40 transition-all p-6 flex flex-col justify-between space-y-4 group">
                 <div class="space-y-4">

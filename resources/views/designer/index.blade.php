@@ -92,7 +92,7 @@
     </div>
 
     {{-- VIEW 1: PRE-PRESS QUEUE TABLE (Default) --}}
-    <div x-show="view === 'table'" class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div id="designer-queue-card" x-show="view === 'table'" class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800/80 rounded-3xl shadow-xl overflow-hidden flex flex-col">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
                 <thead class="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800/80 text-[10px] bg-slate-50/50 dark:bg-[#0D1520]">

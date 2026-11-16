@@ -34,7 +34,7 @@
 
     {{-- Filter, Search & Sorting Bar --}}
     <div class="bg-cyber-card border border-cyber p-4 rounded-2xl shadow-sm">
-        <form method="GET" action="{{ route('customer.quotations.index') }}" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+        <form method="GET" action="{{ route('customer.quotations.index') }}" data-table-target="customer-quotations-results-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
             {{-- Search Bar --}}
             <div class="md:col-span-2 relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-cyber-muted text-xs"></i>
@@ -80,6 +80,7 @@
         </form>
     </div>
 
+    <div id="customer-quotations-results-container">
     @if($quotations->isEmpty())
     <div class="bg-cyber-card border border-cyber rounded-2xl p-16 text-center shadow-xl">
         <div class="h-16 w-16 mx-auto rounded-2xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-2xl mb-4">
@@ -266,5 +267,6 @@
 
     <div class="mt-4">{{ $quotations->links() }}</div>
     @endif
+    </div>
 </div>
 @endsection

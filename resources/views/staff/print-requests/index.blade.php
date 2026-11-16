@@ -5,24 +5,20 @@
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
-    {{-- Page Header --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    {{-- Page Header (Clean Unboxed) --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Customer Print Requests</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Review specifications, prepare quotations, and manage customer intake.</p>
+        </div>
 
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Customer Print Requests</h2>
-            </div>
-
-            <div class="flex items-center gap-2.5 shrink-0">
-                <a href="{{ route('staff.print-requests.create') }}" class="px-4 py-2.5 rounded-xl bg-[#0E3386] hover:bg-[#1442a8] text-white font-bold text-xs shadow-md shadow-[#0E3386]/25 transition flex items-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-file-circle-plus text-xs"></i> New Print Request
-                </a>
-                <a href="{{ route('staff.quotations.create') }}" class="px-4 py-2.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2">
-                    <i class="fa-solid fa-plus text-xs text-sky-400"></i> New Quotation
-                </a>
-            </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+            <a href="{{ route('staff.print-requests.create') }}" class="px-3.5 py-2 rounded-xl bg-[#0E3386] hover:bg-[#1442a8] text-white font-bold text-xs shadow-xs transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-file-circle-plus text-xs"></i> New Print Request
+            </a>
+            <a href="{{ route('staff.quotations.create') }}" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 font-bold text-xs transition flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-plus text-xs text-sky-500"></i> New Quotation
+            </a>
         </div>
     </div>
 
@@ -59,7 +55,7 @@
     </div>
 
     {{-- Requests Table Container --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div id="print-requests-table-card" class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
         @if($printRequests->isEmpty())
             <div class="p-8">
                 <x-dashboard.empty-state 
@@ -76,7 +72,8 @@
                     <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
                         <tr>
                             <th class="px-6 py-3.5">Req #</th>
-                            <th class="px-6 py-3.5">Customer</th>
+                            <th class="px-6 py-3.5">Customer Name</th>
+                            <th class="px-6 py-3.5">Email</th>
                             <th class="px-6 py-3.5">Service</th>
                             <th class="px-6 py-3.5">Specifications</th>
                             <th class="px-6 py-3.5">Deadline</th>
@@ -91,9 +88,11 @@
                                 PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}
                                 <span class="text-[10px] text-cyber-sub block font-sans">{{ $req->created_at ? $req->created_at->diffForHumans() : '' }}</span>
                             </td>
-                            <td class="px-6 py-4">
-                                <span class="font-bold text-cyber-main block">{{ $req->user->name ?? 'Direct Customer' }}</span>
-                                <span class="text-[10px] text-cyber-muted block truncate max-w-[150px]">{{ $req->user->email ?? '—' }}</span>
+                            <td class="px-6 py-4 font-bold text-cyber-main whitespace-nowrap">
+                                {{ $req->user->name ?? 'Direct Customer' }}
+                            </td>
+                            <td class="px-6 py-4 text-cyber-muted text-xs whitespace-nowrap">
+                                {{ $req->user->email ?? '—' }}
                             </td>
                             <td class="px-6 py-4 font-bold text-cyan-400">
                                 {{ $req->service }}

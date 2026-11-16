@@ -164,7 +164,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 3. ENHANCED EXECUTIVE ORDERS TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div id="management-orders-table-card" class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
         <div class="overflow-x-auto font-sans">
             <table class="w-full text-left text-xs">
                 <thead class="text-slate-600 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px] bg-slate-50/50 dark:bg-transparent">

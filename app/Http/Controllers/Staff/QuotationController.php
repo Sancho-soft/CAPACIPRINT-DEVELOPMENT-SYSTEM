@@ -58,7 +58,7 @@ class QuotationController extends Controller
             $query->latest();
         }
 
-        $quotations = $query->paginate(10)->withQueryString();
+        $quotations = $query->paginate(7)->withQueryString();
 
         return view('staff.quotations.index', compact('quotations'));
     }

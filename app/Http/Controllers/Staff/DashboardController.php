@@ -128,11 +128,10 @@ class DashboardController extends Controller
             ];
         }
 
-        // Recent customer print requests
+        // Recent customer print requests (paginated by 7)
         $recentRequests = PrintRequest::with('user')
             ->latest()
-            ->take(6)
-            ->get();
+            ->paginate(7, ['*'], 'requests_page');
 
         // Recent quotations
         $recentQuotations = Quotation::with(['printRequest', 'user'])
@@ -140,11 +139,10 @@ class DashboardController extends Controller
             ->take(6)
             ->get();
 
-        // Recent customer orders
+        // Recent customer orders (paginated by 7)
         $recentOrders = Order::with(['printRequest', 'user'])
             ->latest()
-            ->take(8)
-            ->get();
+            ->paginate(7, ['*'], 'orders_page');
 
         $unread = InternalNotification::where('user_id', Auth::id())
             ->where('is_read', false)->count();

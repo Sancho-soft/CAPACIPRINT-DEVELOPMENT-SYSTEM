@@ -22,9 +22,13 @@ class PrintRequestController extends Controller
             $query->where('status', $status);
         }
         if ($search = $request->get('search')) {
-            $query->where(function($q) use ($search) {
+            $idSearch = preg_replace('/[^0-9]/', '', $search);
+            $query->where(function($q) use ($search, $idSearch) {
                 $q->whereHas('user', fn($sq) => $sq->where('name', 'like', "%$search%")->orWhere('email', 'like', "%$search%"))
                   ->orWhere('service', 'like', "%$search%");
+                if (!empty($idSearch)) {
+                    $q->orWhere('id', intval($idSearch));
+                }
             });
         }
 

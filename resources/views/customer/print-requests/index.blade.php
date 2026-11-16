@@ -15,7 +15,7 @@
         </a>
     </div>
 
-    <div class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs overflow-hidden">
+    <div id="customer-requests-table-card" class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs overflow-hidden">
         {{-- Search Toolbar matching Sample --}}
         <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white dark:bg-[#111A24]">
             <form method="GET" action="{{ route('customer.print-requests.index') }}" class="flex items-center gap-2">

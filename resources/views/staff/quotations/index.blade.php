@@ -69,7 +69,7 @@
         </form>
     </div>
 
-    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+    <div id="quotations-table-card" class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                 <tr>

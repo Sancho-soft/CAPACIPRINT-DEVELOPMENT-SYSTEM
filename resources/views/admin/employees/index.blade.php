@@ -84,7 +84,7 @@
     </div>
 
     {{-- Employee Table --}}
-    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div id="employees-table-card" class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm text-slate-600">
                 <thead class="bg-slate-50/80 text-xs uppercase font-extrabold text-slate-400 tracking-wider border-b border-slate-100">

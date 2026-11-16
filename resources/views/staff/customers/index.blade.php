@@ -9,22 +9,21 @@
             <h2 class="text-2xl font-bold text-navy-900 dark:text-white font-display">Customers Directory</h2>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage customer profiles, send direct portal notices, and issue quotations.</p>
         </div>
-        <form method="GET" class="relative flex items-center">
-            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500 dark:text-cyan-400"></i>
+        <form method="GET" action="{{ route('staff.customers.index') }}" class="flex items-center">
+            <div class="relative flex items-center w-full sm:w-96 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-1 shadow-2xs focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition">
+                <div class="pl-3 pr-1 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500"></i>
+                </div>
+                <input type="text" 
+                       name="search" 
+                       value="{{ request('search') }}" 
+                       placeholder="Search customer name, email, or phone..."
+                       autocomplete="off"
+                       class="w-full bg-transparent border-0 px-2.5 py-1.5 text-xs font-medium text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-0">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-xs shrink-0 cursor-pointer">
+                    Search
+                </button>
             </div>
-            <input type="text" 
-                   name="search" 
-                   value="{{ request('search') }}" 
-                   placeholder="Search customer name or email..."
-                   class="w-full sm:w-80 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 pl-9 pr-8 py-2 text-xs font-medium text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none transition shadow-2xs">
-            @if(request('search'))
-                <a href="{{ route('staff.customers.index') }}" 
-                   class="absolute right-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs p-1"
-                   title="Clear Search">
-                    <i class="fa-solid fa-xmark"></i>
-                </a>
-            @endif
         </form>
     </div>
 
@@ -35,7 +34,7 @@
         </div>
     @endif
 
-    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+    <div id="customers-table-card" class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
                 <tr>

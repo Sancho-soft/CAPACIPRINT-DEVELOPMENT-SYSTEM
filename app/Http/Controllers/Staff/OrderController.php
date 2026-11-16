@@ -18,6 +18,18 @@ class OrderController extends Controller
     {
         $query = Order::with(['user', 'printRequest', 'quotation', 'payment'])->latest();
 
+        // Search by Order ID (#ORD-...) or Customer Name
+        if ($search = $request->get('search')) {
+            $cleanSearch = ltrim(trim($search), '#');
+            $query->where(function ($q) use ($search, $cleanSearch) {
+                $q->where('order_number', 'like', "%{$cleanSearch}%")
+                  ->orWhere('id', $cleanSearch)
+                  ->orWhereHas('user', function ($uq) use ($search) {
+                      $uq->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
         if ($status = $request->get('status')) {
             $query->where('status', $status);
         }
@@ -25,7 +37,7 @@ class OrderController extends Controller
             $query->where('payment_status', $payment);
         }
 
-        $orders = $query->paginate(7);
+        $orders = $query->paginate(7)->withQueryString();
         return view('staff.orders.index', compact('orders'));
     }
 

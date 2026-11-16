@@ -169,7 +169,7 @@
 
     @if(method_exists($jobs, 'hasPages') && $jobs->hasPages())
         <div class="px-5 py-3 border-t border-cyber/60 bg-cyber-sub/40">
-            {{ $jobs->appends(request()->except('jobs_page'))->fragment('press-line-queue')->links() }}
+            {{ $jobs->withQueryString()->fragment('press-line-queue')->links() }}
         </div>
     @endif
 </div>

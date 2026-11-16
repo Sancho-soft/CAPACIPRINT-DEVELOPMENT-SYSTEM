@@ -1,33 +1,17 @@
 @extends('layouts.internal')
-@section('title', 'Sales & Customer Service Desk')
-@section('page-title', 'Sales & Customer Service Desk')
+@section('title', 'Dashboard Overview — Customer Service')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: CUSTOMER SERVICE & SALES DESK --}}
+    {{-- PAGE HEADER: DASHBOARD OVERVIEW --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Sales &amp; Customer Service Desk</h2>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full lg:w-auto justify-start lg:justify-end">
-                <a href="{{ route('staff.quotations.create') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-plus text-xs"></i> New Quotation
-                </a>
-                <a href="{{ route('staff.claim-scanner') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-qrcode text-xs text-cyan-400"></i> QR Claim Scanner
-                </a>
-                <a href="{{ route('staff.customers.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-users text-xs text-emerald-400"></i> Customer Directory
-                </a>
-            </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Dashboard Overview</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Live customer intake, quotations, and fulfillment monitoring.</p>
         </div>
     </div>
 
@@ -80,7 +64,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- LEVEL 2 & 4: INTAKE QUEUE (INCOMING PRINT REQUESTS ONLY) --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div id="requests-queue" class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col scroll-mt-6">
         <div class="px-5 sm:px-6 py-4 border-b border-cyber/60 flex items-center justify-between bg-cyber-sub/40">
             <div>
                 <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight flex items-center gap-2">
@@ -160,6 +144,12 @@
                 </tbody>
             </table>
         </div>
+
+        @if(method_exists($recentRequests, 'hasPages') && $recentRequests->hasPages())
+            <div class="px-5 py-3 border-t border-cyber/60 bg-cyber-sub/40">
+                {{ $recentRequests->withQueryString()->fragment('requests-queue')->links() }}
+            </div>
+        @endif
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
