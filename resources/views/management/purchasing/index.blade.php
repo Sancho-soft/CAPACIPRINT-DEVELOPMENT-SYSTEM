@@ -7,30 +7,21 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: PROCUREMENT CONTROL --}}
+    {{-- PAGE HEADER: PROCUREMENT CONTROL (UNBOXED & CLEAN)        --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Executive Procurement &amp; Purchase Approvals</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Review replenishment requests, approve purchase orders, and monitor budget spend.</p>
+        </div>
 
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <div class="h-14 w-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-500 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-file-invoice-dollar"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Executive Procurement &amp; Purchase Approvals</h2>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-                <a href="{{ route('management.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-arrow-left text-xs"></i> Back to Dashboard
-                </a>
-                <a href="{{ route('management.inventory.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-boxes-stacked text-xs"></i> Inventory Hub
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <a href="{{ route('management.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-arrow-left text-xs"></i> Back to Dashboard
+            </a>
+            <a href="{{ route('management.inventory.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-boxes-stacked text-xs"></i> Inventory Hub
+            </a>
         </div>
     </div>
 
@@ -63,10 +54,10 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- PURCHASE REQUISITIONS TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="text-cyber-muted font-bold border-b border-cyber/60 text-[11px]">
                     <tr>
                         <th class="px-6 py-4">PR #</th>
                         <th class="px-6 py-4">Branch</th>
@@ -81,21 +72,21 @@
                 <tbody class="divide-y divide-cyber/60 text-cyber-main">
                     @forelse($requests as $req)
                     <tr class="hover:bg-cyber-hover/50 transition">
-                        <td class="px-6 py-4 font-mono font-bold text-cyber-main">PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}</td>
+                        <td class="px-6 py-4 font-sans tabular-nums font-bold text-cyber-main">PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}</td>
                         <td class="px-6 py-4 font-semibold text-cyber-main">{{ $req->branch->name ?? 'Main Hub' }}</td>
                         <td class="px-6 py-4 font-semibold">{{ $req->material->name ?? 'Material' }}</td>
-                        <td class="px-6 py-4 font-bold font-mono">{{ number_format($req->quantity) }}</td>
-                        <td class="px-6 py-4 font-bold font-mono text-emerald-600 dark:text-emerald-400">₱{{ number_format($req->total_amount, 2) }}</td>
+                        <td class="px-6 py-4 font-bold font-sans tabular-nums">{{ number_format($req->quantity) }}</td>
+                        <td class="px-6 py-4 font-bold font-sans tabular-nums text-emerald-600 dark:text-emerald-400">₱{{ number_format($req->total_amount, 2) }}</td>
                         <td class="px-6 py-4 text-cyber-muted">{{ $req->user->name ?? 'Manager' }}</td>
                         <td class="px-6 py-4">
                             @if($req->status === 'pending')
-                                <span class="px-2.5 py-1 text-[10px] font-bold font-mono uppercase rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">Pending Review</span>
+                                <span class="px-2.5 py-1 text-[11px] font-bold font-sans tabular-nums uppercase rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">Pending Review</span>
                             @elseif($req->status === 'approved')
-                                <span class="px-2.5 py-1 text-[10px] font-bold font-mono uppercase rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">Approved</span>
+                                <span class="px-2.5 py-1 text-[11px] font-bold font-sans tabular-nums uppercase rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">Approved</span>
                             @elseif($req->status === 'received')
-                                <span class="px-2.5 py-1 text-[10px] font-bold font-mono uppercase rounded-full bg-sky-500/15 text-sky-700 dark:text-sky-400 border border-sky-500/30">Stocked</span>
+                                <span class="px-2.5 py-1 text-[11px] font-bold font-sans tabular-nums uppercase rounded-full bg-sky-500/15 text-sky-700 dark:text-sky-400 border border-sky-500/30">Stocked</span>
                             @else
-                                <span class="px-2.5 py-1 text-[10px] font-bold font-mono uppercase rounded-full bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30">Rejected</span>
+                                <span class="px-2.5 py-1 text-[11px] font-bold font-sans tabular-nums uppercase rounded-full bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30">Rejected</span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-right whitespace-nowrap">
@@ -103,11 +94,11 @@
                                 <div class="flex items-center justify-end gap-2">
                                     <form action="{{ route('management.purchasing.approve', $req) }}" method="POST" class="inline">
                                         @csrf
-                                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow-xs cursor-pointer">Approve</button>
+                                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow-sm cursor-pointer">Approve</button>
                                     </form>
                                     <form action="{{ route('management.purchasing.reject', $req) }}" method="POST" class="inline">
                                         @csrf
-                                        <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow-xs cursor-pointer">Reject</button>
+                                        <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow-sm cursor-pointer">Reject</button>
                                     </form>
                                 </div>
                             @else

@@ -49,15 +49,17 @@ class PaymentController extends Controller
             return back()->with('error', 'This payment has already been submitted or processed.');
         }
 
+        $isCash = in_array(strtolower(trim($request->input('payment_method', ''))), ['cash', 'cash on pickup', 'over-the-counter']);
+
         $data = $request->validate([
             'payment_method'    => ['required', 'string', 'max:255'],
-            'payment_reference' => ['required', 'string', 'max:255'],
+            'payment_reference' => [$isCash ? 'nullable' : 'required', 'string', 'max:255'],
             'notes'             => ['nullable', 'string', 'max:1000'],
         ]);
 
         $payment->update([
             'payment_method'    => $data['payment_method'],
-            'payment_reference' => $data['payment_reference'],
+            'payment_reference' => $isCash ? null : ($data['payment_reference'] ?? null),
             'notes'             => $data['notes'] ?? null,
             'status'            => 'submitted',
             'paid_at'           => now(),

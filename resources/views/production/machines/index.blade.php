@@ -22,8 +22,8 @@
     <!-- Machine Logs Datatable -->
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
-                <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 uppercase font-semibold text-xs tracking-wider border-b border-slate-200 dark:border-slate-800">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300 tabular-nums">
+                <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 font-semibold text-xs border-b border-slate-200 dark:border-slate-800">
                     <tr>
                         <th class="px-6 py-4">Logged At</th>
                         <th class="px-6 py-4">Machine</th>
@@ -37,7 +37,7 @@
                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($logs as $log)
                     <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                        <td class="px-6 py-4 font-mono text-xs text-slate-400">{{ $log->created_at->format('M d, Y H:i') }}</td>
+                        <td class="px-6 py-4 font-sans tabular-nums text-xs text-slate-400">{{ $log->created_at->format('M d, Y H:i') }}</td>
                         <td class="px-6 py-4 font-semibold text-slate-900 dark:text-white">{{ $log->machine->name ?? 'Machine #' . $log->machine_id }}</td>
                         <td class="px-6 py-4">{{ $log->machine->branch->name ?? 'Main Branch' }}</td>
                         <td class="px-6 py-4 font-bold uppercase text-xs">
@@ -72,13 +72,13 @@
 </div>
 
 <!-- Report Issue Modal -->
-<div id="report-issue-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 w-full max-w-lg shadow-2xl">
+<div id="report-issue-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm overscroll-contain">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 w-full max-w-lg shadow-sm">
         <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display mb-4">Report Machine Issue</h3>
         <form action="{{ route('production.machines.store') }}" method="POST" class="space-y-4">
             @csrf
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Target Machine</label>
+                <label class="block text-xs font-bold text-slate-500 mb-1">Target Machine</label>
                 <select name="machine_id" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white">
                     @foreach($machines as $m)
                         <option value="{{ $m->id }}">{{ $m->name }} ({{ $m->machine_type }}) — {{ ucfirst($m->status) }}</option>
@@ -86,7 +86,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Incident Type</label>
+                <label class="block text-xs font-bold text-slate-500 mb-1">Incident Type</label>
                 <select name="log_type" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white">
                     <option value="breakdown">Breakdown (Halts Production)</option>
                     <option value="maintenance">Preventive Maintenance</option>
@@ -94,7 +94,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Description of Breakdown / Issue</label>
+                <label class="block text-xs font-bold text-slate-500 mb-1">Description of Breakdown / Issue</label>
                 <textarea name="issue_description" rows="4" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white" placeholder="Describe error codes, paper jams, or mechanical fault details..."></textarea>
             </div>
             <div class="flex justify-end gap-3 pt-2">

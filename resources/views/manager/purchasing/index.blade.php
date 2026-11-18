@@ -17,28 +17,19 @@
 }">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER --}}
+    {{-- PAGE HEADER (UNBOXED & CLEAN)                             --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-cart-flatbed"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Material Purchase Requests</h1>
-                    <p class="text-xs sm:text-sm text-cyber-muted mt-0.5">Submit replenishment orders and manage material procurement for printing facilities.</p>
-                </div>
-            </div>
-
-            <button @click="newPrModalOpen = true" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-brand-500/20 text-xs sm:text-sm transition cursor-pointer shrink-0">
-                <i class="fa-solid fa-plus text-xs"></i>
-                <span>Create Purchase Request</span>
-            </button>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Procurement &amp; Replenishment</span>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Material Purchase Requests</h1>
+            <p class="text-xs text-cyber-muted mt-1">Submit replenishment orders and manage material procurement for printing facilities.</p>
         </div>
+
+        <button @click="newPrModalOpen = true" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2 rounded-lg text-xs transition cursor-pointer shrink-0">
+            <i class="fa-solid fa-plus text-xs"></i>
+            <span>Create Purchase Request</span>
+        </button>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -70,69 +61,69 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- PURCHASE REQUESTS TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px] bg-slate-50/50 dark:bg-slate-800/40">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px] bg-cyber-sub">
                     <tr>
-                        <th class="px-6 py-4">PR #</th>
-                        <th class="px-6 py-4">Material</th>
-                        <th class="px-6 py-4">Quantity</th>
-                        <th class="px-6 py-4">Est. Cost</th>
-                        <th class="px-6 py-4">Requested By</th>
-                        <th class="px-6 py-4">Status</th>
-                        <th class="px-6 py-4 text-right">Actions</th>
+                        <th class="px-6 py-3.5">PR #</th>
+                        <th class="px-6 py-3.5">Material</th>
+                        <th class="px-6 py-3.5">Quantity</th>
+                        <th class="px-6 py-3.5">Est. Cost</th>
+                        <th class="px-6 py-3.5">Requested By</th>
+                        <th class="px-6 py-3.5">Status</th>
+                        <th class="px-6 py-3.5 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-cyber/60 text-cyber-main">
+                <tbody class="divide-y divide-cyber-sub text-cyber-main">
                     @forelse($requests as $req)
-                    <tr class="hover:bg-cyber-hover/50 transition">
+                    <tr class="hover:bg-black/[0.02] dark:hover:bg-white/[0.025] transition-colors">
                         {{-- PR # --}}
-                        <td class="px-6 py-4 font-mono font-bold text-cyber-main">
+                        <td class="px-6 py-4 font-sans tabular-nums font-bold text-cyber-main">
                             PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}
                         </td>
 
                         {{-- Material Name & Type --}}
                         <td class="px-6 py-4">
                             <span class="font-bold text-cyber-main block">{{ $req->material->name ?? 'Material #' . $req->material_id }}</span>
-                            <span class="text-[10px] text-cyber-muted uppercase tracking-wider">{{ $req->material->type ?? 'Substrate' }}</span>
+                            <span class="text-[11px] text-cyber-muted uppercase tracking-wider">{{ $req->material->type ?? 'Substrate' }}</span>
                         </td>
 
                         {{-- Quantity --}}
-                        <td class="px-6 py-4 font-bold font-mono">
+                        <td class="px-6 py-4 font-bold font-sans tabular-nums">
                             {{ number_format($req->quantity) }} <span class="text-cyber-muted text-[11px] font-sans font-normal">{{ $req->material->unit ?? 'units' }}</span>
                         </td>
 
                         {{-- Total Amount --}}
-                        <td class="px-6 py-4 font-bold font-mono text-emerald-600 dark:text-emerald-400">
+                        <td class="px-6 py-4 font-bold font-sans tabular-nums text-emerald-600 dark:text-emerald-400">
                             ₱{{ number_format($req->total_amount, 2) }}
                         </td>
 
                         {{-- Requester & Branch --}}
                         <td class="px-6 py-4">
                             <span class="font-medium text-cyber-main block">{{ $req->user->name ?? 'System' }}</span>
-                            <span class="text-[10px] text-cyber-muted block">{{ $req->branch->name ?? 'Main Hub' }}</span>
+                            <span class="text-[11px] text-cyber-muted block">{{ $req->branch->name ?? 'Main Hub' }}</span>
                         </td>
 
                         {{-- Status (Clean, High-Res Plain Style) --}}
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($req->status === 'pending')
-                                <span class="inline-flex items-center gap-1.5 font-bold text-xs text-amber-600 dark:text-amber-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-amber-500 animate-pulse"></i>
+                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-amber-700 dark:text-amber-400">
+                                    <i class="fa-solid fa-circle text-[7px] text-amber-500"></i>
                                     Pending Approval
                                 </span>
                             @elseif($req->status === 'approved')
-                                <span class="inline-flex items-center gap-1.5 font-bold text-xs text-emerald-600 dark:text-emerald-400">
+                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-emerald-700 dark:text-emerald-400">
                                     <i class="fa-solid fa-circle text-[7px] text-emerald-500"></i>
                                     Approved
                                 </span>
                             @elseif($req->status === 'received')
-                                <span class="inline-flex items-center gap-1.5 font-bold text-xs text-cyan-600 dark:text-cyan-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-cyan-500"></i>
+                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-brand-600 dark:text-blue-400">
+                                    <i class="fa-solid fa-circle text-[7px] text-brand-600 dark:text-blue-400"></i>
                                     Received &amp; Stocked
                                 </span>
                             @else
-                                <span class="inline-flex items-center gap-1.5 font-bold text-xs text-rose-600 dark:text-rose-400">
+                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-rose-700 dark:text-rose-400">
                                     <i class="fa-solid fa-circle text-[7px] text-rose-500"></i>
                                     Rejected
                                 </span>
@@ -167,8 +158,8 @@
                                             'can_cancel' => (auth()->id() === $req->requested_by) || auth()->user()->isAdmin(),
                                         ]) }}; detailsModalOpen = true;"
                                         title="View PR Details"
-                                        class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-cyber bg-cyber-sub text-cyber-main hover:bg-cyber-card text-xs font-bold transition shadow-xs cursor-pointer">
-                                    <i class="fa-solid fa-eye text-xs text-cyber-muted"></i>
+                                        class="group inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-brand-600/25 dark:border-blue-500/30 bg-brand-600/10 dark:bg-blue-500/15 hover:bg-brand-600 text-brand-700 dark:text-blue-400 hover:text-white text-xs font-semibold transition cursor-pointer">
+                                    <i class="fa-solid fa-eye text-xs transition-colors"></i>
                                     <span>Details</span>
                                 </button>
 
@@ -179,7 +170,7 @@
                                             @csrf
                                             <button type="submit" 
                                                     title="Quick Approve"
-                                                    class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1.5 rounded-xl text-xs transition shadow-xs cursor-pointer">
+                                                    class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1.5 rounded-xl text-xs transition shadow-sm cursor-pointer">
                                                 <i class="fa-solid fa-check text-xs"></i>
                                                 <span>Approve</span>
                                             </button>
@@ -190,7 +181,7 @@
                                             <button type="submit" 
                                                     onclick="return confirm('Are you sure you want to reject PR-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}?')"
                                                     title="Quick Reject"
-                                                    class="inline-flex items-center gap-1 bg-rose-600 hover:bg-rose-500 text-white font-bold px-2.5 py-1.5 rounded-xl text-xs transition shadow-xs cursor-pointer">
+                                                    class="inline-flex items-center gap-1 bg-rose-600 hover:bg-rose-500 text-white font-bold px-2.5 py-1.5 rounded-xl text-xs transition shadow-sm cursor-pointer">
                                                 <i class="fa-solid fa-xmark text-xs"></i>
                                                 <span>Reject</span>
                                             </button>
@@ -217,7 +208,7 @@
                                         @csrf
                                         <button type="submit" 
                                                 title="Mark Material Stock Received"
-                                                class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow-xs cursor-pointer">
+                                                class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow-sm cursor-pointer">
                                             <i class="fa-solid fa-box-open text-xs"></i>
                                             <span>Receive Stock</span>
                                         </button>
@@ -231,7 +222,7 @@
 
                                 {{-- 5. Rejected --}}
                                 @else
-                                    <span class="text-rose-400 text-xs font-medium inline-flex items-center gap-1">
+                                    <span class="text-rose-700 dark:text-rose-400 text-xs font-medium inline-flex items-center gap-1">
                                         <i class="fa-solid fa-ban text-xs"></i> Declined
                                     </span>
                                 @endif
@@ -262,7 +253,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div x-show="detailsModalOpen" 
          x-cloak 
-         class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+         class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overscroll-contain"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
@@ -270,19 +261,19 @@
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0">
 
-        <div class="relative bg-cyber-card border border-cyber rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl overflow-hidden"
+        <div class="relative bg-cyber-card border border-cyber rounded-2xl max-w-xl w-full p-6 sm:p-7 shadow-sm overflow-hidden"
              @click.away="detailsModalOpen = false">
 
             {{-- Modal Header --}}
             <div class="flex items-center justify-between pb-4 border-b border-cyber">
                 <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-lg">
+                    <div class="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-file-invoice"></i>
                     </div>
                     <div>
                         <h3 class="text-lg font-black font-display text-cyber-main flex items-center gap-2">
                             <span>Requisition Details</span>
-                            <span class="font-mono text-xs text-cyber-muted px-2 py-0.5 rounded-md bg-cyber-sub border border-cyber" x-text="selectedPR?.pr_number"></span>
+                            <span class="font-sans tabular-nums text-xs text-cyber-muted px-2 py-0.5 rounded-md bg-cyber-sub border border-cyber" x-text="selectedPR?.pr_number"></span>
                         </h3>
                         <p class="text-xs text-cyber-muted">Submitted on <span x-text="selectedPR?.created_at"></span></p>
                     </div>
@@ -297,13 +288,13 @@
                 {{-- Material Specs --}}
                 <div class="bg-cyber-sub rounded-2xl p-4 border border-cyber grid grid-cols-2 gap-4">
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-extrabold text-cyber-muted block">Material Name</span>
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Material Name</span>
                         <span class="text-sm font-black text-cyber-main block" x-text="selectedPR?.material_name"></span>
                         <span class="text-[11px] text-cyber-muted" x-text="selectedPR?.material_type"></span>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-extrabold text-cyber-muted block">Requested Quantity</span>
-                        <span class="text-sm font-black text-cyber-main font-mono block">
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Requested Quantity</span>
+                        <span class="text-sm font-black text-cyber-main font-sans tabular-nums block">
                             <span x-text="selectedPR?.quantity"></span> <span class="font-sans font-normal text-xs text-cyber-muted" x-text="selectedPR?.material_unit"></span>
                         </span>
                         <span class="text-[11px] text-cyber-muted">Est. Unit Cost: ₱<span x-text="selectedPR?.unit_cost"></span></span>
@@ -313,29 +304,29 @@
                 {{-- Total Budget Highlight --}}
                 <div class="flex items-center justify-between p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30">
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-extrabold text-emerald-700 dark:text-emerald-400 block">Total Requisition Cost</span>
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-emerald-700 dark:text-emerald-400 block">Total Requisition Cost</span>
                         <span class="text-xs text-cyber-muted">Calculated replenishment allocation</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-xl sm:text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400">₱<span x-text="selectedPR?.total_amount"></span></span>
+                        <span class="text-xl sm:text-2xl font-black font-sans tabular-nums text-emerald-600 dark:text-emerald-400">₱<span x-text="selectedPR?.total_amount"></span></span>
                     </div>
                 </div>
 
                 {{-- Submitter & Facility Info --}}
                 <div class="grid grid-cols-2 gap-4 bg-cyber-sub rounded-2xl p-4 border border-cyber">
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-extrabold text-cyber-muted block">Requested By</span>
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Requested By</span>
                         <span class="font-bold text-cyber-main" x-text="selectedPR?.requested_by"></span>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase tracking-wider font-extrabold text-cyber-muted block">Destination Facility</span>
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Destination Facility</span>
                         <span class="font-bold text-cyber-main" x-text="selectedPR?.branch_name"></span>
                     </div>
                 </div>
 
                 {{-- Justification Notes --}}
                 <div>
-                    <span class="text-[10px] uppercase tracking-wider font-extrabold text-cyber-muted block mb-1">Replenishment Justification / Notes</span>
+                    <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block mb-1">Replenishment Justification / Notes</span>
                     <div class="bg-cyber-sub border border-cyber rounded-2xl p-3.5 text-cyber-main text-xs whitespace-pre-line leading-relaxed" x-text="selectedPR?.notes"></div>
                 </div>
             </div>
@@ -399,7 +390,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div x-show="newPrModalOpen" 
          x-cloak 
-         class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+         class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overscroll-contain"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
@@ -407,7 +398,7 @@
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0">
 
-        <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 w-full max-w-lg shadow-2xl overflow-hidden"
+        <div class="relative bg-cyber-card border border-cyber rounded-2xl p-6 sm:p-7 w-full max-w-lg shadow-sm overflow-hidden"
              @click.away="newPrModalOpen = false">
 
             <div class="flex items-center justify-between pb-4 border-b border-cyber">
@@ -429,7 +420,7 @@
                 @csrf
 
                 <div>
-                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-cyber-muted mb-1.5">Select Material</label>
+                    <label class="block text-[11px] font-extrabold text-cyber-muted mb-1.5">Select Material</label>
                     <select name="material_id" required @change="updateUnitCost($event)" class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main font-medium focus:ring-2 focus:ring-brand-500/40 outline-none transition">
                         <option value="" disabled selected>-- Choose Material Substrate --</option>
                         @foreach($materials as $mat)
@@ -442,25 +433,25 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-cyber-muted mb-1.5">Quantity</label>
-                        <input type="number" name="quantity" min="1" x-model.number="prQuantity" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main font-mono font-bold focus:ring-2 focus:ring-brand-500/40 outline-none transition" placeholder="e.g. 50">
+                        <label class="block text-[11px] font-extrabold text-cyber-muted mb-1.5">Quantity</label>
+                        <input type="number" name="quantity" min="1" x-model.number="prQuantity" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main font-sans tabular-nums font-bold focus:ring-2 focus:ring-brand-500/40 outline-none transition" placeholder="e.g. 50">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-cyber-muted mb-1.5">Unit Cost (₱)</label>
-                        <input type="number" step="0.01" min="0" name="unit_cost" x-model.number="prUnitCost" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main font-mono font-bold focus:ring-2 focus:ring-brand-500/40 outline-none transition" placeholder="e.g. 150.00">
+                        <label class="block text-[11px] font-extrabold text-cyber-muted mb-1.5">Unit Cost (₱)</label>
+                        <input type="number" step="0.01" min="0" name="unit_cost" x-model.number="prUnitCost" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main font-sans tabular-nums font-bold focus:ring-2 focus:ring-brand-500/40 outline-none transition" placeholder="e.g. 150.00">
                     </div>
                 </div>
 
                 {{-- Estimated Budget Preview --}}
                 <div class="p-3.5 rounded-2xl bg-cyber-sub border border-cyber flex items-center justify-between">
                     <span class="text-cyber-muted font-bold">Estimated Total:</span>
-                    <span class="font-mono font-black text-sm text-emerald-600 dark:text-emerald-400">
+                    <span class="font-sans tabular-nums font-black text-sm text-emerald-600 dark:text-emerald-400">
                         ₱<span x-text="((prQuantity || 0) * (prUnitCost || 0)).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })"></span>
                     </span>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-cyber-muted mb-1.5">Justification / Restocking Notes</label>
+                    <label class="block text-[11px] font-extrabold text-cyber-muted mb-1.5">Justification / Restocking Notes</label>
                     <textarea name="notes" rows="3" class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main text-xs focus:ring-2 focus:ring-brand-500/40 outline-none transition" placeholder="Provide reason for replenishment, target project, or urgent press stock needs..."></textarea>
                 </div>
 

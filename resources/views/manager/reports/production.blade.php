@@ -6,33 +6,26 @@
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: PRODUCTION REPORT --}}
+    {{-- PAGE HEADER: PRODUCTION REPORT (UNBOXED & CLEAN)          --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-2xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4">
-                <a href="{{ route('manager.reports.index') }}" class="h-12 w-12 rounded-2xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main flex items-center justify-center text-lg shadow-sm transition hover:scale-105 shrink-0" title="Back to Reports Hub">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </a>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-sky-600 dark:text-cyan-400 font-mono">OPERATIONAL TELEMETRY</span>
-                    </div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Production Performance &amp; Job Status Logs</h2>
-                </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <a href="{{ route('manager.reports.index') }}" class="h-10 w-10 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main flex items-center justify-center text-sm shadow-sm transition hover:scale-105 shrink-0" title="Back to Reports Hub">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Production Performance &amp; Job Status Logs</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Live tracking, completion velocity, and fulfillment records.</p>
             </div>
+        </div>
 
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-                <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm cursor-pointer">
-                    <i class="fa-solid fa-print text-cyan-400 text-xs"></i> Print Audit
-                </button>
-                <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-calendar-days text-xs"></i> Plan Schedule
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm cursor-pointer">
+                <i class="fa-solid fa-print text-blue-400 text-xs"></i> Print Audit
+            </button>
+            <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-calendar-days text-xs"></i> Plan Schedule
+            </a>
         </div>
     </div>
 
@@ -43,14 +36,16 @@
         <div class="flex flex-col md:flex-row items-center gap-3">
             {{-- Search --}}
             <div class="w-full md:w-72 relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-cyber-muted"></i>
+                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-cyber-muted">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
                 <input type="text" name="search" value="{{ request('search') }}"
                        placeholder="Search job #, customer, branch..."
-                       class="w-full pl-9 pr-4 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main placeholder:text-cyber-muted focus:outline-hidden focus:border-cyan-500 transition font-sans">
+                       class="w-full pl-9 pr-4 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main placeholder:text-cyber-muted focus:outline-hidden focus:border-blue-500 transition font-sans">
             </div>
 
             {{-- Status Filter --}}
-            <select name="status" class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans">
+            <select name="status" class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-blue-500 font-sans">
                 <option value="">All Statuses</option>
                 <option value="in_production"    {{ request('status') === 'in_production'    ? 'selected' : '' }}>In Production</option>
                 <option value="quality_checking" {{ request('status') === 'quality_checking' ? 'selected' : '' }}>Quality Checking</option>
@@ -62,17 +57,17 @@
             {{-- Date Range --}}
             <div class="flex items-center gap-2">
                 <input type="date" name="from_date" value="{{ request('from_date') }}"
-                       class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans"
+                       class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-blue-500 font-sans"
                        title="From date">
                 <span class="text-cyber-muted text-xs font-bold">→</span>
                 <input type="date" name="to_date" value="{{ request('to_date') }}"
-                       class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-cyan-500 font-sans"
+                       class="px-3 py-2 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:outline-hidden focus:border-blue-500 font-sans"
                        title="To date">
             </div>
 
             {{-- Filter & Clear Buttons --}}
             <div class="flex items-center gap-2">
-                <button type="submit" class="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition shadow-xs">
+                <button type="submit" class="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition shadow-sm">
                     <i class="fa-solid fa-filter mr-1"></i> Filter
                 </button>
 
@@ -87,7 +82,7 @@
         {{-- CSV Export Button --}}
         <div class="flex justify-end pt-2 border-t border-cyber/50">
             <a href="{{ route('manager.reports.production', array_merge(request()->query(), ['export' => 'csv'])) }}"
-               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs transition shadow-sm">
+               class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-bold text-xs transition shadow-sm">
                 <i class="fa-solid fa-file-csv text-sm"></i>
                 Export to CSV
             </a>
@@ -97,10 +92,10 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- PRODUCTION AUDIT LOG DATA TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px]">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="text-cyber-muted font-bold border-b border-cyber/60 text-[11px]">
                     <tr>
                         <th class="px-5 py-3.5">Job # &amp; Date</th>
                         <th class="px-5 py-3.5">Customer &amp; Service</th>
@@ -128,7 +123,7 @@
 
                             $statusStr = strtolower($job->status ?? 'pending');
                             $statusBadge = match($statusStr) {
-                                'in_production', 'production' => 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-400',
+                                'in_production', 'production' => 'bg-blue-500/15 text-blue-700 dark:text-blue-400',
                                 'completed'                   => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
                                 'delayed'                     => 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
                                 'quality_checking'            => 'bg-purple-500/15 text-purple-700 dark:text-purple-400',
@@ -142,30 +137,30 @@
                         <tr class="hover:bg-cyber-hover/50 transition">
                             {{-- Job Number & Timestamp --}}
                             <td class="px-5 py-4">
-                                <span class="font-mono font-bold text-cyber-main text-xs block">{{ $job->job_number }}</span>
-                                <span class="text-[10px] text-cyber-muted block mt-0.5">{{ $job->created_at ? $job->created_at->format('M d, Y') : '—' }}</span>
+                                <span class="font-sans tabular-nums font-bold text-cyber-main text-xs block">{{ $job->job_number }}</span>
+                                <span class="text-[11px] text-cyber-muted block mt-0.5">{{ $job->created_at ? $job->created_at->format('M d, Y') : '—' }}</span>
                             </td>
 
                             {{-- Customer & Service --}}
                             <td class="px-5 py-4 min-w-[160px]">
-                                <span class="font-bold text-black dark:text-white block truncate max-w-[180px] text-xs leading-snug">{{ $customerName }}</span>
-                                <span class="text-[11px] text-black dark:text-slate-200 font-semibold block truncate max-w-[180px] mt-0.5">{{ $service }}</span>
+                                <span class="font-bold text-slate-900 dark:text-white block truncate max-w-[180px] text-xs leading-snug">{{ $customerName }}</span>
+                                <span class="text-[11px] text-slate-900 dark:text-slate-200 font-semibold block truncate max-w-[180px] mt-0.5">{{ $service }}</span>
                             </td>
 
                             {{-- Branch & Machine --}}
                             <td class="px-5 py-4 min-w-[150px]">
-                                <span class="font-semibold text-black dark:text-white block truncate max-w-[160px] text-xs leading-tight">{{ $branchName }}</span>
-                                <span class="text-[10px] text-slate-500 dark:text-slate-400 block truncate max-w-[160px] font-mono mt-0.5">{{ $machineName }}</span>
+                                <span class="font-semibold text-slate-900 dark:text-white block truncate max-w-[160px] text-xs leading-tight">{{ $branchName }}</span>
+                                <span class="text-[11px] text-slate-500 dark:text-slate-400 block truncate max-w-[160px] font-sans tabular-nums mt-0.5">{{ $machineName }}</span>
                             </td>
 
                             {{-- Priority --}}
                             <td class="px-5 py-4 whitespace-nowrap">
                                 @if(in_array($priority, ['normal', 'standard', 'low']))
-                                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-sans tabular-nums">
                                         {{ $priority }}
                                     </span>
                                 @else
-                                    <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-mono">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-sans tabular-nums">
                                         @if($priority === 'urgent') <i class="fa-solid fa-bolt mr-0.5"></i> @endif
                                         {{ $priority }}
                                     </span>
@@ -174,18 +169,18 @@
 
                             {{-- Status --}}
                             <td class="px-5 py-4 whitespace-nowrap">
-                                <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider {{ $statusBadge }} font-mono">
+                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider {{ $statusBadge }} font-sans tabular-nums">
                                     {{ $job->status_label }}
                                 </span>
                                 @if($statusStr === 'delayed' && !empty($job->delay_reason))
-                                    <span class="text-[9px] text-rose-400 block mt-1 truncate max-w-[130px]" title="{{ $job->delay_reason }}">
+                                    <span class="text-[11px] text-rose-700 dark:text-rose-400 block mt-1 truncate max-w-[130px]" title="{{ $job->delay_reason }}">
                                         {{ $job->delay_reason }}
                                     </span>
                                 @endif
                             </td>
 
                             {{-- Timeline --}}
-                            <td class="px-5 py-4 whitespace-nowrap text-cyber-muted text-[11px] font-mono">
+                            <td class="px-5 py-4 whitespace-nowrap text-cyber-muted text-[11px] font-sans tabular-nums">
                                 @if($job->completed_at)
                                     <span class="text-emerald-600 dark:text-emerald-400">Done {{ $job->completed_at->format('M d, H:i') }}</span>
                                 @elseif($job->started_at)
@@ -199,9 +194,9 @@
                             <td class="px-5 py-4 text-right whitespace-nowrap">
                                 @if($detailRoute)
                                     <a href="{{ $detailRoute }}" 
-                                       class="h-8 w-8 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-300 dark:border-slate-700 hover:border-sky-400 dark:hover:border-cyan-500/40 inline-flex items-center justify-center transition-all shadow-xs group"
+                                       class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-flex items-center justify-center"
                                        title="View Job Details">
-                                        <i class="fa-solid fa-eye text-sm text-slate-800 dark:text-slate-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"></i>
+                                        <i class="fa-solid fa-eye"></i>
                                     </a>
                                 @else
                                     <span class="text-cyber-muted">&mdash;</span>

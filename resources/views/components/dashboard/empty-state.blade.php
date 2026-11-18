@@ -6,8 +6,8 @@
     'actionLabel' => null,
 ])
 
-<div class="p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-3 bg-cyber-card border border-cyber rounded-3xl">
-    <div class="h-14 w-14 rounded-2xl bg-cyber-sub border border-cyber text-cyber-muted flex items-center justify-center text-xl shadow-inner">
+<div class="p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-3 bg-cyber-card border border-cyber rounded-xl">
+    <div class="h-12 w-12 rounded-lg bg-cyber-sub border border-cyber text-cyber-muted flex items-center justify-center text-lg">
         <i class="{{ $icon }}"></i>
     </div>
     <div class="max-w-md">
@@ -16,7 +16,7 @@
     </div>
     @if($actionUrl && $actionLabel)
         <div class="pt-2">
-            <a href="{{ $actionUrl }}" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-md transition inline-flex items-center gap-2">
+            <a href="{{ $actionUrl }}" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs transition inline-flex items-center gap-2">
                 <span>{{ $actionLabel }}</span>
                 <i class="fa-solid fa-plus text-xs"></i>
             </a>

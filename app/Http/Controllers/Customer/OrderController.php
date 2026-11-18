@@ -13,13 +13,20 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = $request->user()
+        $query = $request->user()
             ->orders()
-            ->with(['printRequest', 'quotation'])
-            ->latest()
-            ->paginate(7);
+            ->with(['printRequest', 'quotation']);
 
-        return view('customer.orders.index', compact('orders'));
+        $statusFilter = $request->input('status') ?? $request->input('filter');
+        if ($statusFilter === 'active') {
+            $query->whereNotIn('status', ['completed', 'claimed', 'cancelled']);
+        } elseif ($statusFilter === 'completed') {
+            $query->whereIn('status', ['completed', 'claimed']);
+        }
+
+        $orders = $query->latest()->paginate(7)->withQueryString();
+
+        return view('customer.orders.index', compact('orders', 'statusFilter'));
     }
 
     /**

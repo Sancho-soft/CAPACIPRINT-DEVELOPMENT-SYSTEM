@@ -148,10 +148,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
 });
 
 // ─────────────────────────────────────────────────────────────────
-// LAYOUT DESIGNER (role: designer)
+// ARTWORK & PRE-PRESS WORKSPACE (role: staff, designer)
 // ─────────────────────────────────────────────────────────────────
-Route::middleware(['auth', 'role:designer'])->prefix('designer')->name('designer.')->group(function () {
-    Route::get('/dashboard', [\App\Http\Controllers\Designer\DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'role:designer,staff'])->prefix('designer')->name('designer.')->group(function () {
+    Route::get('/dashboard', fn() => redirect()->route('designer.index'))->name('dashboard');
 });
 
 // ─────────────────────────────────────────────────────────────────
@@ -253,6 +253,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/users',     [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::post('/users',    [\App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
     Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+    Route::put('/users/{user}/password', [\App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::put('/users/{user}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.update-role');
     Route::post('/users/{user}/toggle-archive', [\App\Http\Controllers\Admin\UserController::class, 'toggleArchive'])->name('users.toggle-archive');
     Route::get('/branches',         [\App\Http\Controllers\Admin\BranchController::class,   'index'])->name('branches.index');
@@ -289,7 +290,7 @@ Route::middleware('auth')->get('/switch-role/{role}', function ($role) {
             return redirect()->to(match($role) {
                 'customer'           => route('customer.dashboard'),
                 'staff'              => route('staff.dashboard'),
-                'designer'           => route('designer.dashboard'),
+                'designer'           => route('staff.dashboard'),
                 'manager'            => route('manager.dashboard'),
                 'production_officer' => route('manager.production-planning.index'),
                 'production'         => route('production.dashboard'),

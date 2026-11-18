@@ -11,19 +11,20 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">System Administration</span>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
         </div>
 
         {{-- Right Quick Navigation Actions --}}
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <a href="{{ route('admin.users.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-users-gear text-xs text-sky-500 dark:text-sky-400"></i> User Accounts
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="{{ route('admin.users.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-users-gear text-xs text-blue-600 dark:text-blue-400"></i> User Accounts
             </a>
-            <a href="{{ route('management.branches.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-network-wired text-xs text-sky-500 dark:text-sky-400"></i> Branches & Presses
+            <a href="{{ route('management.branches.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-network-wired text-xs text-blue-600 dark:text-blue-400"></i> Branches &amp; Presses
             </a>
-            <a href="{{ route('management.audit-logs.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-shield-halved text-xs text-slate-500 dark:text-slate-400"></i> Audit Trail
+            <a href="{{ route('management.audit-logs.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-xs text-cyber-muted"></i> Audit Trail
             </a>
         </div>
     </div>
@@ -102,33 +103,33 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {{-- LEFT 2 COLS: RECENT USER ACCOUNTS --}}
-        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-2xl overflow-hidden flex flex-col shadow-sm">
+            <div class="px-5 sm:px-6 py-4 border-b border-cyber-sub flex items-center justify-between bg-cyber-sub">
                 <div>
-                    <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Recent User Accounts</h3>
+                    <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">Recent User Accounts</h3>
                 </div>
-                <a href="{{ route('admin.users.index') }}" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
-                    Manage Accounts <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                <a href="{{ route('admin.users.index') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1">
+                    Manage Accounts <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </a>
             </div>
 
             <div class="overflow-x-auto flex-1">
-                <table class="w-full text-left text-xs">
-                    <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
+                <table class="w-full text-left text-xs tabular-nums">
+                    <thead class="bg-cyber-sub text-cyber-muted font-sans font-bold border-b border-cyber text-xs">
                         <tr>
-                            <th class="px-4 sm:px-5 py-3.5">User</th>
-                            <th class="px-4 sm:px-5 py-3.5">Role</th>
-                            <th class="px-4 sm:px-5 py-3.5">Branch</th>
-                            <th class="px-4 sm:px-5 py-3.5">Joined</th>
+                            <th class="px-4 sm:px-5 py-3">User</th>
+                            <th class="px-4 sm:px-5 py-3">Role</th>
+                            <th class="px-4 sm:px-5 py-3">Branch</th>
+                            <th class="px-4 sm:px-5 py-3">Joined</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-cyber/60 text-cyber-main">
+                    <tbody class="divide-y divide-cyber-sub text-cyber-main">
                         @forelse($recentUsers as $u)
-                            <tr class="hover:bg-cyber-hover/50 transition">
+                            <tr class="hover:bg-black/[0.02] dark:hover:bg-white/[0.025] transition-colors">
                                 <td class="px-4 sm:px-5 py-3.5">
                                     <div class="min-w-0">
-                                        <span class="font-bold text-cyber-main block truncate max-w-[200px]">{{ $u->name }}</span>
-                                        <span class="text-[10px] text-cyber-muted block truncate max-w-[200px] font-mono">{{ $u->email }}</span>
+                                        <span class="font-semibold text-cyber-main block truncate max-w-[200px]">{{ $u->name }}</span>
+                                        <span class="text-xs text-cyber-muted block truncate max-w-[200px] font-sans">{{ $u->email }}</span>
                                     </div>
                                 </td>
                                 <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap text-cyber-main text-xs">
@@ -137,7 +138,7 @@
                                 <td class="px-4 sm:px-5 py-3.5 text-cyber-muted whitespace-nowrap">
                                     {{ $u->branch->name ?? 'Headquarters' }}
                                 </td>
-                                <td class="px-4 sm:px-5 py-3.5 text-cyber-sub font-mono text-[11px] whitespace-nowrap">
+                                <td class="px-4 sm:px-5 py-3.5 text-cyber-sub font-sans text-xs whitespace-nowrap tabular-nums">
                                     {{ $u->created_at ? $u->created_at->format('M d, Y') : '—' }}
                                 </td>
                             </tr>
@@ -151,24 +152,24 @@
             </div>
 
             @if($recentUsers->hasPages())
-                <div class="px-5 py-3 border-t border-cyber/60 bg-cyber-sub/40">
+                <div class="px-5 py-3 border-t border-cyber-sub bg-cyber-sub">
                     {{ $recentUsers->links() }}
                 </div>
             @endif
         </div>
 
         {{-- RIGHT 1 COL: SYSTEM AUDIT TRAIL --}}
-        <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-            <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+        <div class="bg-cyber-card border border-cyber rounded-2xl overflow-hidden flex flex-col shadow-sm">
+            <div class="px-5 sm:px-6 py-4 border-b border-cyber-sub flex items-center justify-between bg-cyber-sub">
                 <div>
-                    <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">System Audit Trail</h3>
+                    <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">System Audit Trail</h3>
                 </div>
-                <a href="{{ route('management.audit-logs.index') }}" class="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1">
-                    Full Log <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                <a href="{{ route('management.audit-logs.index') }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
+                    Full Log <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </a>
             </div>
 
-            <div class="p-4 sm:p-5 flex-1 divide-y divide-cyber/60 text-xs">
+            <div class="p-4 sm:p-5 flex-1 divide-y divide-cyber-sub text-xs">
                 @forelse($recentAuditLogs as $log)
                     @php
                         $actLower = strtolower($log->action ?? '');
@@ -191,23 +192,23 @@
                             ],
                             default => [
                                 'icon' => 'fa-solid fa-shield-halved',
-                                'class' => 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20',
+                                'class' => 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
                             ],
                         };
                     @endphp
                     <div class="py-3 first:pt-0 last:pb-0 space-y-1.5">
                         <div class="flex items-center justify-between gap-2">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-5 w-5 rounded-lg border flex items-center justify-center text-[10px] shrink-0 {{ $badge['class'] }}">
+                                <span class="h-5 w-5 rounded-lg border flex items-center justify-center text-[11px] shrink-0 {{ $badge['class'] }}">
                                     <i class="{{ $badge['icon'] }}"></i>
                                 </span>
                                 <span class="font-bold text-cyber-main text-xs truncate">{{ $log->action ?? 'System Event' }}</span>
                             </div>
-                            <span class="text-[10px] text-cyber-sub font-mono shrink-0">{{ $log->created_at ? $log->created_at->diffForHumans() : 'Recently' }}</span>
+                            <span class="text-[11px] text-cyber-sub font-sans shrink-0 tabular-nums">{{ $log->created_at ? $log->created_at->diffForHumans() : 'Recently' }}</span>
                         </div>
                         <p class="text-[11px] text-cyber-muted line-clamp-2 leading-relaxed pl-7">{{ $log->description ?? 'Action performed in system.' }}</p>
                         @if($log->user)
-                            <span class="text-[10px] text-cyan-600 dark:text-cyan-400 font-medium block pl-7">by {{ $log->user->name }}</span>
+                            <span class="text-[11px] text-blue-600 dark:text-blue-400 font-medium block pl-7">by {{ $log->user->name }}</span>
                         @endif
                     </div>
                 @empty

@@ -6,35 +6,36 @@
 <div class="max-w-4xl mx-auto" x-data="printWizard()">
 
     <div class="mb-6">
-        <h2 class="text-2xl font-black text-cyber-main font-display">Submit Print Request</h2>
-        <p class="text-sm text-cyber-muted mt-1">Fill in the details below and upload your artwork to get started.</p>
+        <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Client Order Intake</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">Submit Print Request</h2>
+        <p class="text-xs sm:text-sm text-cyber-muted mt-1">Fill in the specifications below and attach your print-ready artwork to begin capacity routing.</p>
     </div>
 
     {{-- ── Step Indicators ─────────────────────────────── --}}
-    <div class="mb-5 px-2 py-1">
+    <div class="mb-6 px-2 py-1">
         <div class="flex items-center justify-between relative">
             <template x-for="(label, i) in steps" :key="i">
                 <div class="flex-1 flex flex-col items-center relative">
                     {{-- Connector line between steps --}}
                     <template x-if="i < steps.length - 1">
-                        <div class="absolute left-1/2 top-4 w-full h-[3px] -translate-y-1/2 z-0">
-                            <div class="w-full h-full transition-colors duration-300"
-                                 :class="step > i + 1 ? 'bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.5)]' : 'bg-slate-300 dark:bg-slate-800'"></div>
+                        <div class="absolute left-1/2 top-4 w-full h-px -translate-y-1/2 z-0">
+                            <div class="w-full h-full transition-colors duration-200"
+                                 :class="step > i + 1 ? 'bg-brand-600 dark:bg-blue-500' : 'bg-black/15 dark:bg-white/15'"></div>
                         </div>
                     </template>
 
-                    {{-- Step Circle Indicator --}}
-                    <div class="relative z-10 h-8 w-8 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-all duration-300 shadow-sm"
-                         :class="step === i+1 ? 'border-cyan-400 bg-cyan-500 text-slate-950 ring-4 ring-cyan-500/25 font-black scale-110'
-                               : (step > i+1  ? 'border-cyan-500 bg-cyan-500 text-slate-950 font-bold'
-                               : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500')">
-                        <template x-if="step > i+1"><i class="fa-solid fa-check text-[10px]"></i></template>
-                        <template x-if="step <= i+1"><span x-text="i+1"></span></template>
+                    {{-- Step Node Indicator --}}
+                    <div class="relative z-10 h-8 w-8 rounded-lg border flex items-center justify-center text-xs font-sans tabular-nums font-semibold transition-colors duration-150 tabular-nums"
+                         :class="step === i+1 ? 'border-brand-600 dark:border-blue-500 bg-brand-600 dark:bg-blue-600 text-white ring-2 ring-brand-600/25 dark:ring-blue-500/30'
+                               : (step > i+1  ? 'border-brand-600 dark:border-blue-500 bg-brand-600 dark:bg-blue-600 text-white'
+                               : 'border-cyber bg-cyber-card text-cyber-sub')">
+                        <template x-if="step > i+1"><i class="fa-solid fa-check text-[11px]"></i></template>
+                        <template x-if="step <= i+1"><span x-text="'0' + (i+1)"></span></template>
                     </div>
 
                     {{-- Step Label --}}
-                    <span class="text-[10px] font-bold uppercase tracking-wider mt-2 text-center transition-colors" 
-                          :class="step === i+1 ? 'text-cyan-500 dark:text-cyan-400 font-black' : 'text-slate-500 dark:text-slate-400'" 
+                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider mt-2 text-center transition-colors" 
+                          :class="step === i+1 ? 'text-brand-600 dark:text-blue-400' : 'text-cyber-muted'" 
                           x-text="label"></span>
                 </div>
             </template>
@@ -45,71 +46,70 @@
     <form method="POST" action="{{ route('customer.print-requests.store') }}" enctype="multipart/form-data" id="print-request-form">
         @csrf
 
-        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-xl p-6 sm:p-8 min-h-[400px]">
+        <div class="bg-cyber-card border border-cyber rounded-xl p-6 sm:p-8 min-h-[400px]">
 
             {{-- STEP 1: SERVICE --}}
             <div x-show="step === 1" class="space-y-5">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                        <h3 class="text-lg font-bold text-cyber-main">Select Print Service</h3>
-                        <p class="text-xs text-cyber-muted mt-0.5">Choose the service that matches your product type.</p>
+                        <h3 class="text-lg font-bold font-display text-cyber-main">Select Print Service</h3>
                     </div>
                 </div>
 
                 {{-- Search & Category Filter Toolbar --}}
-                <div class="space-y-3 bg-cyber-sub/30 border border-cyber p-4 rounded-2xl">
+                <div class="space-y-3 bg-cyber-sub border border-cyber p-4 rounded-xl">
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                         
                         {{-- Live Search Input --}}
                         <div class="relative flex-1">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cyber-muted">
-                                <i class="fa-solid fa-magnifying-glass text-xs text-cyan-400"></i>
+                                <i class="fa-solid fa-magnifying-glass text-xs text-brand-600 dark:text-blue-400"></i>
                             </div>
                             <input type="text" x-model="searchQuery" placeholder="Search service... (e.g. sticker, banner, t-shirt, receipt)"
-                                   class="block w-full rounded-xl border border-cyber bg-cyber-sub pl-9 pr-9 py-2 text-xs font-medium text-cyber-main placeholder-cyber-muted/60 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
-                            <button type="button" x-show="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-cyber-muted hover:text-cyan-400 transition cursor-pointer">
+                                   class="block w-full rounded-lg border border-cyber bg-cyber-card pl-9 pr-9 py-2 text-xs font-medium text-cyber-main placeholder-cyber-sub focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
+                            <button type="button" x-show="searchQuery" @click="searchQuery = ''" aria-label="Clear search" class="absolute inset-y-0 right-0 pr-3 flex items-center text-cyber-muted hover:text-brand-600 dark:hover:text-blue-400 transition cursor-pointer">
                                 <i class="fa-solid fa-xmark text-xs"></i>
                             </button>
                         </div>
 
                         {{-- Service Counter --}}
-                        <div class="text-[11px] font-bold text-cyber-muted shrink-0 flex items-center gap-1.5 px-1 self-end sm:self-center">
+                        <div class="text-[11px] font-sans tabular-nums font-semibold text-cyber-muted shrink-0 flex items-center gap-1.5 px-1 self-end sm:self-center tabular-nums">
                             <span>Showing:</span>
-                            <span class="text-cyan-400 font-extrabold" x-text="filteredServicesCount"></span> / 32
+                            <span class="text-brand-600 dark:text-blue-400 font-bold" x-text="filteredServicesCount"></span> / 32
                         </div>
                     </div>
 
                     {{-- Category Filter Pills --}}
-                    <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-cyber/50">
+                    <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-cyber-sub">
                         <button type="button" @click="activeCategory = 'all'"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border"
-                                :class="activeCategory === 'all' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main hover:border-cyan-500/40'">
-                            <i class="fa-solid fa-layer-group text-[10px]"></i> All (32)
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border"
+                                :class="activeCategory === 'all' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main hover:border-brand-600/40'">
+                            <i class="fa-solid fa-layer-group text-[11px]"></i> All (32)
                         </button>
                         <button type="button" @click="activeCategory = 'banners'"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border"
-                                :class="activeCategory === 'banners' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main hover:border-cyan-500/40'">
-                            <i class="fa-solid fa-scroll text-[10px]"></i> Banners & Signs (6)
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border"
+                                :class="activeCategory === 'banners' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main hover:border-brand-600/40'">
+                            <i class="fa-solid fa-scroll text-[11px]"></i> Banners &amp; Signs (6)
                         </button>
                         <button type="button" @click="activeCategory = 'stickers'"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border"
-                                :class="activeCategory === 'stickers' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main hover:border-cyan-500/40'">
-                            <i class="fa-solid fa-tags text-[10px]"></i> Stickers & Labels (4)
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border"
+                                :class="activeCategory === 'stickers' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main hover:border-brand-600/40'">
+                            <i class="fa-solid fa-tags text-[11px]"></i> Stickers &amp; Labels (4)
                         </button>
                         <button type="button" @click="activeCategory = 'forms'"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border"
-                                :class="activeCategory === 'forms' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main hover:border-cyan-500/40'">
-                            <i class="fa-solid fa-file-invoice text-[10px]"></i> Forms & Receipts (7)
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border"
+                                :class="activeCategory === 'forms' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main hover:border-brand-600/40'">
+                            <i class="fa-solid fa-file-invoice text-[11px]"></i> Forms &amp; Receipts (7)
                         </button>
                         <button type="button" @click="activeCategory = 'marketing'"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border"
-                                :class="activeCategory === 'marketing' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main hover:border-cyan-500/40'">
-                            <i class="fa-solid fa-address-card text-[10px]"></i> Marketing & Cards (8)
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border"
+                                :class="activeCategory === 'marketing' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main hover:border-brand-600/40'">
+                            <i class="fa-solid fa-address-card text-[11px]"></i> Marketing &amp; Cards (8)
                         </button>
                         <button type="button" @click="activeCategory = 'apparel'"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer border"
-                                :class="activeCategory === 'apparel' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main hover:border-cyan-500/40'">
-                            <i class="fa-solid fa-shirt text-[10px]"></i> Apparel & Promo (7)
+                                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer border"
+                                :class="activeCategory === 'apparel' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main hover:border-brand-600/40'">
+                            <i class="fa-solid fa-shirt text-[11px]"></i> Apparel &amp; Promo (7)
                         </button>
                     </div>
                 </div>
@@ -155,21 +155,21 @@
                     @foreach($services as $svc)
                     <label x-show="matchesCategoryAndSearch('{{ addslashes($svc['name']) }}', '{{ addslashes($svc['desc']) }}', '{{ $svc['cat'] }}')"
                            x-transition:enter="transition ease-out duration-150"
-                           x-transition:enter-start="opacity-0 scale-95"
-                           x-transition:enter-end="opacity-100 scale-100"
-                           class="border rounded-2xl p-4 cursor-pointer transition flex flex-col justify-between hover:border-cyan-500/50 bg-cyber-sub/40 hover:bg-cyber-sub/80 relative group h-full"
-                           :class="form.service === '{{ addslashes($svc['name']) }}' ? 'border-cyan-500 bg-cyan-500/10 ring-2 ring-cyan-500/30 shadow-lg scale-[1.01]' : 'border-cyber'">
+                           x-transition:enter-start="opacity-0"
+                           x-transition:enter-end="opacity-100"
+                           class="border rounded-xl p-4 cursor-pointer transition-colors flex flex-col justify-between hover:border-brand-600/50 bg-cyber-sub relative group h-full"
+                           :class="form.service === '{{ addslashes($svc['name']) }}' ? 'border-brand-600 dark:border-blue-500 bg-brand-600/10 dark:bg-blue-500/15 ring-1 ring-brand-600/30 dark:ring-blue-500/30' : 'border-cyber'">
                         <input type="radio" name="service" value="{{ $svc['name'] }}" x-model="form.service" class="sr-only" required>
                         
                         <div class="flex items-start gap-3.5">
-                            <div class="h-10 w-10 bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 rounded-xl flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition-transform group-hover:border-cyan-400/50">
+                            <div class="h-10 w-10 bg-brand-600/10 dark:bg-blue-500/15 text-brand-600 dark:text-blue-400 border border-brand-600/25 dark:border-blue-500/30 rounded-lg flex items-center justify-center text-base shrink-0">
                                 <i class="fa-solid {{ $svc['icon'] }}"></i>
                             </div>
                             <div class="min-w-0 flex-1">
                                 <div class="flex items-start justify-between gap-1.5">
-                                    <h4 class="font-bold text-cyber-main text-sm leading-snug group-hover:text-cyan-400 transition-colors">{{ $svc['name'] }}</h4>
+                                    <h4 class="font-bold text-cyber-main text-sm leading-snug group-hover:text-brand-600 dark:group-hover:text-blue-400 transition-colors">{{ $svc['name'] }}</h4>
                                     <template x-if="form.service === '{{ addslashes($svc['name']) }}'">
-                                        <span class="text-cyan-400 text-sm shrink-0 bg-cyan-400/10 p-1 rounded-full"><i class="fa-solid fa-circle-check"></i></span>
+                                        <span class="text-brand-600 dark:text-blue-400 text-sm shrink-0"><i class="fa-solid fa-circle-check"></i></span>
                                     </template>
                                 </div>
                                 <p class="text-xs text-cyber-muted mt-1 leading-relaxed">{{ $svc['desc'] }}</p>
@@ -179,8 +179,8 @@
                     @endforeach
 
                     {{-- Empty Search State --}}
-                    <div x-show="filteredServicesCount === 0" class="col-span-full py-12 text-center bg-cyber-sub/20 border border-dashed border-cyber rounded-2xl space-y-3">
-                        <div class="h-12 w-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto text-xl">
+                    <div x-show="filteredServicesCount === 0" class="col-span-full py-12 text-center bg-cyber-sub border border-dashed border-cyber rounded-xl space-y-3">
+                        <div class="h-11 w-11 rounded-lg bg-brand-600/10 dark:bg-blue-500/15 border border-brand-600/25 dark:border-blue-500/30 text-brand-600 dark:text-blue-400 flex items-center justify-center mx-auto text-lg">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                         <div>
@@ -188,7 +188,7 @@
                             <p class="text-xs text-cyber-muted mt-1">Try adjusting your search query or select a different category filter.</p>
                         </div>
                         <button type="button" @click="searchQuery = ''; activeCategory = 'all'"
-                                class="px-4 py-1.5 rounded-xl text-xs font-bold bg-cyber-sub border border-cyber hover:border-cyan-400 text-cyan-400 transition cursor-pointer">
+                                class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyber-card border border-cyber hover:border-brand-600 text-brand-600 dark:text-blue-400 transition cursor-pointer">
                             Reset All Filters
                         </button>
                     </div>
@@ -198,38 +198,38 @@
             {{-- STEP 2: SPECIFICATIONS --}}
             <div x-show="step === 2" class="space-y-5">
                 <div>
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-lg font-bold text-cyber-main">Print Specifications</h3>
-                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30" x-text="form.service || 'General Printing'"></span>
+                    <div class="flex items-center justify-between gap-2">
+                        <h3 class="text-lg font-bold font-display text-cyber-main">Print Specifications</h3>
+                        <span class="px-2.5 py-1 rounded text-xs font-sans tabular-nums font-semibold bg-brand-600/10 dark:bg-blue-500/15 text-brand-700 dark:text-blue-300 border border-brand-600/25 dark:border-blue-500/30" x-text="form.service || 'General Printing'"></span>
                     </div>
-                    <p class="text-xs text-cyber-muted mt-0.5">Specify dimensions, stock materials, and finishing options tailored for <span class="text-cyan-400 font-bold" x-text="form.service"></span>.</p>
+                    <p class="text-xs text-cyber-muted mt-0.5">Specify dimensions, stock materials, and finishing options tailored for <span class="text-brand-600 dark:text-blue-400 font-semibold" x-text="form.service"></span>.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {{-- Quantity --}}
                     <div>
-                        <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Quantity <span class="text-red-400">*</span></label>
+                        <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Quantity <span class="text-rose-500">*</span></label>
                         <input type="number" name="quantity" x-model.number="form.quantity" min="1" required
-                               class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                               class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-sans tabular-nums text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition tabular-nums">
                     </div>
 
                     {{-- Size / Dimensions --}}
                     <div>
-                        <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Size / Dimensions <span class="text-red-400">*</span></label>
+                        <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Size / Dimensions <span class="text-rose-500">*</span></label>
                         
                         {{-- Tarpaulin Printing Dynamic UI --}}
                         <template x-if="form.service === 'Tarpaulin Printing'">
-                            <div class="space-y-3 bg-cyber-sub/30 border border-cyber p-3.5 rounded-2xl">
+                            <div class="space-y-3 bg-cyber-sub border border-cyber p-3.5 rounded-xl">
                                 
                                 {{-- Mode Toggle Tabs --}}
                                 <div class="flex items-center gap-2">
                                     <button type="button" @click="tarpMode = 'dimensions'; updateTarpSize()"
-                                            class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer border"
-                                            :class="tarpMode === 'dimensions' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main'">
+                                            class="flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer border"
+                                            :class="tarpMode === 'dimensions' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main'">
                                         <i class="fa-solid fa-calculator text-xs"></i> Dimension Entry
                                     </button>
                                     <button type="button" @click="tarpMode = 'custom'; updateTarpSize()"
-                                            class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer border"
-                                            :class="tarpMode === 'custom' ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md font-extrabold' : 'bg-cyber-sub border-cyber text-cyber-muted hover:text-cyber-main'">
+                                            class="flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer border"
+                                            :class="tarpMode === 'custom' ? 'bg-brand-600 text-white border-brand-600' : 'bg-cyber-card border-cyber text-cyber-muted hover:text-cyber-main'">
                                         <i class="fa-solid fa-pen-to-square text-xs"></i> Custom Text
                                     </button>
                                 </div>
@@ -237,20 +237,20 @@
                                 {{-- Dimensions Mode View --}}
                                 <div x-show="tarpMode === 'dimensions'" class="space-y-3">
                                     {{-- Unit Selector Pills --}}
-                                    <div class="flex items-center gap-1 bg-cyber-sub p-1 rounded-xl border border-cyber">
+                                    <div class="flex items-center gap-1 bg-cyber-card p-1 rounded-lg border border-cyber">
                                         <button type="button" @click="tarpUnit = 'FT'; updateTarpSize()"
-                                                class="flex-1 py-1 rounded-lg text-[10px] font-bold uppercase transition cursor-pointer"
-                                                :class="tarpUnit === 'FT' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 font-black' : 'text-cyber-muted hover:text-cyber-main'">
+                                                class="flex-1 py-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase transition cursor-pointer"
+                                                :class="tarpUnit === 'FT' ? 'bg-brand-600/15 text-brand-700 dark:text-blue-400 border border-brand-600/30' : 'text-cyber-muted hover:text-cyber-main border border-transparent'">
                                             FEET (FT)
                                         </button>
                                         <button type="button" @click="tarpUnit = 'IN'; updateTarpSize()"
-                                                class="flex-1 py-1 rounded-lg text-[10px] font-bold uppercase transition cursor-pointer"
-                                                :class="tarpUnit === 'IN' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 font-black' : 'text-cyber-muted hover:text-cyber-main'">
+                                                class="flex-1 py-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase transition cursor-pointer"
+                                                :class="tarpUnit === 'IN' ? 'bg-brand-600/15 text-brand-700 dark:text-blue-400 border border-brand-600/30' : 'text-cyber-muted hover:text-cyber-main border border-transparent'">
                                             INCHES (IN)
                                         </button>
                                         <button type="button" @click="tarpUnit = 'M'; updateTarpSize()"
-                                                class="flex-1 py-1 rounded-lg text-[10px] font-bold uppercase transition cursor-pointer"
-                                                :class="tarpUnit === 'M' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 font-black' : 'text-cyber-muted hover:text-cyber-main'">
+                                                class="flex-1 py-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase transition cursor-pointer"
+                                                :class="tarpUnit === 'M' ? 'bg-brand-600/15 text-brand-700 dark:text-blue-400 border border-brand-600/30' : 'text-cyber-muted hover:text-cyber-main border border-transparent'">
                                             METERS (M)
                                         </button>
                                     </div>
@@ -258,39 +258,39 @@
                                     {{-- Width & Height Input Row --}}
                                     <div class="flex items-center gap-2">
                                         <div class="relative flex-1">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-cyan-400">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-600 dark:text-blue-400">
                                                 <i class="fa-solid fa-ruler-horizontal text-xs"></i>
                                             </div>
                                             <input type="number" step="0.1" min="0.1" x-model.number="tarpWidth" @input="updateTarpSize()"
-                                                   class="block w-full rounded-xl border border-cyber bg-cyber-sub pl-8 pr-8 py-2 text-sm font-bold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
-                                            <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-[10px] font-bold text-cyber-muted uppercase pointer-events-none" x-text="tarpUnit"></span>
+                                                   class="block w-full rounded-lg border border-cyber bg-cyber-card pl-8 pr-8 py-2 text-sm font-sans tabular-nums font-bold text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition tabular-nums">
+                                            <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-[11px] font-sans tabular-nums font-semibold text-cyber-muted uppercase pointer-events-none" x-text="tarpUnit"></span>
                                         </div>
 
-                                        <span class="text-cyber-muted font-bold text-base px-0.5">×</span>
+                                        <span class="text-cyber-muted font-sans tabular-nums font-bold text-sm px-0.5">&times;</span>
 
                                         <div class="relative flex-1">
-                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-cyan-400">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-600 dark:text-blue-400">
                                                 <i class="fa-solid fa-ruler-vertical text-xs"></i>
                                             </div>
                                             <input type="number" step="0.1" min="0.1" x-model.number="tarpHeight" @input="updateTarpSize()"
-                                                   class="block w-full rounded-xl border border-cyber bg-cyber-sub pl-8 pr-8 py-2 text-sm font-bold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
-                                            <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-[10px] font-bold text-cyber-muted uppercase pointer-events-none" x-text="tarpUnit"></span>
+                                                   class="block w-full rounded-lg border border-cyber bg-cyber-card pl-8 pr-8 py-2 text-sm font-sans tabular-nums font-bold text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition tabular-nums">
+                                            <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-[11px] font-sans tabular-nums font-semibold text-cyber-muted uppercase pointer-events-none" x-text="tarpUnit"></span>
                                         </div>
                                     </div>
 
                                     {{-- Calculated Area Badge --}}
-                                    <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold flex items-center justify-between">
-                                        <span class="flex items-center gap-1.5 text-slate-300">
-                                            <i class="fa-solid fa-vector-square text-cyan-400 text-xs"></i> Calculated Area:
+                                    <div class="p-2.5 rounded-lg bg-brand-600/10 dark:bg-blue-500/15 border border-brand-600/25 dark:border-blue-500/30 text-xs font-semibold flex items-center justify-between">
+                                        <span class="flex items-center gap-1.5 text-cyber-muted">
+                                            <i class="fa-solid fa-vector-square text-brand-600 dark:text-blue-400 text-xs"></i> Calculated Area:
                                         </span>
-                                        <span class="font-black text-xs text-cyan-400 tracking-wider" x-text="calculatedAreaText"></span>
+                                        <span class="font-sans tabular-nums font-bold text-xs text-brand-700 dark:text-blue-300 tracking-wider tabular-nums" x-text="calculatedAreaText"></span>
                                     </div>
                                 </div>
 
                                 {{-- Custom Text Mode View --}}
                                 <div x-show="tarpMode === 'custom'">
                                     <input type="text" x-model="customTarpSize" @input="updateTarpSize()" placeholder="e.g. 2 x 3 ft, 4 x 6 ft, 3 x 5 ft"
-                                           class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                           class="block w-full rounded-lg border border-cyber bg-cyber-card px-3.5 py-2.5 text-sm text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                                     <p class="text-[11px] text-cyber-muted mt-1">Specify custom size or special dimensions.</p>
                                 </div>
 
@@ -300,26 +300,26 @@
 
                         {{-- Standard / Dynamic Service Size Select Component --}}
                         <template x-if="form.service !== 'Tarpaulin Printing'">
-                            <div class="space-y-2.5 bg-cyber-sub/30 border border-cyber p-3 rounded-2xl">
+                            <div class="space-y-2.5 bg-cyber-sub border border-cyber p-3 rounded-xl">
                                 
                                 {{-- Quick Mode Toggle Pills --}}
-                                <div class="flex items-center gap-1.5 p-1 bg-cyber-sub rounded-xl border border-cyber">
+                                <div class="flex items-center gap-1.5 p-1 bg-cyber-card rounded-lg border border-cyber">
                                     <button type="button" @click="sizeMode = 'preset'; updateCustomSizeValue()"
-                                            class="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
-                                            :class="sizeMode === 'preset' ? 'bg-cyan-500 text-slate-950 shadow font-extrabold' : 'text-cyber-muted hover:text-cyber-main'">
-                                        <i class="fa-solid fa-list-check text-[10px]"></i> Standard Presets
+                                            class="flex-1 py-1.5 px-2.5 rounded text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                                            :class="sizeMode === 'preset' ? 'bg-brand-600 text-white' : 'text-cyber-muted hover:text-cyber-main'">
+                                        <i class="fa-solid fa-list-check text-[11px]"></i> Standard Presets
                                     </button>
                                     <button type="button" @click="sizeMode = 'custom'; updateCustomSizeValue()"
-                                            class="flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
-                                            :class="sizeMode === 'custom' ? 'bg-cyan-500 text-slate-950 shadow font-extrabold' : 'text-cyber-muted hover:text-cyber-main'">
-                                        <i class="fa-solid fa-pen-to-square text-[10px]"></i> Manual Custom Entry
+                                            class="flex-1 py-1.5 px-2.5 rounded text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                                            :class="sizeMode === 'custom' ? 'bg-brand-600 text-white' : 'text-cyber-muted hover:text-cyber-main'">
+                                        <i class="fa-solid fa-pen-to-square text-[11px]"></i> Manual Custom Entry
                                     </button>
                                 </div>
 
                                 {{-- Preset Mode View --}}
                                 <div x-show="sizeMode === 'preset'">
                                     <select x-model="selectedSizeOption" @change="updateCustomSizeValue()" required
-                                            class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-semibold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                            class="block w-full rounded-lg border border-cyber bg-cyber-card px-3.5 py-2.5 text-sm font-medium text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                                         <template x-for="opt in sizeOptions" :key="opt">
                                             <option :value="opt" x-text="opt" :selected="selectedSizeOption === opt"></option>
                                         </template>
@@ -330,8 +330,8 @@
                                 <div x-show="sizeMode === 'custom'" class="space-y-1">
                                     <input type="text" x-model="customSizeText" @input="updateCustomSizeValue()"
                                            :placeholder="customSizePlaceholder"
-                                           class="block w-full rounded-xl border border-cyan-400/60 bg-cyber-sub/90 px-3.5 py-2 text-xs font-bold text-cyber-main placeholder-cyber-muted/60 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
-                                    <p class="text-[11px] text-cyan-400/90 font-medium">Type your exact dimensions or custom measurements above.</p>
+                                           class="block w-full rounded-lg border border-brand-600/50 bg-cyber-card px-3.5 py-2 text-xs font-semibold text-cyber-main placeholder-cyber-sub focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
+                                    <p class="text-[11px] text-brand-600 dark:text-blue-400 font-medium">Type your exact dimensions or custom measurements above.</p>
                                 </div>
 
                                 <input type="hidden" name="size" x-model="form.size">
@@ -341,12 +341,12 @@
 
                     {{-- Material --}}
                     <div>
-                        <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Material <span class="text-red-400">*</span></label>
+                        <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Material <span class="text-rose-500">*</span></label>
                         
                         {{-- Tarp Materials --}}
                         <template x-if="form.service === 'Tarpaulin Printing'">
                             <select name="material" x-model="form.material" required
-                                    class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-semibold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                    class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-medium text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                                 <option value="10oz Standard Outdoor Tarpaulin">10oz Standard Outdoor Tarpaulin</option>
                                 <option value="13oz Heavy Duty Glossy Tarpaulin">13oz Heavy Duty Glossy Tarpaulin</option>
                                 <option value="15oz Blockout Premium Tarpaulin">15oz Blockout Premium Tarpaulin</option>
@@ -357,7 +357,7 @@
                         {{-- Dynamic Service Materials --}}
                         <template x-if="form.service !== 'Tarpaulin Printing'">
                             <select name="material" x-model="form.material" required
-                                    class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-semibold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                    class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-medium text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                                 <template x-for="opt in materialOptions" :key="opt">
                                     <option :value="opt" x-text="opt" :selected="form.material === opt"></option>
                                 </template>
@@ -367,12 +367,12 @@
 
                     {{-- Finishing --}}
                     <div>
-                        <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Finishing <span class="text-red-400">*</span></label>
+                        <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Finishing <span class="text-rose-500">*</span></label>
                         
                         {{-- Tarpaulin Printing Finishing --}}
                         <template x-if="form.service === 'Tarpaulin Printing'">
                             <select name="finishing" x-model="form.finishing" required
-                                    class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-semibold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                    class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-medium text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                                 <option value="Allowance with Eyelets">Allowance with Eyelets</option>
                                 <option value="Allowance Only">Allowance Only</option>
                                 <option value="With Eyelets Only">With Eyelets Only</option>
@@ -384,7 +384,7 @@
                         {{-- Dynamic Service Finishing --}}
                         <template x-if="form.service !== 'Tarpaulin Printing'">
                             <select name="finishing" x-model="form.finishing" required
-                                    class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-semibold text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                    class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-medium text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                                 <template x-for="opt in finishingOptions" :key="opt">
                                     <option :value="opt" x-text="opt" :selected="form.finishing === opt"></option>
                                 </template>
@@ -397,27 +397,28 @@
             {{-- STEP 3: ARTWORK UPLOAD --}}
             <div x-show="step === 3" class="space-y-5">
                 <div>
-                    <h3 class="text-lg font-bold text-cyber-main">Upload Artwork File</h3>
+                    <h3 class="text-lg font-bold font-display text-cyber-main">Upload Artwork File</h3>
                     <p class="text-xs text-cyber-muted mt-0.5">Attach vector files or high-resolution print-ready documents.</p>
                 </div>
-                <div class="border-2 border-dashed border-cyber hover:border-cyan-400/60 rounded-2xl p-10 text-center transition cursor-pointer bg-cyber-sub/30"
+                <div class="border border-dashed border-cyber hover:border-brand-600/60 dark:hover:border-blue-500/60 rounded-xl p-10 text-center transition-colors cursor-pointer bg-cyber-sub"
                      @click="$refs.fileInput.click()" @dragover.prevent @drop.prevent="handleDrop($event)">
                     <input type="file" name="design_file" x-ref="fileInput" class="hidden"
                            accept=".pdf,.eps,.tiff,.tif,.jpg,.jpeg,.png,.ai" @change="handleFile($event)">
-                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400 mb-3 block"></i>
-                    <p class="text-sm font-bold text-cyber-main">Drag &amp; drop or <span class="text-cyan-400 underline">browse</span></p>
-                    <p class="text-xs text-cyber-muted mt-1">PDF, EPS, TIFF, JPG, PNG, AI — max 50 MB</p>
+                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-brand-600 dark:text-blue-400 mb-3 block"></i>
+                    <p class="text-sm font-semibold text-cyber-main">Drag &amp; drop or <span class="text-brand-600 dark:text-blue-400 underline">browse</span></p>
+                    <p class="text-xs font-sans tabular-nums text-cyber-muted mt-1">PDF, EPS, TIFF, JPG, PNG, AI &mdash; max 50 MB</p>
                 </div>
 
                 <template x-if="form.fileName">
-                    <div class="p-4 bg-cyber-sub border border-cyber rounded-xl flex items-center gap-3">
-                        <i class="fa-solid fa-file text-cyan-400 text-xl shrink-0"></i>
+                    <div class="p-4 bg-cyber-sub border border-cyber rounded-lg flex items-center gap-3">
+                        <i class="fa-solid fa-file text-brand-600 dark:text-blue-400 text-lg shrink-0"></i>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-bold text-cyber-main truncate" x-text="form.fileName"></p>
-                            <p class="text-xs text-cyber-muted" x-text="form.fileSize"></p>
+                            <p class="text-sm font-semibold text-cyber-main truncate" x-text="form.fileName"></p>
+                            <p class="text-xs font-sans tabular-nums text-cyber-muted" x-text="form.fileSize"></p>
                         </div>
                         <button type="button" @click="form.fileName=''; form.fileSize=''; $refs.fileInput.value=''"
-                                class="text-cyber-muted hover:text-red-400 p-1.5 transition">
+                                aria-label="Remove file"
+                                class="text-cyber-muted hover:text-rose-500 p-1.5 transition cursor-pointer">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </div>
@@ -429,21 +430,21 @@
             {{-- STEP 4: SCHEDULE --}}
             <div x-show="step === 4" class="space-y-5">
                 <div>
-                    <h3 class="text-lg font-bold text-cyber-main">Schedule &amp; Collection</h3>
+                    <h3 class="text-lg font-bold font-display text-cyber-main">Schedule &amp; Collection</h3>
                     <p class="text-xs text-cyber-muted mt-0.5">Choose your delivery requirements and branch preferences.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                        <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Deadline <span class="text-red-400">*</span></label>
+                        <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Deadline <span class="text-rose-500">*</span></label>
                         <input type="date" name="deadline" x-model="form.deadline" required
                                :min="minDate"
-                               class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                               class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm font-sans tabular-nums text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                         <p class="text-[11px] text-cyber-muted mt-1">Minimum 2-day production window required.</p>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Preferred Branch <span class="text-cyber-muted font-normal">(optional)</span></label>
+                        <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Preferred Branch <span class="text-cyber-sub font-normal">(optional)</span></label>
                         <select name="preferred_branch" x-model="form.preferred_branch"
-                                class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition">
+                                class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition">
                             <option value="">System will recommend best branch</option>
                             <option value="Branch 1 – Main">Branch 1 – Main</option>
                             <option value="Branch 2 – North">Branch 2 – North</option>
@@ -452,72 +453,72 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-2">Collection Mode <span class="text-red-400">*</span></label>
+                    <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-2">Collection Mode <span class="text-rose-500">*</span></label>
                     <div class="grid grid-cols-2 gap-3">
-                        <label class="border rounded-2xl p-4 text-center cursor-pointer transition bg-cyber-sub/40"
-                               :class="form.collection_mode === 'pickup' ? 'border-cyan-500 bg-cyan-500/10 ring-1 ring-cyan-500/40' : 'border-cyber hover:border-cyan-500/30'">
+                        <label class="border rounded-xl p-4 text-center cursor-pointer transition-colors bg-cyber-sub"
+                               :class="form.collection_mode === 'pickup' ? 'border-brand-600 dark:border-blue-500 bg-brand-600/10 dark:bg-blue-500/15 ring-1 ring-brand-600/30' : 'border-cyber hover:border-brand-600/40'">
                             <input type="radio" name="collection_mode" value="pickup" x-model="form.collection_mode" class="sr-only">
-                            <i class="fa-solid fa-store text-cyan-400 text-xl mb-1 block"></i>
-                            <span class="text-xs font-bold text-cyber-main">Branch Pickup</span>
+                            <i class="fa-solid fa-store text-brand-600 dark:text-blue-400 text-lg mb-1.5 block"></i>
+                            <span class="text-xs font-semibold text-cyber-main">Branch Pickup</span>
                         </label>
-                        <label class="border rounded-2xl p-4 text-center cursor-pointer transition bg-cyber-sub/40"
-                               :class="form.collection_mode === 'shipping' ? 'border-cyan-500 bg-cyan-500/10 ring-1 ring-cyan-500/40' : 'border-cyber hover:border-cyan-500/30'">
+                        <label class="border rounded-xl p-4 text-center cursor-pointer transition-colors bg-cyber-sub"
+                               :class="form.collection_mode === 'shipping' ? 'border-brand-600 dark:border-blue-500 bg-brand-600/10 dark:bg-blue-500/15 ring-1 ring-brand-600/30' : 'border-cyber hover:border-brand-600/40'">
                             <input type="radio" name="collection_mode" value="shipping" x-model="form.collection_mode" class="sr-only">
-                            <i class="fa-solid fa-truck text-cyan-400 text-xl mb-1 block"></i>
-                            <span class="text-xs font-bold text-cyber-main">Courier Shipping</span>
+                            <i class="fa-solid fa-truck text-brand-600 dark:text-blue-400 text-lg mb-1.5 block"></i>
+                            <span class="text-xs font-semibold text-cyber-main">Courier Shipping</span>
                         </label>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-cyber-muted uppercase tracking-wider mb-1.5">Additional Instructions</label>
+                    <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1.5">Additional Instructions</label>
                     <textarea name="additional_instructions" x-model="form.notes" rows="3" placeholder="Colour profile, bleed requirements, special handling notes..."
-                              class="block w-full rounded-xl border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition resize-none"></textarea>
+                              class="block w-full rounded-lg border border-cyber bg-cyber-sub px-3.5 py-2.5 text-sm text-cyber-main focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600 transition resize-none"></textarea>
                 </div>
             </div>
 
             {{-- STEP 5: REVIEW --}}
             <div x-show="step === 5" class="space-y-5">
                 <div>
-                    <h3 class="text-lg font-bold text-cyber-main">Review Your Request</h3>
+                    <h3 class="text-lg font-bold font-display text-cyber-main">Review Your Request</h3>
                     <p class="text-xs text-cyber-muted mt-0.5">Please confirm all specifications before dispatching your request.</p>
                 </div>
-                <div class="border border-cyber rounded-2xl overflow-hidden shadow-sm">
-                    <table class="min-w-full divide-y divide-cyber text-sm">
-                        <tbody class="divide-y divide-cyber">
+                <div class="border border-cyber rounded-xl overflow-hidden">
+                    <table class="min-w-full divide-y divide-cyber-sub text-sm tabular-nums">
+                        <tbody class="divide-y divide-cyber-sub">
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40 w-1/3">Print Service</td>
-                                <td class="px-5 py-3 font-bold text-cyber-main" x-text="form.service || '—'"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub w-1/3 text-xs font-sans tabular-nums uppercase">Print Service</td>
+                                <td class="px-5 py-3 font-semibold text-cyber-main" x-text="form.service || '—'"></td>
                             </tr>
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40">Qty &amp; Size</td>
-                                <td class="px-5 py-3 text-cyber-main font-medium" x-text="form.quantity + ' copies · ' + form.size"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub text-xs font-sans tabular-nums uppercase">Qty &amp; Size</td>
+                                <td class="px-5 py-3 text-cyber-main font-sans tabular-nums text-xs" x-text="form.quantity + ' copies · ' + form.size"></td>
                             </tr>
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40">Material</td>
-                                <td class="px-5 py-3 text-cyber-main font-medium" x-text="form.material"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub text-xs font-sans tabular-nums uppercase">Material</td>
+                                <td class="px-5 py-3 text-cyber-main font-medium text-xs" x-text="form.material"></td>
                             </tr>
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40">Finishing</td>
-                                <td class="px-5 py-3 text-cyber-main font-medium" x-text="form.finishing"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub text-xs font-sans tabular-nums uppercase">Finishing</td>
+                                <td class="px-5 py-3 text-cyber-main font-medium text-xs" x-text="form.finishing"></td>
                             </tr>
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40">Artwork File</td>
-                                <td class="px-5 py-3 text-cyber-main font-medium" x-text="form.fileName || 'No file selected'"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub text-xs font-sans tabular-nums uppercase">Artwork File</td>
+                                <td class="px-5 py-3 text-cyber-main font-sans tabular-nums text-xs" x-text="form.fileName || 'No file selected'"></td>
                             </tr>
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40">Deadline</td>
-                                <td class="px-5 py-3 text-cyber-main font-medium" x-text="form.deadline"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub text-xs font-sans tabular-nums uppercase">Deadline</td>
+                                <td class="px-5 py-3 text-cyber-main font-sans tabular-nums text-xs" x-text="form.deadline"></td>
                             </tr>
                             <tr class="bg-cyber-card">
-                                <td class="px-5 py-3 font-bold text-cyber-muted bg-cyber-sub/40">Collection</td>
-                                <td class="px-5 py-3 text-cyber-main font-medium" x-text="form.collection_mode === 'pickup' ? 'Branch Pickup' : 'Courier Shipping'"></td>
+                                <td class="px-5 py-3 font-semibold text-cyber-muted bg-cyber-sub text-xs font-sans tabular-nums uppercase">Collection</td>
+                                <td class="px-5 py-3 text-cyber-main font-medium text-xs" x-text="form.collection_mode === 'pickup' ? 'Branch Pickup' : 'Courier Shipping'"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="p-4 bg-cyan-500/10 border border-cyan-500/20 rounded-2xl flex items-center gap-3">
-                    <i class="fa-solid fa-circle-info text-cyan-400 text-lg shrink-0"></i>
-                    <p class="text-xs text-slate-300">
+                <div class="p-4 bg-brand-600/10 dark:bg-blue-500/15 border border-brand-600/25 dark:border-blue-500/30 rounded-xl flex items-center gap-3">
+                    <i class="fa-solid fa-circle-info text-brand-600 dark:text-blue-400 text-base shrink-0"></i>
+                    <p class="text-xs text-cyber-main">
                         A formal quotation will be generated after automated capacity &amp; routing analysis and sent to your account dashboard.
                     </p>
                 </div>
@@ -527,20 +528,20 @@
         {{-- ── Navigation Buttons ─────────────────────────── --}}
         <div class="flex items-center justify-between mt-6">
             <button type="button" @click="prevStep" x-show="step > 1"
-                    class="border border-cyber bg-cyber-card hover:bg-cyber-sub text-cyber-main px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm">
+                    class="border border-cyber bg-cyber-card hover:bg-cyber-sub text-cyber-main px-5 py-2.5 rounded-lg text-xs font-semibold transition flex items-center gap-2 cursor-pointer">
                 <i class="fa-solid fa-arrow-left"></i> Back
             </button>
             <div x-show="step === 1"></div>
 
             <template x-if="step < 5">
                 <button type="button" @click="nextStep"
-                        class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-2 cursor-pointer">
+                        class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-2.5 rounded-lg text-xs tracking-wide transition flex items-center gap-2 cursor-pointer">
                     Continue <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </template>
             <template x-if="step === 5">
                 <button type="submit"
-                        class="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-black px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-2 cursor-pointer">
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2.5 rounded-lg text-xs tracking-wide transition flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-paper-plane"></i> Submit Print Request
                 </button>
             </template>

@@ -36,8 +36,8 @@ class RoleMiddleware
             return $next($request);
         }
 
-        // Layout Designer maps to staff
-        if ($userRole === 'designer' && (in_array('staff', $roles) || in_array('production', $roles))) {
+        // Layout Designer / Customer Service Staff cross-access
+        if (in_array($userRole, ['designer', 'staff']) && (in_array('staff', $roles) || in_array('designer', $roles) || in_array('production', $roles))) {
             return $next($request);
         }
 

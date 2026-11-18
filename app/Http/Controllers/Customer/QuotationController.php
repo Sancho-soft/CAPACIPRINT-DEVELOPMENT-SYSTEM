@@ -19,8 +19,10 @@ class QuotationController extends Controller
 
         // Search by quotation number or service name
         if ($search = $request->get('search')) {
-            $query->where(function ($q) use ($search) {
+            $cleanSearch = ltrim($search, '#');
+            $query->where(function ($q) use ($search, $cleanSearch) {
                 $q->where('quotation_number', 'like', "%{$search}%")
+                  ->orWhere('quotation_number', 'like', "%{$cleanSearch}%")
                   ->orWhereHas('printRequest', function ($pq) use ($search) {
                       $pq->where('service', 'like', "%{$search}%")
                          ->orWhere('material', 'like', "%{$search}%");
@@ -52,7 +54,7 @@ class QuotationController extends Controller
             $query->latest();
         }
 
-        $quotations = $query->paginate(10)->withQueryString();
+        $quotations = $query->paginate(7)->withQueryString();
 
         return view('customer.quotations.index', compact('quotations'));
     }

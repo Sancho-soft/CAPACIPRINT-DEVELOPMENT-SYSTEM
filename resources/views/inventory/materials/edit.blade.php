@@ -5,17 +5,17 @@
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6">
     <div class="flex items-center justify-between">
-        <a href="{{ route('inventory.materials.index') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-navy-900 transition">
+        <a href="{{ route('inventory.materials.index') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-cyber-main transition">
             <i class="fa-solid fa-arrow-left"></i> Back to Catalog
         </a>
-        <a href="{{ route('inventory.materials.show', $material) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-600 hover:text-cyan-700 transition">
+        <a href="{{ route('inventory.materials.show', $material) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition">
             <i class="fa-solid fa-eye"></i> View Details
         </a>
     </div>
 
     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-5">
         <div>
-            <h2 class="text-lg font-bold text-navy-900 font-display">Edit Material: {{ $material->name }}</h2>
+            <h2 class="text-lg font-bold text-cyber-main font-display">Edit Material: {{ $material->name }}</h2>
             <p class="text-xs text-slate-400 mt-0.5">Update catalog specifications and availability state.</p>
         </div>
 
@@ -24,7 +24,7 @@
             @method('PUT')
 
             <div>
-                <label class="block font-bold text-navy-900 mb-1">Material Name</label>
+                <label class="block font-bold text-cyber-main mb-1">Material Name</label>
                 <input type="text" name="name" value="{{ old('name', $material->name) }}" required placeholder="e.g. Glossy Paper 80gsm A4"
                        class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
             </div>
@@ -53,7 +53,7 @@
 
             <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between">
                 <div>
-                    <p class="font-bold text-navy-900">Active Status</p>
+                    <p class="font-bold text-cyber-main">Active Status</p>
                     <p class="text-[11px] text-slate-500">Inactive materials are hidden from new print job allocations.</p>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer">

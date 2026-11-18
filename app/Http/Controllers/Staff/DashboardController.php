@@ -8,6 +8,7 @@ use App\Models\PrintRequest;
 use App\Models\Quotation;
 use App\Models\ProductionJob;
 use App\Models\InternalNotification;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -80,7 +81,7 @@ class DashboardController extends Controller
         foreach ($pendingPaymentOrders as $pOrd) {
             $attentionItems[] = [
                 'title'        => "Payment Verification Required: {$pOrd->order_number}",
-                'description'  => "Customer: " . ($pOrd->user->name ?? 'Client') . " submitted payment proof for ₱" . number_format($pOrd->payment->amount ?? 0, 2) . " (Ref: " . ($pOrd->payment->payment_reference ?? 'N/A') . ")",
+                'description'  => "Customer: " . ($pOrd->user->name ?? 'Client') . " submitted payment proof for ₱" . number_format($pOrd->payment->amount ?? 0, 2) . " (Ref: " . ($pOrd->payment->display_reference ?? 'N/A') . ")",
                 'severity'     => 'critical',
                 'icon'         => 'fa-solid fa-credit-card',
                 'badge'        => 'PAYMENT PENDING',
@@ -105,11 +106,32 @@ class DashboardController extends Controller
             ];
         }
 
-        // Recent customer print requests
+        // 3. Customer artwork revision requests (Unified CS Pre-Press)
+        $revisionProofs = \App\Models\DesignProof::with('printRequest.user')
+            ->where('status', 'revision_requested')
+            ->latest('updated_at')
+            ->take(3)
+            ->get();
+
+        foreach ($revisionProofs as $rev) {
+            $clientName = $rev->printRequest?->user?->name ?? 'Client';
+            $service = $rev->printRequest?->service ?? 'Print Job';
+            $attentionItems[] = [
+                'title'        => "Artwork Revision Needed: #REQ-" . str_pad($rev->print_request_id, 5, '0', STR_PAD_LEFT) . " ({$service})",
+                'description'  => "Customer {$clientName}: " . ($rev->customer_feedback ? \Illuminate\Support\Str::limit($rev->customer_feedback, 100) : 'Requested artwork changes.'),
+                'severity'     => 'critical',
+                'icon'         => 'fa-solid fa-wand-magic-sparkles',
+                'badge'        => 'REVISION NEEDED',
+                'meta'         => "Requested " . ($rev->updated_at ? $rev->updated_at->diffForHumans() : 'Recently'),
+                'action_url'   => route('designer.show', $rev->print_request_id),
+                'action_label' => 'Open Artwork',
+            ];
+        }
+
+        // Recent customer print requests (paginated by 7)
         $recentRequests = PrintRequest::with('user')
             ->latest()
-            ->take(6)
-            ->get();
+            ->paginate(7, ['*'], 'requests_page');
 
         // Recent quotations
         $recentQuotations = Quotation::with(['printRequest', 'user'])
@@ -117,13 +139,12 @@ class DashboardController extends Controller
             ->take(6)
             ->get();
 
-        // Recent customer orders
+        // Recent customer orders (paginated by 7)
         $recentOrders = Order::with(['printRequest', 'user'])
             ->latest()
-            ->take(8)
-            ->get();
+            ->paginate(7, ['*'], 'orders_page');
 
-        $unread = InternalNotification::where('user_id', auth()->id())
+        $unread = InternalNotification::where('user_id', Auth::id())
             ->where('is_read', false)->count();
 
         return view('staff.dashboard', compact(

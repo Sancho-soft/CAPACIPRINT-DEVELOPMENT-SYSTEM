@@ -13,6 +13,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // 0. Remove obsolete dummy customer accounts from previous test seeds
+        User::whereIn('email', [
+            'juan.delacruz@gmail.com',
+            'maria.santos@gmail.com',
+            'carlo.mendez@gmail.com',
+            'beatrice.aquino@gmail.com',
+            'dave.villanueva@gmail.com',
+            'sarah.geronimo@gmail.com',
+            'ramon.bautista@gmail.com',
+            'robert.tan@buildcraft.ph',
+            'archive.data@capaciprint.com',
+        ])->delete();
+
         // 1. Owner
         User::updateOrCreate(
             ['email' => 'owner@capaciprint.com'],
@@ -94,15 +107,15 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 6. Layout Designer
+        // 6. Pre-Press & Customer Service Staff
         User::updateOrCreate(
             ['email' => 'designer@capaciprint.com'],
             [
                 'name'     => 'Clarence Gotas',
                 'password' => Hash::make('password'),
-                'role'     => 'designer',
+                'role'     => 'staff',
                 'phone'    => '+63 917 888 9999',
-                'address'  => 'Pre-Press Studio',
+                'address'  => 'Pre-Press & CS Studio',
             ]
         );
 
@@ -130,7 +143,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // 9. Customer
+        // 9. Default Demo Customer
         User::updateOrCreate(
             ['email' => 'customer@capaciprint.com'],
             [
@@ -138,8 +151,36 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role'     => 'customer',
                 'phone'    => '+63 912 345 6789',
-                'address'  => 'Client Address',
+                'address'  => 'Matina Aplaya, Davao City, 8000',
             ]
         );
+
+        // 10. The 10 Primary System Customers (November 2026)
+        $customerPassword = Hash::make('password123');
+        $primaryCustomers = [
+            ['name' => 'Jhon Rex Partoza',   'email' => 'jhonrex.partoza@gmail.com',   'phone' => '+63 917 101 2231', 'address' => 'Matina Crossing, Davao City, 8000'],
+            ['name' => 'Ryan Luza',          'email' => 'ryan.luza@gmail.com',          'phone' => '+63 917 202 3342', 'address' => 'Bajada, Davao City, 8000'],
+            ['name' => 'Mark Asucan',        'email' => 'mark.asucan@gmail.com',        'phone' => '+63 917 303 4453', 'address' => 'Toril District, Davao City, 8000'],
+            ['name' => 'Grace Cabilles',     'email' => 'grace.cabilles@gmail.com',     'phone' => '+63 917 404 5564', 'address' => 'Ecoland Phase 2, Davao City, 8000'],
+            ['name' => 'Ryza Cagabhion',     'email' => 'ryza.cagabhion@gmail.com',     'phone' => '+63 917 505 6675', 'address' => 'Buhangin Road, Davao City, 8000'],
+            ['name' => 'Joanna Plewa',       'email' => 'joanna.plewa@gmail.com',       'phone' => '+63 917 606 7786', 'address' => 'Lanang Commercial Hub, Davao City, 8000'],
+            ['name' => 'Joyce Ann Muring',   'email' => 'joyceanne.muring@gmail.com',   'phone' => '+63 917 707 8897', 'address' => 'Magsaysay Ave, Davao City, 8000'],
+            ['name' => 'Dianne Badlon',      'email' => 'dianne.badlon@gmail.com',      'phone' => '+63 917 808 9908', 'address' => 'Obrero District, Davao City, 8000'],
+            ['name' => 'Prencess Baldeconza','email' => 'prencess.baldeconza@gmail.com','phone' => '+63 917 909 1129', 'address' => 'Maa, Davao City, 8000'],
+            ['name' => 'Mary Kate Silat',    'email' => 'marykate.silat@gmail.com',    'phone' => '+63 917 010 3340', 'address' => 'Calinan District, Davao City, 8000'],
+        ];
+
+        foreach ($primaryCustomers as $cust) {
+            User::updateOrCreate(
+                ['email' => $cust['email']],
+                [
+                    'name'     => $cust['name'],
+                    'password' => $customerPassword,
+                    'role'     => 'customer',
+                    'phone'    => $cust['phone'],
+                    'address'  => $cust['address'],
+                ]
+            );
+        }
     }
 }

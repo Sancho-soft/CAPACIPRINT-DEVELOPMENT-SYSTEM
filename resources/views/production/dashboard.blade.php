@@ -10,29 +10,30 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Press Floor Operations</span>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
         </div>
 
         {{-- Right Quick Navigation Actions --}}
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <a href="{{ route('production.jobs.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-list-check text-xs text-sky-500 dark:text-sky-400"></i> Production Queue
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="{{ route('production.jobs.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-xs text-blue-600 dark:text-blue-400"></i> Production Queue
             </a>
-            <a href="{{ route('production.machines.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-print text-xs text-sky-500 dark:text-sky-400"></i> Equipment Status
+            <a href="{{ route('production.machines.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-print text-xs text-blue-600 dark:text-blue-400"></i> Equipment Status
             </a>
         </div>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 4 OPERATIONAL SHIFT METRICS (PARENT CARD WRAPPER) --}}
+    {{-- 4 OPERATIONAL SHIFT METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl">
+    <div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 shadow-sm">
         <div class="mb-4">
-            <h3 class="text-sm font-black text-cyber-main font-display tracking-tight flex items-center gap-2">
-                <i class="fa-solid fa-chart-simple text-sky-500"></i> Operational Shift Performance
+            <h3 class="text-sm font-bold text-cyber-main font-display tracking-tight flex items-center gap-2">
+                <i class="fa-solid fa-chart-simple text-blue-600 dark:text-blue-400"></i> Operational Shift Performance
             </h3>
-            <p class="text-xs text-cyber-muted">Real-time throughput, equipment loads, and fulfillment deadlines.</p>
+            <p class="text-xs text-cyber-muted mt-0.5">Real-time throughput, equipment loads, and fulfillment deadlines.</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             <x-dashboard.kpi-card 
@@ -77,86 +78,93 @@
     />
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 2-COLUMN SPLIT: EQUIPMENT FLEET (LEFT) & ACTIVE ORDERS / PRESS QUEUE (RIGHT) --}}
+    {{-- LEVEL 3: ACTIVE ORDERS & PRESS LINE QUEUE (FULL WIDTH)   --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-        {{-- LEVEL 3: PRESS EQUIPMENT FLEET STATUS (LEFT SIDE) --}}
-        <div class="xl:col-span-5 space-y-6">
-            @if(isset($pressMachines) && $pressMachines->isNotEmpty())
-            <div id="press-equipment-fleet" class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col transition-opacity duration-200 scroll-mt-6">
-                <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
-                    <div>
-                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Press Equipment Fleet</h3>
-                    </div>
-                    <a href="{{ route('production.machines.index') }}" class="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1">
-                        Equipment Logs <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-
-                <div class="overflow-x-auto flex-1">
-                    <table class="w-full text-left text-xs">
-                        <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
-                            <tr>
-                                <th class="px-4 py-3.5">Machine</th>
-                                <th class="px-4 py-3.5">Type & Model</th>
-                                <th class="px-4 py-3.5 text-right">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-cyber/60 text-cyber-main">
-                            @foreach($pressMachines as $m)
-                                <tr class="hover:bg-cyber-hover/50 transition">
-                                    <td class="px-4 py-3.5 font-bold text-cyber-main whitespace-nowrap">
-                                        <div class="flex items-center gap-2">
-                                            <i class="fa-solid fa-print text-xs text-sky-500 dark:text-sky-400"></i>
-                                            <span>{{ $m->name }}</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3.5 text-cyber-muted whitespace-nowrap">
-                                        <span>{{ $m->type }}</span>
-                                        @if(!empty($m->model))
-                                            <span class="text-cyber-sub font-mono text-[10px]">&middot; {{ $m->model }}</span>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-3.5 text-right whitespace-nowrap">
-                                        @php
-                                            $dotColor = match($m->status) {
-                                                'available'   => 'bg-emerald-500',
-                                                'in_use'      => 'bg-cyan-500',
-                                                'maintenance' => 'bg-amber-500',
-                                                default       => 'bg-rose-500',
-                                            };
-                                        @endphp
-                                        <span class="inline-flex items-center gap-1.5 font-medium text-cyber-main text-xs">
-                                            <span class="w-1.5 h-1.5 rounded-full {{ $dotColor }}"></span>
-                                            {{ ucfirst(str_replace('_', ' ', $m->status)) }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                @if($pressMachines->hasPages())
-                    <div class="px-5 py-3 border-t border-cyber/60 bg-cyber-sub/40">
-                        {{ $pressMachines->appends(request()->except('machines_page'))->fragment('press-equipment-fleet')->links() }}
-                    </div>
-                @endif
-            </div>
-            @endif
-        </div>
-
-        {{-- LEVEL 4: ASSIGNED PRODUCTION QUEUE & ACTIVE ORDERS (RIGHT SIDE ROW) --}}
-        <div class="xl:col-span-7">
-            <x-dashboard.production-table 
-                :jobs="$myJobs"
-                title="Active Orders & Press Line Queue"
-                :subtitle="null"
-                :viewAllUrl="route('production.jobs.index')"
-                viewAllLabel="Full Floor Queue"
-            />
-        </div>
+    <div class="w-full">
+        <x-dashboard.production-table 
+            :jobs="$myJobs"
+            title="Active Orders & Press Line Queue"
+            :subtitle="null"
+            :viewAllUrl="route('production.jobs.index')"
+            viewAllLabel="Full Floor Queue"
+        />
     </div>
+
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- LEVEL 4: PRESS EQUIPMENT FLEET STATUS (FULL WIDTH)       --}}
+    {{-- ══════════════════════════════════════════════════════════ --}}
+    @if(isset($pressMachines) && $pressMachines->isNotEmpty())
+    <div id="press-equipment-fleet" class="bg-cyber-card border border-cyber rounded-2xl overflow-hidden flex flex-col transition-opacity duration-200 scroll-mt-6 shadow-sm">
+        <div class="px-5 sm:px-6 py-4 border-b border-cyber-sub flex items-center justify-between bg-cyber-sub">
+            <div>
+                <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">Press Equipment Fleet</h3>
+                <p class="text-xs text-cyber-muted mt-0.5">Live machine availability and press floor readiness across facility units.</p>
+            </div>
+            <a href="{{ route('production.machines.index') }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
+                Equipment Logs <i class="fa-solid fa-arrow-right text-[11px]"></i>
+            </a>
+        </div>
+
+        <div class="overflow-x-auto flex-1">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="bg-cyber-sub text-cyber-muted font-sans font-bold border-b border-cyber text-xs">
+                    <tr>
+                        <th class="px-6 py-3">Machine</th>
+                        <th class="px-6 py-3">Type</th>
+                        <th class="px-6 py-3">Model Specifications</th>
+                        <th class="px-6 py-3 text-right">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-cyber-sub text-cyber-main">
+                    @foreach($pressMachines as $m)
+                        <tr class="hover:bg-black/[0.02] dark:hover:bg-white/[0.025] transition-colors">
+                            <td class="px-6 py-3.5 font-semibold text-cyber-main whitespace-nowrap">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-600/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-print text-xs"></i>
+                                    </div>
+                                    <span>{{ $m->name }}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-3.5 text-cyber-muted whitespace-nowrap">
+                                <span>{{ $m->type }}</span>
+                            </td>
+                            <td class="px-6 py-3.5 text-cyber-muted font-sans text-xs whitespace-nowrap">
+                                {{ !empty($m->model) ? $m->model : 'Standard Unit' }}
+                            </td>
+                            <td class="px-6 py-3.5 text-right whitespace-nowrap">
+                                @php
+                                    $dotColor = match($m->status) {
+                                        'available'   => 'bg-emerald-500',
+                                        'in_use'      => 'bg-blue-600 dark:bg-blue-500',
+                                        'maintenance' => 'bg-amber-500',
+                                        default       => 'bg-rose-500',
+                                    };
+                                    $badgeStyle = match($m->status) {
+                                        'available'   => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25',
+                                        'in_use'      => 'bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25 dark:border-blue-500/30',
+                                        'maintenance' => 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/25',
+                                        default       => 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/25',
+                                    };
+                                @endphp
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-semibold text-[11px] {{ $badgeStyle }} font-sans">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $dotColor }}"></span>
+                                    {{ ucfirst(str_replace('_', ' ', $m->status)) }}
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        @if($pressMachines->hasPages())
+            <div class="px-6 py-3.5 border-t border-cyber-sub bg-cyber-sub">
+                {{ $pressMachines->appends(request()->except('machines_page'))->fragment('press-equipment-fleet')->links() }}
+            </div>
+        @endif
+    </div>
+    @endif
 
 </div>
 

@@ -3,78 +3,72 @@
 @section('page-title', 'Dashboard Overview')
 
 @section('content')
-<div class="space-y-6 w-full">
+<div class="space-y-6 w-full max-w-7xl mx-auto">
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- HERO WELCOME HEADER --}}
+    {{-- PAGE HEADER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="relative py-1">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            {{-- Left Title --}}
-            <div>
-                <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white leading-tight">Welcome back, {{ auth()->user()->name }}!</h2>
-            </div>
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Client Production Portal</span>
+            <h2 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main leading-tight">Welcome back, {{ auth()->user()->name }}</h2>
+        </div>
 
-            {{-- Right Controls: Quick Navigation Actions --}}
-            <div class="flex items-center gap-2.5 shrink-0">
-                <a href="{{ route('customer.orders.index') }}" 
-                   class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-md shadow-cyan-500/20 transition-all duration-200 active:scale-95">
-                    <i class="fa-solid fa-magnifying-glass text-xs shrink-0"></i>
-                    <span class="leading-none">View My Orders</span>
-                </a>
-            </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+            <a href="{{ route('customer.print-requests.create') }}"
+               class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition">
+                <i class="fa-solid fa-plus text-xs shrink-0"></i>
+                <span>New Print Request</span>
+            </a>
+            <a href="{{ route('customer.orders.index') }}" 
+               class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition">
+                <i class="fa-solid fa-magnifying-glass text-xs shrink-0 text-blue-600 dark:text-blue-400"></i>
+                <span>View My Orders</span>
+            </a>
         </div>
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- 3 KPI METRICS WITH COLORED ACCENTS --}}
+    {{-- 3 KPI METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        {{-- Card 1: Active Orders (Cyan) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-cyan-500/30 transition group">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-boxes-stacked text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[11px] font-black text-cyan-400 uppercase tracking-wider leading-tight max-w-[110px]">ACTIVE ORDERS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-white font-display">{{ $activeOrdersCount }}</div>
-            </div>
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+        <x-dashboard.kpi-card 
+            title="ACTIVE ORDERS"
+            :value="$activeOrdersCount"
+            icon="fa-solid fa-boxes-stacked"
+            accent="blue"
+            :link="route('customer.orders.index', ['status' => 'active'])"
+        />
 
-        {{-- Card 2: Pending Quotations (Amber) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-amber-500/30 transition group">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-file-invoice-dollar text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[11px] font-black text-amber-400 uppercase tracking-wider leading-tight max-w-[110px]">PENDING QUOTATIONS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-white font-display">{{ $pendingQuotesCount }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="PENDING QUOTATIONS"
+            :value="$pendingQuotesCount"
+            icon="fa-solid fa-file-invoice-dollar"
+            accent="amber"
+            :link="route('customer.quotations.index', ['status' => 'pending'])"
+        />
 
-        {{-- Card 3: Completed Orders (Emerald) --}}
-        <div class="bg-[#111A24] rounded-2xl border border-slate-800/80 p-5 flex items-center justify-between shadow-lg hover:border-emerald-500/30 transition group">
-            <div class="flex items-center gap-3.5 min-w-0">
-                <i class="fa-solid fa-clipboard-check text-2xl text-slate-400 shrink-0 group-hover:scale-110 transition-all"></i>
-                <div class="text-[11px] font-black text-emerald-400 uppercase tracking-wider leading-tight max-w-[110px]">COMPLETED ORDERS</div>
-            </div>
-            <div class="text-right shrink-0">
-                <div class="text-3xl font-black text-white font-display">{{ $completedOrdersCount }}</div>
-            </div>
-        </div>
+        <x-dashboard.kpi-card 
+            title="COMPLETED ORDERS"
+            :value="$completedOrdersCount"
+            icon="fa-solid fa-clipboard-check"
+            accent="emerald"
+            :link="route('customer.orders.index', ['status' => 'completed'])"
+        />
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- LATEST ORDER TRACKER --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     @if($latestOrder)
-    <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden">
-        <div class="px-6 py-4 bg-[#0D1520] border-b border-slate-800/80 flex items-center justify-between">
-            <h3 class="font-bold text-white flex items-center gap-2 text-sm">
-                <i class="fa-solid fa-map-location-dot text-cyan-400"></i> Latest Order Progress
+    <div class="bg-cyber-card border border-cyber rounded-2xl overflow-hidden shadow-sm">
+        <div class="px-5 sm:px-6 py-4 bg-cyber-sub border-b border-cyber-sub flex items-center justify-between">
+            <h3 class="font-bold text-cyber-main flex items-center gap-2 text-sm font-display">
+                <i class="fa-solid fa-map-location-dot text-blue-600 dark:text-blue-400"></i> Latest Order Progress
             </h3>
+            <span class="font-sans tabular-nums text-xs text-cyber-muted tabular-nums">{{ $latestOrder->order_number }}</span>
         </div>
-        <div class="p-6">
+        <div class="p-5 sm:p-6">
             @php
                 $steps   = \App\Models\Order::statusSteps();
                 $current = array_search($latestOrder->status, $steps);
@@ -86,108 +80,105 @@
 
             <div class="flex items-center justify-between mb-6 gap-4">
                 <div>
-                    <h4 class="font-bold text-white text-base">{{ $latestOrder->printRequest->service ?? '—' }}</h4>
-                    <p class="text-xs text-slate-400 mt-0.5">
+                    <h4 class="font-bold text-cyber-main text-base font-display">{{ $latestOrder->printRequest->service ?? '—' }}</h4>
+                    <p class="text-xs font-sans text-cyber-muted mt-0.5 tabular-nums">
                         Qty: {{ $latestOrder->printRequest->quantity ?? '—' }} &middot;
                         {{ $latestOrder->printRequest->size ?? '' }}
                     </p>
                 </div>
-                <span class="px-3 py-1 text-xs font-bold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                <span class="px-3 py-1 rounded-full text-xs font-sans font-semibold bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25 dark:border-blue-500/30">
                     {{ $latestOrder->status_label }}
                 </span>
             </div>
 
             {{-- Progress bar & steps --}}
             <div class="relative">
-                <div class="absolute top-4 left-0 right-0 h-1 bg-slate-800 z-0"></div>
-                <div class="absolute top-4 left-0 h-1 bg-cyan-400 z-0 transition-all duration-700 shadow-[0_0_10px_rgba(6,182,212,0.5)]" style="width: {{ $pct }}%"></div>
+                <div class="absolute top-4 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-0"></div>
+                <div class="absolute top-4 left-0 h-0.5 bg-blue-600 dark:bg-blue-500 z-0 transition-all duration-300" @style(['width: ' . $pct . '%'])></div>
                 <div class="relative flex justify-between z-10">
                     @foreach($labels as $i => $label)
                     <div class="flex flex-col items-center">
-                        <div class="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all
-                            {{ $i < $current ? 'bg-cyan-400 border-cyan-400 text-slate-950' : ($i === $current ? 'bg-cyan-500 border-cyan-500 text-slate-950 ring-4 ring-cyan-500/30' : 'bg-[#0D1520] border-slate-700 text-slate-500') }}">
+                        <div class="h-8 w-8 rounded-xl flex items-center justify-center text-xs font-semibold border transition-colors
+                            {{ $i < $current ? 'bg-blue-600 border-blue-600 text-white' : ($i === $current ? 'bg-blue-600 border-blue-600 text-white ring-2 ring-blue-600/25 dark:ring-blue-500/30' : 'bg-cyber-sub border-cyber text-cyber-sub') }}">
                             <i class="fa-solid {{ $icons[$i] ?? 'fa-circle' }}"></i>
                         </div>
-                        <span class="hidden md:block text-[10px] font-semibold text-slate-400 mt-2 text-center leading-tight max-w-[56px]">{{ $label }}</span>
+                        <span class="hidden md:block text-[11px] font-sans font-medium text-cyber-muted mt-2 text-center leading-tight max-w-[64px]">{{ $label }}</span>
                     </div>
                     @endforeach
                 </div>
             </div>
 
-            <div class="mt-6 p-4 bg-[#0D1520] border border-slate-800/80 rounded-xl flex items-center gap-4">
-                <i class="fa-solid fa-circle-info text-cyan-400 text-lg shrink-0"></i>
+            <div class="mt-6 p-4 bg-cyber-sub border border-cyber-sub rounded-xl flex items-center gap-4">
+                <i class="fa-solid fa-circle-info text-blue-600 dark:text-blue-400 text-base shrink-0"></i>
                 <div class="flex-1">
-                    <p class="text-sm font-bold text-white">Current Status: <span class="text-cyan-400">{{ $latestOrder->status_label }}</span></p>
+                    <p class="text-xs sm:text-sm font-semibold text-cyber-main">Current Status: <span class="text-blue-600 dark:text-blue-400">{{ $latestOrder->status_label }}</span></p>
                     @if($latestOrder->assigned_branch)
-                        <p class="text-xs text-slate-400 mt-0.5">Branch: {{ $latestOrder->assigned_branch }}</p>
+                        <p class="text-xs text-cyber-muted mt-0.5">Branch: {{ $latestOrder->assigned_branch }}</p>
                     @endif
                     @if($latestOrder->estimated_completion)
-                        <p class="text-xs text-slate-400 mt-0.5">Est. Completion: {{ $latestOrder->estimated_completion->format('M d, Y') }}</p>
+                        <p class="text-xs font-sans text-cyber-muted mt-0.5 tabular-nums">Est. Completion: {{ $latestOrder->estimated_completion->format('M d, Y') }}</p>
                     @endif
                 </div>
                 <a href="{{ route('customer.orders.tracking', $latestOrder) }}"
-                   class="shrink-0 text-xs text-cyan-400 hover:text-cyan-300 font-bold transition flex items-center gap-1">
+                   class="shrink-0 text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition flex items-center gap-1">
                     Track &rarr;
                 </a>
             </div>
         </div>
     </div>
     @else
-    <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl shadow-xl p-10 text-center">
-        <i class="fa-solid fa-circle-question text-slate-600 text-4xl mb-3"></i>
-        <h4 class="font-bold text-white">No active orders yet</h4>
-        <p class="text-sm text-slate-400 mt-1">Submit your first print request to get started.</p>
-        <a href="{{ route('customer.print-requests.create') }}"
-           class="inline-block mt-4 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-[0_0_20px_rgba(6,182,212,0.35)]">
-            Submit Print Request
-        </a>
-    </div>
+    <x-dashboard.empty-state 
+        title="No active orders yet"
+        description="Submit your first print request to start tracking capacity routing and press production."
+        icon="fa-solid fa-print"
+        :actionUrl="route('customer.print-requests.create')"
+        actionLabel="Submit Print Request"
+    />
     @endif
 
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- RECENT ORDERS TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     @if($orders->count())
-    <div class="bg-[#111A24] border border-slate-800/80 rounded-3xl shadow-xl overflow-hidden">
-        <div class="px-6 py-4 bg-[#0D1520] border-b border-slate-800/80 flex items-center justify-between">
-            <h3 class="font-bold text-white text-sm">Recent Orders</h3>
-            <a href="{{ route('customer.orders.index') }}" class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold">View all &rarr;</a>
+    <div class="bg-cyber-card border border-cyber rounded-2xl overflow-hidden shadow-sm">
+        <div class="px-5 sm:px-6 py-4 bg-cyber-sub border-b border-cyber-sub flex items-center justify-between">
+            <h3 class="font-bold text-cyber-main text-sm font-display">Recent Orders</h3>
+            <a href="{{ route('customer.orders.index') }}" class="text-xs text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-semibold">View all &rarr;</a>
         </div>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-slate-800/80 text-sm">
-                <thead class="bg-[#0D1520]">
+            <table class="min-w-full divide-y divide-cyber-sub text-xs tabular-nums">
+                <thead class="bg-cyber-sub">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Order No.</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Service</th>
-                        <th class="px-6 py-3 text-left text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-right text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Action</th>
+                        <th class="px-6 py-3 text-left text-xs font-sans font-bold text-cyber-muted">Order No.</th>
+                        <th class="px-6 py-3 text-left text-xs font-sans font-bold text-cyber-muted">Service</th>
+                        <th class="px-6 py-3 text-left text-xs font-sans font-bold text-cyber-muted">Status</th>
+                        <th class="px-6 py-3 text-right text-xs font-sans font-bold text-cyber-muted">Action</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/80">
+                <tbody class="divide-y divide-cyber-sub">
                     @foreach($orders as $order)
-                    <tr class="hover:bg-slate-800/40 transition">
-                        <td class="px-6 py-4 font-bold text-white">{{ $order->order_number }}</td>
-                        <td class="px-6 py-4 text-slate-300">{{ $order->printRequest->service ?? '—' }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 text-[11px] font-bold rounded uppercase
+                    <tr class="hover:bg-black/[0.02] dark:hover:bg-white/[0.025] transition-colors">
+                        <td class="px-6 py-3.5 font-sans tabular-nums font-semibold text-cyber-main">{{ $order->order_number }}</td>
+                        <td class="px-6 py-3.5 text-cyber-main font-medium">{{ $order->printRequest->service ?? '—' }}</td>
+                        <td class="px-6 py-3.5">
+                            <span class="text-xs font-sans font-semibold
                                 {{ match($order->status) {
-                                    'submitted'   => 'bg-blue-500/10 text-blue-400 border border-blue-500/20',
-                                    'quotation'   => 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
-                                    'payment'     => 'bg-orange-500/10 text-orange-400 border border-orange-500/20',
-                                    'production'  => 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
-                                    'completed'   => 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-                                    'ready_for_pickup' => 'bg-teal-500/10 text-teal-400 border border-teal-500/20',
-                                    'claimed'     => 'bg-slate-500/10 text-slate-400 border border-slate-500/20',
-                                    default       => 'bg-slate-500/10 text-slate-400 border border-slate-500/20',
+                                    'submitted'   => 'text-blue-600 dark:text-blue-400',
+                                    'quotation'   => 'text-amber-600 dark:text-amber-400',
+                                    'payment'     => 'text-orange-600 dark:text-orange-400',
+                                    'production'  => 'text-indigo-600 dark:text-indigo-400',
+                                    'completed'   => 'text-emerald-600 dark:text-emerald-400',
+                                    'ready_for_pickup' => 'text-teal-600 dark:text-teal-400',
+                                    default       => 'text-cyber-muted',
                                 } }}">
                                 {{ $order->status_label }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-right">
+                        <td class="px-6 py-3.5 text-right">
                             <a href="{{ route('customer.orders.show', $order) }}"
-                               class="inline-flex items-center justify-center h-8 w-8 rounded-lg text-cyan-400 hover:bg-cyan-500/10 transition"
+                               class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1.5 rounded-lg hover:bg-blue-600/10 dark:hover:bg-blue-500/15 inline-flex items-center justify-center"
                                title="View Order Details">
-                                <i class="fa-solid fa-eye text-base"></i>
+                                <i class="fa-solid fa-eye"></i>
                             </a>
                         </td>
                     </tr>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-slate-50 overflow-x-hidden">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full dark bg-[#0B0F17] overflow-x-hidden">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <title>CAPACIPRINT — Intelligent Print Routing</title>
 
-    <!-- Fonts (CDN with Local Fallback) -->
+    <!-- Fonts: Plus Jakarta Sans everywhere across the system -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}'; let l=document.createElement('link'); l.rel='stylesheet'; l.href='{{ asset('assets/fontsource/outfit/index.css') }}'; document.head.appendChild(l);">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}';">
 
     <!-- Tailwind CSS (via Vite with CDN Fallback for safety) -->
     @if (file_exists(public_path('build/manifest.json')))
@@ -33,6 +33,7 @@
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -42,112 +43,107 @@
                             200: '#bccadb',
                             300: '#92a9be',
                             400: '#6685a0',
-                            500: '#4e6a84',   // Logo mid-slate
-                            600: '#3d5068',   // Logo primary dark (outer ring)
+                            500: '#4e6a84',
+                            600: '#3d5068',
                             700: '#2e3d50',
-                            800: '#1f2c3a',   // Deep slate
-                            900: '#141c26',   // Darkest panel bg
+                            800: '#1f2c3a',
+                            900: '#141c26',
                             950: '#0b1016',
                         },
                         brand: {
-                            50:  '#e8f7fd',
-                            100: '#c3ebf9',
-                            200: '#8bd9f5',
-                            300: '#4dc6ef',
-                            400: '#29bce8',   // Logo sky-blue accent (bright)
-                            500: '#15a9d6',   // Slightly deeper for hover
-                            600: '#0e8db5',
-                            700: '#0c7296',
-                            800: '#0b5a76',
-                            900: '#0a4a60',
+                            50:  '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <script>
+        (function () {
+            document.documentElement.classList.add('dark');
+        })();
+    </script>
     <style>
         [x-cloak] { display: none !important; }
-        .font-display { font-family: 'Outfit', sans-serif; }
-        .font-sans { font-family: 'Inter', sans-serif; }
+        html, body {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        .font-display { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; letter-spacing: -0.025em; }
+        .font-sans { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; }
+        .font-mono { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; font-variant-numeric: tabular-nums; }
 
-        /* ── Brand color variables from logo ── */
+        /* ── Brand color variables ── */
         :root {
-            --brand-dark:   #1f2c3a;   /* deep slate panel bg          */
-            --brand-mid:    #3d5068;   /* logo outer ring / nav        */
-            --brand-blue:   #29bce8;   /* logo sky-blue accent         */
-            --brand-blue-d: #15a9d6;   /* darker sky-blue hover        */
+            --brand-dark:   #151922;
+            --brand-mid:    #3f4652;
+            --brand-blue:   #2563EB;
+            --brand-blue-d: #1D4ED8;
         }
 
-        /* Login page animations */
+        /* Mechanical UI transitions */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(12px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-10px); }
-        }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(41,188,232,0); }
-            50%       { box-shadow: 0 0 32px 10px rgba(41,188,232,0.18); }
-        }
-        @keyframes shimmer {
-            0%   { background-position: -200% center; }
-            100% { background-position:  200% center; }
-        }
-        .animate-fade-in-up   { animation: fadeInUp 0.6s ease both; }
-        .animate-float        { animation: float 4s ease-in-out infinite; }
-        .animate-pulse-glow   { animation: pulseGlow 3s ease-in-out infinite; }
+        .animate-fade-in-up { animation: fadeInUp 0.45s cubic-bezier(0.2, 0, 0, 1) both; }
 
-        /* Left panel: slate-steel navy matching logo outer ring */
+        /* Left panel: dark press-room slate */
         .login-panel-left {
-            background: linear-gradient(145deg, #141c26 0%, #2e3d50 45%, #1f2c3a 100%);
+            background: #101319;
         }
         .login-dot-pattern {
-            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 28px 28px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
         }
 
-        /* Feature badges: sky-blue tint from logo accent */
+        /* Feature badges */
         .feature-badge {
-            background: rgba(41,188,232,0.10);
-            border: 1px solid rgba(41,188,232,0.22);
-            backdrop-filter: blur(4px);
+            background: rgba(37,99,235,0.14);
+            border: 1px solid rgba(59,130,246,0.28);
         }
         .input-field {
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
         .input-field:focus {
-            border-color: #29bce8;
-            box-shadow: 0 0 0 3px rgba(41,188,232,0.14);
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.14);
             outline: none;
         }
 
-        /* CTA button: logo sky-blue gradient */
+        /* CTA button: Clean Modern Blue */
         .btn-primary {
-            background: linear-gradient(135deg, #15a9d6 0%, #29bce8 100%);
-            transition: all 0.2s;
+            background: #2563EB;
+            transition: background-color 0.15s;
         }
         .btn-primary:hover {
-            background: linear-gradient(135deg, #0e8db5 0%, #15a9d6 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 22px rgba(41,188,232,0.40);
+            background: #1D4ED8;
         }
-        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:active { background: #1E40AF; }
         .demo-btn {
-            border: 1.5px solid #e2e8f0;
-            transition: all 0.2s;
+            border: 1px solid #E2E8F0;
+            transition: border-color 0.15s, background-color 0.15s;
         }
         .demo-btn:hover {
-            border-color: #29bce8;
-            background: rgba(41,188,232,0.06);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(41,188,232,0.12);
+            border-color: #2563EB;
+            background: rgba(37,99,235,0.05);
         }
 
         /* Sidebar uses brand-mid slate matching logo outer ring */
@@ -156,74 +152,76 @@
         }
     </style>
 </head>
-<body class="h-full font-sans antialiased text-slate-800" x-data="appState()" x-cloak>
+<body class="h-full font-sans antialiased bg-white dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100" x-data="appState()" x-cloak>
 
     <!-- ══════════════════════════════════════════════════════════ -->
-    <!-- 1. CAPACIPRINT ENTERPRISE DSS PUBLIC LANDING PAGE          -->
+    <!-- 1. CAPACIPRINT PUBLIC LANDING PAGE                         -->
     <!-- ══════════════════════════════════════════════════════════ -->
-    <div x-show="!isLoggedIn" class="min-h-screen bg-[#F4F6F9] text-slate-800 flex flex-col justify-between selection:bg-[#0E3386] selection:text-white font-sans antialiased overflow-x-hidden w-full max-w-full">
-        
-        <!-- Clean Modern Top Navigation Bar (Fully Responsive Mobile + Desktop) -->
-        <header id="main-header" x-data="{ mobileNavOpen: false }" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs text-slate-800 transition-all duration-300">
-            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
-                
+    <div x-show="!isLoggedIn"
+         class="min-h-screen bg-[#0B0F17] text-slate-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white font-sans antialiased overflow-x-hidden w-full max-w-full">
+
+        <!-- Clean Sticky Navigation Bar -->
+        <header id="main-header" x-data="{ mobileNavOpen: false }" class="sticky top-0 z-50 bg-[#0B0F17]/95 backdrop-blur-md border-b border-slate-800/90 transition-shadow duration-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-4">
+
                 {{-- Brand Identity --}}
-                <a href="{{ route('landing') }}" class="flex items-center gap-2 sm:gap-3.5 group shrink-0">
-                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT Logo" class="h-8 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
-                    <div class="border-l border-slate-300 pl-2 sm:pl-3.5 flex flex-col justify-center">
-                        <span class="block font-display font-black text-base sm:text-xl text-slate-900 tracking-tight leading-none">
-                            CAPACI<span class="text-[#0E3386]">PRINT</span><span class="text-[#29bce8]">.</span>
+                <a href="{{ route('landing') }}" class="flex items-center gap-3 shrink-0 group">
+                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT Logo" class="h-10 w-auto object-contain">
+                    <div class="leading-tight">
+                        <span class="font-bold text-lg sm:text-xl text-white tracking-tight block leading-none">
+                            CAPACI<span class="text-blue-400">PRINT</span>
                         </span>
-                        <span class="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-[#0E3386] mt-0.5 sm:mt-1 hidden xs:block">Intelligent Print Routing</span>
+                        <span class="text-[11px] font-medium text-slate-400 block mt-0.5">
+                            Multi-Branch Print Network
+                        </span>
                     </div>
                 </a>
 
-                {{-- Clean Desktop Navigation Menu --}}
-                <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                    <a href="#hero" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Home</a>
-                    <a href="#services" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Print Services</a>
-                    <a href="#decision-engine" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Routing Engine</a>
-                    <a href="#problem" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Why CapaciPrint</a>
-                    <a href="#branches" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Branch Capacity</a>
-                    <a href="#tracking" class="hover:text-[#0E3386] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#0E3386] hover:after:w-full after:transition-all">Track Order</a>
+                {{-- Desktop Navigation Menu --}}
+                <nav class="hidden lg:flex items-center gap-1.5">
+                    <a href="#hero" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors">Overview</a>
+                    <a href="#services" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors">Services</a>
+                    <a href="#decision-engine" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors">How It Works</a>
+                    <a href="#problem" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors">Why Us</a>
+                    <a href="#branches" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors">Branches</a>
+                    <a href="#tracking" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors">Track Order</a>
                 </nav>
 
-                {{-- Customer Sign In + Mobile Hamburger Menu Toggle --}}
-                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white text-xs font-bold transition-all shadow-md shadow-[#0E3386]/25 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shrink-0">
-                        <i class="fa-solid fa-arrow-right-to-bracket text-xs text-[#29bce8]"></i>
-                        <span class="hidden sm:inline">Customer </span>Sign In
+                {{-- Right Actions: Customer Sign In + Mobile Hamburger --}}
+                <div class="flex items-center gap-2.5 shrink-0">
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-sm transition-colors cursor-pointer whitespace-nowrap">
+                        <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
+                        <span>Customer Sign In</span>
                     </a>
 
-                    {{-- Mobile Hamburger Button --}}
-                    <button type="button" 
-                            @click="mobileNavOpen = !mobileNavOpen" 
+                    <button type="button"
+                            @click="mobileNavOpen = !mobileNavOpen"
                             aria-label="Toggle navigation menu"
-                            class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#0E3386]/20">
-                        <i :class="mobileNavOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" class="text-lg text-slate-800"></i>
+                            class="lg:hidden h-10 w-10 rounded-xl text-slate-200 border border-slate-800 bg-slate-900 hover:bg-slate-800 flex items-center justify-center transition-colors focus:outline-none">
+                        <i :class="mobileNavOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" class="text-base"></i>
                     </button>
                 </div>
             </div>
 
             {{-- Mobile Dropdown Drawer --}}
-            <div x-show="mobileNavOpen" 
-                 x-transition:enter="transition ease-out duration-200"
-                 x-transition:enter-start="opacity-0 -translate-y-2"
+            <div x-show="mobileNavOpen"
+                 x-transition:enter="transition ease-out duration-150"
+                 x-transition:enter-start="opacity-0 -translate-y-1"
                  x-transition:enter-end="opacity-100 translate-y-0"
-                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave="transition ease-in duration-100"
                  x-transition:leave-start="opacity-100 translate-y-0"
-                 x-transition:leave-end="opacity-0 -translate-y-2"
-                 @click.away="mobileNavOpen = false" 
-                 class="lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-md px-4 py-4 space-y-2 text-xs font-bold uppercase tracking-wider text-slate-700 shadow-xl" 
+                 x-transition:leave-end="opacity-0 -translate-y-1"
+                 @click.away="mobileNavOpen = false"
+                 class="lg:hidden border-t border-slate-800 bg-[#0B0F17] px-4 py-4 space-y-1 text-sm font-semibold text-slate-200"
                  x-cloak>
-                <a @click="mobileNavOpen = false" href="#hero" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Home</a>
-                <a @click="mobileNavOpen = false" href="#services" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Print Services</a>
-                <a @click="mobileNavOpen = false" href="#decision-engine" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Routing Engine</a>
-                <a @click="mobileNavOpen = false" href="#problem" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Why CapaciPrint</a>
-                <a @click="mobileNavOpen = false" href="#branches" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Branch Capacity</a>
-                <a @click="mobileNavOpen = false" href="#tracking" class="block py-2.5 px-3 rounded-lg hover:bg-slate-100 hover:text-[#0E3386] transition-colors">Track Order</a>
-                <div class="pt-2 border-t border-slate-100">
-                    <a href="{{ route('customer.portal') }}" class="block text-center py-2.5 px-4 rounded-xl bg-[#0E3386] text-white font-bold tracking-normal normal-case text-xs">
+                <a @click="mobileNavOpen = false" href="#hero" class="block py-2.5 px-3 rounded-xl hover:bg-slate-800 hover:text-blue-400 transition-colors">Overview</a>
+                <a @click="mobileNavOpen = false" href="#services" class="block py-2.5 px-3 rounded-xl hover:bg-slate-800 hover:text-blue-400 transition-colors">Services</a>
+                <a @click="mobileNavOpen = false" href="#decision-engine" class="block py-2.5 px-3 rounded-xl hover:bg-slate-800 hover:text-blue-400 transition-colors">How It Works</a>
+                <a @click="mobileNavOpen = false" href="#problem" class="block py-2.5 px-3 rounded-xl hover:bg-slate-800 hover:text-blue-400 transition-colors">Why Us</a>
+                <a @click="mobileNavOpen = false" href="#branches" class="block py-2.5 px-3 rounded-xl hover:bg-slate-800 hover:text-blue-400 transition-colors">Branches</a>
+                <a @click="mobileNavOpen = false" href="#tracking" class="block py-2.5 px-3 rounded-xl hover:bg-slate-800 hover:text-blue-400 transition-colors">Track Order</a>
+                <div class="pt-3 border-t border-slate-800">
+                    <a href="{{ route('customer.portal') }}" class="block text-center py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm">
                         Open Customer Portal &rarr;
                     </a>
                 </div>
@@ -232,488 +230,496 @@
 
         <main class="flex-1 w-full max-w-full overflow-x-hidden">
 
-            <!-- ── HERO SECTION: CINEMATIC COMMERCIAL PRINT PRODUCTION (RESPONSIVE) ── -->
-            <section id="hero" class="relative min-h-[80vh] sm:min-h-[85vh] lg:min-h-[90vh] bg-slate-950 text-white overflow-hidden flex items-center justify-center border-b border-slate-800 w-full">
-                
-                {{-- Background Press Floor Photo with Cinematic Dark Radial Overlay --}}
-                <div class="absolute inset-0 z-0">
-                    <img src="{{ asset('images/press-floor-dark.jpg') }}" alt="Commercial Print Facility" class="w-full h-full object-cover object-center filter brightness-[0.36] contrast-[1.2] scale-100 transition-transform duration-1000 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/50 to-slate-950"></div>
-                    <div class="absolute inset-0 bg-radial at-center from-transparent via-slate-950/40 to-slate-950/90"></div>
-                    
-                    {{-- Ambient Subtle Animated Glow Orbs in Signature Blues --}}
-                    <div class="absolute top-1/4 left-1/3 w-72 sm:w-96 h-72 sm:h-96 bg-[#0E3386]/30 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
-                    <div class="absolute bottom-1/3 right-1/4 w-60 sm:w-80 h-60 sm:h-80 bg-[#29bce8]/15 rounded-full blur-3xl pointer-events-none animate-float"></div>
-                </div>
-
-                {{-- Centered Heroic Typography & Content --}}
-                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 text-center flex flex-col items-center w-full">
-                    
-                    {{-- Badged Pill in Signature Cubs Blue & Sky Blue (Wrapped Gracefully on Mobile) --}}
-                    <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-[#0E3386]/40 border border-[#29bce8]/40 text-[#29bce8] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-5 sm:mb-6 backdrop-blur-md shadow-lg shadow-[#0E3386]/20 animate-fade-in-up max-w-[94vw] text-center">
-                        <span class="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#29bce8] animate-ping shrink-0"></span>
-                        <span class="break-words">Multi-Branch Digital Printing Platform</span>
-                    </div>
-
-                    {{-- Main Headline in Signature Gradient (Scales smoothly from 32px on phone to 96px on desktop) --}}
-                    <h1 class="text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-display tracking-tight leading-[1.08] animate-fade-in-up drop-shadow-2xl max-w-full break-words" style="animation-delay: 0.15s;">
-                        Print Your Brand <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#29bce8] via-[#60a5fa] to-[#93c5fd] drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]">Into Reality.</span>
-                    </h1>
-
-                    {{-- Centered Subtitle --}}
-                    <p class="mt-4 sm:mt-6 text-sm sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in-up drop-shadow-md px-2" style="animation-delay: 0.25s;">
-                        Your One-Stop for All Your Printing Needs.
-                    </p>
-
-                    {{-- Centered Dual Pill CTAs in Signature Palette (Full Width Stack on Mobile, Row on Desktop) --}}
-                    <div class="mt-8 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0 animate-fade-in-up" style="animation-delay: 0.35s;">
-                        <a href="#services" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#0E3386]/30 border border-[#29bce8]/40 transition-all transform hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 flex items-center justify-center gap-2.5 cursor-pointer">
-                            Explore Our Services <i class="fa-solid fa-arrow-right text-xs text-[#29bce8]"></i>
-                        </a>
-                        <a href="#decision-engine" class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 hover:border-[#29bce8]/60 text-white font-bold text-xs sm:text-sm tracking-wide backdrop-blur-md transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-2.5">
-                            <i class="fa-solid fa-bolt text-[#29bce8]"></i> See How We Route Fast
-                        </a>
-                    </div>
-
-                    {{-- Scroll Indicator --}}
-                    <div class="mt-10 sm:mt-14 flex flex-col items-center gap-1.5 text-slate-400 text-[11px] font-mono uppercase tracking-widest animate-bounce">
-                        <span>Scroll</span>
-                        <i class="fa-solid fa-chevron-down text-[#29bce8]"></i>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- ── SECTION: TRUST & CAPABILITIES BANNER (RESPONSIVE GRID) ── -->
-            <div id="stats-banner" class="bg-[#0c131c] border-b border-slate-800 text-slate-300 py-6 sm:py-7">
+            <!-- ── HERO SECTION: CLEAN MODERN SPLIT LAYOUT ── -->
+            <section id="hero" x-data="heroVideoController()" class="py-14 sm:py-20 lg:py-24 bg-gradient-to-b from-slate-50/80 to-white dark:from-[#0B0F17] dark:to-[#0F172A]/60 border-b border-slate-200/70 dark:border-slate-800/80">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
-                        <div class="border-r border-slate-800 pr-2 sm:pr-4">
-                            <span class="block text-2xl sm:text-3xl font-black text-[#29bce8] font-display counter-item" data-target="3">0</span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Production Facilities</span>
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Centralized Network</span>
-                        </div>
-                        <div class="border-r-0 md:border-r border-slate-800 sm:pr-4">
-                            <span class="block text-2xl sm:text-3xl font-black text-white font-display counter-item" data-target="100" data-suffix="%">0%</span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Pre-Flight Feasibility</span>
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Zero Print Rejection</span>
-                        </div>
-                        <div class="border-r border-slate-800 pr-2 sm:pr-4">
-                            <span class="block text-2xl sm:text-3xl font-black text-[#29bce8] font-display counter-item" data-target="4" data-suffix="-Way">0</span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Intelligent Balancing</span>
-                            <span class="text-[9px] sm:text-[10px] text-slate-500 block font-mono mt-0.5">Zero Machine Overload</span>
-                        </div>
-                        <div>
-                            <span class="block text-2xl sm:text-3xl font-black text-white font-display flex items-center justify-center gap-1.5 sm:gap-2">
-                                <span class="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-emerald-400 animate-ping"></span> Live
-                            </span>
-                            <span class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 block">Real-Time Floor Sync</span>
-                            <span class="text-[9px] sm:text-[10px] text-emerald-400/80 block font-mono mt-0.5">Continuous Queue Feeds</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
-            <!-- ── SECTION: COMMERCIAL PRINT CAPABILITIES & SERVICES ── -->
-            <section id="services" class="py-20 lg:py-28 bg-[#F8FAFC] border-b border-slate-200 relative overflow-hidden">
-                {{-- Subtle Ambient Radial Glow for Visual Warmth --}}
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-[#0E3386]/5 via-[#29bce8]/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+                        {{-- Left 6 Columns: Friendly Bold Copy + CTAs + Key Stats --}}
+                        <div class="lg:col-span-6 space-y-6 animate-fade-in-up">
+                            <div class="inline-flex items-center gap-2.5 pl-1.5 pr-3.5 py-1 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm text-xs font-semibold text-slate-700 dark:text-slate-200">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[11px] font-bold">
+                                    <i class="fa-solid fa-print text-[11px]"></i>
+                                    <span>3 Branches</span>
+                                </span>
+                                <span>Smart Multi-Branch Commercial Printing</span>
+                            </div>
 
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    
-                    {{-- Section Header --}}
-                    <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16 reveal-on-scroll">
-                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display tracking-tight">
-                            Our Services
-                        </h2>
-                        <p class="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                            Explore our comprehensive range of high-quality printing solutions tailored for businesses, schools, and individuals.
-                        </p>
-                    </div>
+                            <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12]">
+                                Commercial printing,
+                                <span class="block text-blue-600 dark:text-blue-400 mt-1">always on schedule.</span>
+                            </h1>
 
-                    {{-- Interactive Services Showcase Carousel --}}
-                    <div x-data="{
-                            active: 0,
-                            total: 4,
-                            timer: null,
-                            touchStartX: 0,
-                            next() {
-                                this.active = (this.active + 1) % this.total;
-                            },
-                            prev() {
-                                this.active = (this.active - 1 + this.total) % this.total;
-                            },
-                            startAuto() {
-                                this.timer = setInterval(() => { this.next(); }, 6000);
-                            },
-                            stopAuto() {
-                                if (this.timer) clearInterval(this.timer);
-                            }
-                        }"
-                        x-init="startAuto()"
-                        @mouseenter="stopAuto()"
-                        @mouseleave="startAuto()"
-                        class="relative max-w-md sm:max-w-lg lg:max-w-[500px] mx-auto px-4 sm:px-0 reveal-on-scroll">
+                            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+                                Submit your print job online, review your quote, and let our system automatically route your order to the branch with available machines and materials in stock.
+                            </p>
 
-                        {{-- Card Outer Frame with Multi-Layer Ambient Elevation --}}
-                        <div class="bg-white rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(14,51,134,0.12),0_10px_25px_-5px_rgba(0,0,0,0.04)] border border-slate-200/90 relative select-none"
-                             @touchstart="touchStartX = $event.changedTouches[0].screenX"
-                             @touchend="
-                                if ($event.changedTouches[0].screenX < touchStartX - 40) next();
-                                if ($event.changedTouches[0].screenX > touchStartX + 40) prev();
-                             ">
-                            
-                            {{-- Sliding Track --}}
-                            <div class="flex transition-transform duration-500 ease-out"
-                                 :style="`transform: translateX(-${active * 100}%);`">
-                                
-                                {{-- Slide 1: Tarpaulin, Laser, T-Shirt, Offset --}}
-                                <div class="w-full shrink-0 bg-white">
-                                    <img src="{{ asset('images/services/service-slide-1.jpg') }}" 
-                                         alt="Commercial Print Services - Tarpaulin, Laser, T-Shirt, and Offset Printing" 
-                                         class="w-full h-auto block select-none" 
-                                         draggable="false"
-                                         loading="eager">
+                            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+                                <a href="#services" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm sm:text-base shadow-sm transition cursor-pointer">
+                                    <span>Explore Print Services</span>
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
+                                <a href="#tracking" class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 font-semibold text-sm sm:text-base transition">
+                                    <i class="fa-solid fa-magnifying-glass text-blue-600 dark:text-blue-400 text-xs"></i>
+                                    <span>Track an Order</span>
+                                </a>
+                            </div>
+
+                            {{-- Clean 3-Stat Card Row --}}
+                            <div id="stats-banner" class="grid grid-cols-3 gap-3 sm:gap-4 pt-3">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm">
+                                    <div class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tabular-nums whitespace-nowrap">
+                                        <span class="counter-item" data-target="3" data-suffix=" Branches">3 Branches</span>
+                                    </div>
+                                    <span class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 block">Active locations</span>
                                 </div>
-
-                                {{-- Slide 2: Posters, Stickers, Company IDs, Risograph --}}
-                                <div class="w-full shrink-0 bg-white">
-                                    <img src="{{ asset('images/services/service-slide-2.jpg') }}" 
-                                         alt="Commercial Print Services - Posters, Stickers, Company ID, and Risograph" 
-                                         class="w-full h-auto block select-none" 
-                                         draggable="false"
-                                         loading="lazy">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm">
+                                    <div class="text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-blue-400 tabular-nums whitespace-nowrap">
+                                        <span class="counter-item" data-target="5500" data-suffix="+">5,500+</span>
+                                    </div>
+                                    <span class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 block">Daily sq.ft output</span>
                                 </div>
-
-                                {{-- Slide 3: Business Cards, Flyers, Lanyards, Mugs, Photocopy, Booth --}}
-                                <div class="w-full shrink-0 bg-white">
-                                    <img src="{{ asset('images/services/service-slide-3.jpg') }}" 
-                                         alt="Commercial Print Services - Business Cards, Flyers, Lanyards, and Magic Mugs" 
-                                         class="w-full h-auto block select-none" 
-                                         draggable="false"
-                                         loading="lazy">
-                                </div>
-
-                                {{-- Slide 4: Sintra Board, Standee, Pins, Fans, Ref Magnets, Menus --}}
-                                <div class="w-full shrink-0 bg-white">
-                                    <img src="{{ asset('images/services/service-slide-4.jpg') }}" 
-                                         alt="Commercial Print Services - Sintra Board, Pull-Up Banners, Button Pins, and Menus" 
-                                         class="w-full h-auto block select-none" 
-                                         draggable="false"
-                                         loading="lazy">
+                                <div class="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm">
+                                    <div class="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums whitespace-nowrap">
+                                        <span class="counter-item" data-target="99" data-suffix="%">99%</span>
+                                    </div>
+                                    <span class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 block">On-time delivery</span>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Previous Button (Clean Studio Light Style) --}}
-                        <button @click="prev()"
-                                type="button"
-                                aria-label="Previous Slide"
-                                class="absolute left-1 sm:-left-12 lg:-left-16 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200/90 shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
-                            <i class="fa-solid fa-chevron-left text-xs sm:text-sm"></i>
-                        </button>
+                        {{-- Right 6 Columns: Bright Clean Production Floor Video Showcase Card --}}
+                        <div class="lg:col-span-6 animate-fade-in-up" style="animation-delay: 0.1s;">
+                            <div class="bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm">
+                                <div class="rounded-xl aspect-[16/10] overflow-hidden relative bg-slate-900">
+                                    <video id="hero-video-1"
+                                           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out"
+                                           :class="currentFeed === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+                                           autoplay muted playsinline preload="auto">
+                                        <source src="{{ asset('videos/mstar.mp4') }}" type="video/mp4">
+                                    </video>
 
-                        {{-- Next Button (Clean Studio Light Style) --}}
-                        <button @click="next()"
-                                type="button"
-                                aria-label="Next Slide"
-                                class="absolute right-1 sm:-right-12 lg:-right-16 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-[#0E3386] text-slate-700 hover:text-white border border-slate-200/90 shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-200 z-10 active:scale-95 cursor-pointer">
-                            <i class="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
-                        </button>
+                                    <video id="hero-video-2"
+                                           class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ease-in-out"
+                                           :class="currentFeed === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'"
+                                           muted playsinline preload="auto">
+                                        <source src="{{ asset('videos/mstarnet.mp4') }}" type="video/mp4">
+                                    </video>
+                                </div>
 
-                        {{-- Pagination Dots (Clean Studio Light Style) --}}
-                        <div class="flex items-center justify-center gap-2.5 mt-8">
-                            <button @click="active = 0" type="button" aria-label="Slide 1"
-                                    :class="active === 0 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
-                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
-                            <button @click="active = 1" type="button" aria-label="Slide 2"
-                                    :class="active === 1 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
-                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
-                            <button @click="active = 2" type="button" aria-label="Slide 3"
-                                    :class="active === 2 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
-                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
-                            <button @click="active = 3" type="button" aria-label="Slide 4"
-                                    :class="active === 3 ? 'bg-[#0E3386] w-6 shadow-sm shadow-[#0E3386]/30' : 'bg-slate-300 hover:bg-slate-400 w-2.5'"
-                                    class="h-2.5 rounded-full transition-all duration-300 cursor-pointer"></button>
+                                <div class="pt-3 px-1 flex items-center justify-between gap-3">
+                                    <div class="flex items-center gap-2 min-w-0">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                                        <span class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">Live from our production floor</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 shrink-0">
+                                        <button type="button" @click="setFeed(1)"
+                                                :class="currentFeed === 1 ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'"
+                                                class="px-3 py-1 rounded-lg border text-xs font-semibold transition-colors cursor-pointer">
+                                            Press 1
+                                        </button>
+                                        <button type="button" @click="setFeed(2)"
+                                                :class="currentFeed === 2 ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'"
+                                                class="px-3 py-1 rounded-lg border text-xs font-semibold transition-colors cursor-pointer">
+                                            Press 2
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        {{-- Customer Action CTA Button --}}
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── PRINT SERVICES CATALOG ── -->
+            <section id="services" class="py-20 lg:py-24 bg-slate-50/70 dark:bg-slate-900/40 border-b border-slate-200/70 dark:border-slate-800/80"
+                     x-data="{
+                        active: 0,
+                        total: 4,
+                        timer: null,
+                        touchStartX: 0,
+                        next() { this.active = (this.active + 1) % this.total; },
+                        prev() { this.active = (this.active - 1 + this.total) % this.total; },
+                        startAuto() { this.timer = setInterval(() => { this.next(); }, 6000); },
+                        stopAuto() { if (this.timer) clearInterval(this.timer); }
+                     }"
+                     x-init="startAuto()">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div class="text-center max-w-2xl mx-auto mb-10 reveal-on-scroll">
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 block mb-2">Print Services</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            What would you like to print?
+                        </h2>
+                        <p class="mt-3 text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
+                            Browse our full catalog of commercial printing services for businesses, events, schools, and teams.
+                        </p>
+                    </div>
+
+                    {{-- Category Tabs --}}
+                    <div class="flex flex-wrap items-center justify-center gap-2.5 mb-8 reveal-on-scroll">
+                        <button type="button" @click="active = 0; stopAuto()"
+                                :class="active === 0 ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-400'"
+                                class="px-4 py-2.5 rounded-xl border text-sm font-semibold transition-colors cursor-pointer">
+                            Tarpaulin &amp; Offset
+                        </button>
+                        <button type="button" @click="active = 1; stopAuto()"
+                                :class="active === 1 ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-400'"
+                                class="px-4 py-2.5 rounded-xl border text-sm font-semibold transition-colors cursor-pointer">
+                            Posters, Stickers &amp; IDs
+                        </button>
+                        <button type="button" @click="active = 2; stopAuto()"
+                                :class="active === 2 ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-400'"
+                                class="px-4 py-2.5 rounded-xl border text-sm font-semibold transition-colors cursor-pointer">
+                            Business Cards &amp; Merch
+                        </button>
+                        <button type="button" @click="active = 3; stopAuto()"
+                                :class="active === 3 ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-blue-400'"
+                                class="px-4 py-2.5 rounded-xl border text-sm font-semibold transition-colors cursor-pointer">
+                            Standees &amp; Sintra Boards
+                        </button>
+                    </div>
+
+                    {{-- Clean Centered Showcase Card --}}
+                    <div class="relative max-w-2xl mx-auto reveal-on-scroll"
+                         @mouseenter="stopAuto()"
+                         @mouseleave="startAuto()">
+                        <div class="bg-white dark:bg-slate-900 p-3 sm:p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm">
+                            <div class="bg-white rounded-xl overflow-hidden border border-slate-200/80 dark:border-slate-700 relative select-none"
+                                 @touchstart="touchStartX = $event.changedTouches[0].screenX"
+                                 @touchend="
+                                    if ($event.changedTouches[0].screenX < touchStartX - 40) next();
+                                    if ($event.changedTouches[0].screenX > touchStartX + 40) prev();
+                                 ">
+                                <div class="flex transition-transform duration-500 ease-out"
+                                     :style="`transform: translateX(-${active * 100}%);`">
+                                    <div class="w-full shrink-0 bg-white">
+                                        <img src="{{ asset('images/services/service-slide-1.jpg') }}" 
+                                             alt="Commercial Print Services - Tarpaulin, Laser, T-Shirt, and Offset Printing" 
+                                             class="w-full h-auto block select-none" draggable="false" loading="eager">
+                                    </div>
+                                    <div class="w-full shrink-0 bg-white">
+                                        <img src="{{ asset('images/services/service-slide-2.jpg') }}" 
+                                             alt="Commercial Print Services - Posters, Stickers, Company ID, and Risograph" 
+                                             class="w-full h-auto block select-none" draggable="false" loading="lazy">
+                                    </div>
+                                    <div class="w-full shrink-0 bg-white">
+                                        <img src="{{ asset('images/services/service-slide-3.jpg') }}" 
+                                             alt="Commercial Print Services - Business Cards, Flyers, Lanyards, and Magic Mugs" 
+                                             class="w-full h-auto block select-none" draggable="false" loading="lazy">
+                                    </div>
+                                    <div class="w-full shrink-0 bg-white">
+                                        <img src="{{ asset('images/services/service-slide-4.jpg') }}" 
+                                             alt="Commercial Print Services - Sintra Board, Pull-Up Banners, Button Pins, and Menus" 
+                                             class="w-full h-auto block select-none" draggable="false" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Carousel Controls --}}
+                            <div class="flex items-center justify-between pt-3.5 px-1">
+                                <div class="flex items-center gap-2">
+                                    <button @click="active = 0" type="button" aria-label="Slide 1"
+                                            :class="active === 0 ? 'bg-blue-600 w-7' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2.5'"
+                                            class="h-2 rounded-full transition-all duration-200 cursor-pointer"></button>
+                                    <button @click="active = 1" type="button" aria-label="Slide 2"
+                                            :class="active === 1 ? 'bg-blue-600 w-7' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2.5'"
+                                            class="h-2 rounded-full transition-all duration-200 cursor-pointer"></button>
+                                    <button @click="active = 2" type="button" aria-label="Slide 3"
+                                            :class="active === 2 ? 'bg-blue-600 w-7' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2.5'"
+                                            class="h-2 rounded-full transition-all duration-200 cursor-pointer"></button>
+                                    <button @click="active = 3" type="button" aria-label="Slide 4"
+                                            :class="active === 3 ? 'bg-blue-600 w-7' : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 w-2.5'"
+                                            class="h-2 rounded-full transition-all duration-200 cursor-pointer"></button>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <button @click="prev()" type="button" aria-label="Previous Slide"
+                                            class="w-9 h-9 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-600 text-slate-700 dark:text-slate-200 hover:text-white border border-slate-200 dark:border-slate-700 flex items-center justify-center transition-colors cursor-pointer">
+                                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                                    </button>
+                                    <button @click="next()" type="button" aria-label="Next Slide"
+                                            class="w-9 h-9 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-600 text-slate-700 dark:text-slate-200 hover:text-white border border-slate-200 dark:border-slate-700 flex items-center justify-center transition-colors cursor-pointer">
+                                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mt-8 text-center">
                             <a href="{{ route('customer.portal') }}" 
-                               class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#0E3386]/20 border border-[#29bce8]/40 transition-all transform hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 cursor-pointer">
-                                <span>Request Custom Print Job</span>
-                                <i class="fa-solid fa-arrow-right text-[11px] text-[#29bce8]"></i>
+                               class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm sm:text-base shadow-sm transition-colors cursor-pointer">
+                                <span>Request a Custom Quote</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <p class="text-[11px] text-slate-400 mt-2 font-mono">Online submission &bull; Instant proof review &bull; Live order tracking</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2.5">Upload artwork online &middot; Review official quotes &middot; Track pickup status</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ── SECTION: THE CAPACIPRINT DECISION SUPPORT ENGINE (CORE CAPSTONE ARCHITECTURE) ── -->
-            <section id="decision-engine" class="py-20 lg:py-28 bg-[#0F172A] text-white border-b border-slate-800 relative overflow-hidden">
-                {{-- Ambient Cyan/Navy Radial Glow --}}
-                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-[#29bce8]/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <!-- ── 02 SECTION: HOW SMART ROUTING WORKS ── -->
+            <section id="decision-engine" class="py-16 lg:py-24 bg-slate-50/70 dark:bg-[#0F1523] border-b border-slate-200/80 dark:border-slate-800/80">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    
-                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display tracking-tight">
-                            The 3-Stage Intelligent Routing Engine
+                    <div class="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-4">
+                            <i class="fa-solid fa-route text-[11px]"></i>
+                            Smart Order Routing
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
+                            How CapaciPrint picks the right branch for every job
                         </h2>
-                        <p class="mt-4 text-slate-300 text-base leading-relaxed">
-                            CapaciPrint eliminates branch guesswork and delivery delays through a rigorous analytical three-stage pipeline based on verified shop-floor constraints.
+                        <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Instead of guessing which shop is free, every order runs through three automatic checks so your prints finish on schedule.
                         </p>
                     </div>
 
-                    {{-- 3-Stage Analytical Sequence --}}
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                        
-                        {{-- Stage 1 --}}
-                        <div class="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-6 reveal-on-scroll">
+                    {{-- 3 Step Cards --}}
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+
+                        {{-- Step 1 --}}
+                        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-6 reveal-on-scroll">
                             <div class="space-y-3">
-                                <div>
-                                    <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 01</span>
+                                <div class="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
+                                    <span class="w-6 h-6 rounded-full bg-blue-50 dark:bg-blue-500/15 flex items-center justify-center font-bold">1</span>
+                                    <span>Equipment &amp; Material Check</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-black text-white font-display">Constraint-Based Rule Filtering</h3>
-                                    <div class="text-[11px] font-mono text-emerald-400 font-bold flex items-center gap-1.5 mt-1.5">
-                                        <i class="fa-solid fa-circle-check text-[10px]"></i> Automated Physical Verification
-                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Matches the right machines</h3>
+                                    <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 mt-1">
+                                        <i class="fa-solid fa-circle-check text-[11px]"></i> Automatic capability filter
+                                    </p>
                                 </div>
-                                <p class="text-xs text-slate-300 leading-relaxed">
-                                    Disqualifies any branch that cannot physically fulfill the job. Validates printer width capability, substrate stock in inventory, assigned machine operators, and remaining shift hours before deadline.
+                                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Filters out any branch that doesn&apos;t have the exact press size, material stock, trained operators, or shift hours needed.
                                 </p>
                             </div>
-                            <div class="pt-4 border-t border-slate-800 text-[11px] font-mono text-slate-400 space-y-1.5">
-                                <div class="flex items-center justify-between"><span>Max Print Width:</span> <strong class="text-emerald-400">&ge; Job Width</strong></div>
-                                <div class="flex items-center justify-between"><span>Substrate Stock:</span> <strong class="text-emerald-400">&ge; Required Area</strong></div>
-                                <div class="flex items-center justify-between"><span>Lead Time Margin:</span> <strong class="text-emerald-400">&gt; 0 Hours</strong></div>
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300 space-y-2 tabular-nums">
+                                <div class="flex items-center justify-between"><span>Press width</span> <strong class="text-emerald-600 dark:text-emerald-400 font-semibold">Fits job size</strong></div>
+                                <div class="flex items-center justify-between"><span>Material stock</span> <strong class="text-emerald-600 dark:text-emerald-400 font-semibold">Available in-house</strong></div>
+                                <div class="flex items-center justify-between"><span>Lead time</span> <strong class="text-emerald-600 dark:text-emerald-400 font-semibold">Meets cutoff</strong></div>
                             </div>
                         </div>
 
-                        {{-- Stage 2 --}}
-                        <div class="p-8 rounded-2xl bg-slate-900/90 border-2 border-[#29bce8]/70 shadow-xl shadow-[#0E3386]/20 transition-all flex flex-col justify-between space-y-6 relative reveal-on-scroll" style="transition-delay: 100ms;">
+                        {{-- Step 2 --}}
+                        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-600/80 dark:border-blue-500/70 shadow-sm flex flex-col justify-between space-y-6 reveal-on-scroll" style="transition-delay: 80ms;">
                             <div class="space-y-3">
-                                <div>
-                                    <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 02</span>
+                                <div class="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
+                                    <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">2</span>
+                                    <span>Weighted Scoring</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-black text-white font-display">Multi-Factor Weighted Scoring</h3>
-                                    <div class="text-[11px] font-mono text-[#29bce8] font-bold flex items-center gap-1.5 mt-1.5">
-                                        <i class="fa-solid fa-bolt text-[10px]"></i> Smart Queue Load Balancing
-                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Balances shop workload</h3>
+                                    <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1.5 mt-1">
+                                        <i class="fa-solid fa-sliders text-[11px]"></i> Real-time priority score
+                                    </p>
                                 </div>
-                                <p class="text-xs text-slate-300 leading-relaxed">
-                                    Ranks all remaining eligible branches using verified operational weights to balance machine wear, staff availability, current queue density, and delivery safety margins.
+                                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Scores every eligible branch across machine readiness, staffing, queue load, and safety buffer before your deadline.
                                 </p>
                             </div>
-                            <div class="space-y-2.5 pt-4 border-t border-slate-800">
+                            <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800 tabular-nums">
                                 <div>
-                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Machine Availability</span><span class="text-[#29bce8] font-bold">40%</span></div>
-                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-[#29bce8] w-[40%]"></div></div>
+                                    <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-200 mb-1.5"><span>Machine Availability</span><span class="text-blue-600 dark:text-blue-400">40%</span></div>
+                                    <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 dark:bg-blue-500 rounded-full w-[40%]"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Assigned Staff &amp; Skill</span><span class="text-sky-400 font-bold">20%</span></div>
-                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-sky-400 w-[20%]"></div></div>
+                                    <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-200 mb-1.5"><span>Assigned Staff &amp; Skill</span><span class="text-blue-600 dark:text-blue-400">20%</span></div>
+                                    <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-400 rounded-full w-[20%]"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Current Queue Workload</span><span class="text-indigo-400 font-bold">20%</span></div>
-                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-indigo-400 w-[20%]"></div></div>
+                                    <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-200 mb-1.5"><span>Current Queue Load</span><span class="text-amber-600 dark:text-amber-400">20%</span></div>
+                                    <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full w-[20%]"></div></div>
                                 </div>
                                 <div>
-                                    <div class="flex justify-between text-[11px] font-mono text-slate-300 mb-1"><span>Deadline Safety Buffer</span><span class="text-emerald-400 font-bold">20%</span></div>
-                                    <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-emerald-400 w-[20%]"></div></div>
+                                    <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-200 mb-1.5"><span>Deadline Safety Buffer</span><span class="text-emerald-600 dark:text-emerald-400">20%</span></div>
+                                    <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full w-[20%]"></div></div>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Stage 3 --}}
-                        <div class="p-8 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-6 reveal-on-scroll" style="transition-delay: 200ms;">
+                        {{-- Step 3 --}}
+                        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-6 reveal-on-scroll" style="transition-delay: 160ms;">
                             <div class="space-y-3">
-                                <div>
-                                    <span class="text-xs font-mono font-black text-[#29bce8] uppercase tracking-wider">Stage 03</span>
+                                <div class="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
+                                    <span class="w-6 h-6 rounded-full bg-blue-50 dark:bg-blue-500/15 flex items-center justify-center font-bold">3</span>
+                                    <span>Floor Dispatch</span>
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-black text-white font-display">Rule-Based Floor Dispatch</h3>
-                                    <div class="text-[11px] font-mono text-sky-400 font-bold flex items-center gap-1.5 mt-1.5">
-                                        <i class="fa-solid fa-tablet-screen-button text-[10px]"></i> Live Shop-Floor Dispatch
-                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display">Starts production right away</h3>
+                                    <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 mt-1">
+                                        <i class="fa-solid fa-tablet-screen-button text-[11px]"></i> Live shop queue sync
+                                    </p>
                                 </div>
-                                <p class="text-xs text-slate-300 leading-relaxed">
-                                    Dispatches confirmed jobs into prioritized production queues. Uses Earliest Due Date (EDD) heuristics and setup-time batching so operators print identical substrates together to minimize waste.
+                                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Sends approved jobs straight to press operators sorted by earliest deadline and grouped by matching material rolls.
                                 </p>
                             </div>
-                            <div class="pt-4 border-t border-slate-800 text-[11px] font-mono text-slate-400 space-y-1.5">
-                                <div class="flex items-center justify-between"><span>Scheduling Rule:</span> <strong class="text-sky-400">Earliest Due Date (EDD)</strong></div>
-                                <div class="flex items-center justify-between"><span>Batch Optimization:</span> <strong class="text-sky-400">Group by Substrate</strong></div>
-                                <div class="flex items-center justify-between"><span>Shop Floor Sync:</span> <strong class="text-emerald-400">Live Operator Tablet</strong></div>
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                                <div class="flex items-center justify-between"><span>Queue order</span> <strong class="text-slate-900 dark:text-white font-semibold">Earliest Due Date</strong></div>
+                                <div class="flex items-center justify-between"><span>Batching</span> <strong class="text-slate-900 dark:text-white font-semibold">Grouped by material</strong></div>
+                                <div class="flex items-center justify-between"><span>Status updates</span> <strong class="text-emerald-600 dark:text-emerald-400 font-semibold">Live in portal</strong></div>
                             </div>
                         </div>
 
                     </div>
 
-                    {{-- Interactive Specimen Showcase (Full Width & Spacious) --}}
-                    <div class="bg-slate-900/95 rounded-2xl border border-slate-800/90 p-6 sm:p-8 lg:p-9 shadow-2xl reveal-on-scroll">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+                    {{-- Real-World Example Card --}}
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm p-6 sm:p-8 reveal-on-scroll">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-200/80 dark:border-slate-800 gap-4">
                             <div>
-                                <div class="flex items-center gap-2">
-                                    <span class="inline-block w-2 h-2 rounded-full bg-[#29bce8]"></span>
-                                    <span class="text-xs font-bold text-[#29bce8] uppercase tracking-wider">Live Job Evaluation Specimen</span>
-                                </div>
-                                <h4 class="text-xl sm:text-2xl font-black text-white font-display mt-1">Tarpaulin Banner (3 &times; 5 ft, 20 units)</h4>
-                                <div class="flex flex-wrap items-center gap-2 mt-2.5">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/60 text-slate-300 text-xs font-medium">
-                                        <i class="fa-regular fa-clock text-amber-400 text-[11px]"></i> Due: <strong class="text-white font-semibold">Today, 4:00 PM</strong>
+                                <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Real-World Example</span>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display">Tarpaulin Banner (3 &times; 5 ft &middot; 20 Units)</h3>
+                                <div class="flex flex-wrap items-center gap-2.5 mt-3">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-medium">
+                                        <i class="fa-regular fa-clock text-amber-500"></i> Due: <strong class="font-semibold">Today, 4:00 PM</strong>
                                     </span>
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-medium">
-                                        <i class="fa-solid fa-bolt text-rose-400 text-[11px]"></i> <strong class="text-rose-200 font-semibold">Rush Order</strong>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300 text-xs font-semibold">
+                                        <i class="fa-solid fa-bolt text-rose-500"></i> Rush Order
                                     </span>
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700/60 text-slate-300 text-xs font-medium">
-                                        <i class="fa-solid fa-layer-group text-[#29bce8] text-[11px]"></i> Area: <strong class="text-white font-semibold">300 sq.ft</strong>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-medium tabular-nums">
+                                        <i class="fa-solid fa-layer-group text-blue-500"></i> Total area: <strong class="font-semibold">300 sq.ft</strong>
                                     </span>
                                 </div>
                             </div>
                             <div class="flex items-center">
-                                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold shadow-sm">
-                                    <span class="relative flex h-2 w-2">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                    </span>
-                                    Real-Time Route Assigned
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs sm:text-sm font-semibold">
+                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                    Auto-Routed to South Press Plant
                                 </span>
                             </div>
                         </div>
 
-                        {{-- The 3 Branches Evaluation Grid --}}
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6">
-                            
-                            {{-- Branch 1: Ineligible --}}
-                            <div class="p-5 rounded-xl bg-slate-950/70 border border-rose-900/50 text-slate-300 flex flex-col justify-between transition hover:border-rose-800/80">
+                        {{-- 3-Branch Comparison Grid --}}
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-6">
+
+                            {{-- Branch 1: Unavailable --}}
+                            <div class="p-5 sm:p-6 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-rose-200 dark:border-rose-500/30 flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/60">
+                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200/80 dark:border-slate-700">
                                         <div>
-                                            <h5 class="font-bold text-white text-sm">Branch 1</h5>
-                                            <p class="text-[11px] text-slate-400">Central Hub</p>
+                                            <h4 class="font-bold text-slate-900 dark:text-white text-base font-display">Central Hub</h4>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">Branch 01 &middot; Morning Star</p>
                                         </div>
-                                        <span class="px-2.5 py-1 rounded-md bg-rose-950/80 text-rose-300 text-[10px] font-bold uppercase tracking-wider border border-rose-800/60">
-                                            Disqualified
+                                        <span class="px-2.5 py-1 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-xs font-semibold">
+                                            Full Queue
                                         </span>
                                     </div>
-                                    <div class="space-y-2.5 text-xs">
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-print text-slate-500 w-3.5 text-center"></i> Press Capable</span>
-                                            <span class="text-slate-200 font-medium">3.2m Solvent</span>
+                                    <div class="space-y-2.5 text-sm tabular-nums">
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Press Size</span>
+                                            <span class="text-slate-900 dark:text-white font-semibold">3.2m Solvent</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-box text-slate-500 w-3.5 text-center"></i> Substrate Stock</span>
-                                            <span class="text-emerald-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> In Stock</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Stock</span>
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">In Stock</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-slate-500 w-3.5 text-center"></i> Queue Status</span>
-                                            <span class="text-rose-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> 95% Load</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Queue Load</span>
+                                            <span class="text-rose-600 dark:text-rose-400 font-semibold">95% Busy</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-slate-500 w-3.5 text-center"></i> Est. Finish</span>
-                                            <span class="text-rose-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-xmark text-[11px]"></i> 5:30 PM (Late)</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Est. Finish</span>
+                                            <span class="text-rose-600 dark:text-rose-400 font-bold">5:30 PM (Late)</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-5 pt-3.5 border-t border-rose-900/40">
-                                    <div class="flex items-center justify-between text-xs mb-2">
-                                        <span class="text-slate-400">Allocation Score</span>
-                                        <span class="text-rose-400 font-bold">0 / 100</span>
+                                <div class="mt-5 pt-4 border-t border-slate-200/80 dark:border-slate-700">
+                                    <div class="flex items-center justify-between text-sm mb-2.5">
+                                        <span class="text-slate-500 dark:text-slate-400">Branch Score</span>
+                                        <span class="text-rose-600 dark:text-rose-400 font-bold tabular-nums">0 / 100</span>
                                     </div>
-                                    <div class="p-2.5 rounded-lg bg-rose-950/50 border border-rose-900/60 text-[11px] text-rose-300 font-medium flex items-center gap-2">
-                                        <i class="fa-solid fa-ban text-rose-400 shrink-0"></i>
-                                        <span>Violates 4:00 PM rush cutoff</span>
+                                    <div class="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-500/10 text-xs text-rose-700 dark:text-rose-300 font-medium flex items-center gap-2">
+                                        <i class="fa-solid fa-ban shrink-0"></i>
+                                        <span>Would miss the 4:00 PM rush deadline</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Branch 2: Recommended (Cubs Blue & Cyan Glow) --}}
-                            <div class="p-5 rounded-xl bg-gradient-to-br from-[#0E3386]/25 via-slate-900 to-slate-950 border-2 border-[#29bce8] text-white flex flex-col justify-between relative shadow-xl shadow-[#0E3386]/25">
+                            {{-- Branch 2: Selected Match --}}
+                            <div class="p-5 sm:p-6 rounded-xl bg-blue-50/60 dark:bg-blue-950/30 border-2 border-blue-600 dark:border-blue-500 flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#29bce8]/20">
+                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-blue-200/70 dark:border-blue-800/60">
                                         <div>
-                                            <h5 class="font-bold text-white text-sm">Branch 2</h5>
-                                            <p class="text-[11px] text-[#29bce8]">South Press Plant</p>
+                                            <h4 class="font-bold text-slate-900 dark:text-white text-base font-display">South Press Plant</h4>
+                                            <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">Branch 02 &middot; Selected Route</p>
                                         </div>
-                                        <span class="px-2.5 py-1 rounded-md bg-[#0E3386] text-[#29bce8] border border-[#29bce8] text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-sm">
-                                            <i class="fa-solid fa-star text-[9px] text-[#29bce8]"></i> Recommended
+                                        <span class="px-2.5 py-1 rounded-full bg-blue-600 text-white text-xs font-semibold flex items-center gap-1">
+                                            <i class="fa-solid fa-check text-[11px]"></i> Best Match
                                         </span>
                                     </div>
-                                    <div class="space-y-2.5 text-xs">
-                                        <div class="flex items-center justify-between text-slate-300">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-print text-[#29bce8] w-3.5 text-center"></i> Press Capable</span>
-                                            <span class="text-white font-medium">3.2m Solvent</span>
+                                    <div class="space-y-2.5 text-sm tabular-nums">
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Press Size</span>
+                                            <span class="text-slate-900 dark:text-white font-semibold">3.2m Solvent</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-300">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-box text-[#29bce8] w-3.5 text-center"></i> Substrate Stock</span>
-                                            <span class="text-emerald-400 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> 1,200 sq.ft Ready</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Stock</span>
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">1,200 sq.ft Ready</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-300">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-[#29bce8] w-3.5 text-center"></i> Queue Status</span>
-                                            <span class="text-[#29bce8] font-semibold flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-[10px]"></i> 61% (Optimal)</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Queue Load</span>
+                                            <span class="text-blue-600 dark:text-blue-400 font-semibold">61% (Optimal)</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-300">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-[#29bce8] w-3.5 text-center"></i> Est. Finish</span>
-                                            <span class="text-emerald-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-check text-[11px]"></i> 2:30 PM (+1.5h)</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Est. Finish</span>
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">2:30 PM (+1.5h buffer)</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-5 pt-3.5 border-t border-[#29bce8]/30">
-                                    <div class="flex items-center justify-between text-xs mb-2">
-                                        <span class="text-slate-300">Allocation Score</span>
-                                        <span class="text-[#29bce8] font-bold">96 / 100</span>
+                                <div class="mt-5 pt-4 border-t border-blue-200/70 dark:border-blue-800/60">
+                                    <div class="flex items-center justify-between text-sm mb-2.5">
+                                        <span class="text-slate-600 dark:text-slate-300">Branch Score</span>
+                                        <span class="text-blue-600 dark:text-blue-400 font-bold tabular-nums">96 / 100</span>
                                     </div>
-                                    <div class="p-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-[11px] text-emerald-300 font-semibold flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-emerald-400 shrink-0"></i>
-                                        <span>Optimal capacity &amp; fast turnaround</span>
+                                    <div class="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-500/15 text-xs text-emerald-700 dark:text-emerald-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check shrink-0"></i>
+                                        <span>Best capacity &amp; fastest turnaround</span>
                                     </div>
                                 </div>
                             </div>
 
                             {{-- Branch 3: High Capacity --}}
-                            <div class="p-5 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-300 flex flex-col justify-between transition hover:border-slate-700">
+                            <div class="p-5 sm:p-6 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700 flex flex-col justify-between">
                                 <div>
-                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/60">
+                                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200/80 dark:border-slate-700">
                                         <div>
-                                            <h5 class="font-bold text-white text-sm">Branch 3</h5>
-                                            <p class="text-[11px] text-slate-400">North Workshop</p>
+                                            <h4 class="font-bold text-slate-900 dark:text-white text-base font-display">North Workshop</h4>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">Branch 03 &middot; Green Heart</p>
                                         </div>
-                                        <span class="px-2.5 py-1 rounded-md bg-amber-950/80 text-amber-300 text-[10px] font-bold uppercase tracking-wider border border-amber-800/60">
-                                            Near Capacity
+                                        <span class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-semibold">
+                                            Busy Queue
                                         </span>
                                     </div>
-                                    <div class="space-y-2.5 text-xs">
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-print text-slate-500 w-3.5 text-center"></i> Press Capable</span>
-                                            <span class="text-slate-200 font-medium">3.2m Solvent</span>
+                                    <div class="space-y-2.5 text-sm tabular-nums">
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Press Size</span>
+                                            <span class="text-slate-900 dark:text-white font-semibold">3.2m Solvent</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-box text-slate-500 w-3.5 text-center"></i> Substrate Stock</span>
-                                            <span class="text-emerald-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-check text-[10px]"></i> In Stock</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Stock</span>
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">In Stock</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-gauge-high text-slate-500 w-3.5 text-center"></i> Queue Status</span>
-                                            <span class="text-amber-400 font-medium flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> 88% (Heavy)</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Queue Load</span>
+                                            <span class="text-amber-600 dark:text-amber-400 font-semibold">88% (Heavy)</span>
                                         </div>
-                                        <div class="flex items-center justify-between text-slate-400">
-                                            <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-slate-500 w-3.5 text-center"></i> Est. Finish</span>
-                                            <span class="text-amber-400 font-bold flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation text-[11px]"></i> 4:10 PM (At Risk)</span>
+                                        <div class="flex items-center justify-between text-slate-600 dark:text-slate-300">
+                                            <span>Est. Finish</span>
+                                            <span class="text-amber-600 dark:text-amber-400 font-bold">4:10 PM (At Risk)</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-5 pt-3.5 border-t border-slate-800">
-                                    <div class="flex items-center justify-between text-xs mb-2">
-                                        <span class="text-slate-400">Allocation Score</span>
-                                        <span class="text-amber-400 font-bold">63 / 100</span>
+                                <div class="mt-5 pt-4 border-t border-slate-200/80 dark:border-slate-700">
+                                    <div class="flex items-center justify-between text-sm mb-2.5">
+                                        <span class="text-slate-500 dark:text-slate-400">Branch Score</span>
+                                        <span class="text-amber-600 dark:text-amber-400 font-bold tabular-nums">63 / 100</span>
                                     </div>
-                                    <div class="p-2.5 rounded-lg bg-amber-950/50 border border-amber-900/60 text-[11px] text-amber-300 font-medium flex items-center gap-2">
-                                        <i class="fa-solid fa-triangle-exclamation text-amber-400 shrink-0"></i>
-                                        <span>High floor queue congestion</span>
+                                    <div class="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-500/15 text-xs text-amber-800 dark:text-amber-300 font-medium flex items-center gap-2">
+                                        <i class="fa-solid fa-triangle-exclamation shrink-0"></i>
+                                        <span>Tight queue may delay afternoon pickup</span>
                                     </div>
                                 </div>
                             </div>
@@ -724,148 +730,150 @@
                 </div>
             </section>
 
-            <!-- ── SECTION: WHY CAPACIPRINT (OPERATIONAL BOTTLENECKS) ── -->
-            <section id="problem" class="py-20 lg:py-28 bg-white border-b border-slate-200">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    
-                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <span class="text-xs font-bold text-[#0E3386] uppercase tracking-wider block mb-2">The CapaciPrint Difference</span>
-                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
-                            Why Traditional Print Shops Miss Deadlines
-                            <span class="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-[#0E3386] to-[#29bce8]">— And How We Guarantee Yours.</span>
+            <!-- ── 03 SECTION: WHY CUSTOMERS CHOOSE CAPACIPRINT ── -->
+            <section id="problem" class="py-16 lg:py-24 bg-white dark:bg-[#0B0F17] border-b border-slate-200/80 dark:border-slate-800/80">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-4">
+                            Why CapaciPrint
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
+                            Why traditional print shops miss deadlines
+                            <span class="block mt-1 text-blue-600 dark:text-blue-400">&mdash; and how we prevent them</span>
                         </h2>
-                        <p class="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-                            Most commercial print delays happen before ink ever hits the paper. See how unified multi-branch coordination turns chaotic guesswork into reliable, on-time delivery.
+                        <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Most printing delays happen before a machine even starts. Shared live capacity replaces guesswork with reliable pickup times.
                         </p>
                     </div>
 
-                    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-stretch">
-                        
-                        {{-- Problem Side (Legacy / Siloed) --}}
-                        <div class="p-7 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-sm flex flex-col justify-between reveal-on-scroll">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+
+                        {{-- Problem Side --}}
+                        <div class="p-6 sm:p-8 rounded-2xl bg-slate-50/70 dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 flex flex-col justify-between reveal-on-scroll">
                             <div>
-                                <div class="flex items-center justify-between gap-3 border-b border-slate-200/80 pb-5 mb-6">
+                                <div class="flex items-center justify-between gap-3 border-b border-slate-200/80 dark:border-slate-800 pb-4 mb-6">
                                     <div class="flex items-center gap-3">
-                                        <div class="h-11 w-11 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
+                                        <div class="h-10 w-10 rounded-xl bg-rose-50 dark:bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center text-base shrink-0">
                                             <i class="fa-solid fa-phone-slash"></i>
                                         </div>
                                         <div>
-                                            <h4 class="text-base sm:text-lg font-black text-slate-900 font-display">Traditional Siloed Shops</h4>
-                                            <span class="text-xs text-rose-600 font-medium">Manual phone calls &bull; Spreadsheets</span>
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white font-display">Traditional Print Shops</h3>
+                                            <span class="text-xs text-rose-600 dark:text-rose-400 font-medium">Manual calls &bull; Paper sheets</span>
                                         </div>
                                     </div>
-                                    <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 text-[10px] font-bold uppercase tracking-wider shrink-0 border border-rose-200">
-                                        The Slow Way
+                                    <span class="px-2.5 py-1 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 text-xs font-semibold shrink-0">
+                                        Old Way
                                     </span>
                                 </div>
 
-                                <ul class="space-y-5">
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-xmark"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Manual Phone Checking</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Staff repeatedly call operators to ask if wide-format machines are free.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Endless phone follow-ups</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Staff have to call around just to find out which wide-format press is free.</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-xmark"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Outdated Paper Sheets</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Substrate stock is tracked manually on separate store sheets, causing surprise stockouts.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Surprise stockouts</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Materials tracked on paper lead to mid-job pauses when rolls run out.</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-xmark"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Guesswork &amp; Bottlenecks</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Jobs pile up at one branch while another shop's roll printer sits completely idle.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Backlogged main branch</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Orders pile up at one shop while nearby sister branches sit idle.</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-xmark"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Zero Order Visibility</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Customers must constantly call or visit the shop just to ask if their print is ready.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">No clear order status</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Customers keep calling to ask whether their prints are ready for pickup.</span>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="mt-8 p-4 rounded-xl bg-rose-100/70 border border-rose-200/80 text-xs text-rose-900 flex items-center gap-3">
-                                <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base shrink-0"></i>
-                                <span><strong class="font-bold">Result:</strong> Unpredictable delays, machine idle time, and stressful rush overruns.</span>
+                            <div class="mt-6 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200/80 dark:border-rose-500/25 text-sm text-rose-800 dark:text-rose-200 flex items-center gap-2.5">
+                                <i class="fa-solid fa-triangle-exclamation text-rose-600 dark:text-rose-400 shrink-0"></i>
+                                <span><strong class="font-semibold">Result:</strong> Unpredictable turnaround and missed event deadlines.</span>
                             </div>
                         </div>
 
-                        {{-- Solution Side (The CapaciPrint Way) --}}
-                        <div class="p-7 sm:p-8 rounded-2xl bg-white border-2 border-[#29bce8] shadow-xl shadow-[#0E3386]/10 flex flex-col justify-between relative ring-1 ring-[#29bce8]/20 reveal-on-scroll" style="transition-delay: 150ms;">
+                        {{-- Solution Side --}}
+                        <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-600/80 dark:border-blue-500/70 shadow-sm flex flex-col justify-between reveal-on-scroll" style="transition-delay: 80ms;">
                             <div>
-                                <div class="flex items-center justify-between gap-3 border-b border-sky-100 pb-5 mb-6">
+                                <div class="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
                                     <div class="flex items-center gap-3">
-                                        <div class="h-11 w-11 rounded-xl bg-[#0E3386]/10 text-[#0E3386] flex items-center justify-center text-lg shrink-0">
+                                        <div class="h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base shrink-0">
                                             <i class="fa-solid fa-network-wired"></i>
                                         </div>
                                         <div>
-                                            <h4 class="text-base sm:text-lg font-black text-slate-900 font-display">CapaciPrint Network</h4>
-                                            <span class="text-xs text-[#0E3386] font-medium">Automated routing &bull; Real-time sync</span>
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white font-display">The CapaciPrint Network</h3>
+                                            <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Smart routing &bull; Live tracking</span>
                                         </div>
                                     </div>
-                                    <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wider shrink-0 border border-emerald-300/80 flex items-center gap-1">
-                                        <i class="fa-solid fa-check text-[10px]"></i> The CapaciPrint Way
+                                    <span class="px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-semibold shrink-0 flex items-center gap-1">
+                                        <i class="fa-solid fa-check text-[11px]"></i> CapaciPrint Way
                                     </span>
                                 </div>
 
-                                <ul class="space-y-5">
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-check"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Instant Feasibility Check</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Intake algorithm validates press dimensions and resolution before accepting the order.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Instant press compatibility check</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Verifies print dimensions and deadline feasibility before your job enters production.</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-check"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Live Substrate Allocation</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">System verifies square-footage stock across all 3 facilities in real time.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Real-time material tracking</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Monitors vinyl, tarpaulin, paper, and ink inventory across all 3 branches.</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-check"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Dynamic Load Balancing</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Dispatches to the least congested branch to beat your target deadline with safety margin.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Automatic load balancing</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Routes rush orders to whichever plant can finish fastest with room to spare.</span>
                                         </div>
                                     </li>
-                                    <li class="flex items-start gap-3.5">
-                                        <div class="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                                    <li class="flex items-start gap-3">
+                                        <span class="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 text-xs">
                                             <i class="fa-solid fa-check"></i>
-                                        </div>
+                                        </span>
                                         <div>
-                                            <strong class="text-slate-900 font-bold block text-sm">Live QR Claim Tracking</strong>
-                                            <span class="text-xs sm:text-[13px] text-slate-600 leading-relaxed">Track your job in real-time with instant scan status from print floor to packaging.</span>
+                                            <strong class="text-slate-900 dark:text-white font-semibold block text-sm sm:text-base">Live progress &amp; QR claim slips</strong>
+                                            <span class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Track every production step online and pick up smoothly with a QR code.</span>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="mt-8 p-4 rounded-xl bg-emerald-50 border border-emerald-200/80 text-xs text-emerald-950 flex items-center gap-3">
-                                <i class="fa-solid fa-circle-check text-emerald-600 text-base shrink-0"></i>
-                                <span><strong class="font-bold">Result:</strong> Guaranteed feasibility, balanced utilization, and 100% on-time pickup.</span>
+                            <div class="mt-6 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200/80 dark:border-emerald-500/30 text-sm text-emerald-800 dark:text-emerald-200 flex items-center gap-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 shrink-0"></i>
+                                <span><strong class="font-semibold">Result:</strong> Reliable pricing, balanced shops, and on-time pickup.</span>
                             </div>
                         </div>
 
@@ -873,95 +881,99 @@
                 </div>
             </section>
 
-            <!-- ── SECTION: REAL-TIME BRANCH NETWORK CAPACITY ── -->
-            <section id="branches" class="py-20 lg:py-28 bg-[#F4F6F9] border-b border-slate-200">
+            <!-- ── 04 SECTION: LIVE BRANCH CAPACITY ── -->
+            <section id="branches" class="py-16 lg:py-24 bg-slate-50/70 dark:bg-[#0F1523] border-b border-slate-200/80 dark:border-slate-800/80">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    
-                    <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-display tracking-tight">
-                            Live Multi-Branch Operations
+
+                    <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-4">
+                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                            Live Branch Capacity
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
+                            Real-time shop workload across our 3 branches
                         </h2>
-                        <p class="mt-4 text-slate-600 text-base leading-relaxed">
-                            Continuous shop-floor load synchronization across all physical production facilities.
+                        <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                            Continuous press capacity monitoring keeps turnaround estimates honest across every facility.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
                         {{-- Facility 1 --}}
-                        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-[#0E3386]/40 transition-all duration-300 space-y-5 reveal-on-scroll group">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-blue-400/60 dark:hover:border-blue-500/50 transition-colors space-y-5 reveal-on-scroll group">
+                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
                                 <div>
-                                    <h4 class="font-black text-slate-900 font-display text-lg group-hover:text-[#0E3386] transition-colors">Central Hub</h4>
-                                    <span class="text-xs text-slate-500 font-mono">Morning Star Press</span>
+                                    <h3 class="font-bold text-slate-900 dark:text-white font-display text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Central Hub</h3>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400">Morning Star Press</span>
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200 shadow-sm">
-                                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                                     Operational
                                 </span>
                             </div>
-                            <div class="space-y-3 text-xs">
+                            <div class="space-y-3.5 text-sm tabular-nums">
                                 <div>
-                                    <div class="flex justify-between text-slate-600 font-mono mb-1.5"><span>Current Workload</span><span class="font-bold text-[#0E3386]">68%</span></div>
-                                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5"><div class="h-full rounded-full bg-gradient-to-r from-[#29bce8] to-[#0E3386] w-[68%] transition-all duration-1000 shadow-sm"></div></div>
+                                    <div class="flex justify-between text-slate-600 dark:text-slate-300 mb-1.5"><span>Current Workload</span><span class="font-bold text-blue-600 dark:text-blue-400">68%</span></div>
+                                    <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 dark:bg-blue-500 rounded-full w-[68%]"></div></div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100">
-                                    <span>Presses: <strong class="text-slate-800">4 Solvent Roll</strong></span>
-                                    <span>Operators: <strong class="text-slate-800">6 On Shift</strong></span>
-                                    <span>Daily Cap: <strong class="text-slate-800">2,500 sq.ft</strong></span>
-                                    <span>Queue: <strong class="text-slate-800">8 Orders</strong></span>
+                                <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/80 rounded-xl divide-y divide-slate-200/70 dark:divide-slate-700/70 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                                    <div class="flex justify-between px-4 py-2.5"><span>Presses</span><strong class="text-slate-900 dark:text-white font-semibold">4 Solvent Roll</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Operators</span><strong class="text-slate-900 dark:text-white font-semibold">6 On Shift</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Daily Capacity</span><strong class="text-slate-900 dark:text-white font-semibold">2,500 sq.ft</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Active Queue</span><strong class="text-slate-900 dark:text-white font-semibold">8 Orders</strong></div>
                                 </div>
                             </div>
                         </div>
 
                         {{-- Facility 2 --}}
-                        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-emerald-500/40 transition-all duration-300 space-y-5 reveal-on-scroll group" style="transition-delay: 100ms;">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-emerald-400/60 dark:hover:border-emerald-500/50 transition-colors space-y-5 reveal-on-scroll group" style="transition-delay: 80ms;">
+                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
                                 <div>
-                                    <h4 class="font-black text-slate-900 font-display text-lg group-hover:text-emerald-700 transition-colors">South Press Plant</h4>
-                                    <span class="text-xs text-slate-500 font-mono">Morning Star Network</span>
+                                    <h3 class="font-bold text-slate-900 dark:text-white font-display text-lg group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">South Press Plant</h3>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400">Morning Star Network</span>
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200 shadow-sm">
-                                    <span class="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
-                                    Optimal Capacity
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                    Optimal
                                 </span>
                             </div>
-                            <div class="space-y-3 text-xs">
+                            <div class="space-y-3.5 text-sm tabular-nums">
                                 <div>
-                                    <div class="flex justify-between text-slate-600 font-mono mb-1.5"><span>Current Workload</span><span class="font-bold text-emerald-600">52%</span></div>
-                                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5"><div class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-600 w-[52%] transition-all duration-1000 shadow-sm"></div></div>
+                                    <div class="flex justify-between text-slate-600 dark:text-slate-300 mb-1.5"><span>Current Workload</span><span class="font-bold text-emerald-600 dark:text-emerald-400">52%</span></div>
+                                    <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full w-[52%]"></div></div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100">
-                                    <span>Presses: <strong class="text-slate-800">3 UV &amp; Solvent</strong></span>
-                                    <span>Operators: <strong class="text-slate-800">4 On Shift</strong></span>
-                                    <span>Daily Cap: <strong class="text-slate-800">1,800 sq.ft</strong></span>
-                                    <span>Queue: <strong class="text-slate-800">4 Orders</strong></span>
+                                <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/80 rounded-xl divide-y divide-slate-200/70 dark:divide-slate-700/70 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                                    <div class="flex justify-between px-4 py-2.5"><span>Presses</span><strong class="text-slate-900 dark:text-white font-semibold">3 UV &amp; Solvent</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Operators</span><strong class="text-slate-900 dark:text-white font-semibold">4 On Shift</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Daily Capacity</span><strong class="text-slate-900 dark:text-white font-semibold">1,800 sq.ft</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Active Queue</span><strong class="text-slate-900 dark:text-white font-semibold">4 Orders</strong></div>
                                 </div>
                             </div>
                         </div>
 
                         {{-- Facility 3 --}}
-                        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-amber-500/40 transition-all duration-300 space-y-5 reveal-on-scroll group" style="transition-delay: 200ms;">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:border-amber-400/60 dark:hover:border-amber-500/50 transition-colors space-y-5 reveal-on-scroll group" style="transition-delay: 160ms;">
+                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
                                 <div>
-                                    <h4 class="font-black text-slate-900 font-display text-lg group-hover:text-amber-800 transition-colors">North Workshop</h4>
-                                    <span class="text-xs text-slate-500 font-mono">Green Heart Hub</span>
+                                    <h3 class="font-bold text-slate-900 dark:text-white font-display text-lg group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">North Workshop</h3>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400">Green Heart Hub</span>
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-[11px] font-bold border border-amber-200 shadow-sm">
-                                    <span class="h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 text-xs font-semibold">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
                                     Active Load
                                 </span>
                             </div>
-                            <div class="space-y-3 text-xs">
+                            <div class="space-y-3.5 text-sm tabular-nums">
                                 <div>
-                                    <div class="flex justify-between text-slate-600 font-mono mb-1.5"><span>Current Workload</span><span class="font-bold text-amber-600">74%</span></div>
-                                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5"><div class="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-500 w-[74%] transition-all duration-1000 shadow-sm"></div></div>
+                                    <div class="flex justify-between text-slate-600 dark:text-slate-300 mb-1.5"><span>Current Workload</span><span class="font-bold text-amber-600 dark:text-amber-400">74%</span></div>
+                                    <div class="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-amber-500 rounded-full w-[74%]"></div></div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-2 font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100">
-                                    <span>Presses: <strong class="text-slate-800">2 DTF &amp; Duplicator</strong></span>
-                                    <span>Operators: <strong class="text-slate-800">3 On Shift</strong></span>
-                                    <span>Daily Cap: <strong class="text-slate-800">1,200 pcs</strong></span>
-                                    <span>Queue: <strong class="text-slate-800">7 Orders</strong></span>
+                                <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/80 rounded-xl divide-y divide-slate-200/70 dark:divide-slate-700/70 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                                    <div class="flex justify-between px-4 py-2.5"><span>Presses</span><strong class="text-slate-900 dark:text-white font-semibold">2 DTF &amp; Duplicator</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Operators</span><strong class="text-slate-900 dark:text-white font-semibold">3 On Shift</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Daily Capacity</span><strong class="text-slate-900 dark:text-white font-semibold">1,200 pcs</strong></div>
+                                    <div class="flex justify-between px-4 py-2.5"><span>Active Queue</span><strong class="text-slate-900 dark:text-white font-semibold">7 Orders</strong></div>
                                 </div>
                             </div>
                         </div>
@@ -970,116 +982,147 @@
                 </div>
             </section>
 
-            <!-- ── SECTION: QUALITY CONTROL & 4-POINT OPERATOR SIGN-OFF ── -->
-            <section class="py-20 lg:py-28 bg-white border-b border-slate-200">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                        
-                        <div class="lg:col-span-6 space-y-6 reveal-on-scroll">
-                            <h2 class="text-3xl sm:text-4xl font-black text-slate-950 font-display tracking-tight">
-                                Mandatory 4-Point Floor Quality Control
-                            </h2>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                No job leaves the printing press without verified sign-off. Machine operators complete physical quality checks on mobile tablets before marking an order ready for customer handover.
-                            </p>
+            <!-- ── SECTION: 4-POINT QUALITY GUARANTEE ── -->
+            <section class="py-16 lg:py-24 bg-white dark:bg-[#0B0F17] border-b border-slate-200/80 dark:border-slate-800/80">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                            <div class="space-y-3 pt-2">
-                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
-                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
-                                    <div>
-                                        <strong class="text-xs font-bold text-slate-900 block">1. Color Profile &amp; Density Calibration</strong>
-                                        <span class="text-[11px] text-slate-500">CMYK proof validation against client-approved artwork file.</span>
-                                    </div>
-                                </div>
-                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
-                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
-                                    <div>
-                                        <strong class="text-xs font-bold text-slate-900 block">2. Bleed Margin &amp; Contour Cut Alignment</strong>
-                                        <span class="text-[11px] text-slate-500">Precision registration verification on plotter knife cutters.</span>
-                                    </div>
-                                </div>
-                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
-                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
-                                    <div>
-                                        <strong class="text-xs font-bold text-slate-900 block">3. Lamination &amp; Edge Finishing Check</strong>
-                                        <span class="text-[11px] text-slate-500">Grommet tensile pull-test, folding alignment, and heat bonding.</span>
-                                    </div>
-                                </div>
-                                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3 hover:border-[#0E3386]/40 transition-colors">
-                                    <i class="fa-solid fa-circle-check text-[#0E3386] text-lg"></i>
-                                    <div>
-                                        <strong class="text-xs font-bold text-slate-900 block">4. Output Count &amp; Serialized QR Packaging</strong>
-                                        <span class="text-[11px] text-slate-500">Final item count verification and client claim ticket tagging.</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Quality Control Visual Card --}}
-                        <div class="lg:col-span-6 bg-[#0B1118] text-white p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6 reveal-on-scroll" style="transition-delay: 150ms;">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-                                <div>
-                                    <span class="text-[10px] font-mono uppercase tracking-widest text-[#29bce8]">Tablet Sign-Off UI</span>
-                                    <h4 class="text-base font-black text-white font-display mt-0.5">Operator Inspection Protocol</h4>
-                                </div>
-                                <span class="px-2.5 py-1 rounded-md bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px] font-mono font-bold">
-                                    All Checks Passed
-                                </span>
-                            </div>
-
-                            <div class="space-y-4 font-mono text-xs">
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
-                                    <span>Ink Density Delta E &lt; 2.0:</span>
-                                    <span class="text-emerald-400 font-bold">✓ VERIFIED (0.8)</span>
-                                </div>
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
-                                    <span>Knife Alignment:</span>
-                                    <span class="text-emerald-400 font-bold">✓ EXACT (0.1mm)</span>
-                                </div>
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
-                                    <span>Eyelet Spacing:</span>
-                                    <span class="text-emerald-400 font-bold">✓ 24in Spacing OK</span>
-                                </div>
-                                <div class="flex items-center justify-between p-3 rounded-lg bg-slate-900/80 border border-slate-800">
-                                    <span>Physical Count:</span>
-                                    <span class="text-emerald-400 font-bold">✓ 20 of 20 Boxed</span>
-                                </div>
-                            </div>
-
-                            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-                                <span>Sign-off Operator: <strong class="text-white">J. Santos (Lead Tech)</strong></span>
-                                <span class="font-mono text-[#29bce8]">Timestamp: 15:42:09</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <!-- ── SECTION: PUBLIC ORDER TRACKING (COMPACT & CLEAN) ── -->
-            <section id="tracking" class="py-12 lg:py-16 bg-[#F4F6F9] border-b border-slate-200">
-                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    
-                    <div class="mb-6 reveal-on-scroll">
-                        <h2 class="text-2xl sm:text-3xl font-black text-slate-950 font-display tracking-tight">
-                            Track Your Order Progress
+                    <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-4">
+                            Quality Guarantee
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-slate-900 dark:text-white font-display tracking-tight leading-tight">
+                            Every order passes a 4-point shop check
                         </h2>
+                        <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                            No print leaves the floor without verified operator inspection. Every batch clears four quality checks before your pickup claim slip turns green.
+                        </p>
                     </div>
 
-                    {{-- Tracking Search Box (Compressed & Proportional) --}}
-                    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4 text-left reveal-on-scroll">
-                        <form @submit.prevent="lookupPublicOrder()" class="flex flex-col sm:flex-row gap-2.5">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+
+                        {{-- Left Card: 4-Point Shop Inspection --}}
+                        <div class="bg-slate-50/90 dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between gap-5 reveal-on-scroll">
+                            <div class="space-y-5">
+                                <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
+                                    <div>
+                                        <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">Inspection Steps</span>
+                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5">4-Point Shop Inspection</h3>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 text-xs font-semibold">
+                                        Mandatory Sign-Off
+                                    </span>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="px-4 py-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3.5">
+                                        <span class="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center justify-center shrink-0">01</span>
+                                        <div class="min-w-0">
+                                            <strong class="text-sm font-semibold text-slate-900 dark:text-white block truncate">Color &amp; Density Check</strong>
+                                            <span class="text-xs text-slate-600 dark:text-slate-400 block truncate">Matches proof colors against approved artwork.</span>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3.5">
+                                        <span class="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center justify-center shrink-0">02</span>
+                                        <div class="min-w-0">
+                                            <strong class="text-sm font-semibold text-slate-900 dark:text-white block truncate">Trim &amp; Cut Alignment</strong>
+                                            <span class="text-xs text-slate-600 dark:text-slate-400 block truncate">Verifies clean bleeds and sharp contour cuts.</span>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3.5">
+                                        <span class="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center justify-center shrink-0">03</span>
+                                        <div class="min-w-0">
+                                            <strong class="text-sm font-semibold text-slate-900 dark:text-white block truncate">Lamination &amp; Finishing</strong>
+                                            <span class="text-xs text-slate-600 dark:text-slate-400 block truncate">Checks grommet spacing, folds, and heat sealing.</span>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 flex items-center gap-3.5">
+                                        <span class="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 font-bold text-xs flex items-center justify-center shrink-0">04</span>
+                                        <div class="min-w-0">
+                                            <strong class="text-sm font-semibold text-slate-900 dark:text-white block truncate">Final Count &amp; QR Packaging</strong>
+                                            <span class="text-xs text-slate-600 dark:text-slate-400 block truncate">Confirms piece count and attaches pickup QR tag.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 text-xs sm:text-sm text-slate-600 dark:text-slate-300 flex items-center justify-between">
+                                <span>Stage: <strong class="text-slate-900 dark:text-white font-semibold">Pre-packaging verification</strong></span>
+                                <span class="font-semibold text-blue-600 dark:text-blue-400 tabular-nums">4 of 4 required</span>
+                            </div>
+                        </div>
+
+                        {{-- Right Card: Operator Quality Checklist --}}
+                        <div class="bg-slate-50/90 dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between gap-5 reveal-on-scroll" style="transition-delay: 80ms;">
+                            <div class="space-y-5">
+                                <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
+                                    <div>
+                                        <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">Operator Sign-Off</span>
+                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5">Operator Quality Checklist</h3>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">
+                                        All Checks Passed
+                                    </span>
+                                </div>
+
+                                <div class="space-y-3 text-sm tabular-nums">
+                                    <div class="flex items-center justify-between px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+                                        <span class="text-slate-700 dark:text-slate-200 font-medium">Ink Color Accuracy (Delta E &lt; 2.0)</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-xs sm:text-sm">Passed (0.8)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+                                        <span class="text-slate-700 dark:text-slate-200 font-medium">Cut Registration</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-xs sm:text-sm">Exact (0.1mm)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+                                        <span class="text-slate-700 dark:text-slate-200 font-medium">Grommet Spacing</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-xs sm:text-sm">24 in Spec OK</span>
+                                    </div>
+                                    <div class="flex items-center justify-between px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80">
+                                        <span class="text-slate-700 dark:text-slate-200 font-medium">Verified Count</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-xs sm:text-sm">20 / 20 Packed</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 text-xs sm:text-sm text-slate-600 dark:text-slate-300 flex items-center justify-between">
+                                <span>Verified by: <strong class="text-slate-900 dark:text-white font-semibold">J. Santos (Lead Tech)</strong></span>
+                                <span class="font-semibold text-blue-600 dark:text-blue-400 tabular-nums">3:42 PM PHT</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── 05 SECTION: PUBLIC ORDER TRACKING ── -->
+            <section id="tracking" class="py-16 lg:py-24 bg-slate-50/70 dark:bg-[#0F1523] border-b border-slate-200/80 dark:border-slate-800/80">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+                    <div class="mb-8 reveal-on-scroll">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold mb-4">
+                            Order Lookup
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight">
+                            Track your order progress
+                        </h2>
+                        <p class="text-base text-slate-600 dark:text-slate-300 mt-2.5">Enter your order reference number to see your assigned branch and current production stage.</p>
+                    </div>
+
+                    {{-- Tracking Search Box --}}
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm rounded-2xl p-6 sm:p-7 space-y-4 text-left reveal-on-scroll">
+                        <form @submit.prevent="lookupPublicOrder()" class="flex flex-col sm:flex-row gap-3">
                             <div class="relative flex-1">
-                                <i class="fa-solid fa-barcode absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                    <i class="fa-solid fa-qrcode text-sm"></i>
+                                </span>
                                 <input type="text" x-model="trackQuery" required placeholder="Enter order number (e.g. ORD-001)..."
-                                       class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0E3386] focus:bg-white transition-colors">
+                                       class="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 dark:focus:border-blue-500 transition-colors">
                             </div>
                             <button type="submit" :disabled="isTracking"
-                                    class="px-6 py-3.5 rounded-xl bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs sm:text-sm shadow-md shadow-[#0E3386]/15 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shrink-0 active:scale-95">
+                                    class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 shrink-0">
                                 <template x-if="isTracking">
                                     <span class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-notch animate-spin"></i> Locating...
+                                        <i class="fa-solid fa-circle-notch animate-spin"></i> Checking...
                                     </span>
                                 </template>
                                 <template x-if="!isTracking">
@@ -1091,56 +1134,56 @@
                         </form>
 
                         {{-- Quick Sample Pill --}}
-                        <div class="flex items-center gap-2 text-[11px] text-slate-500 pt-1">
-                            <span>Quick test:</span>
-                            <button type="button" @click="trackQuery = 'ORD-001'; lookupPublicOrder()" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-[#0E3386] hover:text-white text-[#0E3386] font-mono font-semibold transition-colors cursor-pointer">
+                        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                            <span>Try sample order:</span>
+                            <button type="button" @click="trackQuery = 'ORD-001'; lookupPublicOrder()" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 text-slate-800 dark:text-slate-200 font-sans tabular-nums font-semibold text-xs transition-colors cursor-pointer">
                                 ORD-001
                             </button>
                         </div>
 
                         {{-- Tracking Error --}}
-                        <div x-show="trackError" class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-medium flex items-start gap-2.5" x-cloak>
-                            <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
+                        <div x-show="trackError" class="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 text-xs sm:text-sm text-rose-700 dark:text-rose-300 font-medium flex items-start gap-2.5" x-cloak>
+                            <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-600 dark:text-rose-400"></i>
                             <span x-text="trackError"></span>
                         </div>
 
                         {{-- Tracking Result --}}
-                        <div x-show="trackResult" class="p-5 sm:p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-4" x-cloak>
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-3 gap-2">
+                        <div x-show="trackResult" class="p-5 sm:p-6 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-4" x-cloak>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200/80 dark:border-slate-700 pb-3 gap-2">
                                 <div>
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Job Record</span>
-                                    <h3 class="text-lg font-black text-slate-900 font-mono" x-text="'#' + trackResult?.order_number"></h3>
+                                    <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Order Reference</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white font-sans tabular-nums" x-text="'#' + trackResult?.order_number"></h3>
                                 </div>
-                                <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#0E3386] text-white w-fit font-mono shadow-xs" x-text="trackResult?.status_label"></span>
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-600 text-white w-fit" x-text="trackResult?.status_label"></span>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-sm">
                                 <div>
-                                    <span class="text-slate-400 text-[11px] block">Service Type:</span>
-                                    <strong class="text-slate-900 text-sm" x-text="trackResult?.service"></strong>
+                                    <span class="text-slate-500 dark:text-slate-400 text-xs block">Service</span>
+                                    <strong class="text-slate-900 dark:text-white font-semibold" x-text="trackResult?.service"></strong>
                                 </div>
                                 <div>
-                                    <span class="text-slate-400 text-[11px] block">Quantity &amp; Material:</span>
-                                    <strong class="text-slate-900 text-sm" x-text="trackResult?.quantity + ' pcs &bull; ' + trackResult?.material"></strong>
+                                    <span class="text-slate-500 dark:text-slate-400 text-xs block">Quantity &amp; Material</span>
+                                    <strong class="text-slate-900 dark:text-white font-semibold" x-text="trackResult?.quantity + ' pcs &bull; ' + trackResult?.material"></strong>
                                 </div>
                                 <div>
-                                    <span class="text-slate-400 text-[11px] block">Production Facility:</span>
-                                    <strong class="text-[#0E3386] text-sm" x-text="trackResult?.assigned_branch"></strong>
+                                    <span class="text-slate-500 dark:text-slate-400 text-xs block">Assigned Branch</span>
+                                    <strong class="text-blue-600 dark:text-blue-400 font-semibold" x-text="trackResult?.assigned_branch"></strong>
                                 </div>
                                 <div>
-                                    <span class="text-slate-400 text-[11px] block">Estimated Completion:</span>
-                                    <strong class="text-slate-900 text-sm" x-text="trackResult?.estimated_completion"></strong>
+                                    <span class="text-slate-500 dark:text-slate-400 text-xs block">Estimated Completion</span>
+                                    <strong class="text-slate-900 dark:text-white font-semibold" x-text="trackResult?.estimated_completion"></strong>
                                 </div>
                             </div>
 
                             {{-- Progress Bar --}}
                             <div class="pt-2">
-                                <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-1.5 font-mono">
-                                    <span>Production Queue Progression</span>
-                                    <span class="text-[#0E3386]" x-text="trackResult?.progress_percent + '%'"></span>
+                                <div class="flex items-center justify-between text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5 tabular-nums">
+                                    <span>Production Progress</span>
+                                    <span class="text-blue-600 dark:text-blue-400" x-text="trackResult?.progress_percent + '%'"></span>
                                 </div>
-                                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-[#0E3386] to-[#29bce8] rounded-full transition-all duration-700" :style="'width: ' + trackResult?.progress_percent + '%'"></div>
+                                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-600 dark:bg-blue-500 rounded-full transition-all duration-700" :style="'width: ' + trackResult?.progress_percent + '%'"></div>
                                 </div>
                             </div>
                         </div>
@@ -1151,49 +1194,46 @@
 
         </main>
 
-        <!-- ── FOOTER: ENTERPRISE COMMERCIAL PRINTING (COMPACT & BALANCED) ── -->
-        <footer class="bg-slate-950 text-slate-400 text-xs py-10 border-t border-slate-900">
+        <!-- ── FOOTER ── -->
+        <footer class="bg-white dark:bg-[#0B0F17] text-slate-500 dark:text-slate-400 text-xs py-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-                    <div class="flex items-center gap-3.5">
-                        <img src="{{ asset('images/caplogo.png') }}" class="h-9 w-auto object-contain" alt="CAPACIPRINT">
-                        <div class="border-l border-slate-800 pl-3.5">
-                            <span class="font-display font-black text-white tracking-tight text-base block leading-none">
-                                CAPACI<span class="text-[#29bce8]">PRINT</span>
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-slate-200/80 dark:border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <img src="{{ asset('images/caplogo.png') }}" class="h-8 w-auto object-contain" alt="CAPACIPRINT">
+                        <div>
+                            <span class="font-display font-extrabold text-slate-900 dark:text-white tracking-tight text-base block leading-none">
+                                Capaci<span class="text-blue-600 dark:text-blue-400">Print</span>
                             </span>
-                            <span class="text-[9px] text-[#29bce8] uppercase tracking-widest mt-1 block font-semibold">Multi-Branch Print Network</span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block font-medium">Multi-Branch Print Network</span>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-5 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
-                        <a href="#services" class="hover:text-white transition-colors">Services</a>
-                        <a href="#decision-engine" class="hover:text-white transition-colors">Routing Engine</a>
-                        <a href="#problem" class="hover:text-white transition-colors">Why CapaciPrint</a>
-                        <a href="#branches" class="hover:text-white transition-colors">Branch Status</a>
-                        <a href="#tracking" class="hover:text-white transition-colors">Track Order</a>
-                        <a href="{{ route('customer.portal') }}" class="text-[#29bce8] hover:text-white transition-colors flex items-center gap-1.5 font-bold">
-                            <i class="fa-solid fa-arrow-right-to-bracket text-[11px]"></i> Customer Portal
+                    <div class="flex flex-wrap items-center gap-6 text-slate-600 dark:text-slate-300 font-medium text-sm">
+                        <a href="#services" class="hover:text-slate-900 dark:hover:text-white transition-colors">Services</a>
+                        <a href="#decision-engine" class="hover:text-slate-900 dark:hover:text-white transition-colors">How It Works</a>
+                        <a href="#problem" class="hover:text-slate-900 dark:hover:text-white transition-colors">Why CapaciPrint</a>
+                        <a href="#branches" class="hover:text-slate-900 dark:hover:text-white transition-colors">Branches</a>
+                        <a href="#tracking" class="hover:text-slate-900 dark:hover:text-white transition-colors">Track Order</a>
+                        <a href="{{ route('customer.portal') }}" class="text-blue-600 dark:text-blue-400 hover:underline transition-colors flex items-center gap-1.5 font-semibold">
+                            <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i> Customer Portal
                         </a>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 font-mono">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
                     <p>&copy; {{ date('Y') }} CapaciPrint Multi-Branch Commercial Printing Network. All rights reserved.</p>
-                    <p>Wide-Format Banners &bull; Precision Decals &bull; Apparel &amp; DTF Transfers</p>
                 </div>
             </div>
         </footer>
 
     </div>
 
-    <!-- ── MODERN JAVASCRIPT ANIMATIONS FOR CAPACIPRINT ── -->
+    <!-- ── SCROLL REVEAL & TELEMETRY COUNTERS ── -->
     <style>
-        /* Smooth Scroll-Reveal CSS */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
+            transform: translateY(16px);
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal-on-scroll.is-revealed {
             opacity: 1;
@@ -1203,7 +1243,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 1. Intersection Observer for Scroll-Reveal Animations
             const revealElements = document.querySelectorAll('.reveal-on-scroll');
             if ('IntersectionObserver' in window) {
                 const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -1213,14 +1252,13 @@
                             observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
 
                 revealElements.forEach(el => revealObserver.observe(el));
             } else {
                 revealElements.forEach(el => el.classList.add('is-revealed'));
             }
 
-            // 2. Animated Counter Numbers (for Stats Banner)
             const statsSection = document.getElementById('stats-banner');
             let counted = false;
             if (statsSection && 'IntersectionObserver' in window) {
@@ -1232,7 +1270,7 @@
                             counters.forEach(counter => {
                                 const target = +counter.getAttribute('data-target');
                                 const suffix = counter.getAttribute('data-suffix') || '';
-                                const duration = 1400; // ms
+                                const duration = 900;
                                 const stepTime = 20;
                                 const steps = duration / stepTime;
                                 const increment = target / steps;
@@ -1241,10 +1279,10 @@
                                 const timer = setInterval(() => {
                                     current += increment;
                                     if (current >= target) {
-                                        counter.textContent = target + suffix;
+                                        counter.textContent = target.toLocaleString() + suffix;
                                         clearInterval(timer);
                                     } else {
-                                        counter.textContent = Math.floor(current) + suffix;
+                                        counter.textContent = Math.floor(current).toLocaleString() + suffix;
                                     }
                                 }, stepTime);
                             });
@@ -1254,16 +1292,13 @@
                 statsObserver.observe(statsSection);
             }
 
-            // 3. Header Scroll Glassmorphism State
             const header = document.getElementById('main-header');
             if (header) {
                 window.addEventListener('scroll', () => {
-                    if (window.scrollY > 40) {
-                        header.classList.add('shadow-md', 'bg-white/98');
-                        header.classList.remove('shadow-xs');
+                    if (window.scrollY > 24) {
+                        header.classList.add('shadow-sm');
                     } else {
-                        header.classList.remove('shadow-md', 'bg-white/98');
-                        header.classList.add('shadow-xs');
+                        header.classList.remove('shadow-sm');
                     }
                 }, { passive: true });
             }
@@ -1273,81 +1308,81 @@
         <!-- CUSTOMER PORTAL SIGN IN MODAL (MAIN LANDING PAGE) -->
         <div x-show="showLoginModal" x-cloak 
              x-init="@if($errors->any()) showLoginModal = true; @endif"
-             class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-sm p-4 animate-fade-in-up">
-            <div @click.away="showLoginModal = false" class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 sm:p-9 relative">
+             class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 dark:bg-black/75 backdrop-blur-sm p-4 animate-fade-in-up overscroll-contain">
+            <div @click.away="showLoginModal = false" class="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 p-7 sm:p-8 relative">
                 
                 {{-- Close Button --}}
-                <button type="button" @click="showLoginModal = false" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-1.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+                <button type="button" @click="showLoginModal = false" aria-label="Close Sign In Modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
 
                 <div class="text-center mb-6">
-                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT" class="h-14 w-auto object-contain mx-auto mb-3">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0E3386]/10 text-[#0E3386] text-[10px] font-black uppercase tracking-wider border border-[#0E3386]/20">
-                        <i class="fa-solid fa-user-check"></i> Customer Portal Access
+                    <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT" class="h-12 w-auto object-contain mx-auto mb-3">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-semibold border border-blue-200/70 dark:border-blue-800/60">
+                        <i class="fa-solid fa-user-check"></i> Customer Portal
                     </span>
-                    <h3 class="text-2xl font-black text-slate-900 font-display mt-2">Customer Sign In</h3>
-                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                        Access your active print jobs, approve quotations, and download digital proofs.
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-2.5 tracking-tight">Customer Sign In</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                        Access active print jobs, approve quotations, and inspect digital proofs.
                     </p>
                 </div>
 
-                {{-- Server Validation / Role Denial Errors --}}
                 @if($errors->any())
-                    <div class="mb-4 flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-medium leading-relaxed">
-                        <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
+                    <div class="mb-4 flex items-start gap-2.5 p-3.5 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 rounded-xl text-xs text-rose-700 dark:text-rose-300 font-medium leading-relaxed">
+                        <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-600 dark:text-rose-400"></i>
                         <span>{{ $errors->first() }}</span>
                     </div>
                 @endif
 
-                {{-- Client Error Alert --}}
-                <div x-show="authError" class="mb-4 flex items-start gap-2.5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-medium leading-relaxed" x-cloak>
-                    <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-500"></i>
+                <div x-show="authError" class="mb-4 flex items-start gap-2.5 p-3.5 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 rounded-xl text-xs text-rose-700 dark:text-rose-300 font-medium leading-relaxed" x-cloak>
+                    <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0 text-rose-600 dark:text-rose-400"></i>
                     <span x-text="authError"></span>
                 </div>
 
-                <!-- Customer Login Form (Enforces customer-only login) -->
                 <form method="POST" action="{{ route('login.submit') }}" class="space-y-4">
                     @csrf
                     <input type="hidden" name="portal_type" value="customer">
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">Email Address</label>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">Email address</label>
                         <div class="relative">
-                            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-envelope text-xs"></i>
+                            </span>
                             <input type="email" name="email" required x-model="loginUsername" placeholder="customer@capaciprint.com"
-                                   class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#0E3386] focus:bg-white transition-colors">
+                                   class="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-slate-800 transition-colors">
                         </div>
                     </div>
 
                     <div x-data="{ showPass: false }">
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">Password</label>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">Password</label>
                         <div class="relative">
-                            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-lock text-xs"></i>
+                            </span>
                             <input :type="showPass ? 'text' : 'password'" name="password" required x-model="loginPassword" placeholder="••••••••"
-                                   class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:border-[#0E3386] focus:bg-white transition-colors">
-                            <button type="button" @click="showPass = !showPass" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+                                   class="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-slate-800 transition-colors">
+                            <button type="button" @click="showPass = !showPass" aria-label="Toggle password visibility" class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer">
                                 <i class="fa-solid text-xs" :class="showPass ? 'fa-eye-slash' : 'fa-eye'"></i>
                             </button>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-between text-xs pt-1">
-                        <label class="flex items-center gap-2 text-slate-600 cursor-pointer">
-                            <input type="checkbox" name="remember" class="rounded border-slate-300 text-[#0E3386]"> Remember me
+                        <label class="flex items-center gap-2 text-slate-600 dark:text-slate-300 cursor-pointer">
+                            <input type="checkbox" name="remember" class="rounded border-slate-300 dark:border-slate-600 text-blue-600"> Remember me
                         </label>
-                        <a href="{{ route('register') }}" class="text-[#0E3386] hover:underline font-bold">Create Account</a>
+                        <a href="{{ route('register') }}" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Create Account</a>
                     </div>
 
-                    <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-[#0E3386] hover:bg-[#0a2663] text-white font-bold text-xs shadow-md shadow-[#0E3386]/25 transition-all flex items-center justify-center gap-2 mt-2 cursor-pointer active:scale-95">
-                        <i class="fa-solid fa-arrow-right-to-bracket text-[#29bce8]"></i> Sign In to Customer Portal
+                    <button type="submit" class="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2 mt-2 cursor-pointer shadow-sm">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Customer Portal
                     </button>
                 </form>
 
-                {{-- Demo fast-login button for customers --}}
-                <div class="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                    <span>1-Click Test:</span>
-                    <button type="button" @click="fillLogin('customer')" class="text-[#0E3386] hover:underline font-bold cursor-pointer">
+                <div class="mt-5 pt-4 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                    <span>Demo Access:</span>
+                    <button type="button" @click="fillLogin('customer')" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer">
                         <i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Fill Customer Demo
                     </button>
                 </div>
@@ -1364,7 +1399,7 @@
                 <img src="{{ asset('images/caplogo.png') }}" class="h-9 w-auto brightness-0 invert" alt="CAPACIPRINT Logo">
                 <div>
                     <h1 class="font-display font-bold text-sm tracking-wider leading-none">CAPACIPRINT</h1>
-                    <span class="text-[9px] text-brand-400 tracking-widest font-semibold uppercase">Routing System</span>
+                    <span class="text-[11px] text-brand-400 tracking-wide font-semibold">Routing System</span>
                 </div>
             </div>
 
@@ -1385,17 +1420,17 @@
                         <button @click="currentTab = 'customer-orders'" :class="currentTab === 'customer-orders' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-boxes-stacked w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>My Orders</span>
-                            <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950" x-text="customerOrdersCount">0</span>
+                            <span class="ml-auto inline-block py-0.5 px-2 text-[11px] font-bold rounded-full bg-brand-400 text-navy-950" x-text="customerOrdersCount">0</span>
                         </button>
                         <button @click="currentTab = 'customer-quotations'" :class="currentTab === 'customer-quotations' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-file-invoice-dollar w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Quotations</span>
-                            <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-amber-500 text-navy-950" x-text="customerQuotesCount">0</span>
+                            <span class="ml-auto inline-block py-0.5 px-2 text-[11px] font-bold rounded-full bg-amber-500 text-navy-950" x-text="customerQuotesCount">0</span>
                         </button>
                         <button @click="currentTab = 'customer-notifications'" :class="currentTab === 'customer-notifications' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-bell w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Notifications</span>
-                            <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950" x-show="unreadCount > 0" x-text="unreadCount">0</span>
+                            <span class="ml-auto inline-block py-0.5 px-2 text-[11px] font-bold rounded-full bg-brand-400 text-navy-950" x-show="unreadCount > 0" x-text="unreadCount">0</span>
                         </button>
                         <button @click="currentTab = 'customer-profile'" :class="currentTab === 'customer-profile' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-circle-user w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
@@ -1414,7 +1449,7 @@
                         <button @click="currentTab = 'admin-orders'" :class="currentTab === 'admin-orders' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-receipt w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Orders</span>
-                            <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950" x-text="adminOrdersCount">0</span>
+                            <span class="ml-auto inline-block py-0.5 px-2 text-[11px] font-bold rounded-full bg-brand-400 text-navy-950" x-text="adminOrdersCount">0</span>
                         </button>
                         <button @click="currentTab = 'admin-production'" :class="currentTab === 'admin-production' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-industry w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
@@ -1423,7 +1458,7 @@
                         <button @click="currentTab = 'admin-planning'" :class="currentTab === 'admin-planning' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-brain w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
                             <span>Capacity Planning</span>
-                            <span class="ml-auto inline-block py-0.5 px-2 text-[10px] font-bold rounded-full bg-brand-400 text-navy-950">AI</span>
+                            <span class="ml-auto inline-block py-0.5 px-2 text-[11px] font-bold rounded-full bg-brand-400 text-navy-950">AI</span>
                         </button>
                         <button @click="currentTab = 'admin-inventory'" :class="currentTab === 'admin-inventory' ? 'bg-brand-500/20 text-brand-400' : 'text-slate-300 hover:bg-navy-700 hover:text-white'" class="group flex w-full items-center px-3 py-2 text-sm font-medium rounded-md transition-all">
                             <i class="fa-solid fa-warehouse w-5 mr-3 text-lg text-slate-400 group-hover:text-white transition"></i>
@@ -1482,7 +1517,7 @@
                         <img src="{{ asset('images/caplogo.png') }}" class="h-9 w-auto brightness-0 invert" alt="CAPACIPRINT Logo">
                         <div>
                             <h1 class="font-display font-bold text-sm tracking-wider leading-none">CAPACIPRINT</h1>
-                            <span class="text-[9px] text-brand-400 tracking-widest font-semibold uppercase">Routing System</span>
+                            <span class="text-[11px] text-brand-400 tracking-wide font-semibold">Routing System</span>
                         </div>
                     </div>
 
@@ -1588,7 +1623,7 @@
                     <!-- Screen Breadcrumbs / Context -->
                     <div class="flex items-center text-sm font-medium text-slate-500">
                         <span class="text-slate-400 uppercase tracking-wider text-[11px] font-semibold">CAPACIPRINT</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] mx-2 text-slate-300"></i>
+                        <i class="fa-solid fa-chevron-right text-[11px] mx-2 text-slate-300"></i>
                         <span class="text-navy-900 font-bold capitalize" x-text="getTabTitle(currentTab)"></span>
                     </div>
                 </div>
@@ -1637,7 +1672,7 @@
                         <div class="relative z-10 max-w-xl">
                             <h2 class="text-2xl md:text-3xl font-bold font-display" x-text="'Welcome back, ' + userName + '!'"></h2>
                             <div class="mt-4 flex flex-wrap gap-3">
-                                <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="bg-cyan-500 hover:bg-cyan-600 text-navy-950 font-bold px-5 py-2.5 rounded-lg text-sm transition-all shadow flex items-center gap-2">
+                                <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-lg text-sm transition-all shadow flex items-center gap-2">
                                     <i class="fa-solid fa-plus"></i> Submit Print Request
                                 </button>
                                 <button @click="currentTab = 'customer-orders'" class="border border-navy-300 hover:bg-navy-800 text-white font-medium px-5 py-2.5 rounded-lg text-sm transition flex items-center gap-2">
@@ -1650,7 +1685,7 @@
                     <!-- Customer Stats Panel -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-white p-6 border border-slate-100 rounded-xl shadow-sm flex items-center gap-4">
-                            <div class="h-12 w-12 bg-cyan-50 text-cyan-600 rounded-lg flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-boxes-stacked"></i></div>
+                            <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-boxes-stacked"></i></div>
                             <div>
                                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Active Orders</p>
                                 <h3 class="text-2xl font-bold text-navy-900 font-display" x-text="customerActiveOrdersCount">0</h3>
@@ -1675,7 +1710,7 @@
                     <!-- Important Information Block (Timeline Tracking & Priority Attention) -->
                     <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
                         <div class="px-6 py-4 bg-slate-50/60 border-b border-slate-100 flex items-center justify-between">
-                            <h3 class="font-bold text-navy-900 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-cyan-600"></i> Track Latest Order Progress</h3>
+                            <h3 class="font-bold text-navy-900 flex items-center gap-2"><i class="fa-solid fa-map-location-dot text-blue-600"></i> Track Latest Order Progress</h3>
                             <span class="text-xs text-slate-400 font-medium">Order ID: <strong x-text="latestOrder.id"></strong></span>
                         </div>
                         <div class="p-6">
@@ -1684,7 +1719,7 @@
                                 <i class="fa-solid fa-circle-question text-slate-300 text-4xl mb-2"></i>
                                 <h4 class="font-bold text-navy-900">No active orders</h4>
                                 <p class="text-sm text-slate-500 mt-1">You currently have no orders in production.</p>
-                                <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="mt-4 bg-cyan-600 hover:bg-cyan-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition">Submit Print Request</button>
+                                <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition">Submit Print Request</button>
                             </div>
 
                             <div x-show="latestOrder.id" class="space-y-6">
@@ -1695,7 +1730,7 @@
                                     </div>
                                     <div class="flex items-center gap-3">
                                         <span class="text-xs text-slate-500">Routing Branch:</span>
-                                        <span class="px-2.5 py-1 text-xs font-bold rounded bg-cyan-100 text-cyan-800" x-text="latestOrder.branch || 'Pending Routing'"></span>
+                                        <span class="px-2.5 py-1 text-xs font-bold rounded bg-blue-100 text-blue-800" x-text="latestOrder.branch || 'Pending Routing'"></span>
                                     </div>
                                 </div>
 
@@ -1704,14 +1739,14 @@
                                     <div class="relative flex items-center justify-between">
                                         <!-- Connection Line -->
                                         <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-slate-100 z-0"></div>
-                                        <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-cyan-500 z-0 transition-all duration-500" :style="'width: ' + getProgressPercent(latestOrder.status) + '%'"></div>
+                                        <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-blue-500 z-0 transition-all duration-500" :style="'width: ' + getProgressPercent(latestOrder.status) + '%'"></div>
 
                                         <!-- Step 1 -->
                                         <div class="relative z-10 flex flex-col items-center">
                                             <div :class="getStatusStepClass(latestOrder.status, 1)" class="h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all">
                                                 <i class="fa-solid fa-file-arrow-up"></i>
                                             </div>
-                                            <span class="text-[10px] md:text-xs font-bold text-navy-900 mt-2">Submitted</span>
+                                            <span class="text-[11px] md:text-xs font-bold text-navy-900 mt-2">Submitted</span>
                                         </div>
 
                                         <!-- Step 2 -->
@@ -1719,7 +1754,7 @@
                                             <div :class="getStatusStepClass(latestOrder.status, 2)" class="h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all">
                                                 <i class="fa-solid fa-file-invoice-dollar"></i>
                                             </div>
-                                            <span class="text-[10px] md:text-xs font-bold text-navy-900 mt-2">Quote Ready</span>
+                                            <span class="text-[11px] md:text-xs font-bold text-navy-900 mt-2">Quote Ready</span>
                                         </div>
 
                                         <!-- Step 3 -->
@@ -1727,7 +1762,7 @@
                                             <div :class="getStatusStepClass(latestOrder.status, 3)" class="h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all">
                                                 <i class="fa-solid fa-credit-card"></i>
                                             </div>
-                                            <span class="text-[10px] md:text-xs font-bold text-navy-900 mt-2">Paid</span>
+                                            <span class="text-[11px] md:text-xs font-bold text-navy-900 mt-2">Paid</span>
                                         </div>
 
                                         <!-- Step 4 -->
@@ -1736,7 +1771,7 @@
                                                 <i class="fa-solid fa-gears animate-spin" x-show="latestOrder.status === 'in_production'"></i>
                                                 <i class="fa-solid fa-industry" x-show="latestOrder.status !== 'in_production'"></i>
                                             </div>
-                                            <span class="text-[10px] md:text-xs font-bold text-navy-900 mt-2">Producing</span>
+                                            <span class="text-[11px] md:text-xs font-bold text-navy-900 mt-2">Producing</span>
                                         </div>
 
                                         <!-- Step 5 -->
@@ -1744,33 +1779,33 @@
                                             <div :class="getStatusStepClass(latestOrder.status, 5)" class="h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all">
                                                 <i class="fa-solid fa-truck-ramp-box"></i>
                                             </div>
-                                            <span class="text-[10px] md:text-xs font-bold text-navy-900 mt-2">Ready</span>
+                                            <span class="text-[11px] md:text-xs font-bold text-navy-900 mt-2">Ready</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Current Status Description Card -->
                                 <div class="mt-4 p-4 rounded-lg bg-slate-50 border border-slate-100 flex items-start gap-4">
-                                    <div class="p-2.5 bg-white border border-slate-150 rounded-lg text-lg text-cyan-600 shadow-sm shrink-0">
+                                    <div class="p-2.5 bg-white border border-slate-150 rounded-lg text-lg text-blue-600 shadow-sm shrink-0">
                                         <i class="fa-solid fa-circle-info"></i>
                                     </div>
                                     <div class="flex-grow space-y-1">
                                         <h5 class="text-sm font-bold text-navy-900">
-                                            Current Status: <span class="uppercase text-cyan-600" x-text="getStatusLabel(latestOrder.status)"></span>
+                                            Current Status: <span class="uppercase text-blue-600" x-text="getStatusLabel(latestOrder.status)"></span>
                                         </h5>
                                         <p class="text-xs text-slate-500" x-text="getStatusDescription(latestOrder.status)"></p>
                                         <div class="pt-2 text-[11px] font-semibold text-navy-800 flex flex-wrap gap-x-6 gap-y-1">
-                                            <span x-show="latestOrder.estimated_completion"><i class="fa-regular fa-calendar-check text-cyan-600 mr-1"></i> Est. Completion: <span class="text-slate-600 font-normal" x-text="latestOrder.estimated_completion"></span></span>
-                                            <span x-show="latestOrder.branch"><i class="fa-solid fa-building-circle-check text-cyan-600 mr-1"></i> Location: <span class="text-slate-600 font-normal" x-text="latestOrder.branch"></span></span>
+                                            <span x-show="latestOrder.estimated_completion"><i class="fa-regular fa-calendar-check text-blue-600 mr-1"></i> Est. Completion: <span class="text-slate-600 font-normal" x-text="latestOrder.estimated_completion"></span></span>
+                                            <span x-show="latestOrder.branch"><i class="fa-solid fa-building-circle-check text-blue-600 mr-1"></i> Location: <span class="text-slate-600 font-normal" x-text="latestOrder.branch"></span></span>
                                         </div>
                                     </div>
                                     <!-- Action button inside tracker if payment is pending -->
                                     <div class="shrink-0" x-show="latestOrder.status === 'quotation_ready'">
-                                        <button @click="currentTab = 'customer-quotations'" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-3 py-1.5 rounded text-xs transition font-semibold">Approve & Pay</button>
+                                        <button @click="currentTab = 'customer-quotations'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded text-xs transition font-semibold">Approve & Pay</button>
                                     </div>
                                     <!-- Claiming Info if ready -->
                                     <div class="shrink-0" x-show="latestOrder.status === 'ready_for_pickup'">
-                                        <button @click="showClaimInstructions(latestOrder)" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-3 py-1.5 rounded text-xs transition font-semibold">Claim Instructions</button>
+                                        <button @click="showClaimInstructions(latestOrder)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded text-xs transition font-semibold">Claim Instructions</button>
                                     </div>
                                 </div>
                             </div>
@@ -1787,24 +1822,24 @@
 
                     <!-- Step Header Indicators -->
                     <div class="grid grid-cols-5 gap-2 text-center text-xs font-semibold text-slate-400">
-                        <div :class="printStep >= 1 ? 'text-cyan-600' : ''" class="flex flex-col items-center">
-                            <span :class="printStep === 1 ? 'bg-cyan-600 text-white ring-4 ring-cyan-100' : (printStep > 1 ? 'bg-cyan-50 text-cyan-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">1</span>
+                        <div :class="printStep >= 1 ? 'text-blue-600' : ''" class="flex flex-col items-center">
+                            <span :class="printStep === 1 ? 'bg-blue-600 text-white ring-4 ring-blue-100' : (printStep > 1 ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">1</span>
                             <span class="hidden sm:inline">Service</span>
                         </div>
-                        <div :class="printStep >= 2 ? 'text-cyan-600' : ''" class="flex flex-col items-center">
-                            <span :class="printStep === 2 ? 'bg-cyan-600 text-white ring-4 ring-cyan-100' : (printStep > 2 ? 'bg-cyan-50 text-cyan-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">2</span>
+                        <div :class="printStep >= 2 ? 'text-blue-600' : ''" class="flex flex-col items-center">
+                            <span :class="printStep === 2 ? 'bg-blue-600 text-white ring-4 ring-blue-100' : (printStep > 2 ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">2</span>
                             <span class="hidden sm:inline">Specifications</span>
                         </div>
-                        <div :class="printStep >= 3 ? 'text-cyan-600' : ''" class="flex flex-col items-center">
-                            <span :class="printStep === 3 ? 'bg-cyan-600 text-white ring-4 ring-cyan-100' : (printStep > 3 ? 'bg-cyan-50 text-cyan-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">3</span>
+                        <div :class="printStep >= 3 ? 'text-blue-600' : ''" class="flex flex-col items-center">
+                            <span :class="printStep === 3 ? 'bg-blue-600 text-white ring-4 ring-blue-100' : (printStep > 3 ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">3</span>
                             <span class="hidden sm:inline">Artwork</span>
                         </div>
-                        <div :class="printStep >= 4 ? 'text-cyan-600' : ''" class="flex flex-col items-center">
-                            <span :class="printStep === 4 ? 'bg-cyan-600 text-white ring-4 ring-cyan-100' : (printStep > 4 ? 'bg-cyan-50 text-cyan-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">4</span>
+                        <div :class="printStep >= 4 ? 'text-blue-600' : ''" class="flex flex-col items-center">
+                            <span :class="printStep === 4 ? 'bg-blue-600 text-white ring-4 ring-blue-100' : (printStep > 4 ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-400')" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">4</span>
                             <span class="hidden sm:inline">Schedule</span>
                         </div>
-                        <div :class="printStep >= 5 ? 'text-cyan-600' : ''" class="flex flex-col items-center">
-                            <span :class="printStep === 5 ? 'bg-cyan-600 text-white ring-4 ring-cyan-100' : 'bg-slate-100 text-slate-400'" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">5</span>
+                        <div :class="printStep >= 5 ? 'text-blue-600' : ''" class="flex flex-col items-center">
+                            <span :class="printStep === 5 ? 'bg-blue-600 text-white ring-4 ring-blue-100' : 'bg-slate-100 text-slate-400'" class="h-8 w-8 rounded-full flex items-center justify-center mb-1 text-sm border font-bold">5</span>
                             <span class="hidden sm:inline">Review</span>
                         </div>
                     </div>
@@ -1817,8 +1852,8 @@
                             <h3 class="text-lg font-bold text-navy-900 mb-2">Select Print Service</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <template x-for="service in availableServices" :key="service.id">
-                                    <div @click="formService = service.name; formServiceId = service.id" :class="formService === service.name ? 'border-cyan-500 bg-cyan-50/20 shadow-md ring-1 ring-cyan-500' : 'border-slate-200 hover:border-slate-300'" class="border p-5 rounded-xl cursor-pointer transition flex items-start gap-4">
-                                        <div class="h-10 w-10 bg-cyan-500/10 text-cyan-500 border border-cyan-500/20 rounded-lg flex items-center justify-center text-lg shrink-0">
+                                    <div @click="formService = service.name; formServiceId = service.id" :class="formService === service.name ? 'border-blue-500 bg-blue-50/20 shadow-md ring-1 ring-blue-500' : 'border-slate-200 hover:border-slate-300'" class="border p-5 rounded-xl cursor-pointer transition flex items-start gap-4">
+                                        <div class="h-10 w-10 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-lg flex items-center justify-center text-lg shrink-0">
                                             <i :class="service.icon"></i>
                                         </div>
                                         <div>
@@ -1836,13 +1871,13 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Quantity <span class="text-red-500">*</span></label>
-                                    <input type="number" x-model.number="formQuantity" @input="validateStep2" min="1" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                                    <input type="number" x-model.number="formQuantity" @input="validateStep2" min="1" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
                                     <p x-show="quantityError" class="text-red-600 text-xs mt-1.5 font-semibold" x-text="quantityError"></p>
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Size / Dimensions <span class="text-red-500">*</span></label>
-                                    <select x-model="formSize" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                                    <select x-model="formSize" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
                                         <option value="A4">A4 (210 x 297 mm)</option>
                                         <option value="A5">A5 (148 x 210 mm)</option>
                                         <option value="Letter">Letter (8.5 x 11 in)</option>
@@ -1852,7 +1887,7 @@
 
                                 <div>
                                     <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Paper / Material Type <span class="text-red-500">*</span></label>
-                                    <select x-model="formPaper" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                                    <select x-model="formPaper" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
                                         <option value="Matte 100gsm">Matte 100gsm (Lightweight)</option>
                                         <option value="Glossy 250gsm">Glossy 250gsm (Premium Cover)</option>
                                         <option value="Cardstock 300gsm">Cardstock 300gsm (Heavyweight)</option>
@@ -1862,7 +1897,7 @@
 
                                 <div>
                                     <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Finishing Options</label>
-                                    <select x-model="formFinish" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                                    <select x-model="formFinish" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
                                         <option value="None">None (Standard Cut)</option>
                                         <option value="Gloss Lamination">Gloss Lamination</option>
                                         <option value="Matte Lamination">Matte Lamination</option>
@@ -1875,10 +1910,10 @@
                         <!-- STEP 3: ARTWORK -->
                         <div x-show="printStep === 3" class="space-y-6">
                             <h3 class="text-lg font-bold text-navy-900 mb-2">Upload Artwork File</h3>
-                            <div class="border-2 border-dashed border-slate-200 hover:border-cyan-400 rounded-xl p-8 text-center transition bg-slate-50/50 cursor-pointer relative" @click="$refs.fileInput.click()">
+                            <div class="border-2 border-dashed border-slate-200 hover:border-blue-400 rounded-xl p-8 text-center transition bg-slate-50/50 cursor-pointer relative" @click="$refs.fileInput.click()">
                                 <input type="file" x-ref="fileInput" class="hidden" @change="handleFileUpload">
                                 <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-400 mb-3 block"></i>
-                                <p class="text-sm font-bold text-navy-900">Drag & drop your files here, or <span class="text-cyan-600">browse</span></p>
+                                <p class="text-sm font-bold text-navy-900">Drag & drop your files here, or <span class="text-blue-600">browse</span></p>
                                 <p class="text-xs text-slate-400 mt-1">Accepts PDF, EPS, TIFF, high-res JPG (Max file size: 50MB)</p>
                             </div>
 
@@ -1901,20 +1936,20 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Target Completion Date <span class="text-red-500">*</span></label>
-                                    <input type="date" x-model="formTargetDate" @change="validateStep4" :min="minDate" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                                    <input type="date" x-model="formTargetDate" @change="validateStep4" :min="minDate" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
                                     <p x-show="dateError" class="text-red-600 text-xs mt-1.5 font-semibold" x-text="dateError"></p>
-                                    <p class="text-[10px] text-slate-400 mt-1.5">Minimum 2-day production window required for standard jobs.</p>
+                                    <p class="text-[11px] text-slate-400 mt-1.5">Minimum 2-day production window required for standard jobs.</p>
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Collection Mode <span class="text-red-500">*</span></label>
                                     <div class="grid grid-cols-2 gap-3 mt-1">
-                                        <label :class="formDeliveryMode === 'pickup' ? 'border-cyan-500 bg-cyan-50/20' : 'border-slate-200'" class="border p-3 rounded-lg text-center cursor-pointer block hover:border-slate-300">
+                                        <label :class="formDeliveryMode === 'pickup' ? 'border-blue-500 bg-blue-50/20' : 'border-slate-200'" class="border p-3 rounded-lg text-center cursor-pointer block hover:border-slate-300">
                                             <input type="radio" x-model="formDeliveryMode" value="pickup" class="sr-only">
                                             <i class="fa-solid fa-store text-navy-800 mb-1"></i>
                                             <span class="block text-xs font-bold text-navy-900">Branch Pickup</span>
                                         </label>
-                                        <label :class="formDeliveryMode === 'shipping' ? 'border-cyan-500 bg-cyan-50/20' : 'border-slate-200'" class="border p-3 rounded-lg text-center cursor-pointer block hover:border-slate-300">
+                                        <label :class="formDeliveryMode === 'shipping' ? 'border-blue-500 bg-blue-50/20' : 'border-slate-200'" class="border p-3 rounded-lg text-center cursor-pointer block hover:border-slate-300">
                                             <input type="radio" x-model="formDeliveryMode" value="shipping" class="sr-only">
                                             <i class="fa-solid fa-truck text-navy-800 mb-1"></i>
                                             <span class="block text-xs font-bold text-navy-900">Courier Shipping</span>
@@ -1956,9 +1991,9 @@
                             </div>
 
                             <!-- Cost Estimate Alert -->
-                            <div class="p-4 bg-cyan-50/50 border border-cyan-150 rounded-xl flex items-center justify-between">
+                            <div class="p-4 bg-blue-50/50 border border-blue-200 rounded-xl flex items-center justify-between">
                                 <div class="flex items-center gap-3">
-                                    <i class="fa-solid fa-tags text-cyan-600 text-lg"></i>
+                                    <i class="fa-solid fa-tags text-blue-600 text-lg"></i>
                                     <div>
                                         <h4 class="font-bold text-navy-900">Estimated Cost Range</h4>
                                         <p class="text-xs text-slate-500 mt-0.5">Formal quotation generated immediately upon routing analysis.</p>
@@ -1977,7 +2012,7 @@
                             </button>
                             <div x-show="printStep === 1"></div> <!-- spacer -->
 
-                            <button @click="nextStep" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition-all shadow flex items-center gap-2">
+                            <button @click="nextStep" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition-all shadow flex items-center gap-2">
                                 <span x-text="printStep === 5 ? 'Submit Print Request' : 'Continue'"></span>
                                 <i class="fa-solid fa-arrow-right" x-show="printStep < 5"></i>
                             </button>
@@ -1992,7 +2027,7 @@
                             <h2 class="text-2xl font-bold text-navy-900 font-display">My Orders</h2>
                             <p class="text-sm text-slate-500 mt-1">Review all your printing requests and active operations.</p>
                         </div>
-                        <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow flex items-center gap-2">
+                        <button @click="currentTab = 'new-print-request'; resetPrintForm()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow flex items-center gap-2">
                             <i class="fa-solid fa-plus"></i> Submit Print Request
                         </button>
                     </div>
@@ -2036,7 +2071,7 @@
                                                 <span :class="getStatusBadgeClass(order.status)" class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase" x-text="getStatusLabel(order.status)"></span>
                                             </td>
                                             <td class="px-6 py-4 text-right">
-                                                <button @click="showOrderDetails(order)" class="text-cyan-600 hover:text-cyan-800 font-bold text-xs">View Order Details</button>
+                                                <button @click="showOrderDetails(order)" class="text-blue-600 hover:text-blue-800 font-bold text-xs">View Order Details</button>
                                             </td>
                                         </tr>
                                     </template>
@@ -2056,7 +2091,7 @@
                                 <div class="p-4 space-y-3 hover:bg-slate-50/50 transition">
                                     <div class="flex items-center justify-between">
                                         <span class="font-bold text-navy-900" x-text="order.id"></span>
-                                        <span :class="getStatusBadgeClass(order.status)" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase" x-text="getStatusLabel(order.status)"></span>
+                                        <span :class="getStatusBadgeClass(order.status)" class="px-2 py-0.5 rounded text-[11px] font-bold uppercase" x-text="getStatusLabel(order.status)"></span>
                                     </div>
                                     <div>
                                         <h4 class="font-bold text-sm text-slate-800" x-text="order.service"></h4>
@@ -2064,7 +2099,7 @@
                                     </div>
                                     <div class="flex items-center justify-between pt-2 border-t border-slate-100/50 text-xs">
                                         <span class="text-slate-400" x-text="'Branch: ' + (order.branch || 'Routing...')"></span>
-                                        <button @click="showOrderDetails(order)" class="text-cyan-600 hover:text-cyan-800 font-bold">View Order Details</button>
+                                        <button @click="showOrderDetails(order)" class="text-blue-600 hover:text-blue-800 font-bold">View Order Details</button>
                                     </div>
                                 </div>
                             </template>
@@ -2089,10 +2124,10 @@
                                 <div class="p-6 space-y-4">
                                     <div class="flex justify-between items-start">
                                         <div>
-                                            <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Quotation No.</span>
+                                            <span class="text-[11px] uppercase font-bold text-slate-400 tracking-wider">Quotation No.</span>
                                             <h4 class="text-base font-bold text-navy-900" x-text="'QT-' + order.id.slice(3)"></h4>
                                         </div>
-                                        <span class="px-2.5 py-0.5 rounded text-[10px] font-black bg-amber-100 text-amber-800 uppercase">Awaiting Action</span>
+                                        <span class="px-2.5 py-0.5 rounded text-[11px] font-black bg-amber-100 text-amber-800 uppercase">Awaiting Action</span>
                                     </div>
 
                                     <div class="space-y-2 text-xs">
@@ -2110,7 +2145,7 @@
 
                                 <div class="bg-slate-50/60 border-t border-slate-100 px-6 py-4 flex gap-3">
                                     <button @click="rejectQuote(order)" class="flex-1 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-medium py-2 rounded text-xs transition">Reject Quote</button>
-                                    <button @click="approveAndPay(order)" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded text-xs transition shadow">Approve & Pay</button>
+                                    <button @click="approveAndPay(order)" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded text-xs transition shadow">Approve & Pay</button>
                                 </div>
                             </div>
                         </template>
@@ -2130,19 +2165,19 @@
                             <h2 class="text-2xl font-bold text-navy-900 font-display">Notifications</h2>
                             <p class="text-sm text-slate-500 mt-1">Stay updated with status modifications and actions required.</p>
                         </div>
-                        <button @click="markAllAsRead" x-show="unreadCount > 0" class="text-xs text-cyan-600 hover:text-cyan-800 font-semibold font-semibold">Mark all as read</button>
+                        <button @click="markAllAsRead" x-show="unreadCount > 0" class="text-xs text-blue-600 hover:text-blue-800 font-semibold font-semibold">Mark all as read</button>
                     </div>
 
                     <div class="bg-white border border-slate-150 rounded-xl overflow-hidden shadow-sm divide-y divide-slate-100">
                         <template x-for="notif in notifications" :key="notif.id">
-                            <div :class="notif.read ? 'bg-white' : 'bg-cyan-50/10'" class="p-4 flex items-start gap-4 hover:bg-slate-50/50 transition">
-                                <div class="p-2 bg-slate-50 text-cyan-600 rounded-lg shrink-0">
+                            <div :class="notif.read ? 'bg-white' : 'bg-blue-50/10'" class="p-4 flex items-start gap-4 hover:bg-slate-50/50 transition">
+                                <div class="p-2 bg-slate-50 text-blue-600 rounded-lg shrink-0">
                                     <i class="fa-solid fa-bell"></i>
                                 </div>
                                 <div class="flex-grow">
                                     <div class="flex items-center justify-between gap-4">
                                         <h4 class="text-sm font-bold text-navy-900" x-text="notif.title"></h4>
-                                        <span class="text-[10px] text-slate-400" x-text="notif.time"></span>
+                                        <span class="text-[11px] text-slate-400" x-text="notif.time"></span>
                                     </div>
                                     <p class="text-xs text-slate-600 mt-1" x-text="notif.body"></p>
                                 </div>
@@ -2163,7 +2198,7 @@
 
                     <div class="bg-white border border-slate-150 rounded-xl overflow-hidden shadow-sm p-6 space-y-6">
                         <div class="flex items-center gap-4 border-b border-slate-100 pb-5">
-                            <div class="h-16 w-16 bg-cyan-600 rounded-full flex items-center justify-center text-white text-2xl font-bold font-display" x-text="getInitials(userName)"></div>
+                            <div class="h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold font-display" x-text="getInitials(userName)"></div>
                             <div>
                                 <h3 class="text-lg font-bold text-navy-900" x-text="userName"></h3>
                                 <p class="text-xs text-slate-500" x-text="'Customer Account · ID: CAP-' + Math.floor(Math.random()*9000 + 1000)"></p>
@@ -2197,23 +2232,23 @@
                     <!-- Stats Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         <div class="bg-white p-5 border border-slate-100 rounded-xl shadow-sm space-y-1">
-                            <div class="flex justify-between text-slate-400"><span class="text-[10px] font-bold uppercase tracking-wider">Today's Orders</span><i class="fa-solid fa-calendar-day"></i></div>
+                            <div class="flex justify-between text-slate-400"><span class="text-[11px] font-bold uppercase tracking-wider">Today's Orders</span><i class="fa-solid fa-calendar-day"></i></div>
                             <h3 class="text-2xl font-bold text-navy-900 font-display" x-text="adminOrdersCount">0</h3>
                         </div>
                         <div class="bg-white p-5 border border-slate-100 rounded-xl shadow-sm space-y-1">
-                            <div class="flex justify-between text-slate-400"><span class="text-[10px] font-bold uppercase tracking-wider">Active Production</span><i class="fa-solid fa-gears text-cyan-600"></i></div>
+                            <div class="flex justify-between text-slate-400"><span class="text-[11px] font-bold uppercase tracking-wider">Active Production</span><i class="fa-solid fa-gears text-blue-600"></i></div>
                             <h3 class="text-2xl font-bold text-navy-900 font-display">12</h3>
                         </div>
                         <div class="bg-white p-5 border border-slate-100 rounded-xl shadow-sm space-y-1 border-l-4 border-l-red-500">
-                            <div class="flex justify-between text-slate-400"><span class="text-[10px] font-bold uppercase tracking-wider text-red-600">Rush Orders</span><i class="fa-solid fa-fire-flame-curved text-red-500"></i></div>
+                            <div class="flex justify-between text-slate-400"><span class="text-[11px] font-bold uppercase tracking-wider text-red-600">Rush Orders</span><i class="fa-solid fa-fire-flame-curved text-red-500"></i></div>
                             <h3 class="text-2xl font-bold text-red-600 font-display">3</h3>
                         </div>
                         <div class="bg-white p-5 border border-slate-100 rounded-xl shadow-sm space-y-1 border-l-4 border-l-amber-500">
-                            <div class="flex justify-between text-slate-400"><span class="text-[10px] font-bold uppercase tracking-wider text-amber-600">Delayed Jobs</span><i class="fa-solid fa-triangle-exclamation text-amber-500"></i></div>
+                            <div class="flex justify-between text-slate-400"><span class="text-[11px] font-bold uppercase tracking-wider text-amber-600">Delayed Jobs</span><i class="fa-solid fa-triangle-exclamation text-amber-500"></i></div>
                             <h3 class="text-2xl font-bold text-amber-600 font-display">1</h3>
                         </div>
                         <div class="bg-white p-5 border border-slate-100 rounded-xl shadow-sm space-y-1">
-                            <div class="flex justify-between text-slate-400"><span class="text-[10px] font-bold uppercase tracking-wider">Branch Capacity</span><i class="fa-solid fa-chart-pie"></i></div>
+                            <div class="flex justify-between text-slate-400"><span class="text-[11px] font-bold uppercase tracking-wider">Branch Capacity</span><i class="fa-solid fa-chart-pie"></i></div>
                             <h3 class="text-2xl font-bold text-navy-900 font-display">64%</h3>
                         </div>
                     </div>
@@ -2222,7 +2257,7 @@
                     <div class="bg-white border border-slate-150 rounded-xl shadow-sm overflow-hidden">
                         <div class="px-6 py-4 bg-slate-50/60 border-b border-slate-100 flex items-center justify-between">
                             <h3 class="font-bold text-navy-900 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Action Queue (Requires Attention)</h3>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Critical Priority</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800">Critical Priority</span>
                         </div>
                         <div class="divide-y divide-slate-100">
                             <!-- Shortage Alert -->
@@ -2230,23 +2265,23 @@
                                 <div class="flex items-start gap-3">
                                     <div class="h-9 w-9 bg-red-50 text-red-600 rounded-lg flex items-center justify-center shrink-0"><i class="fa-solid fa-box-open"></i></div>
                                     <div>
-                                        <h4 class="font-bold text-sm text-navy-900">Inventory Supply Shortage <span class="px-1.5 py-0.2 rounded text-[9px] font-black bg-red-100 text-red-800 uppercase ml-1.5">AT RISK</span></h4>
+                                        <h4 class="font-bold text-sm text-navy-900">Inventory Supply Shortage <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-red-800 ml-1.5">At Risk</span></h4>
                                         <p class="text-xs text-slate-500 mt-0.5">Glossy 250gsm Cover stock volume at Branch 1 is down to 25 sheets (Limited Capacity).</p>
                                     </div>
                                 </div>
-                                <button @click="currentTab = 'admin-inventory'" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded text-xs transition shadow-sm shrink-0">Reorder Stock</button>
+                                <button @click="currentTab = 'admin-inventory'" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-lg text-xs transition shadow-sm shrink-0">Reorder Stock</button>
                             </div>
 
                             <!-- Unrouted Order Alert -->
                             <div class="p-4 flex items-start sm:items-center justify-between gap-4">
                                 <div class="flex items-start gap-3">
-                                    <div class="h-9 w-9 bg-cyan-50 text-cyan-600 rounded-lg flex items-center justify-center shrink-0"><i class="fa-solid fa-route"></i></div>
+                                    <div class="h-9 w-9 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center shrink-0"><i class="fa-solid fa-route"></i></div>
                                     <div>
-                                        <h4 class="font-bold text-sm text-navy-900">Pending Route Validation <span class="px-1.5 py-0.2 rounded text-[9px] font-black bg-cyan-100 text-cyan-800 uppercase ml-1.5">RECOMMENDED</span></h4>
+                                        <h4 class="font-bold text-sm text-navy-900">Pending Route Validation <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 ml-1.5">Recommended</span></h4>
                                         <p class="text-xs text-slate-500 mt-0.5">Incoming order from Nieressa requires final validation and branch confirmation.</p>
                                     </div>
                                 </div>
-                                <button @click="currentTab = 'admin-orders'" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-3 py-1.5 rounded text-xs transition shadow shrink-0">Evaluate Route</button>
+                                <button @click="currentTab = 'admin-orders'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded text-xs transition shadow shrink-0">Evaluate Route</button>
                             </div>
                         </div>
                     </div>
@@ -2264,9 +2299,9 @@
                                             <span class="font-bold text-slate-600" x-text="branch.workload + '% Workload'"></span>
                                         </div>
                                         <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                            <div :class="branch.workload > 80 ? 'bg-red-500' : (branch.workload > 50 ? 'bg-amber-500' : 'bg-cyan-500')" class="h-full rounded-full transition-all duration-500" :style="'width: ' + branch.workload + '%'"></div>
+                                            <div :class="branch.workload > 80 ? 'bg-red-500' : (branch.workload > 50 ? 'bg-amber-500' : 'bg-blue-500')" class="h-full rounded-full transition-all duration-500" :style="'width: ' + branch.workload + '%'"></div>
                                         </div>
-                                        <div class="flex gap-x-4 text-[10px] text-slate-400 font-medium">
+                                        <div class="flex gap-x-4 text-[11px] text-slate-400 font-medium">
                                             <span x-text="'Machines Active: ' + branch.machines_active + '/' + branch.total_machines"></span>
                                             <span x-text="'Staff Staffed: ' + branch.staff_active"></span>
                                         </div>
@@ -2283,11 +2318,11 @@
                                 <div class="relative h-32 w-32 flex items-center justify-center">
                                     <svg class="absolute inset-0 h-full w-full transform -rotate-90" viewBox="0 0 36 36">
                                         <path class="text-slate-100" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                        <path class="text-cyan-500" stroke-width="3" stroke-dasharray="96, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path class="text-blue-500" stroke-width="3" stroke-dasharray="96, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                     </svg>
                                     <div class="text-center">
                                         <span class="text-3xl font-black text-navy-900 font-display">96%</span>
-                                        <span class="block text-[9px] text-slate-400 font-bold uppercase tracking-wider">Reliability</span>
+                                        <span class="block text-[11px] text-slate-400 font-semibold">Reliability</span>
                                     </div>
                                 </div>
                             </div>
@@ -2327,14 +2362,14 @@
                                             <td class="px-6 py-4 text-slate-600" x-text="order.quantity"></td>
                                             <td class="px-6 py-4 text-slate-600" x-text="order.target_date"></td>
                                             <td class="px-6 py-4 text-slate-600">
-                                                <span class="font-bold text-cyan-600" x-text="order.branch || getAutoRecommendation(order)"></span>
+                                                <span class="font-bold text-blue-600" x-text="order.branch || getAutoRecommendation(order)"></span>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <span :class="getStatusBadgeClass(order.status)" class="px-2 py-0.5 rounded text-[11px] font-bold uppercase" x-text="getStatusLabel(order.status)"></span>
                                             </td>
                                             <td class="px-6 py-4 text-right">
                                                 <!-- Action states -->
-                                                <button x-show="order.status === 'submitted'" @click="routeOrderModal(order)" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-3 py-1.5 rounded text-xs transition shadow font-semibold">Evaluate Routing</button>
+                                                <button x-show="order.status === 'submitted'" @click="routeOrderModal(order)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded text-xs transition shadow font-semibold">Evaluate Routing</button>
                                                 <button x-show="order.status !== 'submitted'" @click="showAdminOrderDetails(order)" class="text-slate-500 hover:text-navy-900 font-semibold text-xs">Manage Details</button>
                                             </td>
                                         </tr>
@@ -2388,16 +2423,16 @@
                                                     <td class="px-6 py-4">
                                                         <div class="flex items-center gap-3">
                                                             <div class="w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                                                                <div class="bg-cyan-500 h-full rounded-full" :style="'width: ' + getProductionPercent(job.status) + '%'"></div>
+                                                                <div class="bg-blue-500 h-full rounded-full" :style="'width: ' + getProductionPercent(job.status) + '%'"></div>
                                                             </div>
                                                             <span class="text-xs text-slate-500" x-text="getProductionPercent(job.status) + '%'"></span>
                                                         </div>
                                                     </td>
                                                     <td class="px-6 py-4">
-                                                        <span :class="getStatusBadgeClass(job.status)" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase" x-text="getStatusLabel(job.status)"></span>
+                                                        <span :class="getStatusBadgeClass(job.status)" class="px-2 py-0.5 rounded text-[11px] font-bold uppercase" x-text="getStatusLabel(job.status)"></span>
                                                     </td>
                                                     <td class="px-6 py-4 text-right">
-                                                        <button @click="advanceJobStatus(job)" class="bg-cyan-50 hover:bg-cyan-100 text-cyan-700 border border-cyan-200 font-bold px-3 py-1.5 rounded text-xs transition">
+                                                        <button @click="advanceJobStatus(job)" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold px-3 py-1.5 rounded text-xs transition">
                                                             <span x-text="job.status === 'paid' ? 'Begin Production' : 'Advance Milestone'"></span>
                                                         </button>
                                                     </td>
@@ -2421,7 +2456,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <!-- Simulation Controls -->
                         <div class="bg-white border border-slate-150 rounded-xl p-6 shadow-sm space-y-6">
-                            <h3 class="font-bold text-navy-900 border-b border-slate-100 pb-3 flex items-center gap-2"><i class="fa-solid fa-sliders text-cyan-600"></i> Simulator Constraints</h3>
+                            <h3 class="font-bold text-navy-900 border-b border-slate-100 pb-3 flex items-center gap-2"><i class="fa-solid fa-sliders text-blue-600"></i> Simulator Constraints</h3>
                             
                             <!-- Simulated workload sliders -->
                             <div class="space-y-4">
@@ -2453,11 +2488,11 @@
                                 <div>
                                     <label class="block text-xs text-slate-500 mb-1">Target Production Urgency</label>
                                     <div class="grid grid-cols-2 gap-2">
-                                        <label :class="simUrgent ? 'border-cyan-500 bg-cyan-50/20' : 'border-slate-200'" class="border p-2 rounded-lg text-center cursor-pointer block hover:border-slate-300">
+                                        <label :class="simUrgent ? 'border-blue-500 bg-blue-50/20' : 'border-slate-200'" class="border p-2 rounded-lg text-center cursor-pointer block hover:border-slate-300">
                                             <input type="radio" x-model="simUrgent" :value="true" class="sr-only">
                                             <span class="text-xs font-semibold text-navy-900">RUSH (48 hrs)</span>
                                         </label>
-                                        <label :class="!simUrgent ? 'border-cyan-500 bg-cyan-50/20' : 'border-slate-200'" class="border p-2 rounded-lg text-center cursor-pointer block hover:border-slate-300">
+                                        <label :class="!simUrgent ? 'border-blue-500 bg-blue-50/20' : 'border-slate-200'" class="border p-2 rounded-lg text-center cursor-pointer block hover:border-slate-300">
                                             <input type="radio" x-model="simUrgent" :value="false" class="sr-only">
                                             <span class="text-xs font-semibold text-navy-900">Standard (5 Days)</span>
                                         </label>
@@ -2469,14 +2504,14 @@
                         <!-- Capacity Planning Recommendation Output -->
                         <div class="lg:col-span-2 bg-white border border-slate-150 rounded-xl p-6 shadow-sm flex flex-col justify-between space-y-6">
                             <div>
-                                <h3 class="font-bold text-navy-900 border-b border-slate-100 pb-3 flex items-center gap-2"><i class="fa-solid fa-microchip text-cyan-600"></i> AI Engine Routing Results</h3>
+                                <h3 class="font-bold text-navy-900 border-b border-slate-100 pb-3 flex items-center gap-2"><i class="fa-solid fa-microchip text-blue-600"></i> AI Engine Routing Results</h3>
                                 
-                                <div class="mt-6 flex flex-col sm:flex-row items-center gap-6 p-5 bg-cyan-50/40 border border-cyan-100 rounded-xl">
-                                    <div class="h-16 w-16 bg-cyan-600 rounded-full flex items-center justify-center text-white text-3xl font-display font-bold shadow shrink-0">
+                                <div class="mt-6 flex flex-col sm:flex-row items-center gap-6 p-5 bg-blue-50/40 border border-blue-100 rounded-xl">
+                                    <div class="h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-display font-bold shadow shrink-0">
                                         <span x-text="getRecommendation().branchId"></span>
                                     </div>
                                     <div class="text-center sm:text-left space-y-1">
-                                        <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Primary System Recommendation</span>
+                                        <span class="text-[11px] uppercase font-bold text-slate-400 tracking-wider">Primary System Recommendation</span>
                                         <h4 class="text-xl font-bold text-navy-900" x-text="'Recommended Branch: Branch ' + getRecommendation().branchId"></h4>
                                         <p class="text-xs text-slate-500" x-text="'Engine identified Branch ' + getRecommendation().branchId + ' as the optimal routing path with the highest probability of on-time delivery.'"></p>
                                     </div>
@@ -2489,7 +2524,7 @@
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <!-- Machine Available -->
                                         <div class="flex items-center gap-3">
-                                            <span :class="getRecommendation().machineAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[10px] shrink-0 font-black">
+                                            <span :class="getRecommendation().machineAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[11px] shrink-0 font-black">
                                                 <i class="fa-solid" :class="getRecommendation().machineAvailable ? 'fa-check' : 'fa-xmark'"></i>
                                             </span>
                                             <span class="text-xs text-slate-600">Machines available (low queue)</span>
@@ -2497,7 +2532,7 @@
 
                                         <!-- Materials Available -->
                                         <div class="flex items-center gap-3">
-                                            <span :class="getRecommendation().materialsAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[10px] shrink-0 font-black">
+                                            <span :class="getRecommendation().materialsAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[11px] shrink-0 font-black">
                                                 <i class="fa-solid" :class="getRecommendation().materialsAvailable ? 'fa-check' : 'fa-xmark'"></i>
                                             </span>
                                             <span class="text-xs text-slate-600">Required paper materials in stock</span>
@@ -2505,7 +2540,7 @@
 
                                         <!-- Employees Available -->
                                         <div class="flex items-center gap-3">
-                                            <span :class="getRecommendation().employeesAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[10px] shrink-0 font-black">
+                                            <span :class="getRecommendation().employeesAvailable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[11px] shrink-0 font-black">
                                                 <i class="fa-solid" :class="getRecommendation().employeesAvailable ? 'fa-check' : 'fa-xmark'"></i>
                                             </span>
                                             <span class="text-xs text-slate-600">Employees staffed & available</span>
@@ -2513,7 +2548,7 @@
 
                                         <!-- Workload Acceptable -->
                                         <div class="flex items-center gap-3">
-                                            <span :class="getRecommendation().workloadAcceptable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[10px] shrink-0 font-black">
+                                            <span :class="getRecommendation().workloadAcceptable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[11px] shrink-0 font-black">
                                                 <i class="fa-solid" :class="getRecommendation().workloadAcceptable ? 'fa-check' : 'fa-xmark'"></i>
                                             </span>
                                             <span class="text-xs text-slate-600">Workload within thresholds</span>
@@ -2521,7 +2556,7 @@
 
                                         <!-- Deadline Achievable -->
                                         <div class="flex items-center gap-3 sm:col-span-2">
-                                            <span :class="getRecommendation().deadlineAchievable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[10px] shrink-0 font-black">
+                                            <span :class="getRecommendation().deadlineAchievable ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'" class="h-6 w-6 rounded-full flex items-center justify-center text-[11px] shrink-0 font-black">
                                                 <i class="fa-solid" :class="getRecommendation().deadlineAchievable ? 'fa-check' : 'fa-xmark'"></i>
                                             </span>
                                             <span class="text-xs text-slate-600">Target deadline achievable at this branch</span>
@@ -2530,7 +2565,7 @@
                                 </div>
                             </div>
 
-                            <p class="text-[10px] text-slate-400 pt-4 border-t border-slate-100">Adjust the sliders and requirement switches on the left menu to observe real-time rerouting behaviors of the CAPACIPRINT Engine.</p>
+                            <p class="text-[11px] text-slate-400 pt-4 border-t border-slate-100">Adjust the sliders and requirement switches on the left menu to observe real-time rerouting behaviors of the CAPACIPRINT Engine.</p>
                         </div>
                     </div>
                 </div>
@@ -2565,7 +2600,7 @@
                                             <span :class="getInventoryStatusClass(item.status)" class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase" x-text="item.status"></span>
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <button @click="reorderStock(item)" class="text-cyan-600 hover:text-cyan-800 font-bold text-xs">Reorder Stock</button>
+                                            <button @click="reorderStock(item)" class="text-blue-600 hover:text-blue-800 font-bold text-xs">Reorder Stock</button>
                                         </td>
                                     </tr>
                                 </template>
@@ -2586,7 +2621,7 @@
                             <div class="bg-white border border-slate-150 rounded-xl overflow-hidden shadow-sm p-6 space-y-4">
                                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                                     <h3 class="font-bold text-navy-900" x-text="branch.name"></h3>
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-50 text-cyan-600 uppercase" x-text="branch.location"></span>
+                                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-50 text-blue-600 uppercase" x-text="branch.location"></span>
                                 </div>
                                 <div class="space-y-2 text-xs text-slate-500">
                                     <div class="flex justify-between"><span>Workload Capacity:</span><strong class="text-navy-900" x-text="branch.workload + '%'"></strong></div>
@@ -2613,7 +2648,7 @@
                         <h3 class="font-bold text-navy-900 text-lg">Operational Reports Center</h3>
                         <p class="text-slate-500 text-sm mt-1 leading-relaxed">Financial spreadsheets and daily branch utilization ratios can be downloaded as standard CSV or printed layouts.</p>
                         <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-                            <button @click="triggerToast('Report Center', 'Operational Report CSV downloaded.')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 px-5 rounded-lg text-xs shadow transition">Download CSV</button>
+                            <button @click="triggerToast('Report Center', 'Operational Report CSV downloaded.')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-lg text-xs shadow transition">Download CSV</button>
                             <button @click="triggerToast('Report Center', 'PDF printing summary generated.')" class="border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold py-2.5 px-5 rounded-lg text-xs transition">Generate PDF Summary</button>
                         </div>
                     </div>
@@ -2635,7 +2670,7 @@
                                 <div class="flex-grow">
                                     <div class="flex items-center justify-between gap-4">
                                         <h4 class="text-sm font-bold text-navy-900" x-text="notif.title"></h4>
-                                        <span class="text-[10px] text-slate-400" x-text="notif.time"></span>
+                                        <span class="text-[11px] text-slate-400" x-text="notif.time"></span>
                                     </div>
                                     <p class="text-xs text-slate-600 mt-1" x-text="notif.body"></p>
                                 </div>
@@ -2658,7 +2693,7 @@
                             <div>
                                 <label class="block text-xs font-semibold text-navy-800 uppercase tracking-wider mb-1.5">Machine Queue Safety Threshold (%)</label>
                                 <input type="number" value="85" class="block w-full rounded-lg border border-slate-200 px-3.5 py-2 text-sm text-slate-800">
-                                <p class="text-[10px] text-slate-400 mt-1.5">Maximum workload load before routing triggers bypass alerts.</p>
+                                <p class="text-[11px] text-slate-400 mt-1.5">Maximum workload load before routing triggers bypass alerts.</p>
                             </div>
 
                             <div>
@@ -2668,7 +2703,7 @@
                         </div>
 
                         <div class="pt-4 border-t border-slate-100 flex justify-end">
-                            <button @click="triggerToast('System Settings', 'Threshold weight rules updated.')" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg text-xs shadow transition">Save Settings</button>
+                            <button @click="triggerToast('System Settings', 'Threshold weight rules updated.')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-xs shadow transition">Save Settings</button>
                         </div>
                     </div>
                 </div>
@@ -2722,7 +2757,7 @@
                                 </div>
                                 <div>
                                     <span class="block text-slate-400 font-semibold mb-1">Status Badge</span>
-                                    <span :class="getStatusBadgeClass((activeOrderDetails || {}).status)" class="px-2 py-0.5 rounded font-bold uppercase inline-block text-[10px]" x-text="getStatusLabel((activeOrderDetails || {}).status)"></span>
+                                    <span :class="getStatusBadgeClass((activeOrderDetails || {}).status)" class="px-2 py-0.5 rounded font-bold uppercase inline-block text-[11px]" x-text="getStatusLabel((activeOrderDetails || {}).status)"></span>
                                 </div>
                             </div>
 
@@ -2793,10 +2828,10 @@
                                 
                                 <div class="space-y-3">
                                     <!-- Branch 1 Option -->
-                                    <label class="block border p-4 rounded-xl cursor-pointer hover:bg-slate-50/50 transition" :class="simBranchChoice === 'Branch 1' ? 'border-cyan-500 bg-cyan-50/10' : 'border-slate-200'">
+                                    <label class="block border p-4 rounded-xl cursor-pointer hover:bg-slate-50/50 transition" :class="simBranchChoice === 'Branch 1' ? 'border-blue-500 bg-blue-50/10' : 'border-slate-200'">
                                         <div class="flex items-start gap-4">
                                             <input type="radio" x-model="simBranchChoice" value="Branch 1" class="sr-only">
-                                            <div class="h-8 w-8 rounded-full border bg-white flex items-center justify-center font-bold text-xs shrink-0" :class="simBranchChoice === 'Branch 1' ? 'border-cyan-500 text-cyan-600 font-black' : 'border-slate-200 text-slate-400'">1</div>
+                                            <div class="h-8 w-8 rounded-full border bg-white flex items-center justify-center font-bold text-xs shrink-0" :class="simBranchChoice === 'Branch 1' ? 'border-blue-500 text-blue-600 font-black' : 'border-slate-200 text-slate-400'">1</div>
                                             <div class="flex-grow space-y-1">
                                                 <div class="flex justify-between items-center text-xs">
                                                     <span class="font-bold text-navy-900">Branch 1 — Melbourne Warehouse</span>
@@ -2808,14 +2843,14 @@
                                     </label>
 
                                     <!-- Branch 2 Option -->
-                                    <label class="block border p-4 rounded-xl cursor-pointer hover:bg-slate-50/50 transition bg-cyan-50/20 border-cyan-500 ring-1 ring-cyan-500">
+                                    <label class="block border p-4 rounded-xl cursor-pointer hover:bg-slate-50/50 transition bg-blue-50/20 border-blue-500 ring-1 ring-blue-500">
                                         <input type="radio" x-model="simBranchChoice" value="Branch 2" class="sr-only">
                                         <div class="flex items-start gap-4">
-                                            <div class="h-8 w-8 rounded-full border bg-white flex items-center justify-center font-bold text-xs border-cyan-500 text-cyan-600 font-black shrink-0">2</div>
+                                            <div class="h-8 w-8 rounded-full border bg-white flex items-center justify-center font-bold text-xs border-blue-500 text-blue-600 font-black shrink-0">2</div>
                                             <div class="flex-grow space-y-1">
                                                 <div class="flex justify-between items-center text-xs">
                                                     <span class="font-bold text-navy-900">Branch 2 — Sydney CBD Hub (Recommended)</span>
-                                                    <span class="text-cyan-600 font-black">Queue: 28% load</span>
+                                                    <span class="text-blue-600 font-black">Queue: 28% load</span>
                                                 </div>
                                                 <p class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Safe routing path. Materials and machine queue ready.</p>
                                             </div>
@@ -2823,10 +2858,10 @@
                                     </label>
 
                                     <!-- Branch 3 Option -->
-                                    <label class="block border p-4 rounded-xl cursor-pointer hover:bg-slate-50/50 transition" :class="simBranchChoice === 'Branch 3' ? 'border-cyan-500 bg-cyan-50/10' : 'border-slate-200'">
+                                    <label class="block border p-4 rounded-xl cursor-pointer hover:bg-slate-50/50 transition" :class="simBranchChoice === 'Branch 3' ? 'border-blue-500 bg-blue-50/10' : 'border-slate-200'">
                                         <div class="flex items-start gap-4">
                                             <input type="radio" x-model="simBranchChoice" value="Branch 3" class="sr-only">
-                                            <div class="h-8 w-8 rounded-full border bg-white flex items-center justify-center font-bold text-xs shrink-0" :class="simBranchChoice === 'Branch 3' ? 'border-cyan-500 text-cyan-600 font-black' : 'border-slate-200 text-slate-400'">3</div>
+                                            <div class="h-8 w-8 rounded-full border bg-white flex items-center justify-center font-bold text-xs shrink-0" :class="simBranchChoice === 'Branch 3' ? 'border-blue-500 text-blue-600 font-black' : 'border-slate-200 text-slate-400'">3</div>
                                             <div class="flex-grow space-y-1">
                                                 <div class="flex justify-between items-center text-xs">
                                                     <span class="font-bold text-navy-900">Branch 3 — Brisbane Factory</span>
@@ -2842,7 +2877,7 @@
                             <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 border-t border-slate-100 pt-4">
                                 <button @click="activeRouteEvaluation = null" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs transition">Cancel</button>
                                 
-                                <button @click="isEvaluatingRoute = true; setTimeout(() => { executeRouting(activeRouteEvaluation, simBranchChoice); isEvaluatingRoute = false; activeRouteEvaluation = null; }, 1500)" :disabled="isEvaluatingRoute" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-5 py-2 rounded-lg text-xs shadow transition flex items-center gap-2">
+                                <button @click="isEvaluatingRoute = true; setTimeout(() => { executeRouting(activeRouteEvaluation, simBranchChoice); isEvaluatingRoute = false; activeRouteEvaluation = null; }, 1500)" :disabled="isEvaluatingRoute" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-lg text-xs shadow transition flex items-center gap-2">
                                     <span x-show="isEvaluatingRoute" class="flex items-center gap-1.5">
                                         <i class="fa-solid fa-circle-notch animate-spin"></i> Assigning to Branch...
                                     </span>
@@ -3100,10 +3135,10 @@
                     else if (stepNum === 5) stepPercent = 100;
 
                     if (currentProgress > stepPercent) {
-                        return 'bg-cyan-500 border-cyan-600 text-white'; // Completed steps
+                        return 'bg-blue-500 border-blue-600 text-white'; // Completed steps
                     } else if (currentProgress === stepPercent) {
                         if (currentStatus === 'quotation_ready') return 'bg-amber-500 border-amber-600 text-white ring-4 ring-amber-100';
-                        return 'bg-cyan-500 border-cyan-600 text-white ring-4 ring-cyan-100'; // Active step
+                        return 'bg-blue-500 border-blue-600 text-white ring-4 ring-blue-100'; // Active step
                     } else {
                         return 'bg-slate-100 border-slate-200 text-slate-400'; // Upcoming steps
                     }
@@ -3125,7 +3160,7 @@
                         case 'submitted': return 'bg-sky-100 text-sky-800 border border-sky-200';
                         case 'quotation_ready': return 'bg-amber-100 text-amber-800 border border-amber-200';
                         case 'paid': return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
-                        case 'in_production': return 'bg-cyan-100 text-cyan-800 border border-cyan-200';
+                        case 'in_production': return 'bg-blue-100 text-blue-800 border border-blue-200';
                         case 'ready_for_pickup': return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
                         default: return 'bg-slate-100 text-slate-800';
                     }
@@ -3468,6 +3503,85 @@
                         workloadAcceptable: activeWorkload < 75,
                         deadlineAchievable: this.simUrgent ? (activeWorkload < 50) : true
                     };
+                }
+            };
+        }
+
+        // Dual-Feed High-Resolution Background Video Controller
+        function heroVideoController() {
+            return {
+                currentFeed: 1,
+                isTransitioning: false,
+
+                init() {
+                    this.$nextTick(() => {
+                        const v1 = document.getElementById('hero-video-1');
+                        const v2 = document.getElementById('hero-video-2');
+
+                        if (v1) {
+                            v1.muted = true;
+                            const playPromise = v1.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {
+                                    v1.muted = true;
+                                    v1.play().catch(() => {});
+                                });
+                            }
+
+                            // Trigger crossfade when video 1 reaches end
+                            v1.addEventListener('ended', () => {
+                                this.setFeed(2);
+                            });
+
+                            // Smooth fallback crossfade 0.35s before video completes
+                            v1.addEventListener('timeupdate', () => {
+                                if (v1.duration && v1.currentTime >= v1.duration - 0.35) {
+                                    if (this.currentFeed === 1 && !this.isTransitioning) {
+                                        this.setFeed(2);
+                                    }
+                                }
+                            });
+                        }
+
+                        if (v2) {
+                            v2.muted = true;
+                            // Pre-buffer video 2 so transition is instantaneous
+                            v2.load();
+
+                            // Trigger crossfade when video 2 reaches end
+                            v2.addEventListener('ended', () => {
+                                this.setFeed(1);
+                            });
+
+                            // Smooth fallback crossfade 0.35s before video completes
+                            v2.addEventListener('timeupdate', () => {
+                                if (v2.duration && v2.currentTime >= v2.duration - 0.35) {
+                                    if (this.currentFeed === 2 && !this.isTransitioning) {
+                                        this.setFeed(1);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                },
+
+                setFeed(feedNumber) {
+                    if (this.currentFeed === feedNumber && !this.isTransitioning) return;
+                    this.currentFeed = feedNumber;
+                    this.isTransitioning = true;
+
+                    const targetVid = document.getElementById(feedNumber === 1 ? 'hero-video-1' : 'hero-video-2');
+                    if (targetVid) {
+                        targetVid.currentTime = 0;
+                        const p = targetVid.play();
+                        if (p !== undefined) {
+                            p.catch(() => {});
+                        }
+                    }
+
+                    setTimeout(() => {
+                        this.isTransitioning = false;
+                    }, 1100);
                 }
             };
         }

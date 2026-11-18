@@ -10,11 +10,12 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Pre-Press &amp; Artwork</span>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
         </div>
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <a href="{{ route('designer.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-compass-drafting text-xs text-cyan-500 dark:text-cyan-400"></i> Design Workspace
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="{{ route('designer.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-compass-drafting text-xs text-blue-600 dark:text-blue-400"></i> Design Workspace
             </a>
         </div>
     </div>
@@ -51,31 +52,31 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- ARTWORK PRE-PRESS QUEUE TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-3xl shadow-xl overflow-hidden flex flex-col">
-        <div class="px-5 sm:px-6 py-4 border-b border-cyber/80 flex items-center justify-between bg-cyber-sub/70">
+    <div class="bg-cyber-card border border-cyber rounded-2xl overflow-hidden flex flex-col shadow-sm">
+        <div class="px-5 sm:px-6 py-4 border-b border-cyber-sub flex items-center justify-between bg-cyber-sub">
             <div>
-                <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">Artwork Pre-Press Queue</h3>
+                <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">Artwork Pre-Press Queue</h3>
             </div>
-            <a href="{{ route('designer.index') }}" class="text-xs font-bold text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 flex items-center gap-1 shrink-0">
-                View Full Queue <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            <a href="{{ route('designer.index') }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 shrink-0">
+                View Full Queue <i class="fa-solid fa-arrow-right text-[11px]"></i>
             </a>
         </div>
 
         <div class="overflow-x-auto flex-1">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-cyber-base/80 text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber text-[10px]">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="bg-cyber-sub text-cyber-muted font-sans font-bold border-b border-cyber text-xs">
                     <tr>
-                        <th class="px-5 py-3.5">Request #</th>
-                        <th class="px-5 py-3.5">Customer &amp; Service</th>
-                        <th class="px-5 py-3.5">Artwork Specs</th>
-                        <th class="px-5 py-3.5">Status</th>
-                        <th class="px-5 py-3.5 text-right">Action</th>
+                        <th class="px-5 py-3">Request #</th>
+                        <th class="px-5 py-3">Customer &amp; Service</th>
+                        <th class="px-5 py-3">Artwork Specs</th>
+                        <th class="px-5 py-3">Status</th>
+                        <th class="px-5 py-3 text-right">Action</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-cyber/60 text-cyber-main">
+                <tbody class="divide-y divide-cyber-sub text-cyber-main">
                     @forelse($pendingProofs as $req)
-                        <tr class="hover:bg-cyber-hover/50 transition">
-                            <td class="px-5 py-3.5 font-bold text-cyber-main font-mono whitespace-nowrap">
+                        <tr class="hover:bg-black/[0.02] dark:hover:bg-white/[0.025] transition-colors">
+                            <td class="px-5 py-3.5 font-bold text-cyber-main font-sans tabular-nums whitespace-nowrap">
                                 #REQ-{{ str_pad($req->id, 5, '0', STR_PAD_LEFT) }}
                             </td>
                             <td class="px-5 py-3.5">
@@ -90,17 +91,17 @@
                                             'pdf' => 'fa-solid fa-file-pdf text-rose-500',
                                             'ai', 'eps' => 'fa-solid fa-file-lines text-amber-500',
                                             'psd' => 'fa-solid fa-file-image text-indigo-500',
-                                            'jpg', 'jpeg', 'png' => 'fa-solid fa-image text-cyan-500',
+                                            'jpg', 'jpeg', 'png' => 'fa-solid fa-image text-blue-500',
                                             default => 'fa-solid fa-file text-cyber-muted',
                                         };
                                         $displayName = $req->design_file_name ?? (strtoupper($ext) . ' Artwork');
                                     @endphp
-                                    <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-cyber-main font-semibold" title="{{ $req->design_file_name ?? 'Artwork Uploaded' }}">
+                                    <span class="inline-flex items-center gap-1.5 font-sans text-xs text-cyber-main font-semibold" title="{{ $req->design_file_name ?? 'Artwork Uploaded' }}">
                                         <i class="{{ $fileIcon }} text-xs"></i>
                                         <span class="truncate max-w-[140px]">{{ $displayName }}</span>
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1.5 font-mono text-[11px] text-cyber-muted italic">
+                                    <span class="inline-flex items-center gap-1.5 font-sans text-xs text-cyber-muted italic">
                                         <i class="fa-regular fa-file text-xs text-cyber-sub"></i> Pending Upload
                                     </span>
                                 @endif
@@ -112,7 +113,7 @@
                                         str_contains($statusLower, 'approved') => 'bg-emerald-500',
                                         str_contains($statusLower, 'revision') => 'bg-amber-500',
                                         str_contains($statusLower, 'cancel') || str_contains($statusLower, 'reject') => 'bg-rose-500',
-                                        default => 'bg-cyan-500',
+                                        default => 'bg-blue-500',
                                     };
                                 @endphp
                                 <span class="inline-flex items-center gap-1.5 font-medium text-cyber-main text-xs">
@@ -122,9 +123,9 @@
                             </td>
                             <td class="px-5 py-3.5 text-right whitespace-nowrap">
                                 <a href="{{ route('designer.show', $req) }}" 
-                                   class="group h-8 w-8 rounded-xl bg-cyan-500/10 hover:bg-cyan-500 text-cyan-600 dark:text-cyan-400 hover:text-white dark:hover:text-slate-950 border border-cyan-500/25 hover:border-cyan-500 inline-flex items-center justify-center transition-all duration-200 shadow-xs" 
+                                   class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-flex items-center justify-center" 
                                    title="Inspect Artwork &amp; Proofing Canvas">
-                                    <i class="fa-solid fa-eye text-xs text-cyan-600 dark:text-cyan-400 group-hover:text-white dark:group-hover:text-slate-950 transition-colors"></i>
+                                    <i class="fa-solid fa-eye"></i>
                                 </a>
                             </td>
                         </tr>

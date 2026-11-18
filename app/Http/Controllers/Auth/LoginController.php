@@ -96,9 +96,17 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+        $isStaff = $user && ($user->isInternal() || $user->role !== 'customer');
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($isStaff) {
+            return redirect()->route('staff.portal');
+        }
 
         return redirect()->route('landing');
     }
@@ -106,7 +114,7 @@ class LoginController extends Controller
     /**
      * Redirect to appropriate dashboard based on role for all 9 actors.
      */
-    private function redirectAfterLogin($user)
+    private function redirectAfterLogin(\App\Models\User $user)
     {
         return match ($user->role) {
             'system_admin'       => redirect()->route('admin.dashboard'),
@@ -116,7 +124,7 @@ class LoginController extends Controller
             'manager'            => redirect()->route('manager.dashboard'),
             'production_officer' => redirect()->route('manager.production-planning.index'),
             'staff'              => redirect()->route('staff.dashboard'),
-            'designer'           => redirect()->route('designer.dashboard'),
+            'designer'           => redirect()->route('staff.dashboard'),
             'production'         => redirect()->route('production.dashboard'),
             'inventory'          => redirect()->route('inventory.dashboard'),
             'customer'           => redirect()->route('customer.dashboard'),

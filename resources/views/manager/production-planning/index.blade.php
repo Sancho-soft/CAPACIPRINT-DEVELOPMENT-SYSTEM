@@ -5,32 +5,23 @@
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto">
 
-    {{-- Header Banner --}}
-    <div class="relative bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl overflow-hidden">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    {{-- Page Header: Dashboard Overview --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="text-xl sm:text-2xl font-black font-display text-cyber-main">Dashboard Overview</h2>
+        </div>
 
-        <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-            <div class="flex items-center gap-4 sm:gap-5">
-                <div class="h-14 w-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black font-display text-cyber-main">Dashboard Overview</h2>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0 w-full md:w-auto justify-start md:justify-end">
-                <a href="{{ route('manager.capacity.index') }}" 
-                   class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700 flex items-center gap-2 transition shadow-xs">
-                    <i class="fa-solid fa-calculator text-cyan-600 dark:text-cyan-400"></i>
-                    <span>Capacity Evaluation</span>
-                </a>
-                <a href="{{ route('manager.workload.index') }}" 
-                   class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line text-xs"></i>
-                    <span>Workload Monitor</span>
-                </a>
-            </div>
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <a href="{{ route('manager.capacity.index') }}" 
+               class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700 flex items-center gap-2 transition shadow-sm">
+                <i class="fa-solid fa-calculator text-blue-600 dark:text-blue-400"></i>
+                <span>Capacity Evaluation</span>
+            </a>
+            <a href="{{ route('manager.workload.index') }}" 
+               class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-xs"></i>
+                <span>Workload Monitor</span>
+            </a>
         </div>
     </div>
 
@@ -78,12 +69,12 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         {{-- LEFT 2 COLS: MULTI-BRANCH WORKLOAD & STAGE FLOW BAR GRAPH (PLAIN & HIGH-RES) --}}
-        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col justify-between h-full">
+        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-2xl p-6 sm:p-7 shadow-sm flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
                     <div>
                         <div class="flex items-center gap-2.5">
-                            <div class="h-8 w-8 rounded-xl bg-teal-500/10 border border-teal-500/20 text-[#009498] flex items-center justify-center text-xs shadow-xs">
+                            <div class="h-8 w-8 rounded-xl bg-teal-500/10 border border-teal-500/20 text-[#2563EB] flex items-center justify-center text-xs shadow-sm">
                                 <i class="fa-solid fa-chart-column" id="barChartIcon"></i>
                             </div>
                             <h3 class="font-black text-cyber-main text-sm sm:text-base font-display" id="barChartTitle">Multi-Branch Workload Distribution</h3>
@@ -95,7 +86,7 @@
                         {{-- Quick View Toggle Pills --}}
                         <div class="inline-flex items-center bg-cyber-sub/40 p-0.5 rounded-xl border border-cyber/80">
                             <button type="button" id="btnViewBranch" 
-                                    class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#009498] text-white shadow-xs">
+                                    class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#2563EB] text-white shadow-sm">
                                 Facilities
                             </button>
                             <button type="button" id="btnViewStage" 
@@ -107,15 +98,15 @@
                         {{-- Legend for Facilities Mode (Exact from Screenshot 2) --}}
                         <div id="branchLegend" class="flex flex-wrap items-center gap-3 text-xs font-medium">
                             <div class="flex items-center gap-1.5">
-                                <span class="h-3 w-3 shadow-xs" style="background-color: #009498;"></span>
+                                <span class="h-3 w-3 shadow-sm" style="background-color: #2563EB;"></span>
                                 <span class="text-cyber-main text-[11px] font-semibold">Morning Star Press</span>
                             </div>
                             <div class="flex items-center gap-1.5">
-                                <span class="h-3 w-3 shadow-xs" style="background-color: #013F73;"></span>
+                                <span class="h-3 w-3 shadow-sm" style="background-color: #4F46E5;"></span>
                                 <span class="text-cyber-main text-[11px] font-semibold">Morning Star Network</span>
                             </div>
                             <div class="flex items-center gap-1.5">
-                                <span class="h-3 w-3 shadow-xs" style="background-color: #7DD956;"></span>
+                                <span class="h-3 w-3 shadow-sm" style="background-color: #059669;"></span>
                                 <span class="text-cyber-main text-[11px] font-semibold">Green Heart Hub</span>
                             </div>
                         </div>
@@ -123,11 +114,11 @@
                         {{-- Legend for Stages Mode (Plain & High-Res) --}}
                         <div id="stageLegend" class="hidden flex flex-wrap items-center gap-3 text-xs font-medium">
                             <div class="flex items-center gap-1.5">
-                                <span class="h-3 w-3 shadow-xs" style="background-color: #009498;"></span>
+                                <span class="h-3 w-3 shadow-sm" style="background-color: #2563EB;"></span>
                                 <span class="text-cyber-main text-[11px] font-semibold">Active Stages</span>
                             </div>
                             <div class="flex items-center gap-1.5">
-                                <span class="h-3 w-3 shadow-xs" style="background-color: #f43f5e;"></span>
+                                <span class="h-3 w-3 shadow-sm" style="background-color: #f43f5e;"></span>
                                 <span class="text-cyber-main text-[11px] font-semibold">Delayed Runs</span>
                             </div>
                         </div>
@@ -142,14 +133,14 @@
         </div>
 
         {{-- RIGHT 1 COL: QUEUE PRIORITY MIX DONUT (EXACT 4-COLOR FROM SCREENSHOT 2) --}}
-        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+        <div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
                 <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
                     <div>
                         <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Queue Priority Mix</h3>
                         <p class="text-[11px] text-cyber-muted mt-0.5">Floor urgency & queue pressure</p>
                     </div>
-                    <div class="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                    <div class="h-8 w-8 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xs shadow-sm shrink-0">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                 </div>
@@ -158,11 +149,11 @@
                     $totalPriorityCount = max(1, array_sum($planningPriorityBreakdown));
                     $priLabels = array_keys($planningPriorityBreakdown);
                     $priValues = array_values($planningPriorityBreakdown);
-                    $priColors = [
-                        '#f43f5e', // Rose for Rush / Urgent
-                        '#f59e0b', // Amber for High Priority
-                        '#06b6d4', // Cyan for Standard Run
-                        '#8b5cf6', // Purple for Quality Checking
+                    $priBgClasses = [
+                        'bg-rose-500',
+                        'bg-amber-500',
+                        'bg-blue-500',
+                        'bg-purple-500',
                     ];
                 @endphp
 
@@ -171,7 +162,7 @@
                     <canvas id="planningPriorityDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPriorityCount }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Floor Runs</span>
+                        <span class="text-[11px] font-semibold uppercase tracking-wider text-cyber-muted">Floor Runs</span>
                     </div>
                 </div>
 
@@ -180,15 +171,15 @@
                     @foreach($planningPriorityBreakdown as $pLabel => $pVal)
                         @php
                             $pPct = round(($pVal / $totalPriorityCount) * 100);
-                            $pDot = $priColors[$loop->index % count($priColors)];
+                            $dotBg = $priBgClasses[$loop->index % count($priBgClasses)];
                         @endphp
                         <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $pDot }}"></span>
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-sm {{ $dotBg }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $pLabel }}</span>
                             </div>
-                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
-                                {{ $pVal }} <span class="text-[10px] font-normal text-cyber-sub">({{ $pPct }}%)</span>
+                            <span class="font-sans tabular-nums text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
+                                {{ $pVal }} <span class="text-[11px] font-normal text-cyber-sub">({{ $pPct }}%)</span>
                             </span>
                         </div>
                     @endforeach
@@ -202,19 +193,19 @@
     <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm">
         <form method="GET" action="{{ route('manager.production-planning.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs">
             <div class="sm:col-span-4">
-                <label class="block font-bold text-cyber-main mb-1.5 uppercase text-[11px] tracking-wider">Search Job # or Customer</label>
+                <label class="block font-sans tabular-nums font-semibold text-cyber-muted mb-1.5 text-[11px]">Search Job # or Customer</label>
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cyber-sub">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="e.g. JOB-8942 or John..."
-                           class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 dark:bg-[#0D1520] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:border-cyan-500 focus:outline-none text-xs">
+                           class="w-full pl-9 pr-3.5 py-2.5 bg-cyber-sub border border-cyber text-cyber-main rounded-lg focus:border-brand-600 focus:outline-none text-xs">
                 </div>
             </div>
 
             <div class="sm:col-span-3">
-                <label class="block font-bold text-cyber-main mb-1.5 uppercase text-[11px] tracking-wider">Filter Branch</label>
-                <select name="branch_id" class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#0D1520] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:border-cyan-500 focus:outline-none text-xs">
+                <label class="block font-sans tabular-nums font-semibold text-cyber-muted mb-1.5 text-[11px]">Filter Branch</label>
+                <select name="branch_id" class="w-full px-3.5 py-2.5 bg-cyber-sub border border-cyber text-cyber-main rounded-lg focus:border-brand-600 focus:outline-none text-xs">
                     <option value="">All Active Branches</option>
                     @foreach($branches as $b)
                         <option value="{{ $b->id }}" {{ request('branch_id') == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
@@ -223,22 +214,22 @@
             </div>
 
             <div class="sm:col-span-3">
-                <label class="block font-bold text-cyber-main mb-1.5 uppercase text-[11px] tracking-wider">Filter Priority</label>
-                <select name="priority" class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-[#0D1520] border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:border-cyan-500 focus:outline-none text-xs">
+                <label class="block font-sans tabular-nums font-semibold text-cyber-muted mb-1.5 text-[11px]">Filter Priority</label>
+                <select name="priority" class="w-full px-3.5 py-2.5 bg-cyber-sub border border-cyber text-cyber-main rounded-lg focus:border-brand-600 focus:outline-none text-xs">
                     <option value="">All Priorities</option>
-                    <option value="rush_urgent" {{ request('priority') === 'rush_urgent' ? 'selected' : '' }}>⚡ Rush &amp; Urgent Priority</option>
-                    <option value="urgent" {{ request('priority') === 'urgent' ? 'selected' : '' }}>🔴 Urgent / Express</option>
-                    <option value="rush" {{ request('priority') === 'rush' ? 'selected' : '' }}>🟠 Rush Priority</option>
-                    <option value="normal" {{ request('priority') === 'normal' ? 'selected' : '' }}>🟢 Normal Priority</option>
+                    <option value="rush_urgent" {{ request('priority') === 'rush_urgent' ? 'selected' : '' }}>Rush &amp; Urgent Priority</option>
+                    <option value="urgent" {{ request('priority') === 'urgent' ? 'selected' : '' }}>Urgent / Express</option>
+                    <option value="rush" {{ request('priority') === 'rush' ? 'selected' : '' }}>Rush Priority</option>
+                    <option value="normal" {{ request('priority') === 'normal' ? 'selected' : '' }}>Normal Priority</option>
                 </select>
             </div>
 
             <div class="sm:col-span-2 flex items-end gap-2">
-                <button type="submit" class="w-full py-2.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-black text-xs uppercase tracking-wider transition shadow-sm cursor-pointer">
+                <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-semibold text-xs tracking-wide transition cursor-pointer">
                     Filter Queue
                 </button>
                 @if(request()->hasAny(['search', 'branch_id', 'priority', 'status', 'unassigned']))
-                    <a href="{{ route('manager.production-planning.index') }}" class="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl font-bold transition border border-slate-200 dark:border-slate-700 shrink-0" title="Reset Filters">
+                    <a href="{{ route('manager.production-planning.index') }}" class="py-2.5 px-3 bg-cyber-sub hover:bg-cyber-card text-cyber-main rounded-lg font-semibold transition border border-cyber shrink-0" title="Reset Filters">
                         <i class="fa-solid fa-rotate-left"></i>
                     </a>
                 @endif
@@ -247,10 +238,10 @@
     </div>
 
     {{-- Production Jobs Table with Separated Job # and Service Columns --}}
-    <div class="bg-cyber-card rounded-3xl border border-cyber shadow-xl overflow-hidden flex flex-col">
+    <div class="bg-cyber-card rounded-xl border border-cyber overflow-hidden flex flex-col">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="text-cyber-muted font-bold uppercase tracking-wider border-b border-cyber/60 text-[10px] bg-slate-50/50 dark:bg-transparent">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px] bg-cyber-sub">
                     <tr>
                         <th class="py-3.5 px-5">Job #</th>
                         <th class="py-3.5 px-4">Service &amp; Specs</th>
@@ -268,8 +259,8 @@
                         <tr class="hover:bg-cyber-hover/50 transition">
                             {{-- Column 1: Job Number --}}
                             <td class="py-4 px-5 whitespace-nowrap">
-                                <span class="font-mono font-bold text-sm text-cyber-main block">#{{ $j->job_number }}</span>
-                                <span class="text-[10px] text-cyber-muted block font-sans mt-0.5">
+                                <span class="font-sans tabular-nums font-bold text-sm text-cyber-main block">#{{ $j->job_number }}</span>
+                                <span class="text-[11px] text-cyber-muted block font-sans mt-0.5">
                                     {{ $j->created_at ? $j->created_at->diffForHumans() : 'Active' }}
                                 </span>
                             </td>
@@ -287,7 +278,7 @@
                             {{-- Column 3: Client --}}
                             <td class="py-4 px-4 whitespace-nowrap">
                                 <span class="font-semibold text-cyber-main text-xs block">{{ $j->order->user->name ?? 'Direct Customer' }}</span>
-                                <span class="text-[10px] text-cyber-muted block">{{ $j->order->user->email ?? '' }}</span>
+                                <span class="text-[11px] text-cyber-muted block">{{ $j->order->user->email ?? '' }}</span>
                             </td>
 
                             {{-- Column 4: Branch --}}
@@ -304,7 +295,7 @@
                                         {{ $j->machine->name }}
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-sans tabular-nums text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20">
                                         No Machine
                                     </span>
                                 @endif
@@ -315,7 +306,7 @@
                                 @if($j->assignedTo)
                                     <span class="font-semibold text-cyber-main text-xs">{{ $j->assignedTo->name }}</span>
                                 @else
-                                    <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 font-mono">
+                                    <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 font-sans tabular-nums">
                                         Unassigned
                                     </span>
                                 @endif
@@ -331,11 +322,11 @@
                                     };
                                 @endphp
                                 @if(in_array(strtolower($j->priority), ['normal', 'standard', 'low']))
-                                    <span class="text-[11px] font-bold uppercase font-mono text-slate-600 dark:text-slate-400">
+                                    <span class="text-[11px] font-bold uppercase font-sans tabular-nums text-slate-600 dark:text-slate-400">
                                         {{ $j->priority }}
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase font-mono border {{ $prioBadge }}">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase font-sans tabular-nums border {{ $prioBadge }}">
                                         {{ $j->priority }}
                                     </span>
                                 @endif
@@ -345,14 +336,14 @@
                             <td class="py-4 px-4 whitespace-nowrap">
                                 @php
                                     $statBadge = match($j->status) {
-                                        'in_production', 'production' => 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-400 border-cyan-500/30',
+                                        'in_production', 'production' => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30',
                                         'completed'                   => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
                                         'delayed'                     => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
                                         'quality_checking'            => 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/30',
                                         default                       => 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
                                     };
                                 @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase font-mono border {{ $statBadge }}">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase font-sans tabular-nums border {{ $statBadge }}">
                                     {{ $j->status_label }}
                                 </span>
                             </td>
@@ -389,30 +380,43 @@
 
 </div>
 
+{{-- JSON Configuration Bridge for Chart.js (Eliminates inline Blade tags in JS) --}}
+<script type="application/json" id="planning-chart-data">
+{!! json_encode([
+    'branchLabels' => $branchChartLabels ?? ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub'],
+    'branchValues' => $branchActiveData ?? [6, 4, 2],
+    'stageData'    => $stageBreakdown ?? [],
+    'priLabels'    => $priLabels ?? [],
+    'priValues'    => $priValues ?? [],
+]) !!}
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
+        const chartDataEl = document.getElementById('planning-chart-data');
+        const chartData = chartDataEl ? JSON.parse(chartDataEl.textContent || '{}') : {};
 
         // ═════════════════════════════════════════════════════════════════
         // 1. Plain & High-Resolution Bar Chart (Branch Workload & Stage Flow)
         // ═════════════════════════════════════════════════════════════════
         const stageCanvas = document.getElementById('productionStageBarChart');
         if (stageCanvas) {
-            // Facilities Data (Exact from Screenshot 2)
-            const branchLabels = @json($branchChartLabels ?? ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub']);
-            const branchValues = @json($branchActiveData ?? [6, 4, 2]);
-            const branchColors = ['#009498', '#013F73', '#7DD956'];
+            // Facilities Data
+            const branchLabels = chartData.branchLabels || ['Morning Star Press', 'Morning Star Network', 'Green Heart Hub'];
+            const branchValues = chartData.branchValues || [6, 4, 2];
+            const branchColors = ['#2563EB', '#4F46E5', '#059669'];
             const branchHoverColors = ['#00b4b8', '#02569c', '#8ee568'];
             const branchBorders = isDark 
                 ? ['#00c4c8', '#1e6bb8', '#9ef578'] 
                 : ['#007a7e', '#012c52', '#6bc244'];
 
             // Production Stages Data
-            const stageData = @json($stageBreakdown ?? []);
+            const stageData = chartData.stageData || {};
             const stageLabels = Object.keys(stageData);
             const stageValues = Object.values(stageData);
             // Plain & High-Res: Teal for Active Stages, Rose for Delayed
-            const stageColors = ['#009498', '#009498', '#009498', '#009498', '#f43f5e'];
+            const stageColors = ['#2563EB', '#2563EB', '#2563EB', '#2563EB', '#f43f5e'];
             const stageHoverColors = ['#00b4b8', '#00b4b8', '#00b4b8', '#00b4b8', '#fb7185'];
             const stageBorders = isDark 
                 ? ['#00c4c8', '#00c4c8', '#00c4c8', '#00c4c8', '#fb7185'] 
@@ -488,7 +492,7 @@
                                 ticks: {
                                     color: isDark ? '#94a3b8' : '#64748b',
                                     font: {
-                                        family: 'Inter, sans-serif',
+                                        family: 'Plus Jakarta Sans, sans-serif',
                                         size: 11,
                                         weight: '600'
                                     }
@@ -504,7 +508,7 @@
                                     precision: 0,
                                     color: isDark ? '#94a3b8' : '#64748b',
                                     font: {
-                                        family: 'Inter, sans-serif',
+                                        family: 'Plus Jakarta Sans, sans-serif',
                                         size: 10
                                     }
                                 },
@@ -540,7 +544,7 @@
 
             if (btnBranch && btnStage) {
                 btnBranch.addEventListener('click', function () {
-                    btnBranch.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#009498] text-white shadow-xs';
+                    btnBranch.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#2563EB] text-white shadow-sm';
                     btnStage.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-cyber-muted hover:text-cyber-main';
                     if (chartTitle) chartTitle.textContent = 'Multi-Branch Workload Distribution';
                     if (chartSub) chartSub.textContent = 'Live active floor job volume across network printing facilities';
@@ -550,7 +554,7 @@
                 });
 
                 btnStage.addEventListener('click', function () {
-                    btnStage.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#009498] text-white shadow-xs';
+                    btnStage.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition bg-[#2563EB] text-white shadow-sm';
                     btnBranch.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition text-cyber-muted hover:text-cyber-main';
                     if (chartTitle) chartTitle.textContent = 'Production Stage Throughput';
                     if (chartSub) chartSub.textContent = 'Real-time volume across print shop pre-press, on-press, and QC stages';
@@ -566,10 +570,10 @@
         // ═════════════════════════════════════════════════════════════════
         const priorityCanvas = document.getElementById('planningPriorityDonutChart');
         if (priorityCanvas) {
-            const pLabels = @json($priLabels);
-            const pData = @json($priValues);
+            const pLabels = chartData.priLabels || [];
+            const pData = chartData.priValues || [];
             // High-resolution vibrant plain colors matching Screenshot 2
-            const pColors = ['#f43f5e', '#f59e0b', '#06b6d4', '#8b5cf6'];
+            const pColors = ['#f43f5e', '#f59e0b', '#2563EB', '#8b5cf6'];
 
             new Chart(priorityCanvas, {
                 type: 'doughnut',
@@ -579,7 +583,7 @@
                         data: pData,
                         backgroundColor: pColors,
                         borderWidth: 2,
-                        borderColor: isDark ? '#111A24' : '#ffffff',
+                        borderColor: isDark ? '#151922' : '#ffffff',
                         hoverOffset: 6
                     }]
                 },

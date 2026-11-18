@@ -7,6 +7,7 @@ use App\Models\PrintRequest;
 use App\Models\DesignProof;
 use App\Models\CustomerNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DesignController extends Controller
@@ -87,7 +88,7 @@ class DesignController extends Controller
 
         $proof = DesignProof::create([
             'print_request_id' => $printRequest->id,
-            'designer_id'      => auth()->id(),
+            'designer_id'      => Auth::id(),
             'version'          => $nextVersion,
             'proof_file_path'  => $filePath,
             'proof_file_name'  => $fileName,
@@ -135,7 +136,9 @@ class DesignController extends Controller
     public function customerReview(Request $request, DesignProof $designProof)
     {
         // Check ownership
-        if (auth()->id() !== $designProof->printRequest->user_id && !auth()->user()->isAdmin()) {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+        if (Auth::id() !== $designProof->printRequest->user_id && !in_array($user?->role, ['admin', 'system_admin'])) {
             abort(403);
         }
 

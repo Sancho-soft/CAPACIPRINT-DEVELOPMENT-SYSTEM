@@ -49,7 +49,7 @@ class OperationalSeeder extends Seeder
             ['name' => 'Morning Star Printing Press'],
             [
                 'location'       => 'Branch A',
-                'address'        => 'Central Press Complex, Hub 1, Metro Operations',
+                'address'        => '132 Bolton Street, Poblacion District, Davao City, 8000',
                 'phone'          => '+63 917 111 2233',
                 'manager_name'   => $managerUser->name ?? 'Niere Lupogan',
                 'status'         => 'active',
@@ -61,7 +61,7 @@ class OperationalSeeder extends Seeder
             ['name' => 'Morning Star Printing Network'],
             [
                 'location'       => 'Branch B',
-                'address'        => 'North Commercial Corridor, Suite 402, North Hub',
+                'address'        => 'Ground Floor, The Paper Tree Building, Bolton Street, Barangay 35-D, Poblacion District, Davao City, 8000',
                 'phone'          => '+63 917 222 3344',
                 'manager_name'   => $managerUser->name ?? 'Niere Lupogan',
                 'status'         => 'active',
@@ -73,7 +73,7 @@ class OperationalSeeder extends Seeder
             ['name' => 'Green Heart Printing Hub'],
             [
                 'location'       => 'Branch C',
-                'address'        => 'South Tech District, Building B, South Node',
+                'address'        => 'A. Pichon Street corner Magallanes Street, Poblacion District, Davao City, 8000',
                 'phone'          => '+63 917 333 4455',
                 'manager_name'   => $managerUser->name ?? 'Niere Lupogan',
                 'status'         => 'active',
@@ -334,289 +334,11 @@ class OperationalSeeder extends Seeder
             ['base_rate' => 45.00, 'material_rate' => 20.00, 'finishing_rate' => 10.00, 'is_active' => true]
         );
 
-        // ─────────────────────────────────────────────────────────────
-        // 10. Customer Workflows (Aldren Reyes Print Requests & Quotes)
-        // ─────────────────────────────────────────────────────────────
-        if ($customerUser) {
-
-            // Request 1: In-Production Flyers
-            $pr1 = PrintRequest::updateOrCreate(
-                ['user_id' => $customerUser->id, 'service' => 'Flyers & Brochures'],
-                [
-                    'quantity'         => 1500,
-                    'size'             => 'A4',
-                    'material'         => 'Glossy Paper 150gsm (A4/A3)',
-                    'finishing'        => 'Gloss Lamination',
-                    'deadline'         => now()->addDays(4),
-                    'preferred_branch' => 'Morning Star Printing Press',
-                    'status'           => 'production',
-                ]
-            );
-
-            // Pre-Press Proof for Designer (Clarence Gotas)
-            if ($designerUser) {
-                DesignProof::updateOrCreate(
-                    ['print_request_id' => $pr1->id, 'version' => 1],
-                    [
-                        'designer_id'          => $designerUser->id,
-                        'proof_file_name'      => 'flyer_campaign_proof_v1.pdf',
-                        'proof_file_path'      => 'proofs/flyer_campaign_proof_v1.pdf',
-                        'production_file_name' => 'flyer_campaign_production_cmyk.pdf',
-                        'designer_notes'       => 'Colors separated for 4-color offset run. High-res raster verified at 300 DPI.',
-                        'customer_feedback'    => 'Approved as submitted. Ready for press plate creation.',
-                        'status'               => 'approved',
-                        'approved_at'          => now()->subDays(1),
-                    ]
-                );
-            }
-
-            // Production Officer Capacity Evaluation (Isagani Canal)
-            if ($officerUser) {
-                CapacityEvaluation::updateOrCreate(
-                    ['print_request_id' => $pr1->id, 'branch_id' => $branchA->id],
-                    [
-                        'evaluated_by'         => $officerUser->id,
-                        'machine_score'        => 95,
-                        'material_score'       => 90,
-                        'employee_score'       => 92,
-                        'workload_score'       => 85,
-                        'deadline_score'       => 94,
-                        'total_score'          => 91,
-                        'capacity_status'      => 'qualified',
-                        'available_machines'   => 2,
-                        'current_workload_pct' => 58.50,
-                        'estimated_completion' => now()->addDays(2),
-                        'deadline_feasible'    => true,
-                        'evaluation_notes'     => 'Optimal offset machine throughput with available plate stock.',
-                    ]
-                );
-
-                BranchRecommendation::updateOrCreate(
-                    ['print_request_id' => $pr1->id],
-                    [
-                        'recommended_branch_id' => $branchA->id,
-                        'created_by'            => $officerUser->id,
-                        'recommendation_score'  => 91,
-                        'reason'                => 'Branch A has lowest current queue and active offset Heidelberg press.',
-                        'status'                => 'confirmed',
-                    ]
-                );
-            }
-
-            // Request 2: Tarpaulin Banner (Ready for pickup)
-            $pr2 = PrintRequest::updateOrCreate(
-                ['user_id' => $customerUser->id, 'service' => 'Tarpaulin Banner'],
-                [
-                    'quantity'         => 8,
-                    'size'             => '3x4 ft',
-                    'material'         => 'Flex Tarpaulin Banner Media 13oz',
-                    'finishing'        => 'Eyelets & Hemming',
-                    'deadline'         => now()->addDays(2),
-                    'preferred_branch' => 'Morning Star Printing Network',
-                    'status'           => 'ready_for_pickup',
-                ]
-            );
-
-            // Request 3: Calling Cards (Preparing on Press)
-            $pr3 = PrintRequest::updateOrCreate(
-                ['user_id' => $customerUser->id, 'service' => 'Calling Cards'],
-                [
-                    'quantity'         => 10,
-                    'size'             => 'Standard Box',
-                    'material'         => 'Matte Cardstock 220gsm',
-                    'finishing'        => 'Matte Coating',
-                    'deadline'         => now()->addDays(3),
-                    'preferred_branch' => 'Green Heart Printing Hub',
-                    'status'           => 'production',
-                ]
-            );
-
-            // Request 4: Stickers & Labels (In Technical Review)
-            $pr4 = PrintRequest::updateOrCreate(
-                ['user_id' => $customerUser->id, 'service' => 'Stickers & Labels'],
-                [
-                    'quantity'         => 500,
-                    'size'             => 'A4 Sheet',
-                    'material'         => 'Gloss Vinyl Waterproof Sticker Roll',
-                    'finishing'        => 'Kiss Cut',
-                    'deadline'         => now()->addDays(5),
-                    'preferred_branch' => 'Morning Star Printing Press',
-                    'status'           => 'submitted',
-                ]
-            );
-
-            // Request 5: Document Printing (Completed & Claimed)
-            $pr5 = PrintRequest::updateOrCreate(
-                ['user_id' => $customerUser->id, 'service' => 'Document Printing'],
-                [
-                    'quantity'         => 300,
-                    'size'             => 'A4',
-                    'material'         => 'Premium Bond Paper 80gsm',
-                    'finishing'        => 'Wire-O Binding',
-                    'deadline'         => now()->subDays(2),
-                    'preferred_branch' => 'Morning Star Printing Network',
-                    'status'           => 'completed',
-                ]
-            );
-        }
+        // Note: Customer Print Requests, Quotations, Orders, Payments, and Production Jobs
+        // are centrally seeded in JobOrderSeeder.php for realistic multi-stage demonstration.
 
         // ─────────────────────────────────────────────────────────────
-        // 11. Multi-Month Historical Orders & Financial Transactions
-        //     (April to September 2026 for Vibrant Executive Trends & Pie Chart)
-        // ─────────────────────────────────────────────────────────────
-        $monthlyDatasets = [
-            // Month, Year, Target Revenue, Target Orders, Branch Distributions
-            [4, 2026, 38500.00, 14, ['Morning Star Printing Press' => 0.50, 'Morning Star Printing Network' => 0.32, 'Green Heart Printing Hub' => 0.18]],
-            [5, 2026, 52000.00, 19, ['Morning Star Printing Press' => 0.46, 'Morning Star Printing Network' => 0.34, 'Green Heart Printing Hub' => 0.20]],
-            [6, 2026, 68400.00, 26, ['Morning Star Printing Press' => 0.48, 'Morning Star Printing Network' => 0.31, 'Green Heart Printing Hub' => 0.21]],
-            [7, 2026, 61200.00, 23, ['Morning Star Printing Press' => 0.45, 'Morning Star Printing Network' => 0.35, 'Green Heart Printing Hub' => 0.20]],
-            [8, 2026, 84500.00, 31, ['Morning Star Printing Press' => 0.49, 'Morning Star Printing Network' => 0.30, 'Green Heart Printing Hub' => 0.21]],
-            [9, 2026, 46800.00, 17, ['Morning Star Printing Press' => 0.47, 'Morning Star Printing Network' => 0.33, 'Green Heart Printing Hub' => 0.20]],
-        ];
-
-        $servicesPool = ['Flyers & Brochures', 'Tarpaulin Banner', 'Calling Cards', 'Document Printing', 'Stickers & Labels'];
-        $orderCounter = 0;
-
-        foreach ($monthlyDatasets as [$monthNum, $yearNum, $targetRev, $targetOrders, $branchWeights]) {
-            $avgAmount = $targetRev / $targetOrders;
-
-            foreach ($branchWeights as $branchName => $weight) {
-                $branchOrdersCount = max(1, (int) round($targetOrders * $weight));
-                $branchBranchModel = match ($branchName) {
-                    'Morning Star Printing Network' => $branchB,
-                    'Green Heart Printing Hub'      => $branchC,
-                    default                         => $branchA,
-                };
-
-                for ($k = 0; $k < $branchOrdersCount; $k++) {
-                    $orderCounter++;
-                    $day = min(28, max(1, ($k * 3) + 2));
-                    $orderDate = Carbon::create($yearNum, $monthNum, $day, rand(8, 17), rand(10, 50));
-                    $svc = $servicesPool[($orderCounter + $k) % count($servicesPool)];
-
-                    $unitPrice = round($avgAmount * (0.85 + (rand(0, 30) / 100)), 2);
-                    $quoteNum = sprintf('QT-%03d', $orderCounter);
-                    $orderNum = sprintf('ORD-%03d', $orderCounter);
-                    $orderStatus = ($monthNum == 9 && $k > 1) ? 'production' : 'completed';
-
-                    // 1. Historical Print Request
-                    $histPr = PrintRequest::updateOrCreate(
-                        ['additional_instructions' => "Historical System Spec Ref #{$orderNum}"],
-                        [
-                            'user_id'          => $customerUser->id ?? 1,
-                            'service'          => $svc,
-                            'quantity'         => rand(100, 1000),
-                            'size'             => 'A4',
-                            'material'         => 'Glossy Paper 150gsm (A4/A3)',
-                            'finishing'        => 'Lamination',
-                            'deadline'         => (clone $orderDate)->addDays(5),
-                            'preferred_branch' => $branchName,
-                            'status'           => $orderStatus,
-                            'created_at'       => $orderDate,
-                            'updated_at'       => $orderDate,
-                        ]
-                    );
-
-                    // 2. Historical Quote
-                    $quote = Quotation::updateOrCreate(
-                        ['quotation_number' => $quoteNum],
-                        [
-                            'print_request_id' => $histPr->id,
-                            'user_id'          => $customerUser->id ?? 1,
-                            'base_cost'        => round($unitPrice * 0.60, 2),
-                            'material_cost'    => round($unitPrice * 0.25, 2),
-                            'finishing_cost'   => round($unitPrice * 0.15, 2),
-                            'total_price'      => $unitPrice,
-                            'valid_until'      => (clone $orderDate)->addDays(14),
-                            'status'           => 'confirmed',
-                            'created_at'       => $orderDate,
-                            'updated_at'       => $orderDate,
-                        ]
-                    );
-
-                    // 3. Historical Order
-                    $order = Order::updateOrCreate(
-                        ['order_number' => $orderNum],
-                        [
-                            'print_request_id'     => $histPr->id,
-                            'quotation_id'         => $quote->id,
-                            'user_id'              => $customerUser->id ?? 1,
-                            'payment_status'       => 'confirmed',
-                            'status'               => $orderStatus,
-                            'assigned_branch'      => $branchName,
-                            'estimated_completion' => (clone $orderDate)->addDays(3),
-                            'created_at'           => $orderDate,
-                            'updated_at'           => $orderDate,
-                        ]
-                    );
-
-                    // 4. Historical Confirmed Payment
-                    $pm = match ($k % 6) {
-                        0, 2, 4 => 'GCash',
-                        1, 3    => 'Bank Transfer',
-                        default => 'Cash',
-                    };
-                    $payRef = ($pm === 'Cash')
-                        ? sprintf('OTC-CASH-%04d', $orderCounter)
-                        : "PAY-{$yearNum}-" . strtoupper(Str::random(6));
-
-                    Payment::updateOrCreate(
-                        ['order_id' => $order->id],
-                        [
-                            'user_id'           => $customerUser->id ?? 1,
-                            'amount'            => $unitPrice,
-                            'payment_method'    => $pm,
-                            'payment_reference' => $payRef,
-                            'status'            => 'confirmed',
-                            'paid_at'           => (clone $orderDate)->addHours(2),
-                            'created_at'        => $orderDate,
-                            'updated_at'        => $orderDate,
-                        ]
-                    );
-
-                    // 4. Production Job for recent or active jobs
-                    if ($monthNum == 9) {
-                        $jobStatus = match ($k % 4) {
-                            0 => 'completed',
-                            1 => 'quality_checking',
-                            2 => 'in_production',
-                            default => 'preparing',
-                        };
-
-                        ProductionJob::updateOrCreate(
-                            ['job_number' => "JOB-{$yearNum}-{$orderCounter}"],
-                            [
-                                'order_id'        => $order->id,
-                                'branch_id'       => $branchBranchModel->id,
-                                'machine_id'      => ($branchBranchModel->id === $branchA->id ? $m1->id : ($branchBranchModel->id === $branchB->id ? $m3->id : $m5->id)),
-                                'assigned_to'     => $prodUser->id ?? null,
-                                'status'          => $jobStatus,
-                                'priority'        => ($k % 3 == 0) ? 'rush' : 'standard',
-                                'estimated_hours' => rand(4, 10),
-                                'started_at'      => (clone $orderDate)->addHours(3),
-                                'created_at'      => $orderDate,
-                                'updated_at'      => now(),
-                            ]
-                        );
-                    }
-                }
-            }
-        }
-
-        // ─────────────────────────────────────────────────────────────
-        // 12. Realistic Stoppage / Delayed Production Job
-        //     (Activates Attention Items in Executive Dashboard)
-        // ─────────────────────────────────────────────────────────────
-        $delayedJob = ProductionJob::where('status', 'in_production')->first();
-        if ($delayedJob) {
-            $delayedJob->update([
-                'status'       => 'delayed',
-                'delay_reason' => 'Substrate feeder roller calibration & media realignment',
-            ]);
-        }
-
-        // ─────────────────────────────────────────────────────────────
-        // 13. System Audit Log Entries (Admin Jessie Revalde)
+        // 10. System Audit Log Entries (Admin Jessie Revalde)
         // ─────────────────────────────────────────────────────────────
         $auditSamples = [
             ['event' => 'user.login', 'module' => 'Authentication', 'description' => 'User Justine Bieber (management) logged in from internal network.'],
