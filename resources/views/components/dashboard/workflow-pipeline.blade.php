@@ -5,89 +5,72 @@
 'badge' => null,
 ])
 
-{{--
-Expected $stages array format:
-[
-    ['key' => 'intake', 'label' => 'Intake & Proofing', 'count' => 5, 'icon' => 'fa-solid fa-file-arrow-up', 'color' => 'cyan'],
-    ['key' => 'quotation', 'label' => 'Quotation Matrix', 'count' => 3, 'icon' => 'fa-solid fa-file-invoice-dollar', 'color' => 'indigo'],
-    ['key' => 'payment', 'label' => 'Payment Verification', 'count' => 2, 'icon' => 'fa-solid fa-credit-card', 'color' => 'amber'],
-    ['key' => 'routing', 'label' => 'Capacity Routing', 'count' => 4, 'icon' => 'fa-solid fa-network-wired', 'color' => 'blue'],
-    ['key' => 'production', 'label' => 'On Press Execution', 'count' => 6, 'icon' => 'fa-solid fa-industry', 'color' => 'teal', 'active' => true],
-    ['key' => 'qc', 'label' => 'Quality & Packaging', 'count' => 1, 'icon' => 'fa-solid fa-microscope', 'color' => 'purple'],
-    ['key' => 'ready', 'label' => 'Ready / Claiming', 'count' => 8, 'icon' => 'fa-solid fa-box-open', 'color' => 'emerald'],
-]
---}}
-
-<div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-cyber/80">
+<div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 relative overflow-hidden shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-cyber-sub">
         <div>
-            <div class="flex items-center gap-2">
-                <span class="inline-block w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse"></span>
-                <h3 class="font-black text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
+            <div class="flex items-center gap-2.5">
+                <span class="inline-block w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500"></span>
+                <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
             </div>
             @if(!empty($subtitle))
-            <p class="text-[11px] sm:text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
+            <p class="text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
             @endif
         </div>
         @if(!empty($badge))
-        <div class="flex items-center gap-1.5 text-[11px] font-semibold text-cyber-muted">
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <div class="flex items-center gap-1.5 text-xs font-sans font-semibold text-cyber-muted">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             <span>{{ $badge }}</span>
         </div>
         @endif
     </div>
 
     {{-- Horizontal Scrollable Pipeline Track --}}
-    <div class="overflow-x-auto no-scrollbar pt-5 pb-2">
-        <div class="flex items-center min-w-[760px] justify-between gap-2 relative">
+    <div class="overflow-x-auto no-scrollbar pt-5 pb-1">
+        <div class="flex items-start min-w-[760px] justify-between gap-2 relative">
 
-            {{-- Background Connecting Line --}}
-            <div class="absolute top-[20px] left-10 right-10 h-0.5 sm:h-1 rounded-full z-0" style="background: linear-gradient(90deg, rgba(71,85,105,0.3) 0%, rgba(100,116,139,0.55) 50%, rgba(71,85,105,0.3) 100%);"></div>
+            {{-- Crisp Hairline Track --}}
+            <div class="absolute top-[19px] left-10 right-10 h-px bg-cyber z-0" style="background-color: var(--border-main);"></div>
 
             @foreach($stages as $index => $stage)
             @php
-            $isActive = !empty($stage['active']);
-            $count = $stage['count'] ?? 0;
-            $hasItems = $count > 0;
-            $stageUrl = $stage['url'] ?? null;
+                $isActive = !empty($stage['active']);
+                $count = $stage['count'] ?? 0;
+                $hasItems = $count > 0;
+                $stageUrl = $stage['url'] ?? null;
+                $stepCode = str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT);
 
-            if ($isActive) {
-            $circleStyle = 'bg-sky-600 dark:bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-500/30 ring-4 ring-sky-500/25';
-            $badgeStyle = 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30';
-            $titleStyle = 'text-sky-700 dark:text-sky-400 font-black';
-            } elseif ($hasItems) {
-            $circleStyle = 'bg-white dark:bg-slate-850 border-sky-500 text-sky-600 dark:text-sky-400 shadow-xs group-hover:border-sky-400 group-hover:scale-110';
-            $badgeStyle = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700';
-            $titleStyle = 'text-cyber-main font-bold';
-            } else {
-            $circleStyle = 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 group-hover:border-sky-400 dark:group-hover:border-sky-500 group-hover:text-sky-600 dark:group-hover:text-sky-400 shadow-xs';
-            $badgeStyle = '';
-            $titleStyle = 'text-slate-600 dark:text-slate-400 font-semibold';
-            }
+                if ($isActive) {
+                    $nodeStyle = 'bg-blue-600 text-white border-blue-600 dark:border-blue-500 shadow-sm';
+                    $badgeStyle = 'bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25 dark:border-blue-500/30';
+                    $titleStyle = 'text-blue-700 dark:text-blue-400 font-bold';
+                } elseif ($hasItems) {
+                    $nodeStyle = 'bg-cyber-card border-blue-600/60 dark:border-blue-500/60 text-blue-600 dark:text-blue-400';
+                    $badgeStyle = 'bg-cyber-sub text-cyber-main border border-cyber';
+                    $titleStyle = 'text-cyber-main font-semibold';
+                } else {
+                    $nodeStyle = 'bg-cyber-sub border-cyber text-cyber-sub';
+                    $badgeStyle = 'bg-transparent text-cyber-sub border border-cyber-sub';
+                    $titleStyle = 'text-cyber-muted font-medium';
+                }
             @endphp
 
             <{{ $stageUrl ? 'a href='.$stageUrl : 'div' }} class="flex-1 flex flex-col items-center text-center relative z-10 group px-1 {{ $stageUrl ? 'cursor-pointer' : '' }}">
                 {{-- Step Node --}}
-                <div class="h-10 w-10 rounded-2xl border-2 {{ $circleStyle }} flex items-center justify-center text-sm transition-all duration-200 group-hover:scale-110">
+                <div class="h-10 w-10 rounded-xl border {{ $nodeStyle }} flex items-center justify-center text-sm transition-colors duration-150 group-hover:border-blue-600 dark:group-hover:border-blue-400">
                     <i class="{{ $stage['icon'] ?? 'fa-solid fa-circle' }}"></i>
                 </div>
 
-                {{-- Step Title --}}
-                <span class="text-[11px] {{ $titleStyle }} mt-2.5 leading-tight line-clamp-1 group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors">
+                {{-- Step Number & Title --}}
+                <span class="text-[11px] font-sans font-medium text-cyber-sub mt-2 tabular-nums">{{ $stepCode }}</span>
+                <span class="text-xs {{ $titleStyle }} mt-0.5 leading-tight line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {{ $stage['label'] }}
                 </span>
 
                 {{-- Step Count Badge --}}
                 <div class="mt-1.5 min-h-[20px] flex items-center justify-center">
-                    @if($hasItems)
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold font-mono {{ $badgeStyle }} group-hover:bg-sky-500/20 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold font-sans tabular-nums {{ $badgeStyle }}">
                         {{ $count }} {{ $count == 1 ? 'item' : 'items' }}
                     </span>
-                    @else
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium font-mono text-slate-400 dark:text-slate-500 bg-slate-100/60 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 transition-colors">
-                        0 items
-                    </span>
-                    @endif
                 </div>
             </{{ $stageUrl ? 'a' : 'div' }}>
             @endforeach

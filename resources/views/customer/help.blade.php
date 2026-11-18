@@ -6,7 +6,7 @@
 <div class="max-w-3xl mx-auto space-y-6">
 
     <div>
-        <h2 class="text-2xl font-bold text-navy-900 font-display">Help &amp; Support</h2>
+        <h2 class="text-2xl font-bold text-cyber-main font-display">Help &amp; Support</h2>
         <p class="text-sm text-slate-500 mt-1">Find answers to common questions about the CAPACIPRINT customer portal.</p>
     </div>
 
@@ -28,7 +28,7 @@
         <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
             <button @click="open === {{ $i }} ? open = null : open = {{ $i }}"
                     class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-slate-50 transition">
-                <span class="font-semibold text-navy-900 text-sm">{{ $faq['q'] }}</span>
+                <span class="font-semibold text-cyber-main text-sm">{{ $faq['q'] }}</span>
                 <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"
                    :class="open === {{ $i }} ? 'rotate-180 text-brand-600' : ''"></i>
             </button>

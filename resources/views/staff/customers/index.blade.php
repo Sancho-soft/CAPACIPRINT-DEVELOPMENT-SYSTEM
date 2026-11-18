@@ -6,21 +6,21 @@
 <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-navy-900 dark:text-white font-display">Customers Directory</h2>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage customer profiles, send direct portal notices, and issue quotations.</p>
+            <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">Customers Directory</h2>
+            <p class="text-xs sm:text-sm text-cyber-muted mt-1">Manage customer profiles, send direct portal notices, and issue quotations.</p>
         </div>
         <form method="GET" action="{{ route('staff.customers.index') }}" class="flex items-center">
-            <div class="relative flex items-center w-full sm:w-96 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-1 shadow-2xs focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition">
-                <div class="pl-3 pr-1 flex items-center pointer-events-none text-slate-400">
-                    <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500"></i>
+            <div class="relative flex items-center w-full sm:w-96 rounded-lg border border-cyber bg-cyber-card p-1 focus-within:border-brand-600 transition">
+                <div class="pl-3 pr-1 flex items-center pointer-events-none text-cyber-muted">
+                    <i class="fa-solid fa-magnifying-glass text-xs text-brand-600 dark:text-blue-400"></i>
                 </div>
                 <input type="text" 
                        name="search" 
                        value="{{ request('search') }}" 
                        placeholder="Search customer name, email, or phone..."
                        autocomplete="off"
-                       class="w-full bg-transparent border-0 px-2.5 py-1.5 text-xs font-medium text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-0">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-xs shrink-0 cursor-pointer">
+                       class="w-full bg-transparent border-0 px-2.5 py-1.5 text-xs font-medium text-cyber-main placeholder-cyber-muted focus:outline-none focus:ring-0">
+                <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white px-3.5 py-1.5 rounded-md text-xs font-semibold transition shrink-0 cursor-pointer">
                     Search
                 </button>
             </div>
@@ -28,66 +28,60 @@
     </div>
 
     @if(session('success'))
-        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 flex items-center gap-3 text-xs font-medium">
-            <i class="fa-solid fa-circle-check text-emerald-500 text-base"></i>
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 flex items-center gap-3 text-xs font-medium">
+            <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 text-base"></i>
             {{ session('success') }}
         </div>
     @endif
 
-    <div id="customers-table-card" class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
-        <table class="w-full text-left text-xs">
-            <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider">
+    <div id="customers-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+        <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs tabular-nums">
+            <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px]">
                 <tr>
-                    <th class="px-6 py-3.5">Customer Name</th>
-                    <th class="px-6 py-3.5">Email</th>
-                    <th class="px-6 py-3.5">Phone</th>
-                    <th class="px-6 py-3.5">Total Orders</th>
-                    <th class="px-6 py-3.5">Print Requests</th>
-                    <th class="px-6 py-3.5 text-right">Action</th>
+                    <th class="px-5 py-3">Customer Name</th>
+                    <th class="px-5 py-3">Email</th>
+                    <th class="px-5 py-3">Phone</th>
+                    <th class="px-5 py-3 text-right">Total Orders</th>
+                    <th class="px-5 py-3 text-right">Print Requests</th>
+                    <th class="px-5 py-3 text-right">Action</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-cyber-sub text-cyber-main tabular-nums">
                 @forelse($customers as $c)
-                <tr class="hover:bg-slate-50/50 transition">
-                    <td class="px-6 py-4 font-bold text-navy-900">{{ $c->name }}</td>
-                    <td class="px-6 py-4 text-slate-600">{{ $c->email }}</td>
-                    <td class="px-6 py-4 text-slate-500">{{ $c->phone ?? '—' }}</td>
-                    <td class="px-6 py-4 font-bold text-slate-800">{{ $c->orders_count }}</td>
-                    <td class="px-6 py-4 font-bold text-slate-800">{{ $c->print_requests_count }}</td>
-                    <td class="px-6 py-4 text-right">
+                <tr class="hover:bg-cyber-sub/50 transition-colors">
+                    <td class="px-5 py-3.5 font-semibold text-cyber-main">{{ $c->name }}</td>
+                    <td class="px-5 py-3.5 text-cyber-muted">{{ $c->email }}</td>
+                    <td class="px-5 py-3.5 font-sans tabular-nums text-cyber-muted">{{ $c->phone ?? '—' }}</td>
+                    <td class="px-5 py-3.5 text-right font-sans tabular-nums font-bold text-cyber-main">{{ $c->orders_count }}</td>
+                    <td class="px-5 py-3.5 text-right font-sans tabular-nums font-bold text-cyber-main">{{ $c->print_requests_count }}</td>
+                    <td class="px-5 py-3.5 text-right">
                         <div class="inline-flex items-center justify-end gap-2">
-                            {{-- View History --}}
                             <a href="{{ route('staff.customers.show', $c) }}" 
-                               class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-block" 
+                               class="text-brand-600 hover:text-brand-700 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-block" 
                                title="View Customer Profile & History">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-
-                            {{-- Create Quotation --}}
                             <a href="{{ route('staff.quotations.create') }}" 
-                               class="text-emerald-500 hover:text-emerald-400 transition text-sm p-1 inline-block" 
+                               class="text-emerald-600 hover:text-emerald-500 dark:text-emerald-400 transition text-sm p-1 inline-block" 
                                title="Create Quotation for Customer">
                                 <i class="fa-solid fa-file-circle-plus"></i>
                             </a>
-
-                            {{-- Send Direct Notification --}}
                             <button type="button"
                                     data-id="{{ $c->id }}"
                                     data-name="{{ $c->name }}"
                                     onclick="openNotifyModal(this)"
-                                    class="text-indigo-500 hover:text-indigo-400 transition text-sm p-1 inline-block"
+                                    class="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 transition text-sm p-1 inline-block cursor-pointer"
                                     title="Send Direct Portal Notification">
                                 <i class="fa-solid fa-paper-plane"></i>
                             </button>
-
-                            {{-- Edit Contact Details --}}
                             <button type="button"
                                     data-id="{{ $c->id }}"
                                     data-name="{{ $c->name }}"
                                     data-email="{{ $c->email }}"
                                     data-phone="{{ $c->phone }}"
                                     onclick="openEditCustomerModal(this)"
-                                    class="text-slate-500 hover:text-slate-700 transition text-sm p-1 inline-block"
+                                    class="text-cyber-muted hover:text-cyber-main transition text-sm p-1 inline-block cursor-pointer"
                                     title="Edit Contact Info">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
@@ -95,34 +89,35 @@
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="6" class="px-6 py-8 text-center text-slate-400">No customers found.</td></tr>
+                <tr><td colspan="6" class="px-6 py-8 text-center text-cyber-muted">No customers found.</td></tr>
                 @endforelse
             </tbody>
         </table>
-        <div class="p-4 border-t border-slate-100">{{ $customers->links() }}</div>
+        </div>
+        <div class="p-4 border-t border-cyber">{{ $customers->links() }}</div>
     </div>
 </div>
 
 <!-- Send Notification Modal -->
-<div id="notify-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-    <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 w-full max-w-md shadow-2xl space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 class="text-base font-black text-navy-900 font-display flex items-center gap-2">
-                <i class="fa-solid fa-paper-plane text-indigo-500"></i> Notify <span id="notify-cust-name" class="text-indigo-600"></span>
+<div id="notify-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overscroll-contain">
+    <div class="bg-cyber-card border border-cyber rounded-xl p-6 w-full max-w-md shadow-lg space-y-4">
+        <div class="flex items-center justify-between border-b border-cyber pb-3">
+            <h3 class="text-base font-bold text-cyber-main font-display flex items-center gap-2">
+                <i class="fa-solid fa-paper-plane text-brand-600 dark:text-blue-400"></i> Notify <span id="notify-cust-name" class="text-brand-600 dark:text-blue-400"></span>
             </h3>
-            <button type="button" onclick="document.getElementById('notify-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+            <button type="button" onclick="document.getElementById('notify-modal').classList.add('hidden')" aria-label="Close notify modal" class="text-cyber-muted hover:text-cyber-main cursor-pointer">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
         <form id="notify-form" method="POST" action="" class="space-y-4 text-xs">
             @csrf
             <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Notification Title</label>
-                <input type="text" name="title" required placeholder="e.g., Quotation Review Reminder" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1">Notification Title</label>
+                <input type="text" name="title" required placeholder="e.g., Quotation Review Reminder" class="w-full bg-cyber-sub border border-cyber rounded-lg px-3 py-2 text-cyber-main focus:border-brand-600 focus:outline-none">
             </div>
             <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Notice Category</label>
-                <select name="type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1">Notice Category</label>
+                <select name="type" class="w-full bg-cyber-sub border border-cyber rounded-lg px-3 py-2 text-cyber-main focus:border-brand-600 focus:outline-none">
                     <option value="info">General Information</option>
                     <option value="quotation">Quotation Update</option>
                     <option value="order">Order Status Update</option>
@@ -130,14 +125,14 @@
                 </select>
             </div>
             <div>
-                <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1">Message Content</label>
-                <textarea name="body" rows="3" required placeholder="Write your message here..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+                <label class="block text-[11px] font-sans tabular-nums font-semibold text-cyber-muted mb-1">Message Content</label>
+                <textarea name="body" rows="3" required placeholder="Write your message here..." class="w-full bg-cyber-sub border border-cyber rounded-lg px-3 py-2 text-cyber-main focus:border-brand-600 focus:outline-none"></textarea>
             </div>
-            <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
-                <button type="button" onclick="document.getElementById('notify-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition">
+            <div class="flex items-center justify-end gap-2 pt-2 border-t border-cyber">
+                <button type="button" onclick="document.getElementById('notify-modal').classList.add('hidden')" class="px-4 py-2 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-semibold rounded-lg transition cursor-pointer">
                     Cancel
                 </button>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl transition shadow-md shadow-indigo-500/20">
+                <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg transition cursor-pointer">
                     Send Notice
                 </button>
             </div>
@@ -146,19 +141,19 @@
 </div>
 
 <!-- Edit Customer Contact Modal -->
-<div id="edit-customer-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 dark:bg-black/75 backdrop-blur-xs p-4 transition-all">
-    <div class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden transition-all transform animate-in fade-in zoom-in-95 duration-150">
-        {{-- Modal Header --}}
-        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/40 flex items-center justify-between">
+<div id="edit-customer-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overscroll-contain">
+    <div class="bg-cyber-card border border-cyber rounded-xl w-full max-w-md shadow-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-cyber bg-cyber-sub flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-sm shrink-0 shadow-2xs">
+                <div class="h-9 w-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-sm shrink-0">
                     <i class="fa-solid fa-user-pen"></i>
                 </div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-tight">Edit Customer Info</h3>
+                <h3 class="text-sm font-bold text-cyber-main font-display leading-tight">Edit Customer Info</h3>
             </div>
             <button type="button" 
                     onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" 
-                    class="h-8 w-8 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 inline-flex items-center justify-center transition cursor-pointer"
+                    aria-label="Close edit modal"
+                    class="h-8 w-8 rounded-lg text-cyber-muted hover:text-cyber-main hover:bg-cyber-card inline-flex items-center justify-center transition cursor-pointer"
                     title="Close">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
@@ -172,7 +167,7 @@
             <div class="p-6 space-y-4 text-xs">
                 {{-- Full Name --}}
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                         Full Name
                     </label>
                     <div class="relative flex items-center">
@@ -184,13 +179,13 @@
                                name="name" 
                                required 
                                placeholder="e.g. Juan Dela Cruz"
-                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-2xs">
+                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-sm">
                     </div>
                 </div>
 
                 {{-- Email Address --}}
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                         Email Address
                     </label>
                     <div class="relative flex items-center">
@@ -202,13 +197,13 @@
                                name="email" 
                                required 
                                placeholder="customer@example.com"
-                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-2xs">
+                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-sm">
                     </div>
                 </div>
 
                 {{-- Phone Number --}}
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                         Phone Number
                     </label>
                     <div class="relative flex items-center">
@@ -219,7 +214,7 @@
                                id="edit-cust-phone" 
                                name="phone" 
                                placeholder="+63 912 345 6789"
-                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-2xs">
+                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs font-sans tabular-nums text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-sm">
                     </div>
                 </div>
             </div>

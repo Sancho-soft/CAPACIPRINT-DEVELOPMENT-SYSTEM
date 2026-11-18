@@ -10,18 +10,19 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h2 class="text-xl sm:text-2xl font-black font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Branch Capacity &amp; Scheduling</span>
+            <h2 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition flex items-center gap-2">
                 <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
             </a>
-            <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-calendar-days text-xs text-cyan-600 dark:text-cyan-400"></i> Plan Schedule
+            <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub text-cyber-main font-semibold text-xs border border-cyber transition flex items-center gap-2">
+                <i class="fa-solid fa-calendar-days text-xs text-blue-600 dark:text-blue-400"></i> Plan Schedule
             </a>
-            <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs border border-slate-200 dark:border-slate-700 transition flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-boxes-packing text-xs text-amber-500 dark:text-amber-400"></i> Material Reorders
+            <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub text-cyber-main font-semibold text-xs border border-cyber transition flex items-center gap-2">
+                <i class="fa-solid fa-boxes-packing text-xs text-amber-600 dark:text-amber-400"></i> Material Reorders
             </a>
         </div>
     </div>
@@ -97,14 +98,14 @@
         </div>
 
         {{-- RIGHT 1 COL: PRODUCTION FLOOR STATUS DONUT CHART --}}
-        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+        <div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full shadow-sm">
             <div class="flex flex-col flex-1">
-                <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
+                <div class="flex items-center justify-between border-b border-cyber-sub pb-3">
                     <div>
-                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Floor Status Health</h3>
-                        <p class="text-[11px] text-cyber-muted mt-0.5">Active shop-floor job distribution</p>
+                        <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">Floor Status Health</h3>
+                        <p class="text-xs text-cyber-muted mt-0.5">Active shop-floor job distribution</p>
                     </div>
-                    <div class="h-8 w-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                    <div class="h-8 w-8 rounded-xl bg-blue-600/10 dark:bg-blue-500/15 border border-blue-600/20 dark:border-blue-500/25 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs shrink-0">
                         <i class="fa-solid fa-chart-pie"></i>
                     </div>
                 </div>
@@ -121,18 +122,18 @@
                     $statusLabels = array_keys($statusList);
                     $statusValues = array_values($statusList);
                     $statusColors = [
-                        '#06b6d4', // Cyan for In Production
-                        '#8b5cf6', // Purple for Quality Checking
-                        '#f59e0b', // Amber for Assigned / Queue
-                        '#f43f5e', // Rose for Delayed Runs
-                        '#10b981', // Emerald for Completed Today
+                        '#2563EB', // Primary Blue for In Production
+                        '#6366F1', // Indigo for Quality Checking
+                        '#D97706', // Press Amber for Assigned / Queue
+                        '#DC2626', // Crimson for Delayed Runs
+                        '#059669', // Process Emerald for Completed Today
                     ];
                     $statusDotClasses = [
-                        'bg-cyan-500',
-                        'bg-purple-500',
-                        'bg-amber-500',
-                        'bg-rose-500',
-                        'bg-emerald-500',
+                        'bg-[#2563EB]',
+                        'bg-indigo-500',
+                        'bg-amber-600',
+                        'bg-rose-600',
+                        'bg-emerald-600',
                     ];
                 @endphp
 
@@ -140,25 +141,25 @@
                 <div class="relative flex items-center justify-center my-2 h-44 w-full">
                     <canvas id="jobStatusDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalStatusJobs }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Total Jobs</span>
+                        <span class="text-2xl font-bold font-display text-cyber-main leading-tight tabular-nums">{{ $totalStatusJobs }}</span>
+                        <span class="text-[11px] font-sans font-semibold text-cyber-sub">Total Jobs</span>
                     </div>
                 </div>
 
                 {{-- Clean Status Legend --}}
-                <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
+                <div class="space-y-1 pt-2 border-t border-cyber-sub flex-1 overflow-y-auto pr-1 tabular-nums">
                     @foreach($statusList as $stName => $stCount)
                         @php
                             $stPct = round(($stCount / $totalStatusJobs) * 100);
                             $dotClass = $statusDotClasses[$loop->index % count($statusDotClasses)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition hover:bg-slate-100 dark:hover:bg-slate-800/50">
+                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition hover:bg-black/[0.025] dark:hover:bg-white/[0.03]">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs {{ $dotClass }}"></span>
+                                <span class="h-2.5 w-2.5 rounded-sm shrink-0 {{ $dotClass }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $stName }}</span>
                             </div>
-                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
-                                {{ $stCount }} <span class="text-[10px] font-normal text-cyber-sub">({{ $stPct }}%)</span>
+                            <span class="font-sans text-[11px] text-cyber-muted shrink-0 ml-2 font-semibold tabular-nums">
+                                {{ $stCount }} <span class="text-[11px] font-normal text-cyber-sub">({{ $stPct }}%)</span>
                             </span>
                         </div>
                     @endforeach
@@ -183,19 +184,19 @@
     {{-- MACHINE MAINTENANCE SCHEDULE ALERTS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
     @if($maintenanceAlerts->isNotEmpty())
-    <div class="bg-cyber-card border border-amber-500/30 rounded-3xl shadow-xl p-6 sm:p-7 space-y-4">
+    <div class="bg-cyber-card border border-amber-500/40 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-lg">
+                <div class="h-9 w-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm">
                     <i class="fa-solid fa-wrench"></i>
                 </div>
                 <div>
-                    <h3 class="font-black text-cyber-main text-sm font-display">Machine Maintenance Alerts</h3>
-                    <p class="text-[10px] text-cyber-muted">{{ $maintenanceAlerts->count() }} machine(s) require attention</p>
+                    <h3 class="font-bold text-cyber-main text-sm font-display">Machine Maintenance Alerts</h3>
+                    <p class="text-xs text-cyber-muted">{{ $maintenanceAlerts->count() }} machine(s) require attention</p>
                 </div>
             </div>
-            <a href="{{ route('production.machines.index') }}" class="px-3 py-1.5 rounded-lg bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-[10px] transition">
-                View Logs →
+            <a href="{{ route('production.machines.index') }}" class="px-3.5 py-1.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-semibold text-xs transition">
+                View Logs &rarr;
             </a>
         </div>
 
@@ -206,27 +207,27 @@
                     $isDueSoon  = $machine->maintenance_due_soon;
                     $isDown     = in_array($machine->status, ['maintenance', 'offline']);
 
-                    $borderClass = $isOverdue ? 'border-rose-500/40' : ($isDown ? 'border-amber-500/40' : 'border-cyan-500/30');
-                    $iconColor   = $isOverdue ? 'text-rose-400' : ($isDown ? 'text-amber-400' : 'text-cyan-400');
-                    $badgeClass  = $isOverdue ? 'bg-rose-500/15 text-rose-400' : ($isDown ? 'bg-amber-500/15 text-amber-400' : 'bg-cyan-500/15 text-cyan-400');
+                    $borderClass = $isOverdue ? 'border-rose-500/40' : ($isDown ? 'border-amber-500/40' : 'border-blue-600/30 dark:border-blue-500/30');
+                    $iconColor   = $isOverdue ? 'text-rose-600 dark:text-rose-400' : ($isDown ? 'text-amber-600 dark:text-amber-400' : 'text-blue-600 dark:text-blue-400');
+                    $badgeClass  = $isOverdue ? 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/25' : ($isDown ? 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/25' : 'bg-blue-600/10 text-blue-700 dark:text-blue-400 border border-blue-600/25');
                     $badgeLabel  = $isOverdue ? 'OVERDUE' : ($isDown ? strtoupper($machine->status) : 'DUE SOON');
                 @endphp
-                <div class="rounded-xl border {{ $borderClass }} p-3.5 space-y-2 bg-slate-50 dark:bg-slate-900/80">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
+                <div class="rounded-xl border {{ $borderClass }} p-3.5 space-y-2 bg-cyber-sub">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
                             <i class="fa-solid fa-print {{ $iconColor }} text-xs"></i>
-                            <span class="font-bold text-cyber-main text-xs truncate max-w-[140px]">{{ $machine->name }}</span>
+                            <span class="font-semibold text-cyber-main text-xs truncate">{{ $machine->name }}</span>
                         </div>
-                        <span class="px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-wider {{ $badgeClass }}">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-sans font-semibold uppercase tracking-wide {{ $badgeClass }} shrink-0">
                             {{ $badgeLabel }}
                         </span>
                     </div>
-                    <p class="text-[10px] text-cyber-muted">
+                    <p class="text-[11px] text-cyber-muted">
                         <i class="fa-solid fa-location-dot mr-0.5"></i> {{ $machine->branch->name ?? 'Branch' }}
-                        · {{ $machine->type }}
+                        &middot; {{ $machine->type }}
                     </p>
                     @if($machine->next_maintenance_date)
-                        <p class="text-[10px] font-mono {{ $isOverdue ? 'text-rose-400' : 'text-cyber-muted' }}">
+                        <p class="text-[11px] font-sans {{ $isOverdue ? 'text-rose-600 dark:text-rose-400' : 'text-cyber-muted' }} tabular-nums">
                             <i class="fa-solid fa-calendar-day mr-0.5"></i>
                             Next maintenance: {{ $machine->next_maintenance_date->format('M d, Y') }}
                             @if($isOverdue)
@@ -234,7 +235,7 @@
                             @endif
                         </p>
                     @else
-                        <p class="text-[10px] text-amber-400 font-mono">
+                        <p class="text-[11px] text-amber-700 dark:text-amber-400 font-sans">
                             <i class="fa-solid fa-triangle-exclamation mr-0.5"></i> No maintenance schedule set
                         </p>
                     @endif
@@ -265,11 +266,11 @@
 
         const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
         const colors = [
-            '#06b6d4', // Cyan (In Production)
-            '#8b5cf6', // Purple (Quality Checking)
-            '#f43f5e', // Rose (Delayed Runs)
-            '#f59e0b', // Amber (Assigned / Queue)
-            '#10b981'  // Emerald (Completed Today)
+            '#2563EB', // Primary Blue (In Production)
+            '#6366F1', // Indigo (Quality Checking)
+            '#D97706', // Press Amber (Assigned / Queue)
+            '#DC2626', // Crimson (Delayed Runs)
+            '#059669'  // Process Emerald (Completed Today)
         ];
 
         new Chart(canvas, {
@@ -279,7 +280,8 @@
                 datasets: [{
                     data: data,
                     backgroundColor: colors.slice(0, labels.length),
-                    borderWidth: 0,
+                    borderWidth: 2,
+                    borderColor: isDark ? '#151922' : '#FFFFFF',
                     hoverOffset: 4
                 }]
             },

@@ -6,14 +6,14 @@
 <div class="max-w-2xl mx-auto space-y-6">
     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-5">
         <div>
-            <h2 class="text-lg font-bold text-navy-900 font-display">Record Stock In / Stock Out / Adjustment</h2>
+            <h2 class="text-lg font-bold text-cyber-main font-display">Record Stock In / Stock Out / Adjustment</h2>
         </div>
 
         <form method="POST" action="{{ route('inventory.stock-movements.store') }}" class="space-y-4 text-xs">
             @csrf
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block font-bold text-navy-900 mb-1">Target Branch</label>
+                    <label class="block font-bold text-cyber-main mb-1">Target Branch</label>
                     <select name="branch_id" required class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
                         @foreach($branches as $b)
                         <option value="{{ $b->id }}" {{ old('branch_id', request('branch_id')) == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
@@ -21,7 +21,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block font-bold text-navy-900 mb-1">Select Material</label>
+                    <label class="block font-bold text-cyber-main mb-1">Select Material</label>
                     <select name="material_id" required class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
                         @foreach($materials as $m)
                         <option value="{{ $m->id }}" {{ old('material_id', request('material_id')) == $m->id ? 'selected' : '' }}>{{ $m->name }} ({{ $m->unit }})</option>

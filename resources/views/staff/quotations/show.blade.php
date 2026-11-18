@@ -8,7 +8,7 @@
     {{-- Top Minimalist Navigation & Actions Toolbar (Option A: Clean, No Redundancy) --}}
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-cyber-card border border-cyber px-5 py-3.5 rounded-2xl shadow-sm">
         <div class="flex items-center gap-3">
-            <a href="{{ route('staff.quotations.index') }}" class="px-3.5 py-2 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main hover:text-blue-500 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-xs">
+            <a href="{{ route('staff.quotations.index') }}" class="px-3.5 py-2 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main hover:text-blue-500 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm">
                 <i class="fa-solid fa-arrow-left text-[11px]"></i>
                 <span>Back to Quotations</span>
             </a>
@@ -30,7 +30,7 @@
         <div class="flex items-center gap-2.5 shrink-0 w-full sm:w-auto justify-end">
             <form method="POST" action="{{ route('staff.quotations.send', $quotation) }}" class="inline">
                 @csrf
-                <button type="submit" class="px-3.5 py-2 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                <button type="submit" class="px-3.5 py-2 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                     <i class="fa-solid fa-paper-plane text-xs text-sky-400"></i>
                     <span>Resend to Customer</span>
                 </button>
@@ -50,7 +50,7 @@
         $balancePayment = $quotation->total_price * 0.50;
     @endphp
 
-    <div class="bg-white text-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-2xl space-y-5">
+    <div class="bg-white text-slate-900 p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-sm space-y-5">
 
         {{-- Header: Logo LEFT + Company Name CENTER --}}
         <div class="flex items-center gap-5 pb-4 border-b border-slate-900">
@@ -68,12 +68,12 @@
 
         {{-- QUOTATION Title — Centered Standalone --}}
         <div class="text-center py-1">
-            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-widest">QUOTATION</h2>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-wide">QUOTATION</h2>
         </div>
 
         {{-- Customer Info — Bordered Grid (Physical Form Style) --}}
         <div class="text-xs">
-            <table class="border-collapse w-full">
+            <table class="border-collapse w-full tabular-nums">
                 <tr>
                     <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 w-28 bg-slate-50">Date:</td>
                     <td class="border border-slate-900 py-1.5 px-2 text-slate-950 font-semibold">
@@ -103,7 +103,7 @@
 
         {{-- Accounting Table: QTY | DESCRIPTION | U/P | AMOUNT --}}
         <div class="overflow-hidden border border-slate-900">
-            <table class="w-full text-left text-xs border-collapse">
+            <table class="w-full text-left text-xs border-collapse tabular-nums">
                 <thead>
                     <tr class="bg-slate-100 font-bold uppercase text-[11px] text-slate-900 border-b border-slate-900">
                         <th class="py-2 px-3 w-[12%] text-center border-r border-slate-900">QTY</th>
@@ -135,10 +135,10 @@
                                 @endif
                             </div>
                         </td>
-                        <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-900 border-r border-slate-900 align-top">
+                        <td class="py-2.5 px-3 text-right font-sans tabular-nums font-bold text-slate-900 border-r border-slate-900 align-top">
                             {{ number_format($unitPrice, 2) }}
                         </td>
-                        <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-950 align-top">
+                        <td class="py-2.5 px-3 text-right font-sans tabular-nums font-bold text-slate-950 align-top">
                             {{ number_format($quotation->total_price, 2) }}
                         </td>
                     </tr>
@@ -157,7 +157,7 @@
                             TOTAL
                         </td>
                         <td class="py-2.5 px-3 border-r border-slate-900">&nbsp;</td>
-                        <td class="py-2.5 px-3 text-right font-black font-mono text-slate-950">
+                        <td class="py-2.5 px-3 text-right font-black font-sans tabular-nums text-slate-950">
                             {{ number_format($quotation->total_price, 2) }}
                         </td>
                     </tr>

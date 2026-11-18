@@ -6,14 +6,14 @@
 <div class="space-y-6 max-w-7xl mx-auto">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Customer Orders</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Search and manage client job orders, payments, and fulfillment.</p>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Customer Orders</h1>
+            <p class="text-xs text-cyber-muted mt-1">Search and manage client job orders, payments, and fulfillment.</p>
         </div>
 
         <form id="order-search-form" method="GET" action="{{ route('staff.orders.index') }}" class="flex items-center">
-            <div class="relative flex items-center w-full sm:w-96 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-1 shadow-2xs focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition">
-                <div class="pl-3 pr-1 flex items-center pointer-events-none text-slate-400">
-                    <i id="order-search-icon" class="fa-solid fa-magnifying-glass text-xs text-cyan-500"></i>
+            <div class="relative flex items-center w-full sm:w-96 rounded-lg border border-cyber bg-cyber-card p-1 focus-within:border-brand-600 transition">
+                <div class="pl-3 pr-1 flex items-center pointer-events-none text-cyber-muted">
+                    <i id="order-search-icon" class="fa-solid fa-magnifying-glass text-xs text-brand-600 dark:text-blue-400"></i>
                 </div>
                 <input type="text" 
                        id="order-search-input"
@@ -21,46 +21,46 @@
                        value="{{ request('search') }}" 
                        placeholder="Search by Order ID or Customer Name..."
                        autocomplete="off"
-                       class="w-full bg-transparent border-0 px-2.5 py-1.5 text-xs font-medium text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-0">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-xs shrink-0 cursor-pointer">
+                       class="w-full bg-transparent border-0 px-2.5 py-1.5 text-xs font-medium text-cyber-main placeholder-cyber-muted focus:outline-none focus:ring-0">
+                <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white px-3.5 py-1.5 rounded-md text-xs font-semibold transition shrink-0 cursor-pointer">
                     Search
                 </button>
             </div>
         </form>
     </div>
 
-    <div id="orders-table-card" class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden">
+    <div id="orders-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-slate-50 dark:bg-[#0D1520] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 text-[10px]">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px]">
                     <tr>
-                        <th class="px-6 py-3.5">Order #</th>
-                        <th class="px-6 py-3.5">Customer</th>
-                        <th class="px-6 py-3.5">Service</th>
-                        <th class="px-6 py-3.5">Payment</th>
-                        <th class="px-6 py-3.5">Order Status</th>
-                        <th class="px-6 py-3.5 text-right">Action</th>
+                        <th class="px-5 py-3">Order #</th>
+                        <th class="px-5 py-3">Customer</th>
+                        <th class="px-5 py-3">Service</th>
+                        <th class="px-5 py-3">Payment</th>
+                        <th class="px-5 py-3">Order Status</th>
+                        <th class="px-5 py-3 text-right">Action</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
+                <tbody class="divide-y divide-cyber-sub text-cyber-main tabular-nums">
                     @forelse($orders as $ord)
-                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                        <td class="px-6 py-4 font-bold text-slate-900 dark:text-white font-mono">#{{ $ord->order_number }}</td>
-                        <td class="px-6 py-4 font-semibold text-slate-900 dark:text-white">{{ $ord->user->name ?? '—' }}</td>
-                        <td class="px-6 py-4 text-slate-600 dark:text-slate-300">{{ $ord->printRequest->service ?? '—' }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase {{ match($ord->payment_status) { 'confirmed'=>'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300', 'submitted'=>'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300', default=>'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' } }}">
+                    <tr class="hover:bg-cyber-sub/50 transition-colors">
+                        <td class="px-5 py-3.5 font-bold text-cyber-main font-sans tabular-nums">#{{ $ord->order_number }}</td>
+                        <td class="px-5 py-3.5 font-semibold text-cyber-main">{{ $ord->user->name ?? '—' }}</td>
+                        <td class="px-5 py-3.5 text-cyber-muted">{{ $ord->printRequest->service ?? '—' }}</td>
+                        <td class="px-5 py-3.5">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase {{ match($ord->payment_status) { 'confirmed'=>'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20', 'submitted'=>'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20', default=>'bg-cyber-sub text-cyber-muted border border-cyber' } }}">
                                 {{ $ord->payment_status_label }}
                             </span>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase {{ match($ord->status) { 'production'=>'bg-cyan-100 text-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-300', 'ready_for_pickup'=>'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300', default=>'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' } }}">
+                        <td class="px-5 py-3.5">
+                            <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase {{ match($ord->status) { 'production'=>'bg-blue-500/10 text-brand-700 dark:text-blue-400 border border-blue-500/20', 'ready_for_pickup'=>'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20', default=>'bg-cyber-sub text-cyber-muted border border-cyber' } }}">
                                 {{ $ord->status_label }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-right whitespace-nowrap">
+                        <td class="px-5 py-3.5 text-right whitespace-nowrap">
                             <a href="{{ route('staff.orders.show', $ord) }}" 
-                               class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center" 
+                               class="text-brand-600 hover:text-brand-700 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-flex items-center justify-center" 
                                title="Manage Order">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
@@ -68,7 +68,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-10 text-center text-slate-400">
+                        <td colspan="6" class="px-6 py-10 text-center text-cyber-muted">
                             No orders found matching your search.
                         </td>
                     </tr>
@@ -76,7 +76,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="p-4 border-t border-slate-100 dark:border-slate-800">{{ $orders->links() }}</div>
+        <div class="p-4 border-t border-cyber">{{ $orders->links() }}</div>
     </div>
 </div>
 @endsection

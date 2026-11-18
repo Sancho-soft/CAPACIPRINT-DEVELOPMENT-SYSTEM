@@ -10,16 +10,16 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Executive Analytics &amp; Reports</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">High-level enterprise reports, operational throughput, and cross-branch performance.</p>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Executive Analytics &amp; Reports</h1>
+            <p class="text-xs text-cyber-muted mt-1">High-level enterprise reports, operational throughput, and cross-branch performance.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs cursor-pointer">
-                <i class="fa-solid fa-print text-cyan-500 dark:text-cyan-400 text-xs"></i> Print Summary
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2 cursor-pointer shadow-sm">
+                <i class="fa-solid fa-print text-brand-600 dark:text-blue-400 text-xs"></i> Print Summary
             </button>
-            <a href="{{ route('management.dashboard') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-chart-line text-xs text-indigo-500 dark:text-indigo-400"></i> Executive Dashboard
+            <a href="{{ route('management.dashboard') }}" class="px-4 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-chart-line text-xs text-indigo-600 dark:text-indigo-400"></i> Executive Dashboard
             </a>
         </div>
     </div>
@@ -67,27 +67,27 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         {{-- LEFT 2 COLS: 6-MONTH REVENUE & ORDER TRENDS BAR GRAPH --}}
-        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col justify-between h-full">
+        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-6 flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber/80 pb-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-sub pb-4">
                     <div>
                         <div class="flex items-center gap-2.5">
-                            <div class="h-8 w-8 rounded-xl bg-teal-500/10 border border-teal-500/20 text-[#009498] flex items-center justify-center text-xs shadow-xs">
+                            <div class="h-9 w-9 rounded-xl bg-brand-600/10 border border-brand-600/20 text-brand-600 dark:text-blue-400 flex items-center justify-center text-xs">
                                 <i class="fa-solid fa-chart-line"></i>
                             </div>
-                            <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">6-Month Revenue &amp; Order Trends</h3>
+                            <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">6-Month Revenue &amp; Order Trends</h3>
                         </div>
-                        <p class="text-[11px] sm:text-xs text-cyber-muted mt-1">Multi-branch financial growth trajectory and completed order volume</p>
+                        <p class="text-xs text-cyber-muted mt-1">Multi-branch financial growth trajectory and completed order volume</p>
                     </div>
 
                     <div class="flex items-center gap-3.5 text-xs font-medium shrink-0">
                         <div class="flex items-center gap-1.5">
-                            <span class="h-3 w-5 rounded-sm shadow-xs" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);"></span>
-                            <span class="text-cyber-main text-[11px] font-semibold">Revenue (₱K)</span>
+                            <span class="h-2.5 w-4 rounded-full bg-brand-600 dark:bg-blue-500"></span>
+                            <span class="text-cyber-main text-xs font-semibold">Revenue (₱K)</span>
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <span class="h-3 w-5 rounded-sm shadow-xs" style="background: linear-gradient(135deg, #6366f1, #818cf8);"></span>
-                            <span class="text-cyber-main text-[11px] font-semibold">Orders Count</span>
+                            <span class="h-2.5 w-4 rounded-full bg-indigo-500"></span>
+                            <span class="text-cyber-main text-xs font-semibold">Orders Count</span>
                         </div>
                     </div>
                 </div>
@@ -100,14 +100,14 @@
         </div>
 
         {{-- RIGHT 1 COL: BRANCH REVENUE CONTRIBUTION DONUT --}}
-        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-6 flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
-                <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
+                <div class="flex items-center justify-between border-b border-cyber-sub pb-3">
                     <div>
-                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Branch Revenue Share</h3>
-                        <p class="text-[11px] text-cyber-muted mt-0.5">Commercial sales contribution</p>
+                        <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">Branch Revenue Share</h3>
+                        <p class="text-xs text-cyber-muted mt-0.5">Commercial sales contribution</p>
                     </div>
-                    <div class="h-8 w-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                    <div class="h-9 w-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs shrink-0">
                         <i class="fa-solid fa-coins"></i>
                     </div>
                 </div>
@@ -116,14 +116,14 @@
                     $totalShare = max(1, array_sum($branchRevenueShare));
                     $shareLabels = array_keys($branchRevenueShare);
                     $shareValues = array_values($branchRevenueShare);
-                    $shareColors = ['#009498', '#013F73', '#7DD956'];
+                    $shareColors = ['#2563EB', '#4F46E5', '#059669'];
                 @endphp
 
                 <div class="relative flex items-center justify-center my-2 h-44 w-full">
                     <canvas id="branchRevenueDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <span class="text-xl font-black font-display text-cyber-main leading-tight">₱{{ number_format($totalShare / 1000, 0) }}k</span>
-                        <span class="text-[9px] font-black uppercase tracking-widest" style="color: #94A3B8; letter-spacing: 0.12em;">Total Sales</span>
+                        <span class="text-xl font-black font-display text-cyber-main tabular-nums leading-tight">₱{{ number_format($totalShare / 1000, 0) }}k</span>
+                        <span class="text-[11px] font-semibold text-cyber-muted mt-0.5">Total Sales</span>
                     </div>
                 </div>
 
@@ -133,13 +133,13 @@
                             $bPct = round(($bVal / $totalShare) * 100);
                             $bDot = $shareColors[$loop->index % count($shareColors)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition" style="transition: background 0.15s;" onmouseenter="this.style.background='rgba(255,255,255,0.06)'" onmouseleave="this.style.background='transparent'">
+                        <div class="flex items-center justify-between text-xs py-1.5 px-2.5 rounded-xl hover:bg-cyber-sub transition-colors">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $bDot }}"></span>
-                                <span class="text-cyber-main font-medium truncate text-[11px]">{{ $bTitle }}</span>
+                                <span class="h-2.5 w-2.5 rounded-full shrink-0" style="background-color: {{ $bDot }}"></span>
+                                <span class="text-cyber-main font-medium truncate text-xs">{{ $bTitle }}</span>
                             </div>
-                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
-                                ₱{{ number_format($bVal, 0) }} <span class="text-[10px] font-normal text-cyber-sub">({{ $bPct }}%)</span>
+                            <span class="font-sans tabular-nums text-xs text-cyber-muted shrink-0 ml-2 font-bold">
+                                ₱{{ number_format($bVal, 0) }} <span class="text-[11px] font-normal text-cyber-sub">({{ $bPct }}%)</span>
                             </span>
                         </div>
                     @endforeach
@@ -152,25 +152,25 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 4 PRIMARY EXECUTIVE REPORT SUITES (2x2 GRID) --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
         {{-- 1. Orders & Financial Report --}}
         <a href="{{ route('management.reports.orders') }}" 
-           class="bg-cyber-card p-6 sm:p-7 rounded-3xl border border-cyber shadow-xl hover:border-emerald-500/40 hover:shadow-2xl transition-all duration-200 block space-y-4 group">
+           class="bg-cyber-card p-6 rounded-2xl shadow-sm border border-cyber hover:border-emerald-600/50 transition-colors block space-y-4 group">
             <div class="flex items-center justify-between">
-                <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
+                <div class="h-11 w-11 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg">
                     <i class="fa-solid fa-file-invoice-dollar"></i>
                 </div>
-                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors">
+                <span class="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-emerald-700 dark:text-emerald-400">
                     <span>Open Audit Report</span>
-                    <i class="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
+                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </span>
             </div>
             <div>
-                <h3 class="font-black text-cyber-main text-lg font-display group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors">
+                <h3 class="font-bold text-cyber-main text-lg font-display group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
                     Orders &amp; Financial Audit Report
                 </h3>
-                <p class="text-xs text-cyber-muted mt-2 leading-relaxed">
+                <p class="text-xs text-cyber-muted mt-1.5 leading-relaxed">
                     Complete transaction logs, customer payment verifications, revenue breakdowns, and custom date range filters.
                 </p>
             </div>
@@ -178,21 +178,21 @@
 
         {{-- 2. Production Output & Efficiency --}}
         <a href="{{ route('management.reports.production') }}" 
-           class="bg-cyber-card p-6 sm:p-7 rounded-3xl border border-cyber shadow-xl hover:border-amber-500/40 hover:shadow-2xl transition-all duration-200 block space-y-4 group">
+           class="bg-cyber-card p-6 rounded-2xl shadow-sm border border-cyber hover:border-amber-600/50 transition-colors block space-y-4 group">
             <div class="flex items-center justify-between">
-                <div class="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-500 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
+                <div class="h-11 w-11 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg">
                     <i class="fa-solid fa-industry"></i>
                 </div>
-                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 group-hover:text-amber-500 transition-colors">
+                <span class="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-amber-700 dark:text-amber-400">
                     <span>Open Efficiency Logs</span>
-                    <i class="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
+                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </span>
             </div>
             <div>
-                <h3 class="font-black text-cyber-main text-lg font-display group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">
+                <h3 class="font-bold text-cyber-main text-lg font-display group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">
                     Production Output &amp; Machine Efficiency
                 </h3>
-                <p class="text-xs text-cyber-muted mt-2 leading-relaxed">
+                <p class="text-xs text-cyber-muted mt-1.5 leading-relaxed">
                     Shop-floor throughput telemetry, press runtimes, delay exceptions, and technician workload allocations.
                 </p>
             </div>
@@ -200,21 +200,21 @@
 
         {{-- 3. Inventory & Material Valuation --}}
         <a href="{{ route('management.reports.inventory') }}" 
-           class="bg-cyber-card p-6 sm:p-7 rounded-3xl border border-cyber shadow-xl hover:border-cyan-500/40 hover:shadow-2xl transition-all duration-200 block space-y-4 group">
+           class="bg-cyber-card p-6 rounded-2xl shadow-sm border border-cyber hover:border-brand-600/50 dark:hover:border-blue-500/50 transition-colors block space-y-4 group">
             <div class="flex items-center justify-between">
-                <div class="h-12 w-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
+                <div class="h-11 w-11 rounded-xl bg-brand-600/10 border border-brand-600/25 text-brand-600 dark:text-blue-400 flex items-center justify-center text-lg">
                     <i class="fa-solid fa-boxes-stacked"></i>
                 </div>
-                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-600 dark:text-cyan-400 group-hover:text-cyan-500 transition-colors">
+                <span class="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-brand-600 dark:text-blue-400">
                     <span>Open Stock Valuation</span>
-                    <i class="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
+                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </span>
             </div>
             <div>
-                <h3 class="font-black text-cyber-main text-lg font-display group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors">
+                <h3 class="font-bold text-cyber-main text-lg font-display group-hover:text-brand-600 dark:group-hover:text-blue-400 transition-colors">
                     Inventory Valuation &amp; Material Stock
                 </h3>
-                <p class="text-xs text-cyber-muted mt-2 leading-relaxed">
+                <p class="text-xs text-cyber-muted mt-1.5 leading-relaxed">
                     Branch stock valuation, low-stock reorder warnings, unit consumption rates, and replenishment triggers.
                 </p>
             </div>
@@ -222,21 +222,21 @@
 
         {{-- 4. Branch Capacity Analysis --}}
         <a href="{{ route('management.reports.capacity') }}" 
-           class="bg-cyber-card p-6 sm:p-7 rounded-3xl border border-cyber shadow-xl hover:border-indigo-500/40 hover:shadow-2xl transition-all duration-200 block space-y-4 group">
+           class="bg-cyber-card p-6 rounded-2xl shadow-sm border border-cyber hover:border-indigo-500/50 transition-colors block space-y-4 group">
             <div class="flex items-center justify-between">
-                <div class="h-12 w-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
+                <div class="h-11 w-11 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-lg">
                     <i class="fa-solid fa-network-wired"></i>
                 </div>
-                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-500 transition-colors">
+                <span class="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-indigo-600 dark:text-indigo-400">
                     <span>Open Capacity Matrix</span>
-                    <i class="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
+                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
                 </span>
             </div>
             <div>
-                <h3 class="font-black text-cyber-main text-lg font-display group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">
+                <h3 class="font-bold text-cyber-main text-lg font-display group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                     Multi-Branch Capacity &amp; Load Matrix
                 </h3>
-                <p class="text-xs text-cyber-muted mt-2 leading-relaxed">
+                <p class="text-xs text-cyber-muted mt-1.5 leading-relaxed">
                     Equipment uptime benchmarks, operational bottlenecks, daily capacity thresholds, and network saturation.
                 </p>
             </div>
@@ -266,7 +266,7 @@
                             label: 'Revenue (₱K)',
                             data: revenues,
                             backgroundColor: isDark ? 'rgba(6,182,212,0.82)' : 'rgba(6,182,212,0.88)',
-                            hoverBackgroundColor: '#06b6d4',
+                            hoverBackgroundColor: '#2563EB',
                             borderColor: 'transparent',
                             borderWidth: 0,
                             borderRadius: 5,
@@ -327,7 +327,7 @@
                             },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
-                                font: { family: 'Inter, sans-serif', size: 11, weight: '600' },
+                                font: { family: 'Plus Jakarta Sans, sans-serif', size: 11, weight: '600' },
                                 padding: 6
                             }
                         },
@@ -343,15 +343,15 @@
                             border: { dash: [4, 4], color: 'transparent' },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
-                                font: { family: 'Inter, sans-serif', size: 10 },
+                                font: { family: 'Plus Jakarta Sans, sans-serif', size: 11 },
                                 padding: 8,
                                 callback: function(val) { return '₱' + val + 'k'; }
                             },
                             title: {
                                 display: true,
                                 text: 'Revenue (₱)',
-                                color: isDark ? '#475569' : '#94a3b8',
-                                font: { size: 10, weight: 'bold' },
+                                color: isDark ? '#94a3b8' : '#64748b',
+                                font: { family: 'Plus Jakarta Sans, sans-serif', size: 11, weight: 'bold' },
                                 padding: { bottom: 6 }
                             }
                         },
@@ -364,14 +364,14 @@
                             border: { color: 'transparent' },
                             ticks: {
                                 color: isDark ? '#94a3b8' : '#64748b',
-                                font: { family: 'Inter, sans-serif', size: 10 },
+                                font: { family: 'Plus Jakarta Sans, sans-serif', size: 11 },
                                 padding: 8
                             },
                             title: {
                                 display: true,
                                 text: 'Orders',
-                                color: isDark ? '#475569' : '#94a3b8',
-                                font: { size: 10, weight: 'bold' },
+                                color: isDark ? '#94a3b8' : '#64748b',
+                                font: { family: 'Plus Jakarta Sans, sans-serif', size: 11, weight: 'bold' },
                                 padding: { bottom: 6 }
                             }
                         }
@@ -386,7 +386,7 @@
         if (shareCanvas) {
             const sLabels = @json($shareLabels);
             const sData = @json($shareValues);
-            const sColors = ['#06b6d4', '#6366f1', '#10b981'];
+            const sColors = ['#2563EB', '#4F46E5', '#059669'];
 
             new Chart(shareCanvas, {
                 type: 'doughnut',

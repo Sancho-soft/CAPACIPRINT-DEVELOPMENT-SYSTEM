@@ -6,13 +6,13 @@
 <div class="max-w-2xl mx-auto space-y-6">
     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-5">
         <div>
-            <h2 class="text-lg font-bold text-navy-900 font-display">New Material Specification</h2>
+            <h2 class="text-lg font-bold text-cyber-main font-display">New Material Specification</h2>
         </div>
 
         <form method="POST" action="{{ route('inventory.materials.store') }}" class="space-y-4 text-xs">
             @csrf
             <div>
-                <label class="block font-bold text-navy-900 mb-1">Material Name</label>
+                <label class="block font-bold text-cyber-main mb-1">Material Name</label>
                 <input type="text" name="name" required placeholder="e.g. Glossy Paper 80gsm A4"
                        class="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-xs focus:border-brand-500 focus:outline-none">
             </div>

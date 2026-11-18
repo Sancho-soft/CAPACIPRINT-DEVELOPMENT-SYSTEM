@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="theme-color" id="meta-theme-color" content="#F8FAFC">
     <title>@yield('title', 'CAPACIPRINT') — Intelligent Print Routing</title>
     <meta name="description" content="@yield('meta_description', 'CAPACIPRINT – Intelligent capacity-based print routing system.')">
 
-    {{-- Fonts (CDN with Local Fallback) --}}
+    {{-- Fonts: Plus Jakarta Sans everywhere across the entire system --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}'; let l=document.createElement('link'); l.rel='stylesheet'; l.href='{{ asset('assets/fontsource/outfit/index.css') }}'; document.head.appendChild(l);">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}';">
 
     {{-- FontAwesome (CDN with Local Fallback) --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onerror="this.onerror=null; this.href='{{ asset('assets/fontawesome/css/all.min.css') }}';">
@@ -19,101 +20,140 @@
     <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null; this.src='{{ asset('assets/js/tailwindcss.js') }}';"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="this.onerror=null; this.src='{{ asset('assets/js/chart.min.js') }}';"></script>
     <script>
+        (function () {
+            const family = "'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif";
+            if (window.Chart) {
+                Chart.defaults.font.family = family;
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                if (window.Chart) {
+                    Chart.defaults.font.family = family;
+                }
+            });
+        })();
+    </script>
+    <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         cyber: {
-                            base: '#0B1118',
-                            dark: '#0D1520',
-                            card: '#111A24',
-                            border: '#1E293B',
-                            hover: '#182433',
-                            muted: '#64748B',
+                            base: '#0C0E12',
+                            dark: '#101319',
+                            card: '#151922',
+                            border: '#262C38',
+                            hover: '#1D222D',
+                            muted: '#8B949E',
                         },
                         navy: {
-                            50: '#f2f5f8', 100: '#dde5ed', 200: '#bccadb', 300: '#92a9be',
-                            400: '#6685a0', 500: '#4e6a84', 600: '#3d5068',
-                            700: '#2e3d50', 800: '#1f2c3a', 900: '#141c26', 950: '#0b1016',
+                            50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
+                            400: '#94a3b8', 500: '#64748b', 600: '#475569',
+                            700: '#262c38', 800: '#151922', 900: '#101319', 950: '#0b0f17',
                         },
                         brand: {
-                            50: '#f0f4fc', 100: '#dce5f8', 200: '#bfd2f2', 300: '#94b5e8',
-                            400: '#3b82f6', 500: '#1d4ed8', 600: '#1e40af',
-                            700: '#143c96', 800: '#0E3386', 900: '#0a235c', 950: '#051336',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb',
+                            700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
                         },
                         cubs: {
-                            DEFAULT: '#0E3386',
-                            50: '#f0f4fc', 100: '#dce5f8', 200: '#bfd2f2', 300: '#94b5e8',
-                            400: '#3b82f6', 500: '#1d4ed8', 600: '#1e40af',
-                            700: '#143c96', 800: '#0E3386', 900: '#0a235c', 950: '#051336',
+                            DEFAULT: '#2563EB',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb',
+                            700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
                         },
                         cyan: {
-                            400: '#3b82f6', 500: '#1d4ed8', 600: '#0E3386'
+                            400: '#3b82f6', 500: '#2563eb', 600: '#1d4ed8'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <script>
-        // Check theme preference or default to dark
-        if (localStorage.theme === 'light') {
-            document.documentElement.classList.add('light-theme');
-            document.documentElement.classList.remove('dark', 'dark-theme');
-        } else {
-            document.documentElement.classList.add('dark', 'dark-theme');
-            document.documentElement.classList.remove('light-theme');
-        }
+        // Default to Light Mode; apply Dark Mode only when explicitly chosen
+        (function () {
+            const meta = document.getElementById('meta-theme-color');
+            if (localStorage.theme === 'dark') {
+                document.documentElement.classList.add('dark', 'dark-theme');
+                document.documentElement.classList.remove('light-theme');
+                if (meta) meta.setAttribute('content', '#0B0F17');
+            } else {
+                document.documentElement.classList.add('light-theme');
+                document.documentElement.classList.remove('dark', 'dark-theme');
+                if (meta) meta.setAttribute('content', '#F8FAFC');
+            }
+        })();
     </script>
     <style>
         [x-cloak] { display: none !important; }
-        .font-display { font-family: 'Outfit', sans-serif; }
+        html, body {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        .font-display { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; letter-spacing: -0.025em; }
+        .font-sans { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; }
+        .font-mono { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; font-variant-numeric: tabular-nums; }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+
+        /* Web Interface Guidelines & Baseline UI Ergonomics */
+        h1, h2, h3 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+        [id] { scroll-margin-top: 5rem; }
+        a, button, input, select, textarea { touch-action: manipulation; }
+        :focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; }
+        html.dark :focus-visible, html.dark-theme :focus-visible { outline-color: #3B82F6; }
+
         :root {
-            --brand-dark: #1f2c3a;
-            --brand-mid:  #3d5068;
-            --brand-blue: #0E3386;
+            --brand-dark: #151922;
+            --brand-mid:  #3f4652;
+            --brand-blue: #2563EB;
+            --accent-primary: #2563EB;
         }
 
-        /* Dark Theme Variables (Default) */
+        /* Dark Theme */
         html.dark-theme, html.dark, :root {
-            --bg-base: #0B1118;
-            --bg-surface: #0D1520;
-            --bg-card: #111A24;
-            --bg-card-sub: #0D1520;
-            --border-main: rgba(30, 41, 59, 0.8);
-            --border-sub: rgba(30, 41, 59, 0.6);
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --text-sub: #64748B;
+            color-scheme: dark;
+            --bg-base: #0B0F17;
+            --bg-surface: #101319;
+            --bg-card: #151922;
+            --bg-card-sub: #1B202B;
+            --border-main: #262C38;
+            --border-sub: #1E232E;
+            --text-main: #F3F2EE;
+            --text-muted: #9BA3B0;
+            --text-sub: #6B7280;
         }
 
-        /* Eye-Friendly Soft Light Theme Variables (Anti-Glare Light Gray Tone) */
+        /* Clean Modern Light Theme (Default) */
         html.light-theme {
-            --bg-base: #F1F3F7;
-            --bg-surface: #F8F9FA;
-            --bg-card: #F8F9FA;
-            --bg-card-sub: #ECEEF2;
-            --border-main: #CBD5E1;
-            --border-sub: #E2E8F0;
+            color-scheme: light;
+            --bg-base: #F8FAFC;
+            --bg-surface: #F1F5F9;
+            --bg-card: #FFFFFF;
+            --bg-card-sub: #F8FAFC;
+            --border-main: #E2E8F0;
+            --border-sub: #F1F5F9;
             --text-main: #0F172A;
             --text-muted: #475569;
             --text-sub: #64748B;
         }
 
-        /* ═══ Smooth Theme Transitions (Dark Mode <-> Light Mode) ═══ */
+        /* ═══ Mechanical Theme Transitions ═══ */
         html.theme-transitioning,
         html.theme-transitioning *,
         html.theme-transitioning *::before,
         html.theme-transitioning *::after {
-            transition: background-color 0.35s ease,
-                        border-color 0.35s ease,
-                        color 0.25s ease,
-                        box-shadow 0.35s ease !important;
+            transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                        border-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                        color 0.15s cubic-bezier(0.2, 0, 0, 1) !important;
             transition-delay: 0s !important;
         }
 
@@ -139,47 +179,47 @@
         /* Card / container backgrounds */
         html.dark-theme main .bg-white,
         html.dark main .bg-white {
-            background-color: #111A24 !important;
+            background-color: #151922 !important;
         }
         html.dark-theme main .bg-slate-50,
         html.dark main .bg-slate-50 {
-            background-color: #0D1520 !important;
+            background-color: #101319 !important;
         }
         html.dark-theme main .bg-slate-100,
         html.dark main .bg-slate-100 {
-            background-color: #0D1520 !important;
+            background-color: #1B202B !important;
         }
 
         /* Colored tint backgrounds (report category icons etc.) */
         html.dark-theme main .bg-blue-50,
-        html.dark main .bg-blue-50 { background-color: rgba(59,130,246,0.1) !important; }
+        html.dark main .bg-blue-50 { background-color: rgba(59,130,246,0.12) !important; }
         html.dark-theme main .bg-emerald-50,
-        html.dark main .bg-emerald-50 { background-color: rgba(16,185,129,0.1) !important; }
+        html.dark main .bg-emerald-50 { background-color: rgba(16,185,129,0.12) !important; }
         html.dark-theme main .bg-purple-50,
-        html.dark main .bg-purple-50 { background-color: rgba(168,85,247,0.1) !important; }
+        html.dark main .bg-purple-50 { background-color: rgba(168,85,247,0.12) !important; }
         html.dark-theme main .bg-amber-50,
-        html.dark main .bg-amber-50 { background-color: rgba(245,158,11,0.1) !important; }
+        html.dark main .bg-amber-50 { background-color: rgba(245,158,11,0.12) !important; }
         html.dark-theme main .bg-red-50,
-        html.dark main .bg-red-50 { background-color: rgba(239,68,68,0.1) !important; }
+        html.dark main .bg-red-50 { background-color: rgba(239,68,68,0.12) !important; }
         html.dark-theme main .bg-teal-50,
-        html.dark main .bg-teal-50 { background-color: rgba(20,184,166,0.1) !important; }
+        html.dark main .bg-teal-50 { background-color: rgba(20,184,166,0.12) !important; }
         html.dark-theme main .bg-cyan-50,
-        html.dark main .bg-cyan-50 { background-color: rgba(6,182,212,0.1) !important; }
+        html.dark main .bg-cyan-50 { background-color: rgba(59,130,246,0.12) !important; }
         html.dark-theme main .bg-indigo-50,
-        html.dark main .bg-indigo-50 { background-color: rgba(99,102,241,0.1) !important; }
+        html.dark main .bg-indigo-50 { background-color: rgba(99,102,241,0.12) !important; }
 
         /* Border colors */
         html.dark-theme main .border-slate-100,
         html.dark main .border-slate-100 {
-            border-color: rgba(30,41,59,0.8) !important;
+            border-color: #262C38 !important;
         }
         html.dark-theme main .border-slate-200,
         html.dark main .border-slate-200 {
-            border-color: rgba(30,41,59,0.6) !important;
+            border-color: #262C38 !important;
         }
         html.dark-theme main .border-slate-300,
         html.dark main .border-slate-300 {
-            border-color: rgba(30,41,59,0.5) !important;
+            border-color: #303746 !important;
         }
 
         /* Dividers */
@@ -187,43 +227,43 @@
         html.dark main .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
         html.dark-theme main .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
         html.dark main .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
-            border-color: rgba(30,41,59,0.8) !important;
+            border-color: #1F2430 !important;
         }
 
-        /* Text colors — dark headings become light */
+        /* Text colors — dark headings become crisp paper-white */
         html.dark-theme main .text-navy-900,
         html.dark main .text-navy-900 {
-            color: #F8FAFC !important;
+            color: #F3F2EE !important;
         }
         html.dark-theme main .text-slate-900,
         html.dark main .text-slate-900 {
-            color: #F1F5F9 !important;
+            color: #F3F2EE !important;
         }
         html.dark-theme main .text-slate-800,
         html.dark main .text-slate-800 {
-            color: #E2E8F0 !important;
+            color: #E2E4E9 !important;
         }
         html.dark-theme main .text-slate-700,
         html.dark main .text-slate-700 {
-            color: #CBD5E1 !important;
+            color: #C7CDD6 !important;
         }
         html.dark-theme main .text-slate-600,
         html.dark main .text-slate-600 {
-            color: #94A3B8 !important;
+            color: #9BA3B0 !important;
         }
 
-        /* Hover states for dark mode — light hovers become dark */
+        /* Hover states for dark mode */
         html.dark-theme main .hover\:bg-slate-50:hover,
         html.dark main .hover\:bg-slate-50:hover,
         html.dark-theme main .hover\:bg-slate-100:hover,
         html.dark main .hover\:bg-slate-100:hover,
         html.dark-theme main .hover\:bg-slate-50\/50:hover,
         html.dark main .hover\:bg-slate-50\/50:hover {
-            background-color: #182433 !important;
+            background-color: #1D222D !important;
         }
         html.dark-theme main .hover\:shadow-md:hover,
         html.dark main .hover\:shadow-md:hover {
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.2) !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.35) !important;
         }
 
         /* Form inputs in dark mode */
@@ -233,25 +273,22 @@
         html.dark main input,
         html.dark main select,
         html.dark main textarea {
-            background-color: #0D1520 !important;
-            border-color: rgba(30,41,59,0.8) !important;
-            color: #F8FAFC !important;
+            background-color: #101319 !important;
+            border-color: #262C38 !important;
+            color: #F3F2EE !important;
         }
         html.dark-theme main select option,
         html.dark main select option {
-            background-color: #0D1520 !important;
-            color: #F8FAFC !important;
+            background-color: #101319 !important;
+            color: #F3F2EE !important;
         }
         html.dark-theme main input::placeholder,
         html.dark main input::placeholder {
-            color: #64748B !important;
+            color: #6B7280 !important;
         }
 
         /* ══════════════════════════════════════════════════════════════
-           GLOBAL LIGHT-THEME OVERRIDES
-           Forces all hardcoded dark-mode Tailwind classes to switch
-           when html.light-theme is active. This prevents cards, tables,
-           headers, and text from staying "stuck" in dark mode.
+           GLOBAL LIGHT-THEME OVERRIDES (Clean Modern Slate Tokens)
            ══════════════════════════════════════════════════════════════ */
         html.light-theme .bg-\[\#111A24\] {
             background-color: #FFFFFF !important;
@@ -262,7 +299,7 @@
         }
 
         html.light-theme .bg-\[\#0B1118\] {
-            background-color: #F1F5F9 !important;
+            background-color: #F8FAFC !important;
         }
 
         html.light-theme .bg-\[\#0D1520\]\/80 {
@@ -270,29 +307,31 @@
         }
 
         html.light-theme .bg-\[\#0B1118\]\/80 {
-            background-color: #E2E8F0 !important;
+            background-color: #F1F5F9 !important;
         }
 
         /* Sidebar container in light mode */
-        html.light-theme aside.bg-\[\#111A24\] {
-            background-color: #FFFFFF !important;
-            border-color: #CBD5E1 !important;
+        html.light-theme aside.bg-\[\#111A24\],
+        html.light-theme aside.bg-cyber-surface {
+            background-color: #F1F5F9 !important;
+            border-color: #E2E8F0 !important;
         }
 
         /* Top header in light mode */
-        html.light-theme header.bg-cyber-surface\/90 {
-            background-color: rgba(255, 255, 255, 0.92) !important;
-            border-color: #CBD5E1 !important;
+        html.light-theme header.bg-cyber-surface\/90,
+        html.light-theme header.bg-cyber-surface {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-color: #E2E8F0 !important;
         }
 
         /* Table header and inner metric sub-panels in Light Mode */
         html.light-theme .bg-cyber-base\/80,
         html.light-theme thead.bg-cyber-base\/80,
         html.light-theme thead {
-            background-color: #F1F5F9 !important;
-            color: #0F172A !important;
-            font-weight: 800 !important;
-            border-color: #CBD5E1 !important;
+            background-color: #F8FAFC !important;
+            color: #334155 !important;
+            font-weight: 700 !important;
+            border-color: #E2E8F0 !important;
         }
 
         html.light-theme .bg-cyber-card\/60,
@@ -316,7 +355,7 @@
         html.light-theme .bg-\[\#0D1520\].text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
         html.light-theme .bg-\[\#0B1118\].text-white:not(button):not(a[class*="bg-"]):not([class*="bg-"]),
         html.light-theme main .text-white:not([class*="bg-gradient"]):not([class*="bg-cyan"]):not([class*="bg-brand"]):not([class*="bg-navy"]):not([class*="bg-red"]):not([class*="bg-emerald"]):not([class*="bg-blue"]):not([class*="bg-sky"]):not([class*="bg-slate-800"]):not([class*="bg-slate-900"]):not([class*="bg-indigo"]):not([class*="bg-purple"]):not([class*="bg-teal"]):not([class*="bg-amber"]):not([class*="from-"]):not(button):not(a[class*="bg-"]):not(.btn) {
-            color: #1E293B !important;
+            color: #0F172A !important;
         }
 
         /* Explicitly guarantee white text on colored solid action buttons & pills */
@@ -342,7 +381,7 @@
         html.light-theme .from-navy-900.to-navy-800 .text-white,
         html.light-theme [class*="from-navy-900"][class*="to-navy-800"] h2,
         html.light-theme [class*="from-navy-900"][class*="to-navy-800"] .text-white:not(button):not(.bg-cyan-500):not(.bg-brand-500):not(.bg-amber-500) {
-            color: #1E293B !important;
+            color: #0F172A !important;
         }
 
         html.light-theme .from-navy-900.to-navy-800 p,
@@ -353,7 +392,7 @@
         html.light-theme .from-navy-900.to-navy-800 .bg-navy-800,
         html.light-theme [class*="from-navy-900"][class*="to-navy-800"] .bg-navy-800 {
             background-color: #F1F5F9 !important;
-            color: #1E293B !important;
+            color: #0F172A !important;
             border-color: #CBD5E1 !important;
         }
         html.light-theme .text-slate-200 {
@@ -378,13 +417,13 @@
         /* Table header cells and borders in Light Mode */
         html.light-theme table thead th {
             background-color: #F8FAFC !important;
-            color: #0F172A !important;
-            font-weight: 800 !important;
-            border-bottom: 1px solid #CBD5E1 !important;
+            color: #334155 !important;
+            font-weight: 700 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
         }
 
         table thead th {
-            font-weight: 800 !important;
+            font-weight: 700 !important;
         }
 
         /* Inner metric boxes in branch workload cards & tables */
@@ -397,7 +436,7 @@
         html.light-theme .bg-cyber-sub\/80,
         html.light-theme [class*="bg-cyber-sub"] {
             background-color: #FFFFFF !important;
-            border-color: #CBD5E1 !important;
+            border-color: #E2E8F0 !important;
         }
 
         /* Border colors */
@@ -405,14 +444,14 @@
         html.light-theme .border-slate-800,
         html.light-theme .border-slate-800\/60,
         html.light-theme .border-slate-700 {
-            border-color: #CBD5E1 !important;
+            border-color: #E2E8F0 !important;
         }
 
         /* Dividers */
         html.light-theme .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]),
         html.light-theme .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
         html.light-theme .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
-            border-color: #E2E8F0 !important;
+            border-color: #F1F5F9 !important;
         }
         html.light-theme .border-slate-200,
         html.light-theme .border-slate-100 {
@@ -445,7 +484,7 @@
 
         /* Mono font text in tables */
         html.light-theme .font-mono.text-slate-500 {
-            color: #94A3B8 !important;
+            color: #64748B !important;
         }
 
         /* Chart/Donut border color adapts to light */
@@ -490,57 +529,106 @@
             background-color: #F1F5F9 !important;
         }
 
-        /* Light-theme soft diffused shadows & low-glare styling */
-        html.light-theme .shadow-2xl {
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04), 0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
-        }
+        /* Subtle Modern Card Elevation */
+        html.light-theme .shadow-2xl,
         html.light-theme .shadow-xl {
-            box-shadow: 0 6px 16px -3px rgba(15, 23, 42, 0.04), 0 4px 6px -4px rgba(15, 23, 42, 0.03) !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04) !important;
         }
-        html.light-theme .shadow-lg {
-            box-shadow: 0 4px 10px -2px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
-        }
+        html.light-theme .shadow-lg,
         html.light-theme .shadow-md {
-            box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02) !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
+        }
+        html.dark-theme main .shadow-2xl,
+        html.dark-theme main .shadow-xl {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+        }
+
+        /* Modern Card Geometry & Table Styling */
+        main .rounded-3xl {
+            border-radius: 1rem !important;
+        }
+        main table {
+            font-variant-numeric: tabular-nums;
+        }
+        html.dark-theme main table thead,
+        html.dark-theme main table thead th {
+            background-color: #101319 !important;
+            color: #9BA3B0 !important;
+            border-color: #262C38 !important;
+        }
+        html.light-theme main table thead,
+        html.light-theme main table thead th {
+            background-color: #F8FAFC !important;
+            color: #334155 !important;
+            border-color: #E2E8F0 !important;
         }
 
         html.light-theme .blur-3xl {
-            opacity: 0.1 !important;
+            opacity: 0.06 !important;
         }
 
-        /* Hover border accent colors should keep their color in light mode */
-        html.light-theme .hover\:border-cyan-500\/40:hover { border-color: rgba(6,182,212,0.4) !important; }
-        html.light-theme .hover\:border-cyan-500\/30:hover { border-color: rgba(6,182,212,0.3) !important; }
-        html.light-theme .hover\:border-indigo-500\/40:hover { border-color: rgba(99,102,241,0.4) !important; }
-        html.light-theme .hover\:border-indigo-500\/30:hover { border-color: rgba(99,102,241,0.3) !important; }
-        html.light-theme .hover\:border-emerald-500\/40:hover { border-color: rgba(16,185,129,0.4) !important; }
-        html.light-theme .hover\:border-emerald-500\/30:hover { border-color: rgba(16,185,129,0.3) !important; }
-        html.light-theme .hover\:border-amber-500\/30:hover { border-color: rgba(245,158,11,0.3) !important; }
-        html.light-theme .hover\:border-purple-500\/40:hover { border-color: rgba(168,85,247,0.4) !important; }
+        /* Hover border accent colors */
+        html.light-theme .hover\:border-cyan-500\/40:hover { border-color: rgba(37,99,235,0.45) !important; }
+        html.light-theme .hover\:border-cyan-500\/30:hover { border-color: rgba(37,99,235,0.35) !important; }
+        html.light-theme .hover\:border-indigo-500\/40:hover { border-color: rgba(79,70,229,0.4) !important; }
+        html.light-theme .hover\:border-indigo-500\/30:hover { border-color: rgba(79,70,229,0.3) !important; }
+        html.light-theme .hover\:border-emerald-500\/40:hover { border-color: rgba(5,150,105,0.4) !important; }
+        html.light-theme .hover\:border-emerald-500\/30:hover { border-color: rgba(5,150,105,0.3) !important; }
+        html.light-theme .hover\:border-amber-500\/30:hover { border-color: rgba(217,119,6,0.35) !important; }
+        html.light-theme .hover\:border-purple-500\/40:hover { border-color: rgba(147,51,234,0.4) !important; }
 
-        /* Selection color for light theme */
-        html.light-theme .selection\:bg-cyan-500\/30::selection { background-color: rgba(14,51,134,0.15) !important; }
-        html.light-theme .selection\:text-cyan-200::selection { color: #0E3386 !important; }
+        /* Selection color */
+        html.light-theme .selection\:bg-cyan-500\/30::selection { background-color: rgba(37,99,235,0.14) !important; }
+        html.light-theme .selection\:text-cyan-200::selection { color: #2563EB !important; }
 
-        /* Eye-Friendly Anti-Glare Overrides for Light Theme (Replaces harsh #FFFFFF) */
+        /* Clean Modern Slate Light Theme Surfaces */
         html.light-theme,
         html.light-theme body,
         html.light-theme .bg-cyber-base {
-            background-color: #F1F3F7 !important;
+            background-color: #F8FAFC !important;
+            color: #0F172A;
         }
         html.light-theme main .bg-white,
         html.light-theme .bg-white {
-            background-color: #F8F9FA !important;
+            background-color: #FFFFFF !important;
         }
         html.light-theme .bg-cyber-card {
-            background-color: #F8F9FA !important;
-            border-color: #DDE2E8 !important;
+            background-color: #FFFFFF !important;
+            border-color: #E2E8F0 !important;
         }
         html.light-theme .bg-cyber-sub {
-            background-color: #EDF0F4 !important;
+            background-color: #F8FAFC !important;
         }
         html.light-theme .border-cyber {
-            border-color: #CBD5E1 !important;
+            border-color: #E2E8F0 !important;
+        }
+        html.light-theme .border-cyber-sub {
+            border-color: #F1F5F9 !important;
+        }
+
+        /* Clean Modern Typography Normalization: Plus Jakarta Sans everywhere */
+        html, body, button, input, select, textarea,
+        .font-sans, .font-display, .font-mono,
+        aside .font-mono,
+        header .font-mono,
+        main th.font-mono,
+        main thead .font-mono,
+        main label.font-mono,
+        main button.font-mono,
+        main h1.font-mono,
+        main h2.font-mono,
+        main h3.font-mono,
+        main h4.font-mono {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+        }
+        .font-mono, .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+        main table thead th {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.025em !important;
         }
 
         @keyframes fadeInUp {
@@ -626,6 +714,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (current.querySelector('table') && (
                 current.classList.contains('rounded-3xl') || 
                 current.classList.contains('rounded-2xl') || 
+                current.classList.contains('rounded-xl') || 
                 current.classList.contains('bg-cyber-card') || 
                 current.classList.contains('bg-white') || 
                 current.classList.contains('shadow-xl') || 

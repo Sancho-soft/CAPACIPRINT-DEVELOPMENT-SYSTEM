@@ -10,19 +10,20 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Executive Management Dashboard</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Multi-branch enterprise performance telemetry and high-level operations control.</p>
+            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Enterprise Operations</span>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Executive Management Dashboard</h1>
+            <p class="text-xs text-cyber-muted mt-1">Multi-branch enterprise performance telemetry and high-level operations control.</p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-            <a href="{{ route('management.reports.index') }}" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-xs transition flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="{{ route('management.reports.index') }}" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition flex items-center gap-2">
                 <i class="fa-solid fa-chart-pie text-xs"></i> Executive Reports
             </a>
-            <a href="{{ route('management.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-file-invoice-dollar text-xs text-amber-500 dark:text-amber-400"></i> Procurement Queue
+            <a href="{{ route('management.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-file-invoice-dollar text-xs text-amber-600 dark:text-amber-400"></i> Procurement Queue
             </a>
-            <a href="{{ route('management.branches.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-bold text-xs transition flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-network-wired text-xs text-cyan-500 dark:text-cyan-400"></i> Branch Network
+            <a href="{{ route('management.branches.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub border border-cyber text-cyber-main font-semibold text-xs transition flex items-center gap-2">
+                <i class="fa-solid fa-network-wired text-xs text-blue-600 dark:text-blue-400"></i> Branch Network
             </a>
         </div>
     </div>
@@ -90,14 +91,14 @@
         </div>
 
         {{-- RIGHT 1 COL: PRINT SERVICES MIX PIE / DONUT CHART --}}
-        <div class="bg-cyber-card border border-cyber rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between h-full">
+        <div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full shadow-sm">
             <div class="flex flex-col flex-1">
-                <div class="flex items-center justify-between border-b border-cyber/80 pb-3">
+                <div class="flex items-center justify-between border-b border-cyber-sub pb-3">
                     <div>
-                        <h3 class="font-black text-cyber-main text-sm sm:text-base font-display">Print Services Mix</h3>
-                        <p class="text-[11px] text-cyber-muted mt-0.5">Order volume distribution across categories</p>
+                        <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">Print Services Mix</h3>
+                        <p class="text-xs text-cyber-muted mt-0.5">Order volume distribution across categories</p>
                     </div>
-                    <div class="h-8 w-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs shadow-xs shrink-0">
+                    <div class="h-8 w-8 rounded-xl bg-blue-600/10 dark:bg-blue-500/15 border border-blue-600/20 dark:border-blue-500/25 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs shrink-0">
                         <i class="fa-solid fa-chart-pie"></i>
                     </div>
                 </div>
@@ -113,13 +114,13 @@
                     $chartLabels = array_keys($serviceList);
                     $chartValues = array_values($serviceList);
                     $colorPalette = [
-                        '#06b6d4', // Cyan
-                        '#6366f1', // Indigo
-                        '#10b981', // Emerald
-                        '#f59e0b', // Amber
-                        '#ec4899', // Pink
-                        '#8b5cf6', // Purple
-                        '#3b82f6', // Blue
+                        '#2563EB', // Primary Blue
+                        '#6366F1', // Indigo
+                        '#059669', // Process Emerald
+                        '#D97706', // Press Amber
+                        '#DC2626', // Crimson
+                        '#0284C7', // Cerulean
+                        '#4B5563', // Slate Ink
                     ];
                 @endphp
 
@@ -127,25 +128,25 @@
                 <div class="relative flex items-center justify-center my-2 h-44 w-full">
                     <canvas id="servicesPieChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalSvc }}</span>
-                        <span class="text-[9px] font-black uppercase tracking-wider text-cyber-muted">Orders</span>
+                        <span class="text-2xl font-bold font-display text-cyber-main leading-tight tabular-nums">{{ $totalSvc }}</span>
+                        <span class="text-[11px] font-sans font-semibold text-cyber-sub">Orders</span>
                     </div>
                 </div>
 
                 {{-- Clean Grid Legend --}}
-                <div class="space-y-1.5 pt-2 border-t border-cyber/60 flex-1 overflow-y-auto pr-1">
+                <div class="space-y-1 pt-2 border-t border-cyber-sub flex-1 overflow-y-auto pr-1 tabular-nums">
                     @foreach($serviceList as $sName => $sCount)
                         @php
                             $sPct = round(($sCount / $totalSvc) * 100);
                             $colorHex = $colorPalette[$loop->index % count($colorPalette)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-cyber-sub/50 transition">
+                        <div class="flex items-center justify-between text-xs py-1 px-2 rounded-lg hover:bg-black/[0.025] dark:hover:bg-white/[0.03] transition">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-full shrink-0 shadow-xs" style="background-color: {{ $colorHex }}"></span>
+                                <span class="h-2.5 w-2.5 rounded-sm shrink-0" style="background-color: {{ $colorHex }}"></span>
                                 <span class="text-cyber-main font-medium truncate text-[11px]">{{ $sName }}</span>
                             </div>
-                            <span class="font-mono text-[11px] text-cyber-muted shrink-0 ml-2 font-bold">
-                                {{ $sCount }} <span class="text-[10px] font-normal text-cyber-sub">({{ $sPct }}%)</span>
+                            <span class="font-sans text-[11px] text-cyber-muted shrink-0 ml-2 font-semibold tabular-nums">
+                                {{ $sCount }} <span class="text-[11px] font-normal text-cyber-sub">({{ $sPct }}%)</span>
                             </span>
                         </div>
                     @endforeach
@@ -177,13 +178,13 @@
         const labels = @json($chartLabels);
         const data = @json($chartValues);
         const colors = [
-            '#06b6d4', // Cyan
-            '#6366f1', // Indigo
-            '#10b981', // Emerald
-            '#f59e0b', // Amber
-            '#ec4899', // Pink
-            '#8b5cf6', // Purple
-            '#3b82f6'  // Blue
+            '#2563EB', // Primary Blue
+            '#6366F1', // Indigo
+            '#059669', // Process Emerald
+            '#D97706', // Press Amber
+            '#DC2626', // Crimson
+            '#0284C7', // Cerulean
+            '#4B5563'  // Slate Ink
         ];
 
         new Chart(canvas, {
@@ -194,8 +195,8 @@
                     data: data,
                     backgroundColor: colors.slice(0, labels.length),
                     borderWidth: 2,
-                    borderColor: isDark ? '#111A24' : '#ffffff',
-                    hoverOffset: 6
+                    borderColor: isDark ? '#151922' : '#FFFFFF',
+                    hoverOffset: 4
                 }]
             },
             options: {

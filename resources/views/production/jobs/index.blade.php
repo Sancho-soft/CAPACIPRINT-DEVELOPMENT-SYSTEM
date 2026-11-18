@@ -11,9 +11,9 @@
         </div>
 
         <form method="GET" action="{{ route('production.jobs.index') }}" class="flex items-center">
-            <div class="relative flex items-center w-full sm:w-80 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-1 shadow-2xs focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition">
+            <div class="relative flex items-center w-full sm:w-80 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition">
                 <div class="pl-3 pr-1 flex items-center pointer-events-none text-slate-400">
-                    <i class="fa-solid fa-magnifying-glass text-xs text-cyan-500"></i>
+                    <i class="fa-solid fa-magnifying-glass text-xs text-blue-500"></i>
                 </div>
                 <input type="text" 
                        name="search" 
@@ -21,17 +21,17 @@
                        placeholder="Search Job #, customer, service..."
                        autocomplete="off"
                        class="w-full bg-transparent border-0 px-2.5 py-1.5 text-xs font-medium text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-0">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-xs shrink-0 cursor-pointer">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition shadow-sm shrink-0 cursor-pointer">
                     Search
                 </button>
             </div>
         </form>
     </div>
 
-    <div id="production-jobs-table-card" class="bg-white dark:bg-[#111A24] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xs overflow-hidden">
+    <div id="production-jobs-table-card" class="bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-slate-50 dark:bg-[#0D1520] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 text-[10px]">
+            <table class="w-full text-left text-xs tabular-nums">
+                <thead class="bg-slate-50 dark:bg-[#101319] text-slate-500 dark:text-slate-400 font-bold border-b border-slate-200 dark:border-slate-800 text-[11px]">
                     <tr>
                         <th class="px-6 py-3.5">Job #</th>
                         <th class="px-6 py-3.5">Customer &amp; Service</th>
@@ -44,27 +44,27 @@
                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-200">
                     @forelse($jobs as $j)
                     <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                        <td class="px-6 py-4 font-bold text-slate-900 dark:text-white font-mono">#{{ $j->job_number }}</td>
+                        <td class="px-6 py-4 font-bold text-slate-900 dark:text-white font-sans tabular-nums">#{{ $j->job_number }}</td>
                         <td class="px-6 py-4">
                             <strong class="text-slate-900 dark:text-white block">{{ $j->order->printRequest->service ?? '—' }}</strong>
-                            <span class="block text-[10px] text-slate-400 mt-0.5 font-medium">Cust: {{ $j->order->user->name ?? '—' }}</span>
+                            <span class="block text-[11px] text-slate-400 mt-0.5 font-medium">Cust: {{ $j->order->user->name ?? '—' }}</span>
                         </td>
                         <td class="px-6 py-4 text-slate-600 dark:text-slate-300 font-medium">{{ $j->machine->name ?? 'Not Set' }}</td>
                         <td class="px-6 py-4">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase {{ $j->priority_badge_class }}">{{ $j->priority }}</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase {{ $j->priority_badge_class }}">{{ $j->priority }}</span>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase {{ $j->status_badge_class }}">{{ $j->status_label }}</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase {{ $j->status_badge_class }}">{{ $j->status_label }}</span>
                         </td>
                         <td class="px-6 py-4 text-right whitespace-nowrap">
                             <div class="inline-flex items-center justify-end gap-2.5">
                                 <a href="{{ route('production.jobs.show', $j) }}" 
-                                   class="text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 transition text-sm p-1 inline-flex items-center justify-center" 
+                                   class="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-flex items-center justify-center" 
                                    title="View Specs &amp; Artwork">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                                 <a href="{{ route('production.jobs.status-form', $j) }}" 
-                                   class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow-xs transition inline-flex items-center justify-center">
+                                   class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow-sm transition inline-flex items-center justify-center">
                                     Update Status
                                 </a>
                             </div>

@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Quotation #{{ $quotation->formatted_number }} - Morning Star Printing Press Co.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}';">
     <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null; this.src='{{ asset('assets/js/tailwindcss.js') }}';"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onerror="this.onerror=null; this.href='{{ asset('assets/fontawesome/css/all.min.css') }}';">
     <style>
+        html, body, .font-sans, .font-display {
+            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-variant-numeric: tabular-nums;
+        }
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; padding: 0 !important; color: black !important; }
@@ -32,14 +39,14 @@
                 <img src="{{ asset('images/morning-star-logo.png') }}" alt="Logo" class="h-8 w-8 object-contain rounded-full bg-white p-0.5">
                 <div>
                     <span class="text-xs font-black font-display tracking-wide block">MORNING STAR PRINTING PRESS CO.</span>
-                    <span class="text-[10px] text-slate-400">Official Printable Quotation Form &middot; #{{ $quotation->formatted_number }}</span>
+                    <span class="text-xs text-slate-300 tabular-nums">Official Printable Quotation Form &middot; #{{ $quotation->formatted_number }}</span>
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="window.history.back()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2 rounded-xl text-xs transition">
+                <button onclick="window.history.back()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2 rounded-xl text-xs transition cursor-pointer">
                     &larr; Back
                 </button>
-                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl text-xs shadow transition flex items-center gap-2">
+                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl text-xs shadow transition flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-print"></i> Print / Save as PDF
                 </button>
             </div>
@@ -72,7 +79,7 @@
                 <table class="border-collapse w-full">
                     <tr>
                         <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 w-28 bg-slate-50">Date:</td>
-                        <td class="border border-slate-900 py-1.5 px-2 text-slate-950 font-semibold">
+                        <td class="border border-slate-900 py-1.5 px-2 text-slate-950 font-semibold tabular-nums">
                             {{ $quotation->created_at->format('m/d/Y') }}
                         </td>
                     </tr>
@@ -90,7 +97,7 @@
                     </tr>
                     <tr>
                         <td class="border border-slate-900 py-1.5 px-2 font-bold text-slate-900 bg-slate-50">Contact No.:</td>
-                        <td class="border border-slate-900 py-1.5 px-2 text-slate-800">
+                        <td class="border border-slate-900 py-1.5 px-2 text-slate-800 tabular-nums">
                             {{ $quotation->user->phone ?? '—' }}
                         </td>
                     </tr>
@@ -117,7 +124,7 @@
                     <tbody>
                         {{-- Primary Item Row --}}
                         <tr class="align-top">
-                            <td class="py-2.5 px-3 text-center font-bold text-slate-950">
+                            <td class="py-2.5 px-3 text-center font-bold text-slate-950 tabular-nums">
                                 {{ number_format($qty) }}
                             </td>
                             <td class="py-2.5 px-4">
@@ -137,10 +144,10 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-900 align-top">
+                            <td class="py-2.5 px-3 text-right font-sans tabular-nums font-bold text-slate-900 align-top">
                                 {{ number_format($unitPrice, 2) }}
                             </td>
-                            <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-950 align-top">
+                            <td class="py-2.5 px-3 text-right font-sans tabular-nums font-bold text-slate-950 align-top">
                                 {{ number_format($quotation->total_price, 2) }}
                             </td>
                         </tr>
@@ -159,7 +166,7 @@
                                 TOTAL
                             </td>
                             <td class="py-2.5 px-3">&nbsp;</td>
-                            <td class="py-2.5 px-3 text-right font-black font-mono text-slate-950">
+                            <td class="py-2.5 px-3 text-right font-black font-sans tabular-nums text-slate-950">
                                 {{ number_format($quotation->total_price, 2) }}
                             </td>
                         </tr>
@@ -176,7 +183,7 @@
                     <p class="text-slate-800 font-medium">GCash No. 09176850444 Judith M</p>
                     <div class="pt-1 flex items-baseline gap-2">
                         <span class="font-bold text-slate-950">Due Date:</span>
-                        <span class="form-line px-2 font-bold text-slate-950 min-w-[140px]">
+                        <span class="form-line px-2 font-bold text-slate-950 tabular-nums min-w-[140px]">
                             {{ $quotation->valid_until ? $quotation->valid_until->format('F d, Y') : now()->addDays(7)->format('F d, Y') }}
                         </span>
                     </div>
