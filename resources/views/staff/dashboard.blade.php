@@ -94,13 +94,13 @@
                 <tbody class="divide-y divide-cyber-sub text-cyber-main">
                     @forelse($recentRequests as $req)
                         @php
-                            $statusBadge = match($req->status) {
-                                'submitted' => 'bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/25',
-                                'verified'  => 'bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25',
-                                'quoted'    => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/25',
-                                'production'=> 'bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/25',
-                                'completed' => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25',
-                                default     => 'bg-cyber-sub text-cyber-muted border border-cyber',
+                            $statusColor = match($req->status) {
+                                'submitted' => 'text-amber-600 dark:text-amber-400',
+                                'verified'  => 'text-blue-600 dark:text-blue-400',
+                                'quoted'    => 'text-indigo-600 dark:text-indigo-400',
+                                'production'=> 'text-teal-600 dark:text-teal-400',
+                                'completed' => 'text-emerald-600 dark:text-emerald-400',
+                                default     => 'text-cyber-muted',
                             };
 
                             $reqActionLabel = match($req->status) {
@@ -124,7 +124,7 @@
                                 </span>
                             </td>
                             <td class="px-4 sm:px-6 py-3.5 whitespace-nowrap">
-                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold {{ $statusBadge }} font-sans">
+                                <span class="text-xs font-semibold {{ $statusColor }} font-sans">
                                     {{ ucfirst($req->status) }}
                                 </span>
                             </td>

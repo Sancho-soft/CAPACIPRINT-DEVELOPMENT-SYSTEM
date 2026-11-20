@@ -72,20 +72,17 @@
                                 <span class="font-bold text-blue-400 block">{{ $req->service }}</span>
                                 <span class="text-[11px] text-cyber-muted">{{ number_format($req->quantity) }} pcs &middot; {{ $req->size }}</span>
                             </td>
-                            <td class="px-6 py-4 font-sans tabular-nums text-cyber-muted">
+                            <td class="px-6 py-4 font-sans tabular-nums text-xs">
                                 @if($req->deadline)
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-cyber-sub border border-cyber text-[11px] text-cyber-main">
-                                        <i class="fa-regular fa-calendar text-blue-400 text-[11px]"></i>
+                                    <span class="text-cyber-main font-medium">
                                         {{ $req->deadline->format('M d, Y') }}
                                     </span>
                                 @else
-                                    <span class="text-cyber-sub">Flexible</span>
+                                    <span class="text-cyber-muted">Flexible</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4">
-                                <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-cyber-sub border border-cyber text-cyber-main">
-                                    {{ $req->preferred_branch ?? 'Any Branch' }}
-                                </span>
+                            <td class="px-6 py-4 text-xs font-medium text-cyber-main">
+                                {{ $req->preferred_branch ?? 'Any Branch' }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ route('manager.capacity.evaluate', $req) }}" 

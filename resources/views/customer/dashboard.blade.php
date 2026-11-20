@@ -10,7 +10,6 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Client Production Portal</span>
             <h2 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main leading-tight">Welcome back, {{ auth()->user()->name }}</h2>
         </div>
 
@@ -86,7 +85,7 @@
                         {{ $latestOrder->printRequest->size ?? '' }}
                     </p>
                 </div>
-                <span class="px-3 py-1 rounded-full text-xs font-sans font-semibold bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25 dark:border-blue-500/30">
+                <span class="text-xs font-sans font-semibold text-blue-600 dark:text-blue-400">
                     {{ $latestOrder->status_label }}
                 </span>
             </div>

@@ -134,12 +134,12 @@
                             </td>
                             <td class="px-5 py-3.5 whitespace-nowrap">
                                 @if($clm->is_claimed)
-                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 font-sans tabular-nums">
-                                        <i class="fa-solid fa-check text-[11px]"></i> Claimed
+                                    <span class="text-xs font-sans font-semibold text-emerald-600 dark:text-emerald-400">
+                                        Claimed
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30 font-sans tabular-nums">
-                                        <i class="fa-solid fa-clock text-[11px]"></i> Ready on Shelf
+                                    <span class="text-xs font-sans font-semibold text-amber-600 dark:text-amber-400">
+                                        Ready on Shelf
                                     </span>
                                 @endif
                             </td>

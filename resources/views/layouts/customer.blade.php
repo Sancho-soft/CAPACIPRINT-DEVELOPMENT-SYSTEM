@@ -154,28 +154,18 @@
 
         </nav>
 
-        {{-- Quick CTA + Desktop Sidebar Collapse Plate --}}
-        <div class="shrink-0 p-2.5 border-t border-cyber bg-cyber-card/40 space-y-2">
-            <a href="{{ route('customer.print-requests.create') }}"
-               title="New Print Request"
-               :class="sidebarCollapsed ? 'justify-center px-0' : 'px-3 justify-center'"
-               class="flex items-center gap-2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition shadow-sm">
-                <i class="fa-solid fa-plus text-xs shrink-0"></i>
-                <span x-show="!sidebarCollapsed" x-transition.opacity class="truncate">New Print Request</span>
-            </a>
-
-            <div class="hidden md:flex items-center pt-1"
-                 :class="sidebarCollapsed ? 'justify-center' : 'justify-between'">
-                <span x-show="!sidebarCollapsed" x-transition.opacity class="text-[11px] font-sans font-semibold text-cyber-sub pl-1.5">Collapse Menu</span>
-                <button @click="toggleSidebar()" 
-                        type="button" 
-                        aria-label="Toggle navigation sidebar"
-                        class="h-8 w-8 rounded-lg bg-cyber-card hover:border-blue-600/40 dark:hover:border-blue-500/40 text-cyber-muted hover:text-cyber-main border border-cyber flex items-center justify-center transition cursor-pointer"
-                        :title="sidebarCollapsed ? 'Expand Sidebar (Ctrl + B)' : 'Collapse Sidebar'">
-                    <i class="fa-solid text-xs transition-transform duration-200"
-                       :class="sidebarCollapsed ? 'fa-angles-right' : 'fa-angles-left'"></i>
-                </button>
-            </div>
+        {{-- Desktop Sidebar Collapse Plate --}}
+        <div class="shrink-0 p-2.5 border-t border-cyber bg-cyber-card/40 hidden md:flex items-center"
+             :class="sidebarCollapsed ? 'justify-center' : 'justify-between'">
+            <span x-show="!sidebarCollapsed" x-transition.opacity class="text-[11px] font-sans font-semibold text-cyber-sub pl-1.5">Collapse Menu</span>
+            <button @click="toggleSidebar()" 
+                    type="button" 
+                    aria-label="Toggle navigation sidebar"
+                    class="h-8 w-8 rounded-lg bg-cyber-card hover:border-blue-600/40 dark:hover:border-blue-500/40 text-cyber-muted hover:text-cyber-main border border-cyber flex items-center justify-center transition cursor-pointer"
+                    :title="sidebarCollapsed ? 'Expand Sidebar (Ctrl + B)' : 'Collapse Sidebar'">
+                <i class="fa-solid text-xs transition-transform duration-200"
+                   :class="sidebarCollapsed ? 'fa-angles-right' : 'fa-angles-left'"></i>
+            </button>
         </div>
 
     </aside>
@@ -190,16 +180,6 @@
                 <button @click="sidebarOpen = !sidebarOpen" aria-label="Open navigation menu" class="md:hidden text-cyber-muted hover:text-cyber-main p-1.5 rounded-lg border border-cyber hover:bg-cyber-sub focus:outline-none transition">
                     <i class="fa-solid fa-bars text-base"></i>
                 </button>
-                <div class="flex items-center gap-2.5 min-w-0">
-                    <span class="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyber-sub border border-cyber text-xs font-sans font-semibold text-cyber-main shrink-0">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400"></span>
-                        Client Portal
-                    </span>
-                    <span class="hidden lg:inline text-cyber-sub text-xs">/</span>
-                    <span class="text-xs sm:text-sm font-display font-bold text-cyber-main truncate tracking-tight">
-                        @yield('page-title', 'Client Overview')
-                    </span>
-                </div>
             </div>
 
             <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">

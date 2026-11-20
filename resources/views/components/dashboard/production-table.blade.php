@@ -51,20 +51,20 @@
                         $machineName = $job->machine->name ?? 'Press Unit';
                         
                         $priority = strtolower($job->priority ?? 'normal');
-                        $priorityBadge = match($priority) {
-                            'urgent' => 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/25',
-                            'rush'   => 'bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/25',
-                            default  => 'bg-cyber-sub text-cyber-muted border border-cyber',
+                        $priorityColor = match($priority) {
+                            'urgent' => 'text-rose-600 dark:text-rose-400',
+                            'rush'   => 'text-amber-600 dark:text-amber-400',
+                            default  => 'text-cyber-muted',
                         };
 
                         $statusStr = strtolower($job->status ?? 'pending');
-                        $statusBadge = match($statusStr) {
-                            'in_production', 'production' => 'bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25 dark:border-blue-500/30',
-                            'completed', 'claimed'        => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25',
-                            'ready_for_pickup'            => 'bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/25',
-                            'delayed'                     => 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/25',
-                            'quality_checking'            => 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/25',
-                            default                       => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/25',
+                        $statusColor = match($statusStr) {
+                            'in_production', 'production' => 'text-blue-600 dark:text-blue-400',
+                            'completed', 'claimed'        => 'text-emerald-600 dark:text-emerald-400',
+                            'ready_for_pickup'            => 'text-teal-600 dark:text-teal-400',
+                            'delayed'                     => 'text-rose-600 dark:text-rose-400',
+                            'quality_checking'            => 'text-purple-600 dark:text-purple-400',
+                            default                       => 'text-indigo-600 dark:text-indigo-400',
                         };
 
                         $statusLabel = match($statusStr) {
@@ -118,20 +118,14 @@
 
                         {{-- Priority --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            @if(in_array($priority, ['normal', 'standard', 'low']))
-                                <span class="text-[11px] font-sans font-medium capitalize text-cyber-muted">
-                                    {{ $priority }}
-                                </span>
-                            @else
-                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-sans font-semibold capitalize {{ $priorityBadge }}">
-                                    {{ $priority }}
-                                </span>
-                            @endif
+                            <span class="text-xs font-sans font-semibold capitalize {{ $priorityColor }}">
+                                {{ $priority }}
+                            </span>
                         </td>
 
                         {{-- Status --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-sans font-semibold {{ $statusBadge }}">
+                            <span class="text-xs font-sans font-semibold {{ $statusColor }}">
                                 {{ $statusLabel }}
                             </span>
                             @if($statusStr === 'delayed' && !empty($job->delay_reason))

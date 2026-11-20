@@ -5,6 +5,14 @@
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto font-sans">
 
+    {{-- Page Header --}}
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Order Management</h1>
+            <p class="text-xs text-cyber-muted mt-1">Multi-branch order telemetry, status tracking, and fulfillment overview.</p>
+        </div>
+    </div>
+
     {{-- 1. EXECUTIVE KPI SUMMARY STRIP --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         

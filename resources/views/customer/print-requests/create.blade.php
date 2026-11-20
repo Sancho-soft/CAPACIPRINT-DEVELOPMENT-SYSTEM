@@ -6,7 +6,6 @@
 <div class="max-w-4xl mx-auto" x-data="printWizard()">
 
     <div class="mb-6">
-        <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Client Order Intake</span>
         <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">Submit Print Request</h2>
         <p class="text-xs sm:text-sm text-cyber-muted mt-1">Fill in the specifications below and attach your print-ready artwork to begin capacity routing.</p>
     </div>

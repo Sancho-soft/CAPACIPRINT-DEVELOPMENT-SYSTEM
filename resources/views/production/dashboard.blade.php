@@ -11,6 +11,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
+            <p class="text-xs text-cyber-muted mt-1">Real-time throughput, equipment loads, and fulfillment deadlines.</p>
         </div>
 
         {{-- Right Quick Navigation Actions --}}
@@ -27,44 +28,36 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 4 OPERATIONAL SHIFT METRICS --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 shadow-sm">
-        <div class="mb-4">
-            <h3 class="text-sm font-bold text-cyber-main font-display tracking-tight flex items-center gap-2">
-                <i class="fa-solid fa-chart-simple text-blue-600 dark:text-blue-400"></i> Operational Shift Performance
-            </h3>
-            <p class="text-xs text-cyber-muted mt-0.5">Real-time throughput, equipment loads, and fulfillment deadlines.</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            <x-dashboard.kpi-card 
-                title="ASSIGNED RUNS"
-                :value="$assignedCount"
-                icon="fa-solid fa-list-check"
-                accent="cyan"
-                :link="route('production.jobs.index')"
-            />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <x-dashboard.kpi-card 
+            title="ASSIGNED RUNS"
+            :value="$assignedCount"
+            icon="fa-solid fa-list-check"
+            accent="cyan"
+            :link="route('production.jobs.index')"
+        />
 
-            <x-dashboard.kpi-card 
-                title="ACTIVELY ON PRESS"
-                :value="$inProductionCount"
-                icon="fa-solid fa-industry"
-                accent="indigo"
-                :link="route('production.jobs.index')"
-            />
+        <x-dashboard.kpi-card 
+            title="ACTIVELY ON PRESS"
+            :value="$inProductionCount"
+            icon="fa-solid fa-industry"
+            accent="indigo"
+            :link="route('production.jobs.index')"
+        />
 
-            <x-dashboard.kpi-card 
-                title="DUE TODAY (DEADLINE)"
-                :value="$dueTodayCount"
-                icon="fa-solid fa-clock"
-                accent="amber"
-            />
+        <x-dashboard.kpi-card 
+            title="DUE TODAY (DEADLINE)"
+            :value="$dueTodayCount"
+            icon="fa-solid fa-clock"
+            accent="amber"
+        />
 
-            <x-dashboard.kpi-card 
-                title="COMPLETED THIS SHIFT"
-                :value="$completedCount"
-                icon="fa-solid fa-circle-check"
-                accent="emerald"
-            />
-        </div>
+        <x-dashboard.kpi-card 
+            title="COMPLETED THIS SHIFT"
+            :value="$completedCount"
+            icon="fa-solid fa-circle-check"
+            accent="emerald"
+        />
     </div>
 
     {{-- ══════════════════════════════════════════════════════════ --}}
@@ -133,21 +126,14 @@
                             </td>
                             <td class="px-6 py-3.5 text-right whitespace-nowrap">
                                 @php
-                                    $dotColor = match($m->status) {
-                                        'available'   => 'bg-emerald-500',
-                                        'in_use'      => 'bg-blue-600 dark:bg-blue-500',
-                                        'maintenance' => 'bg-amber-500',
-                                        default       => 'bg-rose-500',
-                                    };
-                                    $badgeStyle = match($m->status) {
-                                        'available'   => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25',
-                                        'in_use'      => 'bg-blue-600/10 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-600/25 dark:border-blue-500/30',
-                                        'maintenance' => 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/25',
-                                        default       => 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/25',
+                                    $statusColor = match($m->status) {
+                                        'available'   => 'text-emerald-600 dark:text-emerald-400',
+                                        'in_use'      => 'text-blue-600 dark:text-blue-400',
+                                        'maintenance' => 'text-amber-600 dark:text-amber-400',
+                                        default       => 'text-rose-600 dark:text-rose-400',
                                     };
                                 @endphp
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-semibold text-[11px] {{ $badgeStyle }} font-sans">
-                                    <span class="w-1.5 h-1.5 rounded-full {{ $dotColor }}"></span>
+                                <span class="text-xs font-semibold {{ $statusColor }} font-sans">
                                     {{ ucfirst(str_replace('_', ' ', $m->status)) }}
                                 </span>
                             </td>

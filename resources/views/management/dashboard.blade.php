@@ -1,6 +1,6 @@
 @extends('layouts.internal')
-@section('title', 'Executive Management Dashboard')
-@section('page-title', 'Executive Management Dashboard')
+@section('title', 'Dashboard Overview')
+@section('page-title', 'Dashboard Overview')
 
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
@@ -10,8 +10,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Enterprise Operations</span>
-            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Executive Management Dashboard</h1>
+            <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
             <p class="text-xs text-cyber-muted mt-1">Multi-branch enterprise performance telemetry and high-level operations control.</p>
         </div>
 

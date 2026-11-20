@@ -6,12 +6,9 @@
 <div x-data="{ viewMode: 'table', search: '' }" class="space-y-6 w-full">
     
     {{-- Header & View Controls --}}
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-cyber-card border border-cyber p-5 rounded-xl">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight flex items-center gap-2.5">
-                <i class="fa-solid fa-file-invoice-dollar text-brand-600 dark:text-blue-400"></i>
-                My Quotations
-            </h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">My Quotations</h2>
             <p class="text-xs text-cyber-muted mt-1">Review official pricing quotes and manage confirmations for your print requests.</p>
         </div>
 
