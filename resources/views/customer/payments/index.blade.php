@@ -10,7 +10,7 @@
     </div>
 
     @if($payments->isEmpty())
-    <div class="bg-cyber-card border border-cyber rounded-xl p-14 text-center">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-14 text-center">
         <div class="h-14 w-14 mx-auto rounded-xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-xl mb-4">
             <i class="fa-solid fa-credit-card"></i>
         </div>
@@ -18,7 +18,7 @@
         <p class="text-xs text-cyber-muted mt-1">Payment records are linked to accepted quotations and confirmed orders.</p>
     </div>
     @else
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-cyber-sub text-xs tabular-nums">
                 <thead class="bg-cyber-sub border-b border-cyber">
@@ -41,7 +41,7 @@
                         <td class="px-5 py-3.5 text-cyber-muted font-sans tabular-nums">{{ $payment->display_reference }}</td>
                         <td class="px-5 py-3.5 text-cyber-muted font-sans tabular-nums">{{ $payment->paid_at?->format('M d, Y') ?? '—' }}</td>
                         <td class="px-5 py-3.5">
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider border {{ $payment->status_badge_class }}">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold border {{ $payment->status_badge_class }}">
                                 {{ $payment->status_label }}
                             </span>
                         </td>

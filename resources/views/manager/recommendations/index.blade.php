@@ -8,9 +8,9 @@
         <h2 class="text-xl font-bold text-cyber-main font-display">Branch Recommendations</h2>
     </div>
 
-    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-left text-xs tabular-nums">
-            <thead class="bg-slate-50 text-slate-400 font-bold">
+            <thead class="bg-cyber-sub text-cyber-muted font-bold">
                 <tr>
                     <th class="px-6 py-3.5">Req #</th>
                     <th class="px-6 py-3.5">Customer</th>
@@ -20,15 +20,15 @@
                     <th class="px-6 py-3.5 text-right">Action</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100">
+            <tbody class="divide-y divide-cyber-sub">
                 @forelse($recommendations as $rec)
-                <tr class="hover:bg-slate-50/50 transition">
+                <tr class="hover:bg-cyber-sub/60 transition">
                     <td class="px-6 py-4 font-bold text-cyber-main">#PR-{{ str_pad($rec->printRequest->id ?? 0, 5, '0', STR_PAD_LEFT) }}</td>
-                    <td class="px-6 py-4 font-semibold text-slate-800">{{ $rec->printRequest->user->name ?? '—' }}</td>
+                    <td class="px-6 py-4 font-semibold text-cyber-main">{{ $rec->printRequest->user->name ?? '—' }}</td>
                     <td class="px-6 py-4 font-bold text-brand-600">{{ $rec->recommendedBranch->name ?? 'None' }}</td>
                     <td class="px-6 py-4 font-black text-cyber-main">{{ $rec->recommendation_score }}/100</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase {{ match($rec->status) { 'confirmed'=>'bg-emerald-100 text-emerald-800', 'overridden'=>'bg-amber-100 text-amber-800', default=>'bg-slate-100 text-slate-600' } }}">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-xs font-semibold uppercase {{ match($rec->status) { 'confirmed'=>'text-emerald-600 dark:text-emerald-400', 'overridden'=>'text-amber-600 dark:text-amber-400', default=>'text-cyber-muted' } }}">
                             {{ $rec->status_label }}
                         </span>
                     </td>
@@ -37,11 +37,11 @@
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="6" class="px-6 py-8 text-center text-slate-400">No branch recommendations found.</td></tr>
+                <tr><td colspan="6" class="px-6 py-8 text-center text-cyber-muted">No branch recommendations found.</td></tr>
                 @endforelse
             </tbody>
         </table>
-        <div class="p-4 border-t border-slate-100">{{ $recommendations->links() }}</div>
+        <div class="p-4 border-t border-cyber">{{ $recommendations->links() }}</div>
     </div>
 </div>
 @endsection

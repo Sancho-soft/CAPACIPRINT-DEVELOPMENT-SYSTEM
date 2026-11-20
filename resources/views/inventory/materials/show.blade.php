@@ -15,16 +15,16 @@
             </a>
             <div>
                 <div class="flex items-center gap-2.5 flex-wrap">
-                    <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">{{ $material->name }}</h1>
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 font-sans tabular-nums">
+                    <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">{{ $material->name }}</h1>
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/30 font-sans tabular-nums">
                         {{ $material->type_label }}
                     </span>
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider {{ $material->is_active ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/10 text-slate-400 border border-slate-500/30' }} font-sans tabular-nums">
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold {{ $material->is_active ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/10 text-cyber-muted border border-slate-500/30' }} font-sans tabular-nums">
                         {{ $material->is_active ? 'Active' : 'Inactive' }}
                     </span>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                    Base Stocking Unit: <strong class="text-slate-900 dark:text-white">{{ $material->unit }}</strong> &middot; Registered {{ $material->created_at ? $material->created_at->format('M d, Y') : 'Recently' }}
+                <p class="text-xs text-cyber-muted mt-1">
+                    Base Stocking Unit: <strong class="text-cyber-main">{{ $material->unit }}</strong> &middot; Registered {{ $material->created_at ? $material->created_at->format('M d, Y') : 'Recently' }}
                 </p>
             </div>
         </div>
@@ -42,7 +42,7 @@
     {{-- Description Box (if present) --}}
     @if($material->description)
         <div class="bg-cyber-card border border-cyber rounded-2xl p-5 shadow-sm">
-            <h4 class="text-xs font-black uppercase tracking-wider text-cyber-muted mb-1">Specifications & Description</h4>
+            <h4 class="text-xs font-black text-cyber-muted mb-1">Specifications & Description</h4>
             <p class="text-xs text-cyber-main leading-relaxed">{{ $material->description }}</p>
         </div>
     @endif
@@ -76,7 +76,7 @@
                                 'available'   => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
                                 'low_stock'   => 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30',
                                 'out_of_stock'=> 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/30',
-                                default       => 'bg-slate-500/10 text-slate-400 border-slate-500/30',
+                                default       => 'bg-slate-500/10 text-cyber-muted border-slate-500/30',
                             };
                         @endphp
                         <tr class="hover:bg-cyber-sub/40 transition">
@@ -90,7 +90,7 @@
                                 {{ number_format($inv->minimum_stock, 2) }} {{ $material->unit }}
                             </td>
                             <td class="px-6 py-4">
-                                <span class="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider border {{ $statusClass }} font-sans tabular-nums">
+                                <span class="px-2.5 py-0.5 rounded text-[11px] font-semibold border {{ $statusClass }} font-sans tabular-nums">
                                     {{ str_replace('_', ' ', $inv->status) }}
                                 </span>
                             </td>
@@ -146,7 +146,7 @@
                                 {{ $mv->branch->name ?? '—' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider border {{ $mvBadge }} font-sans tabular-nums">
+                                <span class="px-2 py-0.5 rounded text-[11px] font-semibold border {{ $mvBadge }} font-sans tabular-nums">
                                     {{ str_replace('_', ' ', $mv->movement_type) }}
                                 </span>
                             </td>

@@ -8,8 +8,8 @@
     {{-- Page Header (Unboxed & Clean) --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Pricing Calculation Rules Matrix</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Manage standard baseline rates, substrate costs, and finishing pricing multipliers across the network.</p>
+            <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">Pricing Calculation Rules Matrix</h1>
+            <p class="text-xs text-cyber-muted mt-1">Manage standard baseline rates, substrate costs, and finishing pricing multipliers across the network.</p>
         </div>
 
         <button @click="showCreateModal = true" 
@@ -22,7 +22,7 @@
     {{-- Rules Table Card --}}
     <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col">
         <div class="px-6 py-4 border-b border-cyber flex items-center justify-between bg-cyber-sub/50">
-            <h3 class="font-bold text-cyber-main text-xs uppercase tracking-wider">Automated Pricing Multipliers</h3>
+            <h3 class="font-bold text-cyber-main text-xs">Automated Pricing Multipliers</h3>
             <span class="text-xs text-cyber-muted font-medium">{{ $rules->total() }} Rules Active</span>
         </div>
 
@@ -50,7 +50,7 @@
                         <td class="px-6 py-4 font-sans tabular-nums font-bold text-cyber-main">₱{{ number_format($r->material_rate, 2) }}</td>
                         <td class="px-6 py-4 font-sans tabular-nums font-bold text-cyber-main">₱{{ number_format($r->finishing_rate, 2) }}</td>
                         <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider {{ $r->is_active ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-slate-500/15 text-slate-600 dark:text-slate-400' }}">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold {{ $r->is_active ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400' : 'bg-slate-500/15 text-cyber-muted' }}">
                                 {{ $r->is_active ? 'Active' : 'Inactive' }}
                             </span>
                         </td>

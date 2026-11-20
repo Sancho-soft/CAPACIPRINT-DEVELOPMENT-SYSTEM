@@ -110,15 +110,15 @@ class PrintRequest extends Model
     public function getStatusBadgeClassAttribute(): string
     {
         return match ($this->status) {
-            'submitted'          => 'bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-400',
-            'quotation'          => 'bg-indigo-100 text-indigo-800 dark:bg-indigo-500/15 dark:text-indigo-400',
-            'payment'            => 'bg-orange-100 text-orange-800 dark:bg-orange-500/15 dark:text-orange-400',
-            'branch_recommended' => 'bg-purple-100 text-purple-800 dark:bg-purple-500/15 dark:text-purple-400',
-            'production'         => 'bg-cyan-100 text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-400',
-            'completed'          => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-400',
-            'ready_for_pickup'   => 'bg-teal-100 text-teal-800 dark:bg-teal-500/15 dark:text-teal-400',
-            'claimed'            => 'bg-slate-100 text-slate-800 dark:bg-slate-500/15 dark:text-slate-400',
-            default              => 'bg-slate-100 text-slate-700 dark:bg-slate-500/15 dark:text-slate-400',
+            'submitted'          => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            'quotation'          => 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400 border border-indigo-500/30',
+            'payment'            => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            'branch_recommended' => 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border border-purple-500/30',
+            'production'         => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30',
+            'completed'          => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'ready_for_pickup'   => 'bg-teal-500/15 text-teal-700 dark:text-teal-400 border border-teal-500/30',
+            'claimed'            => 'bg-cyber-sub text-cyber-muted border border-cyber',
+            default              => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 }

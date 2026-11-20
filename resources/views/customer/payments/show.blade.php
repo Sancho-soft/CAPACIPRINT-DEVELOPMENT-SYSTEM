@@ -8,21 +8,21 @@
     {{-- Header --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-black text-cyber-main font-display tracking-tight">
                 Payment Details
             </h2>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p class="text-xs sm:text-sm text-cyber-muted mt-1">
                 Transaction Voucher &amp; Settlement Record
             </p>
         </div>
         <div class="self-start sm:self-center">
-            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm
                 {{ match($payment->status) {
                     'confirmed', 'verified' => 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/50',
                     'submitted'             => 'bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800/50',
                     'pending'               => 'bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800/50',
                     'rejected'              => 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-800/50',
-                    default                 => 'bg-slate-50 text-slate-700 border border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800',
+                    default                 => 'bg-cyber-sub text-cyber-main border border-cyber dark:bg-slate-900 dark:text-cyber-muted dark:border-slate-800',
                 } }}">
                 <span class="w-2 h-2 rounded-full
                     {{ match($payment->status) {
@@ -38,10 +38,10 @@
     </div>
 
     {{-- Digital Payment Receipt / Voucher Card --}}
-    <div class="bg-white dark:bg-[#151922] border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         
         {{-- Receipt Hero Amount --}}
-        <div class="p-6 sm:p-8 text-center bg-gradient-to-b from-slate-50/80 to-white dark:from-slate-900/50 dark:to-[#151922] border-b border-slate-100 dark:border-slate-800">
+        <div class="p-6 sm:p-8 text-center bg-gradient-to-b from-slate-50/80 to-white dark:from-slate-900/50 dark:to-[#151922] border-b border-cyber">
             @if(in_array($payment->status, ['confirmed', 'verified']))
                 <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl mx-auto mb-3 shadow-sm">
                     <i class="fa-solid fa-circle-check"></i>
@@ -49,10 +49,10 @@
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/50 mb-2">
                     Payment Confirmed &amp; Verified
                 </span>
-                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-display tracking-tight">
+                <h1 class="text-3xl sm:text-4xl font-black text-cyber-main font-display tracking-tight">
                     ₱{{ number_format($payment->amount, 2) }}
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p class="text-xs sm:text-sm text-cyber-muted mt-1">
                     Amount Paid via {{ str_replace([' (Over-the-Counter)', ' on Pickup'], '', $payment->payment_method ?? 'Cash') }}
                 </p>
             @elseif($payment->status === 'submitted')
@@ -62,10 +62,10 @@
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800/50 mb-2">
                     Payment Submitted &amp; Awaiting Verification
                 </span>
-                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-display tracking-tight">
+                <h1 class="text-3xl sm:text-4xl font-black text-cyber-main font-display tracking-tight">
                     ₱{{ number_format($payment->amount, 2) }}
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p class="text-xs sm:text-sm text-cyber-muted mt-1">
                     Under verification by accounts desk
                 </p>
             @else
@@ -75,10 +75,10 @@
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800/50 mb-2">
                     Awaiting Payment Settlement
                 </span>
-                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-display tracking-tight">
+                <h1 class="text-3xl sm:text-4xl font-black text-cyber-main font-display tracking-tight">
                     ₱{{ number_format($payment->amount, 2) }}
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p class="text-xs sm:text-sm text-cyber-muted mt-1">
                     Total Amount Due
                 </p>
             @endif
@@ -87,15 +87,15 @@
         {{-- Transaction Breakdown Grid --}}
         <div class="p-6 sm:p-7 grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Order Reference</span>
-                <p class="font-bold text-slate-900 dark:text-white text-sm">
+                <span class="text-xs font-semibold text-cyber-muted block">Order Reference</span>
+                <p class="font-bold text-cyber-main text-sm">
                     #{{ $payment->order->order_number ?? '—' }}
                 </p>
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Payment Method</span>
-                <p class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="text-xs font-semibold text-cyber-muted block">Payment Method</span>
+                <p class="font-bold text-cyber-main flex items-center gap-2">
                     @if(str_contains(strtolower($payment->payment_method ?? ''), 'gcash'))
                         <i class="fa-solid fa-mobile-screen-button text-blue-500 text-xs"></i>
                     @elseif(str_contains(strtolower($payment->payment_method ?? ''), 'bank'))
@@ -108,15 +108,15 @@
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Payment Reference</span>
-                <p class="font-sans tabular-nums font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+                <span class="text-xs font-semibold text-cyber-muted block">Payment Reference</span>
+                <p class="font-sans tabular-nums font-bold text-cyber-main text-xs sm:text-sm">
                     {{ $payment->display_reference ?? '—' }}
                 </p>
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Date &amp; Timestamp</span>
-                <p class="font-bold text-slate-900 dark:text-white">
+                <span class="text-xs font-semibold text-cyber-muted block">Date &amp; Timestamp</span>
+                <p class="font-bold text-cyber-main">
                     {{ $payment->paid_at?->format('F d, Y · h:i A') ?? ($payment->created_at?->format('F d, Y · h:i A') ?? '—') }}
                 </p>
             </div>
@@ -124,9 +124,9 @@
 
         {{-- Notes Callout (if present) --}}
         @if($payment->notes)
-            <div class="px-6 py-4 bg-slate-50/50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Additional Notes</span>
-                <p class="text-xs text-slate-600 dark:text-slate-300 italic">&ldquo;{{ $payment->notes }}&rdquo;</p>
+            <div class="px-6 py-4 bg-cyber-sub/60 dark:bg-slate-900/40 border-t border-cyber">
+                <span class="text-xs font-semibold text-cyber-muted block mb-1">Additional Notes</span>
+                <p class="text-xs text-cyber-muted italic">&ldquo;{{ $payment->notes }}&rdquo;</p>
             </div>
         @endif
 
@@ -150,22 +150,22 @@
 
     {{-- Interactive Form for Pending Payment Settlement --}}
     @if($payment->status === 'pending')
-    <div class="bg-white dark:bg-[#151922] border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm p-6 space-y-4" x-data="{ method: '{{ old('payment_method', 'GCash') }}' }">
-        <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-6 space-y-4" x-data="{ method: '{{ old('payment_method', 'GCash') }}' }">
+        <h3 class="font-bold text-base text-cyber-main flex items-center gap-2">
             <i class="fa-solid fa-credit-card text-blue-500"></i> Submit Payment Details
         </h3>
-        <p class="text-xs text-slate-500 dark:text-slate-400">
+        <p class="text-xs text-cyber-muted">
             Select your preferred payment method below. For online payments, enter your transaction reference number. For cash, you can pay directly upon claiming your order at the counter.
         </p>
 
         <form method="POST" action="{{ route('customer.payments.submit', $payment) }}" class="space-y-4 pt-2">
             @csrf
             <div>
-                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label class="block text-xs font-semibold text-cyber-main mb-1.5">
                     Payment Method <span class="text-red-500">*</span>
                 </label>
                 <select name="payment_method" required x-model="method"
-                        class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition">
+                        class="block w-full rounded-xl border border-cyber px-3.5 py-2.5 text-sm bg-cyber-card text-cyber-main focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition">
                     <option value="Cash">Cash on Pickup / Over-the-Counter</option>
                     <option value="GCash">GCash</option>
                     <option value="Maya">Maya</option>
@@ -175,12 +175,12 @@
 
             {{-- Reference for Electronic / Online Payments --}}
             <div x-show="method !== 'Cash'" x-cloak>
-                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label class="block text-xs font-semibold text-cyber-main mb-1.5">
                     Payment Reference / Transaction ID <span class="text-red-500">*</span>
                 </label>
                 <input type="text" name="payment_reference" :required="method !== 'Cash'" 
                        :placeholder="method === 'GCash' ? 'e.g. Ref No. 987654321012345' : (method === 'Bank Transfer' ? 'e.g. PAY-2026-847291' : 'e.g. Ref No. 987654321012345')"
-                       class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition">
+                       class="block w-full rounded-xl border border-cyber px-3.5 py-2.5 text-sm bg-cyber-card text-cyber-main focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition">
             </div>
 
             {{-- Cash Explanatory Banner --}}
@@ -188,14 +188,14 @@
                 <i class="fa-solid fa-circle-info mt-0.5 text-blue-600 dark:text-blue-400 shrink-0"></i>
                 <div>
                     <p class="font-bold">No Reference Code Required for Cash</p>
-                    <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5">Please prepare the exact payment amount (₱{{ number_format($payment->amount, 2) }}) upon claiming your printed order at the counter.</p>
+                    <p class="text-[11px] text-cyber-muted mt-0.5">Please prepare the exact payment amount (₱{{ number_format($payment->amount, 2) }}) upon claiming your printed order at the counter.</p>
                 </div>
             </div>
 
             <div>
-                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Additional Notes</label>
+                <label class="block text-xs font-semibold text-cyber-main mb-1.5">Additional Notes</label>
                 <textarea name="notes" rows="2" placeholder="Any additional information..."
-                          class="block w-full rounded-xl border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-sm bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition resize-none"></textarea>
+                          class="block w-full rounded-xl border border-cyber px-3.5 py-2.5 text-sm bg-cyber-card text-cyber-main focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition resize-none"></textarea>
             </div>
 
             <button type="submit"

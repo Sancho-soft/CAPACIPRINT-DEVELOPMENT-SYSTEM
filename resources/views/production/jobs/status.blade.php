@@ -37,7 +37,7 @@
                 <div class="flex items-center gap-2 mb-1">
                     <i class="fa-solid fa-clipboard-check text-emerald-600 dark:text-emerald-400"></i>
                     <h4 class="font-bold text-emerald-800 dark:text-emerald-300 text-sm font-display">Quality Control Sign-Off</h4>
-                    <span class="ml-auto text-[11px] font-sans tabular-nums font-bold uppercase tracking-wider px-2 py-0.5 rounded tabular-nums"
+                    <span class="ml-auto text-[11px] font-sans tabular-nums font-bold px-2 py-0.5 rounded tabular-nums"
                           :class="qcAllChecked ? 'bg-emerald-600 text-white' : 'bg-amber-500/20 text-amber-800 dark:text-amber-300'">
                         <span x-text="Object.values(qc).filter(v=>v).length"></span>/5 checked
                     </span>

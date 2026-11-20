@@ -34,7 +34,7 @@
         </div>
     @endif
 
-    <div id="customers-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div id="customers-table-card" class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
         <table class="w-full text-left text-xs tabular-nums">
             <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px]">
@@ -100,7 +100,7 @@
 
 <!-- Send Notification Modal -->
 <div id="notify-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overscroll-contain">
-    <div class="bg-cyber-card border border-cyber rounded-xl p-6 w-full max-w-md shadow-lg space-y-4">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-6 w-full max-w-md shadow-lg space-y-4">
         <div class="flex items-center justify-between border-b border-cyber pb-3">
             <h3 class="text-base font-bold text-cyber-main font-display flex items-center gap-2">
                 <i class="fa-solid fa-paper-plane text-brand-600 dark:text-blue-400"></i> Notify <span id="notify-cust-name" class="text-brand-600 dark:text-blue-400"></span>
@@ -142,10 +142,10 @@
 
 <!-- Edit Customer Contact Modal -->
 <div id="edit-customer-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overscroll-contain">
-    <div class="bg-cyber-card border border-cyber rounded-xl w-full max-w-md shadow-lg overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl w-full max-w-md shadow-xl overflow-hidden">
         <div class="px-6 py-4 border-b border-cyber bg-cyber-sub flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="h-9 w-9 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-sm shrink-0">
+                <div class="h-9 w-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-sm shrink-0">
                     <i class="fa-solid fa-user-pen"></i>
                 </div>
                 <h3 class="text-sm font-bold text-cyber-main font-display leading-tight">Edit Customer Info</h3>
@@ -153,7 +153,7 @@
             <button type="button" 
                     onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" 
                     aria-label="Close edit modal"
-                    class="h-8 w-8 rounded-lg text-cyber-muted hover:text-cyber-main hover:bg-cyber-card inline-flex items-center justify-center transition cursor-pointer"
+                    class="h-8 w-8 rounded-xl text-cyber-muted hover:text-cyber-main hover:bg-cyber-card inline-flex items-center justify-center transition cursor-pointer"
                     title="Close">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
@@ -167,11 +167,11 @@
             <div class="p-6 space-y-4 text-xs">
                 {{-- Full Name --}}
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label class="block text-xs font-semibold text-cyber-main mb-1.5">
                         Full Name
                     </label>
                     <div class="relative flex items-center">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-xs">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cyber-muted text-xs">
                             <i class="fa-solid fa-user"></i>
                         </div>
                         <input type="text" 
@@ -179,17 +179,17 @@
                                name="name" 
                                required 
                                placeholder="e.g. Juan Dela Cruz"
-                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-sm">
+                               class="w-full bg-cyber-sub border border-cyber rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-cyber-main placeholder-cyber-muted focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:outline-none transition">
                     </div>
                 </div>
 
                 {{-- Email Address --}}
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label class="block text-xs font-semibold text-cyber-main mb-1.5">
                         Email Address
                     </label>
                     <div class="relative flex items-center">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-xs">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cyber-muted text-xs">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
                         <input type="email" 
@@ -197,37 +197,37 @@
                                name="email" 
                                required 
                                placeholder="customer@example.com"
-                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-sm">
+                               class="w-full bg-cyber-sub border border-cyber rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-cyber-main placeholder-cyber-muted focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:outline-none transition">
                     </div>
                 </div>
 
                 {{-- Phone Number --}}
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    <label class="block text-xs font-semibold text-cyber-main mb-1.5">
                         Phone Number
                     </label>
                     <div class="relative flex items-center">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500 text-xs">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cyber-muted text-xs">
                             <i class="fa-solid fa-phone"></i>
                         </div>
                         <input type="text" 
                                id="edit-cust-phone" 
                                name="phone" 
                                placeholder="+63 912 345 6789"
-                               class="w-full bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700/80 rounded-xl pl-10 pr-3.5 py-2.5 text-xs font-sans tabular-nums text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:bg-white dark:focus:bg-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition shadow-sm">
+                               class="w-full bg-cyber-sub border border-cyber rounded-xl pl-10 pr-3.5 py-2.5 text-xs font-sans tabular-nums text-cyber-main placeholder-cyber-muted focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:outline-none transition">
                     </div>
                 </div>
             </div>
 
             {{-- Footer Actions (Full-width divider bar) --}}
-            <div class="px-6 py-4 bg-slate-50/80 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-end gap-2.5">
+            <div class="px-6 py-4 bg-cyber-sub border-t border-cyber flex items-center justify-end gap-2.5">
                 <button type="button" 
                         onclick="document.getElementById('edit-customer-modal').classList.add('hidden')" 
-                        class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-xs transition cursor-pointer">
+                        class="px-4 py-2.5 rounded-2xl border border-cyber bg-cyber-card shadow-sm text-cyber-main hover:bg-cyber-sub font-semibold text-xs transition cursor-pointer">
                     Cancel
                 </button>
                 <button type="submit" 
-                        class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs inline-flex items-center gap-2 shadow-sm shadow-emerald-600/30 hover:shadow transition cursor-pointer">
+                        class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs inline-flex items-center gap-2 shadow-sm transition cursor-pointer">
                     <i class="fa-solid fa-check text-xs"></i>
                     Save Changes
                 </button>

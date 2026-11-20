@@ -50,12 +50,12 @@ class CapacityEvaluation extends Model
     public function getCapacityStatusBadgeClassAttribute(): string
     {
         return match ($this->capacity_status) {
-            'qualified'     => 'bg-green-100 text-green-800',
-            'near_capacity' => 'bg-amber-100 text-amber-800',
-            'not_qualified' => 'bg-red-100 text-red-800',
-            'over_capacity' => 'bg-red-200 text-red-900',
-            'unavailable'   => 'bg-slate-200 text-slate-600',
-            default         => 'bg-slate-100 text-slate-600',
+            'qualified'     => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'near_capacity' => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            'not_qualified' => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30',
+            'over_capacity' => 'bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-500/40',
+            'unavailable'   => 'bg-cyber-sub text-cyber-muted border border-cyber',
+            default         => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 }

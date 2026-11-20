@@ -6,12 +6,9 @@
 <div x-data="{ viewMode: 'table', search: '' }" class="space-y-6 w-full">
     
     {{-- Header & View Controls --}}
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-cyber-card border border-cyber p-5 rounded-xl">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight flex items-center gap-2.5">
-                <i class="fa-solid fa-file-invoice-dollar text-brand-600 dark:text-blue-400"></i>
-                My Quotations
-            </h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">My Quotations</h2>
             <p class="text-xs text-cyber-muted mt-1">Review official pricing quotes and manage confirmations for your print requests.</p>
         </div>
 
@@ -148,9 +145,15 @@
                             {{ $quotation->valid_until?->format('M d, Y') ?? 'N/A' }}
                         </td>
 
-                        {{-- Status Badge --}}
+                        {{-- Status --}}
                         <td class="py-3.5 px-5 whitespace-nowrap">
-                            <span class="px-2 py-0.5 text-[11px] font-sans tabular-nums font-semibold rounded uppercase tracking-wider inline-block {{ $quotation->status_badge_class }}">
+                            <span class="text-xs font-semibold uppercase tracking-wider {{ match($quotation->status) {
+                                'pending'   => 'text-amber-600 dark:text-amber-400',
+                                'confirmed' => 'text-emerald-600 dark:text-emerald-400',
+                                'declined'  => 'text-rose-600 dark:text-rose-400',
+                                'expired'   => 'text-slate-500 dark:text-slate-400',
+                                default     => 'text-cyber-muted',
+                            } }}">
                                 {{ $quotation->status_label }}
                             </span>
                         </td>

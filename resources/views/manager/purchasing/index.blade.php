@@ -21,7 +21,6 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Procurement &amp; Replenishment</span>
             <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Material Purchase Requests</h1>
             <p class="text-xs text-cyber-muted mt-1">Submit replenishment orders and manage material procurement for printing facilities.</p>
         </div>
@@ -61,7 +60,7 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- PURCHASE REQUESTS TABLE --}}
     {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs tabular-nums">
                 <thead class="text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px] bg-cyber-sub">
@@ -86,7 +85,7 @@
                         {{-- Material Name & Type --}}
                         <td class="px-6 py-4">
                             <span class="font-bold text-cyber-main block">{{ $req->material->name ?? 'Material #' . $req->material_id }}</span>
-                            <span class="text-[11px] text-cyber-muted uppercase tracking-wider">{{ $req->material->type ?? 'Substrate' }}</span>
+                            <span class="text-[11px] text-cyber-muted">{{ $req->material->type ?? 'Substrate' }}</span>
                         </td>
 
                         {{-- Quantity --}}
@@ -108,23 +107,19 @@
                         {{-- Status (Clean, High-Res Plain Style) --}}
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($req->status === 'pending')
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-amber-700 dark:text-amber-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-amber-500"></i>
+                                <span class="font-semibold text-xs text-amber-600 dark:text-amber-400">
                                     Pending Approval
                                 </span>
                             @elseif($req->status === 'approved')
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-emerald-700 dark:text-emerald-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-emerald-500"></i>
+                                <span class="font-semibold text-xs text-emerald-600 dark:text-emerald-400">
                                     Approved
                                 </span>
                             @elseif($req->status === 'received')
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-brand-600 dark:text-blue-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-brand-600 dark:text-blue-400"></i>
+                                <span class="font-semibold text-xs text-brand-600 dark:text-blue-400">
                                     Received &amp; Stocked
                                 </span>
                             @else
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-rose-700 dark:text-rose-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-rose-500"></i>
+                                <span class="font-semibold text-xs text-rose-600 dark:text-rose-400">
                                     Rejected
                                 </span>
                             @endif
@@ -288,12 +283,12 @@
                 {{-- Material Specs --}}
                 <div class="bg-cyber-sub rounded-2xl p-4 border border-cyber grid grid-cols-2 gap-4">
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Material Name</span>
+                        <span class="text-[11px] font-extrabold text-cyber-muted block">Material Name</span>
                         <span class="text-sm font-black text-cyber-main block" x-text="selectedPR?.material_name"></span>
                         <span class="text-[11px] text-cyber-muted" x-text="selectedPR?.material_type"></span>
                     </div>
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Requested Quantity</span>
+                        <span class="text-[11px] font-extrabold text-cyber-muted block">Requested Quantity</span>
                         <span class="text-sm font-black text-cyber-main font-sans tabular-nums block">
                             <span x-text="selectedPR?.quantity"></span> <span class="font-sans font-normal text-xs text-cyber-muted" x-text="selectedPR?.material_unit"></span>
                         </span>
@@ -304,7 +299,7 @@
                 {{-- Total Budget Highlight --}}
                 <div class="flex items-center justify-between p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30">
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-emerald-700 dark:text-emerald-400 block">Total Requisition Cost</span>
+                        <span class="text-[11px] font-extrabold text-emerald-700 dark:text-emerald-400 block">Total Requisition Cost</span>
                         <span class="text-xs text-cyber-muted">Calculated replenishment allocation</span>
                     </div>
                     <div class="text-right">
@@ -315,18 +310,18 @@
                 {{-- Submitter & Facility Info --}}
                 <div class="grid grid-cols-2 gap-4 bg-cyber-sub rounded-2xl p-4 border border-cyber">
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Requested By</span>
+                        <span class="text-[11px] font-extrabold text-cyber-muted block">Requested By</span>
                         <span class="font-bold text-cyber-main" x-text="selectedPR?.requested_by"></span>
                     </div>
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block">Destination Facility</span>
+                        <span class="text-[11px] font-extrabold text-cyber-muted block">Destination Facility</span>
                         <span class="font-bold text-cyber-main" x-text="selectedPR?.branch_name"></span>
                     </div>
                 </div>
 
                 {{-- Justification Notes --}}
                 <div>
-                    <span class="text-[11px] uppercase tracking-wider font-extrabold text-cyber-muted block mb-1">Replenishment Justification / Notes</span>
+                    <span class="text-[11px] font-extrabold text-cyber-muted block mb-1">Replenishment Justification / Notes</span>
                     <div class="bg-cyber-sub border border-cyber rounded-2xl p-3.5 text-cyber-main text-xs whitespace-pre-line leading-relaxed" x-text="selectedPR?.notes"></div>
                 </div>
             </div>

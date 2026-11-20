@@ -47,7 +47,7 @@
                                 <i class="fa-solid fa-circle-check text-[11px]"></i> Active
                             </span>
                         @else
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide bg-cyber-sub text-cyber-muted border border-cyber shadow-sm">
                                 <i class="fa-solid fa-circle-pause text-[11px]"></i> Inactive
                             </span>
                         @endif

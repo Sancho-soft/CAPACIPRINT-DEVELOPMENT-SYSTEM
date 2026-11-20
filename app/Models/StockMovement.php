@@ -44,10 +44,10 @@ class StockMovement extends Model
     public function getMovementTypeBadgeClassAttribute(): string
     {
         return match ($this->movement_type) {
-            'stock_in'   => 'bg-green-100 text-green-800',
-            'stock_out'  => 'bg-red-100 text-red-800',
-            'adjustment' => 'bg-blue-100 text-blue-800',
-            default      => 'bg-slate-100 text-slate-600',
+            'stock_in'   => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'stock_out'  => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30',
+            'adjustment' => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30',
+            default      => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 }

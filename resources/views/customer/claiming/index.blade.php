@@ -10,7 +10,7 @@
     </div>
 
     @if($claims->isEmpty())
-    <div class="bg-cyber-card border border-cyber rounded-xl p-14 text-center max-w-xl mx-auto">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-14 text-center max-w-xl mx-auto">
         <div class="h-14 w-14 mx-auto rounded-xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-xl mb-4">
             <i class="fa-solid fa-qrcode"></i>
         </div>
@@ -20,19 +20,19 @@
     @else
     <div class="{{ $claims->count() === 1 ? 'max-w-lg mx-auto' : ($claims->count() === 2 ? 'max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6') }}">
         @foreach($claims as $claim)
-        <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden hover:border-brand-600/40 dark:hover:border-blue-500/40 transition-colors flex flex-col">
+        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden hover:border-brand-600/40 dark:hover:border-blue-500/40 transition-colors flex flex-col">
             {{-- Card Header --}}
             <div class="px-5 py-4 border-b border-cyber flex items-center justify-between bg-cyber-sub">
                 <div>
-                    <p class="text-[11px] font-sans tabular-nums uppercase font-semibold text-cyber-muted tracking-wider">Order</p>
-                    <p class="font-bold text-cyber-main font-sans tabular-nums text-base tabular-nums">#{{ $claim->order->order_number ?? '—' }}</p>
+                    <p class="text-[11px] font-sans tabular-nums font-semibold text-cyber-muted">Order</p>
+                    <p class="font-bold text-cyber-main font-sans tabular-nums text-base">#{{ $claim->order->order_number ?? '—' }}</p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 text-[11px] font-sans tabular-nums font-semibold rounded uppercase tracking-wider {{ $claim->is_claimed ? 'bg-slate-500/15 text-cyber-muted border border-cyber' : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30' }}">
+                    <span class="px-2.5 py-0.5 text-[11px] font-sans tabular-nums font-semibold rounded-full {{ $claim->is_claimed ? 'bg-slate-500/15 text-cyber-muted border border-cyber' : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30' }}">
                         {{ $claim->is_claimed ? 'Claimed' : 'Ready for Pickup' }}
                     </span>
                     <a href="{{ route('customer.claiming.show', $claim->order_id) }}" 
-                       class="h-8 w-8 rounded-lg bg-cyber-card hover:border-brand-600/40 border border-cyber text-cyber-muted hover:text-brand-600 dark:hover:text-blue-400 flex items-center justify-center text-sm transition"
+                       class="h-8 w-8 rounded-xl bg-cyber-card hover:border-blue-600/40 border border-cyber text-cyber-muted hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center text-sm transition"
                        title="Print Slip">
                         <i class="fa-solid fa-print"></i>
                     </a>
@@ -42,7 +42,7 @@
             {{-- Direct QR Code Section --}}
             <div class="py-6 px-4 bg-cyber-sub/30 border-b border-cyber flex flex-col items-center justify-center relative">
                 @if($claim->is_claimed)
-                    <div class="relative p-4 bg-white rounded-xl border border-slate-200 dark:border-slate-700 opacity-60">
+                    <div class="relative p-4 bg-white rounded-xl border border-cyber opacity-60">
                         <canvas id="qr-claim-{{ $claim->id }}" class="qr-canvas w-44 h-44 sm:w-48 sm:h-48 filter grayscale" data-code="{{ $claim->claim_code }}"></canvas>
                         <div class="absolute inset-0 bg-[#0C0E12]/75 backdrop-blur-[1px] rounded-xl flex flex-col items-center justify-center text-white">
                             <i class="fa-solid fa-circle-check text-3xl text-emerald-400 mb-1.5"></i>
@@ -50,12 +50,12 @@
                         </div>
                     </div>
                 @else
-                    <div class="qr-clickable-box p-4 bg-white rounded-xl border border-slate-200 dark:border-slate-700 inline-flex flex-col items-center cursor-pointer group hover:border-blue-600 transition-colors"
+                    <div class="qr-clickable-box p-4 bg-white rounded-xl border border-cyber inline-flex flex-col items-center cursor-pointer group hover:border-blue-600 transition-colors"
                          data-code="{{ $claim->claim_code }}"
                          data-order="{{ $claim->order->order_number ?? '' }}"
                          title="Click to enlarge QR code">
                         <canvas id="qr-claim-{{ $claim->id }}" class="qr-canvas w-44 h-44 sm:w-48 sm:h-48" data-code="{{ $claim->claim_code }}"></canvas>
-                        <span class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sans font-semibold text-slate-600 bg-slate-100 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <span class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sans font-semibold text-cyber-muted bg-cyber-sub group-hover:bg-blue-600 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-magnifying-glass-plus text-[11px]"></i> Tap to Enlarge
                         </span>
                     </div>
@@ -113,7 +113,7 @@
 
 {{-- Enlarge QR Code Modal --}}
 <div id="qr-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overscroll-contain" onclick="if(event.target === this) closeEnlargedQr()">
-    <div class="bg-cyber-card border border-cyber rounded-xl max-w-sm w-full p-6 text-center shadow-lg relative space-y-4">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm max-w-sm w-full p-6 text-center shadow-lg relative space-y-4">
         <button type="button" onclick="closeEnlargedQr()" aria-label="Close QR modal" class="absolute top-4 right-4 h-8 w-8 rounded-lg bg-cyber-sub border border-cyber text-cyber-muted hover:text-cyber-main flex items-center justify-center text-sm transition cursor-pointer">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -121,7 +121,7 @@
             <span class="text-[11px] font-sans tabular-nums uppercase font-semibold text-brand-600 dark:text-blue-400 tracking-wider">Present to Counter Staff</span>
             <h3 class="text-xl font-bold text-cyber-main font-sans tabular-nums mt-0.5" id="modal-order-num">#ORD-001</h3>
         </div>
-        <div class="p-4 bg-white rounded-xl inline-block mx-auto border border-slate-200 dark:border-slate-700">
+        <div class="p-4 bg-white rounded-xl inline-block mx-auto border border-cyber">
             <canvas id="modal-qr-canvas" class="w-56 h-56 mx-auto"></canvas>
         </div>
         <div>

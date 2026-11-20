@@ -24,11 +24,11 @@
     </div>
 
     {{-- Filter Form --}}
-    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+    <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm">
         <form method="GET" action="{{ route('management.reports.orders') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs">
             <div class="sm:col-span-3">
-                <label class="block font-bold text-slate-600 mb-1">Status</label>
-                <select name="status" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                <label class="block font-bold text-cyber-muted mb-1">Status</label>
+                <select name="status" class="w-full px-3.5 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     <option value="">All Statuses</option>
                     @foreach($statuses as $st)
                         <option value="{{ $st }}" {{ request('status') === $st ? 'selected' : '' }}>{{ ucfirst(str_replace('_', ' ', $st)) }}</option>
@@ -37,8 +37,8 @@
             </div>
 
             <div class="sm:col-span-3">
-                <label class="block font-bold text-slate-600 mb-1">Branch</label>
-                <select name="branch" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                <label class="block font-bold text-cyber-muted mb-1">Branch</label>
+                <select name="branch" class="w-full px-3.5 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     <option value="">All Branches</option>
                     @foreach($branches as $b)
                         <option value="{{ $b->name }}" {{ request('branch') === $b->name ? 'selected' : '' }}>{{ $b->name }}</option>
@@ -47,15 +47,15 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label class="block font-bold text-slate-600 mb-1">From Date</label>
+                <label class="block font-bold text-cyber-muted mb-1">From Date</label>
                 <input type="date" name="from_date" value="{{ request('from_date') }}" 
-                       class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                       class="w-full px-3 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
             </div>
 
             <div class="sm:col-span-2">
-                <label class="block font-bold text-slate-600 mb-1">To Date</label>
+                <label class="block font-bold text-cyber-muted mb-1">To Date</label>
                 <input type="date" name="to_date" value="{{ request('to_date') }}" 
-                       class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                       class="w-full px-3 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
             </div>
 
             <div class="sm:col-span-2 flex items-end gap-2">
@@ -63,7 +63,7 @@
                     Filter
                 </button>
                 @if(request()->hasAny(['status', 'branch', 'from_date', 'to_date']))
-                    <a href="{{ route('management.reports.orders') }}" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold transition" title="Reset Filters">
+                    <a href="{{ route('management.reports.orders') }}" class="py-2 px-3 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-muted rounded-xl font-bold transition" title="Reset Filters">
                         <i class="fa-solid fa-rotate-left"></i>
                     </a>
                 @endif
@@ -72,10 +72,10 @@
     </div>
 
     {{-- Report Table --}}
-    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div class="bg-cyber-card rounded-2xl border border-cyber shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-600 tabular-nums">
-                <thead class="bg-slate-50/80 text-[11px] font-extrabold text-slate-400 border-b border-slate-100">
+            <table class="w-full text-left text-xs text-cyber-muted tabular-nums">
+                <thead class="bg-cyber-sub text-[11px] font-extrabold text-cyber-muted border-b border-cyber">
                     <tr>
                         <th class="py-3.5 px-5">Order #</th>
                         <th class="py-3.5 px-4">Customer</th>
@@ -86,25 +86,25 @@
                         <th class="py-3.5 px-5 text-right">Status</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-cyber-sub">
                     @forelse($orders as $o)
-                        <tr class="hover:bg-slate-50/50 transition">
+                        <tr class="hover:bg-cyber-sub/60 transition">
                             <td class="py-4 px-5 font-bold text-cyber-main font-display">#{{ $o->order_number }}</td>
                             <td class="py-4 px-4">
-                                <div class="font-semibold text-slate-800">{{ $o->user->name ?? '—' }}</div>
-                                <div class="text-[11px] text-slate-400">{{ $o->user->email ?? '' }}</div>
+                                <div class="font-semibold text-cyber-main">{{ $o->user->name ?? '—' }}</div>
+                                <div class="text-[11px] text-cyber-muted">{{ $o->user->email ?? '' }}</div>
                             </td>
                             <td class="py-4 px-4">
                                 <span class="font-bold text-cyber-main">{{ $o->printRequest->service ?? 'Print Service' }}</span>
-                                <div class="text-[11px] text-slate-400">{{ $o->printRequest->quantity ?? 1 }} copies</div>
+                                <div class="text-[11px] text-cyber-muted">{{ $o->printRequest->quantity ?? 1 }} copies</div>
                             </td>
                             <td class="py-4 px-4 font-bold text-emerald-700">
                                 ₱{{ number_format($o->quotation->total_price ?? 0, 2) }}
                             </td>
-                            <td class="py-4 px-4 font-semibold text-slate-700">
+                            <td class="py-4 px-4 font-semibold text-cyber-main">
                                 {{ $o->assigned_branch ?? 'Unassigned' }}
                             </td>
-                            <td class="py-4 px-4 text-slate-500">
+                            <td class="py-4 px-4 text-cyber-muted">
                                 {{ $o->created_at->format('M d, Y') }}
                             </td>
                             <td class="py-4 px-5 text-right">
@@ -115,7 +115,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-12 text-center text-slate-400">
+                            <td colspan="7" class="py-12 text-center text-cyber-muted">
                                 <i class="fa-solid fa-file-invoice text-3xl mb-2 text-slate-300"></i>
                                 <p class="text-sm">No orders found for the selected criteria.</p>
                             </td>
@@ -126,7 +126,7 @@
         </div>
 
         @if($orders->hasPages())
-            <div class="p-4 border-t border-slate-100">
+            <div class="p-4 border-t border-cyber">
                 {{ $orders->links() }}
             </div>
         @endif

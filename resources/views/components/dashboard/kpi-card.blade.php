@@ -1,8 +1,8 @@
 @props([
     'title' => '',
     'value' => '0',
-    'icon' => 'fa-solid fa-chart-simple',
-    'accent' => 'cyan', // cyan, emerald, amber, rose, indigo, teal, purple, blue
+    'icon' => null,
+    'accent' => 'blue', // mapped strictly to: blue (#2F7BFF), emerald (#10B981), amber (#FFC531)
     'trend' => null,
     'trendType' => null,
     'subtitle' => null,
@@ -11,56 +11,69 @@
 ])
 
 @php
-    $iconBg = match($accent) {
-        'emerald'          => 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-        'amber'            => 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-        'rose'             => 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
-        'indigo', 'purple' => 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400',
-        'teal'             => 'bg-teal-500/10 text-teal-600 dark:text-teal-400',
-        default            => 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+    // Strict 3-status color limit: Brand Blue, Live Green, Warm Yellow
+    $tone = match($accent) {
+        'emerald', 'green' => 'emerald',
+        'amber', 'orange', 'rose', 'red' => 'amber',
+        default => 'blue',
     };
 
-    $activeClasses = match($accent) {
-        'rose'    => 'ring-2 ring-rose-500/30 border-rose-500/60',
-        'amber'   => 'ring-2 ring-amber-500/30 border-amber-500/60',
-        'emerald' => 'ring-2 ring-emerald-500/30 border-emerald-500/60',
-        default   => 'ring-2 ring-blue-500/30 border-blue-500/60',
+    $dotClass = match($tone) {
+        'emerald' => 'bg-[#10B981]',
+        'amber'   => 'bg-[#FFC531]',
+        default   => 'bg-[#2F7BFF]',
     };
+
+    $activeClasses = match($tone) {
+        'emerald' => 'ring-1 ring-[#10B981]/50 border-[#10B981]/60',
+        'amber'   => 'ring-1 ring-[#FFC531]/50 border-[#FFC531]/60',
+        default   => 'ring-1 ring-[#2F7BFF]/50 border-[#2F7BFF]/60',
+    };
+
+    $trendClass = match($trendType) {
+        'up'              => 'text-emerald-600 dark:text-[#10B981]',
+        'down', 'danger', 'warning' => 'text-amber-600 dark:text-[#FFC531]',
+        default           => 'text-cyber-muted',
+    };
+
+    // Convert cramped ALL-CAPS titles into readable sentence-title case while preserving acronyms
+    $rawTitle = trim((string) $title);
+    if ($rawTitle !== '' && mb_strtoupper($rawTitle) === $rawTitle) {
+        $displayTitle = ucwords(mb_strtolower($rawTitle));
+        $displayTitle = str_replace(['Qr ', 'Id ', 'Qc '], ['QR ', 'ID ', 'QC '], $displayTitle);
+    } else {
+        $displayTitle = $rawTitle;
+    }
+
+    $valStr = (string) $value;
+    $isLong = strlen($valStr) > 9;
 @endphp
 
 <{{ $link ? 'a href='.$link : 'div' }} 
-    class="bg-cyber-card rounded-2xl border p-5 flex items-center justify-between gap-4 shadow-sm transition-colors duration-150 group {{ $active ? $activeClasses : 'border-cyber ' . ($link ? 'hover:border-blue-500/40 hover:bg-cyber-sub/30' : '') }} {{ $link ? 'cursor-pointer' : '' }}"
+    class="bg-cyber-card rounded-xl border p-4 sm:p-5 flex flex-col justify-between gap-2.5 transition-colors duration-150 group {{ $active ? $activeClasses : 'border-cyber ' . ($link ? 'hover:border-[#2F7BFF]/50 hover:bg-cyber-sub/40' : '') }} {{ $link ? 'cursor-pointer' : '' }}"
 >
-    <div class="min-w-0 space-y-1.5">
-        <div class="flex items-center gap-2.5">
-            @if(!empty($icon))
-                <span class="h-10 w-10 rounded-xl {{ $iconBg }} flex items-center justify-center shrink-0">
-                    <i class="{{ $icon }} text-sm"></i>
-                </span>
-            @endif
-            <div class="min-w-0">
-                <span class="text-xs font-sans font-bold uppercase tracking-wider leading-tight text-cyber-muted block truncate">
-                    {{ $title }}
-                </span>
-                @if(!empty($subtitle))
-                    <p class="text-[11px] font-sans text-cyber-sub truncate mt-0.5">{{ $subtitle }}</p>
-                @endif
-            </div>
+    <div class="flex items-center justify-between gap-2">
+        <span class="text-[13px] font-sans font-medium text-cyber-muted truncate group-hover:text-cyber-main transition-colors">
+            {{ $displayTitle }}
+        </span>
+        <span class="w-2 h-2 rounded-full {{ $dotClass }} shrink-0" aria-hidden="true"></span>
+    </div>
+
+    <div class="flex items-baseline justify-between gap-3">
+        <div class="{{ $isLong ? 'text-xl sm:text-2xl' : 'text-2xl sm:text-[1.75rem]' }} font-bold font-display text-cyber-main tracking-tight leading-none whitespace-nowrap tabular-nums">
+            {{ $value }}
         </div>
+
         @if(!empty($trend))
-            <span class="inline-flex items-center gap-1 text-[11px] font-sans font-semibold px-2 py-0.5 rounded-full {{ $trendType === 'down' || $trendType === 'danger' ? 'bg-rose-500/10 text-rose-700 dark:text-rose-400' : ($trendType === 'up' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' : ($trendType === 'warning' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400' : 'bg-cyber-sub text-cyber-muted')) }}">
+            <span class="text-xs font-mono font-medium {{ $trendClass }} truncate">
                 {{ $trend }}
             </span>
+        @elseif($link)
+            <i class="fa-solid fa-arrow-right text-[11px] text-cyber-sub group-hover:text-[#2F7BFF] transition-colors shrink-0" aria-hidden="true"></i>
         @endif
     </div>
 
-    <div class="text-right shrink-0">
-        @php
-            $valStr = (string)$value;
-            $isLong = strlen($valStr) > 7;
-        @endphp
-        <div class="{{ $isLong ? 'text-lg sm:text-xl xl:text-2xl' : 'text-2xl sm:text-3xl' }} font-extrabold font-display text-cyber-main tracking-tight leading-none whitespace-nowrap tabular-nums">
-            {{ $value }}
-        </div>
-    </div>
+    @if(!empty($subtitle))
+        <p class="text-xs font-sans text-cyber-muted truncate">{{ $subtitle }}</p>
+    @endif
 </{{ $link ? 'a' : 'div' }}>

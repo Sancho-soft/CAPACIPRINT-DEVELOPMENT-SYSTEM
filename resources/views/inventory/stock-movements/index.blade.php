@@ -19,7 +19,7 @@
         </a>
     </div>
 
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         {{-- Filters & Meta Bar --}}
         <form method="GET" action="{{ route('inventory.stock-movements.index') }}" class="px-5 py-3.5 border-b border-cyber flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-sub">
             <div class="flex flex-wrap items-center gap-2.5">
@@ -71,29 +71,28 @@
                             <span class="font-semibold text-cyber-main block text-xs leading-snug">{{ $m->material->name ?? '—' }}</span>
                             @php
                                 $matType = strtolower($m->material->type ?? 'media');
-                                $typeBadge = match($matType) {
-                                    'paper' => 'bg-blue-500/10 text-brand-700 dark:text-blue-400 border-blue-500/25',
-                                    'ink'   => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/25',
-                                    'media' => 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/25',
-                                    default => 'bg-cyber-sub text-cyber-muted border-cyber',
-                                };
                             @endphp
-                            <span class="inline-flex items-center px-2 py-0.5 mt-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider border {{ $typeBadge }}">
+                            <span class="text-xs font-semibold uppercase tracking-wider block mt-0.5 {{ match($matType) {
+                                'paper' => 'text-blue-600 dark:text-blue-400',
+                                'ink'   => 'text-indigo-600 dark:text-indigo-400',
+                                'media' => 'text-amber-600 dark:text-amber-400',
+                                default => 'text-cyber-muted',
+                            } }}">
                                 {{ $matType }}
                             </span>
                         </td>
                         <td class="px-5 py-3.5 whitespace-nowrap">
                             @if($m->movement_type === 'stock_in')
-                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25">
-                                    <i class="fa-solid fa-arrow-down text-[8px]"></i> Stock In
+                                <span class="font-semibold text-xs text-emerald-600 dark:text-emerald-400">
+                                    Stock In
                                 </span>
                             @elseif($m->movement_type === 'stock_out')
-                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/25">
-                                    <i class="fa-solid fa-arrow-up text-[8px]"></i> Stock Out
+                                <span class="font-semibold text-xs text-rose-600 dark:text-rose-400">
+                                    Stock Out
                                 </span>
                             @else
-                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold bg-blue-500/10 text-brand-700 dark:text-blue-400 border border-blue-500/25">
-                                    <i class="fa-solid fa-sliders text-[8px]"></i> {{ ucwords(str_replace('_', ' ', $m->movement_type)) }}
+                                <span class="font-semibold text-xs text-blue-600 dark:text-blue-400">
+                                    {{ ucwords(str_replace('_', ' ', $m->movement_type)) }}
                                 </span>
                             @endif
                         </td>

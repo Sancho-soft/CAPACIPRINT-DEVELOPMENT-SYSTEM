@@ -8,7 +8,7 @@
     {{-- Top Header --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Client Request Ticket</span>
+            <span class="text-[11px] font-sans tabular-nums font-semibold text-cyber-sub block mb-1">Client Request Ticket</span>
             <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight flex items-center gap-3 tabular-nums">
                 Print Request #{{ str_pad($printRequest->id, 5, '0', STR_PAD_LEFT) }}
             </h2>
@@ -18,7 +18,7 @@
             </p>
         </div>
         <div class="self-start sm:self-center">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded text-[11px] font-sans tabular-nums font-semibold
                 {{ match($printRequest->status) {
                     'submitted'   => 'bg-brand-600/10 text-brand-700 border border-brand-600/25 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30',
                     'quotation'   => 'bg-amber-500/10 text-amber-800 border border-amber-500/25 dark:text-amber-300',
@@ -62,9 +62,9 @@
         };
     @endphp
 
-    <div class="bg-cyber-card border border-cyber rounded-xl p-5 sm:p-6">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-6">
         <div class="flex items-center justify-between mb-5 border-b border-cyber-sub pb-3">
-            <h3 class="font-sans tabular-nums font-semibold text-xs uppercase tracking-wider text-cyber-muted flex items-center gap-2">
+            <h3 class="font-sans tabular-nums font-semibold text-xs text-cyber-muted flex items-center gap-2">
                 <i class="fa-solid fa-route text-brand-600 dark:text-blue-400"></i> Request Progress Pipeline
             </h3>
         </div>
@@ -104,7 +104,7 @@
     </div>
 
     {{-- Main Specifications Card --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         
         {{-- Service Header Banner --}}
         <div class="px-6 py-4 bg-cyber-sub border-b border-cyber-sub flex items-center gap-3">
@@ -122,59 +122,59 @@
         {{-- Spec Grid (Section 1: Print & Substrate) --}}
         <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Quantity</span>
-                <p class="text-sm font-bold text-slate-900 dark:text-white">
+                <span class="text-xs font-semibold text-cyber-muted block">Quantity</span>
+                <p class="text-sm font-bold text-cyber-main">
                     {{ number_format($printRequest->quantity) }} {{ $printRequest->quantity == 1 ? 'pc.' : 'pcs.' }}
                 </p>
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Dimensions &amp; Size</span>
-                <p class="text-sm font-bold text-slate-900 dark:text-white">
+                <span class="text-xs font-semibold text-cyber-muted block">Dimensions &amp; Size</span>
+                <p class="text-sm font-bold text-cyber-main">
                     {{ $printRequest->size }}
                 </p>
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Substrate / Material</span>
-                <p class="text-sm font-bold text-slate-900 dark:text-white">
+                <span class="text-xs font-semibold text-cyber-muted block">Substrate / Material</span>
+                <p class="text-sm font-bold text-cyber-main">
                     {{ $printRequest->material }}
                 </p>
             </div>
 
             <div class="space-y-1">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Finishing &amp; Processing</span>
-                <p class="text-sm font-bold text-slate-900 dark:text-white">
+                <span class="text-xs font-semibold text-cyber-muted block">Finishing &amp; Processing</span>
+                <p class="text-sm font-bold text-cyber-main">
                     {{ $printRequest->finishing }}
                 </p>
             </div>
         </div>
 
         {{-- Section 2: Fulfillment & Logistics --}}
-        <div class="px-6 py-4 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-slate-800">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+        <div class="px-6 py-4 bg-cyber-sub/60 dark:bg-slate-900/30 border-t border-cyber">
+            <h4 class="text-xs font-bold text-cyber-muted mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-truck-ramp-box text-blue-500"></i> Fulfillment &amp; Logistics
             </h4>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="space-y-1">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Collection Mode</span>
-                    <p class="text-sm font-bold text-slate-900 dark:text-white capitalize flex items-center gap-2">
-                        <i class="fa-solid fa-store text-xs text-slate-400"></i>
+                    <span class="text-xs font-semibold text-cyber-muted block">Collection Mode</span>
+                    <p class="text-sm font-bold text-cyber-main capitalize flex items-center gap-2">
+                        <i class="fa-solid fa-store text-xs text-cyber-muted"></i>
                         {{ str_replace('_', ' ', $printRequest->collection_mode) }}
                     </p>
                 </div>
 
                 <div class="space-y-1">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Preferred Branch</span>
-                    <p class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="text-xs font-semibold text-cyber-muted block">Preferred Branch</span>
+                    <p class="text-sm font-bold text-cyber-main flex items-center gap-2">
                         <i class="fa-solid fa-location-dot text-xs text-blue-500"></i>
                         {{ $printRequest->preferred_branch ?: 'Morning Star Printing Press' }}
                     </p>
                 </div>
 
                 <div class="space-y-1">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Target Deadline</span>
-                    <p class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="text-xs font-semibold text-cyber-muted block">Target Deadline</span>
+                    <p class="text-sm font-bold text-cyber-main flex items-center gap-2">
                         <i class="fa-regular fa-calendar-check text-xs text-emerald-500"></i>
                         {{ $printRequest->deadline?->format('F d, Y') ?? '—' }}
                     </p>
@@ -186,17 +186,17 @@
 
     {{-- Attached Design File Card --}}
     @if($printRequest->design_file_name)
-    <div class="bg-white dark:bg-[#151922] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 shadow-sm flex items-center justify-between gap-4">
+    <div class="bg-cyber-card border border-cyber rounded-2xl p-5 shadow-sm flex items-center justify-between gap-4">
         <div class="flex items-center gap-3.5 min-w-0">
             <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 text-lg">
                 <i class="fa-solid fa-file-pdf"></i>
             </div>
             <div class="min-w-0">
-                <p class="font-bold text-slate-900 dark:text-white text-sm truncate">{{ $printRequest->design_file_name }}</p>
-                <p class="text-xs text-slate-400 mt-0.5">{{ $printRequest->design_file_size ?? 'Design Asset' }}</p>
+                <p class="font-bold text-cyber-main text-sm truncate">{{ $printRequest->design_file_name }}</p>
+                <p class="text-xs text-cyber-muted mt-0.5">{{ $printRequest->design_file_size ?? 'Design Asset' }}</p>
             </div>
         </div>
-        <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyber-sub text-cyber-muted shrink-0">
             Client Artwork
         </span>
     </div>
@@ -204,20 +204,20 @@
 
     {{-- Design Proof & Approval Section --}}
     @if($printRequest->designProofs->isNotEmpty())
-    <div class="bg-white dark:bg-[#151922] border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm p-6 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-            <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-6 space-y-4">
+        <div class="flex items-center justify-between border-b border-cyber pb-3">
+            <h3 class="font-bold text-cyber-main flex items-center gap-2">
                 <i class="fa-solid fa-wand-magic-sparkles text-pink-500"></i> Layout &amp; Design Proofs
             </h3>
-            <span class="text-xs text-slate-400 font-medium">{{ $printRequest->designProofs->count() }} Version(s)</span>
+            <span class="text-xs text-cyber-muted font-medium">{{ $printRequest->designProofs->count() }} Version(s)</span>
         </div>
 
         @foreach($printRequest->designProofs->sortByDesc('version') as $proof)
-            <div class="p-4 rounded-xl border {{ $proof->status === 'approved' ? 'bg-emerald-50/50 border-emerald-200 dark:bg-emerald-950/20 dark:border-emerald-800/40' : ($proof->status === 'revision_requested' ? 'bg-amber-50/50 border-amber-200 dark:bg-amber-950/20 dark:border-amber-800/40' : 'bg-slate-50 border-slate-200 dark:bg-slate-900 dark:border-slate-800') }} space-y-3">
+            <div class="p-4 rounded-xl border {{ $proof->status === 'approved' ? 'bg-emerald-50/50 border-emerald-200 dark:bg-emerald-950/20 dark:border-emerald-800/40' : ($proof->status === 'revision_requested' ? 'bg-amber-50/50 border-amber-200 dark:bg-amber-950/20 dark:border-amber-800/40' : 'bg-cyber-sub border-cyber dark:bg-slate-900 dark:border-slate-800') }} space-y-3">
                 <div class="flex items-center justify-between">
                     <div>
-                        <span class="font-bold text-slate-900 dark:text-white text-sm">Version {{ $proof->version }}: {{ $proof->proof_file_name }}</span>
-                        <p class="text-xs text-slate-400 mt-0.5">{{ $proof->created_at->format('M d, Y · h:i A') }}</p>
+                        <span class="font-bold text-cyber-main text-sm">Version {{ $proof->version }}: {{ $proof->proof_file_name }}</span>
+                        <p class="text-xs text-cyber-muted mt-0.5">{{ $proof->created_at->format('M d, Y · h:i A') }}</p>
                     </div>
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold {{ $proof->status_badge_class }}">
                         {{ $proof->status_label }}
@@ -225,8 +225,8 @@
                 </div>
 
                 @if($proof->designer_notes)
-                    <div class="text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-[#151922] p-3 rounded-lg border border-slate-200 dark:border-slate-800">
-                        <strong class="text-slate-500 dark:text-slate-400">Designer's Note:</strong> {{ $proof->designer_notes }}
+                    <div class="text-xs text-cyber-muted bg-cyber-card p-3 rounded-lg border border-cyber">
+                        <strong class="text-cyber-muted">Designer's Note:</strong> {{ $proof->designer_notes }}
                     </div>
                 @endif
 
@@ -251,15 +251,15 @@
                             </button>
 
                             <div x-show="showRevisionForm" x-cloak class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 overscroll-contain">
-                                <div class="bg-white dark:bg-[#151922] p-6 rounded-2xl max-w-md w-full shadow-sm space-y-4 border border-slate-200 dark:border-slate-800" @click.away="showRevisionForm = false">
-                                    <h4 class="font-bold text-slate-900 dark:text-white">Request Design Revision (v{{ $proof->version }})</h4>
+                                <div class="bg-cyber-card p-6 rounded-2xl max-w-md w-full shadow-sm space-y-4 border border-cyber" @click.away="showRevisionForm = false">
+                                    <h4 class="font-bold text-cyber-main">Request Design Revision (v{{ $proof->version }})</h4>
                                     <form method="POST" action="{{ route('customer.proof.review', $proof) }}" class="space-y-4">
                                         @csrf
                                         <input type="hidden" name="action" value="revise">
                                         <textarea name="customer_feedback" rows="4" required placeholder="Describe what adjustments or revisions you need..."
-                                                  class="w-full p-3 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                                                  class="w-full p-3 text-xs bg-cyber-sub border border-cyber rounded-xl text-cyber-main focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
                                         <div class="flex items-center justify-end gap-2">
-                                            <button type="button" @click="showRevisionForm = false" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold text-xs">Cancel</button>
+                                            <button type="button" @click="showRevisionForm = false" class="px-4 py-2 bg-cyber-sub text-cyber-muted rounded-xl font-bold text-xs">Cancel</button>
                                             <button type="submit" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold text-xs">Submit Revision</button>
                                         </div>
                                     </form>
@@ -275,13 +275,13 @@
 
     {{-- Linked Quotation Card --}}
     @if($printRequest->quotation)
-    <div class="bg-white dark:bg-[#151922] border border-slate-200/80 dark:border-slate-800 rounded-2xl shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Official Quotation Available</p>
-            <p class="text-xl font-black text-slate-900 dark:text-white font-display mt-0.5">
+            <p class="text-xs font-bold text-cyber-muted">Official Quotation Available</p>
+            <p class="text-xl font-black text-cyber-main font-display mt-0.5">
                 #{{ $printRequest->quotation->formatted_number }}
             </p>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <p class="text-xs text-cyber-muted mt-1">
                 Valid until {{ $printRequest->quotation->valid_until?->format('F d, Y') ?? '—' }}
             </p>
         </div>

@@ -8,7 +8,6 @@
     {{-- Header Banner --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Pre-Flight &amp; Proofing</span>
             <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">Design &amp; Pre-Press Workspace</h2>
             <p class="text-xs text-cyber-muted mt-1">Inspect client artwork, run pre-flight checks, generate digital proofs, and upload final production-ready vector files.</p>
         </div>
@@ -158,16 +157,21 @@
                             <td class="px-6 py-4">
                                 @if($latestProof)
                                     <div>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider border {{ $latestProof->status_badge_class }}">
+                                        <span class="text-xs font-sans font-semibold
+                                            {{ match($latestProof->status) {
+                                                'approved'           => 'text-emerald-600 dark:text-emerald-400',
+                                                'revision_requested' => 'text-amber-600 dark:text-amber-400',
+                                                default              => 'text-blue-600 dark:text-blue-400',
+                                            } }}">
                                             {{ $latestProof->status_label }}
                                         </span>
-                                        <span class="block text-[11px] text-slate-400 font-sans tabular-nums mt-1">
+                                        <span class="block text-[11px] text-slate-400 font-sans tabular-nums mt-0.5">
                                             Version v{{ $latestProof->version }} &middot; {{ $req->designProofs->count() }} round(s)
                                         </span>
                                     </div>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20">
-                                        <i class="fa-solid fa-clock-rotate-left mr-1"></i> Needs Proof v1
+                                    <span class="text-xs font-sans font-semibold text-purple-600 dark:text-purple-400">
+                                        Needs Proof v1
                                     </span>
                                 @endif
                             </td>
@@ -214,11 +218,16 @@
                         </div>
 
                         @if($latestProof)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider border shrink-0 {{ $latestProof->status_badge_class }}">
+                            <span class="text-xs font-sans font-semibold shrink-0
+                                {{ match($latestProof->status) {
+                                    'approved'           => 'text-emerald-600 dark:text-emerald-400',
+                                    'revision_requested' => 'text-amber-600 dark:text-amber-400',
+                                    default              => 'text-blue-600 dark:text-blue-400',
+                                } }}">
                                 {{ $latestProof->status_label }}
                             </span>
                         @else
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 shrink-0">
+                            <span class="text-xs font-sans font-semibold text-purple-600 dark:text-purple-400 shrink-0">
                                 Needs Proof v1
                             </span>
                         @endif

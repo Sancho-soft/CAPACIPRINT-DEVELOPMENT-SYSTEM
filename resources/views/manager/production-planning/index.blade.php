@@ -13,7 +13,7 @@
 
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <a href="{{ route('manager.capacity.index') }}" 
-               class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700 flex items-center gap-2 transition shadow-sm">
+               class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-sub dark:hover:bg-slate-700 text-cyber-main text-xs font-bold border border-cyber flex items-center gap-2 transition shadow-sm">
                 <i class="fa-solid fa-calculator text-blue-600 dark:text-blue-400"></i>
                 <span>Capacity Evaluation</span>
             </a>
@@ -162,7 +162,7 @@
                     <canvas id="planningPriorityDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPriorityCount }}</span>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider text-cyber-muted">Floor Runs</span>
+                        <span class="text-[11px] font-semibold text-cyber-muted">Floor Runs</span>
                     </div>
                 </div>
 
@@ -314,36 +314,23 @@
 
                             {{-- Column 7: Priority --}}
                             <td class="py-4 px-4 whitespace-nowrap">
-                                @php
-                                    $prioBadge = match($j->priority) {
-                                        'urgent' => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
-                                        'rush'   => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border-amber-500/30',
-                                        default  => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
-                                    };
-                                @endphp
-                                @if(in_array(strtolower($j->priority), ['normal', 'standard', 'low']))
-                                    <span class="text-[11px] font-bold uppercase font-sans tabular-nums text-slate-600 dark:text-slate-400">
-                                        {{ $j->priority }}
-                                    </span>
-                                @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase font-sans tabular-nums border {{ $prioBadge }}">
-                                        {{ $j->priority }}
-                                    </span>
-                                @endif
+                                <span class="text-xs font-semibold uppercase {{ match(strtolower($j->priority)) {
+                                    'urgent', 'rush' => 'text-amber-600 dark:text-amber-400',
+                                    default          => 'text-emerald-600 dark:text-emerald-400',
+                                } }}">
+                                    {{ $j->priority }}
+                                </span>
                             </td>
 
                             {{-- Column 8: Status --}}
                             <td class="py-4 px-4 whitespace-nowrap">
-                                @php
-                                    $statBadge = match($j->status) {
-                                        'in_production', 'production' => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/30',
-                                        'completed'                   => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
-                                        'delayed'                     => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
-                                        'quality_checking'            => 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border-purple-500/30',
-                                        default                       => 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
-                                    };
-                                @endphp
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase font-sans tabular-nums border {{ $statBadge }}">
+                                <span class="text-xs font-semibold uppercase {{ match($j->status) {
+                                    'in_production', 'production' => 'text-blue-600 dark:text-blue-400',
+                                    'completed'                   => 'text-emerald-600 dark:text-emerald-400',
+                                    'delayed'                     => 'text-rose-600 dark:text-rose-400',
+                                    'quality_checking'            => 'text-purple-600 dark:text-purple-400',
+                                    default                       => 'text-cyber-muted',
+                                } }}">
                                     {{ $j->status_label }}
                                 </span>
                             </td>

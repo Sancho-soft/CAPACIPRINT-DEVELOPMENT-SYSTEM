@@ -29,7 +29,7 @@
         </form>
     </div>
 
-    <div id="orders-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div id="orders-table-card" class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs tabular-nums">
                 <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px]">
@@ -48,13 +48,13 @@
                         <td class="px-5 py-3.5 font-bold text-cyber-main font-sans tabular-nums">#{{ $ord->order_number }}</td>
                         <td class="px-5 py-3.5 font-semibold text-cyber-main">{{ $ord->user->name ?? '—' }}</td>
                         <td class="px-5 py-3.5 text-cyber-muted">{{ $ord->printRequest->service ?? '—' }}</td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase {{ match($ord->payment_status) { 'confirmed'=>'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20', 'submitted'=>'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20', default=>'bg-cyber-sub text-cyber-muted border border-cyber' } }}">
+                        <td class="px-5 py-3.5 whitespace-nowrap">
+                            <span class="text-xs font-semibold uppercase {{ match($ord->payment_status) { 'confirmed'=>'text-emerald-600 dark:text-emerald-400', 'submitted'=>'text-amber-600 dark:text-amber-400', default=>'text-cyber-muted' } }}">
                                 {{ $ord->payment_status_label }}
                             </span>
                         </td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase {{ match($ord->status) { 'production'=>'bg-blue-500/10 text-brand-700 dark:text-blue-400 border border-blue-500/20', 'ready_for_pickup'=>'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20', default=>'bg-cyber-sub text-cyber-muted border border-cyber' } }}">
+                        <td class="px-5 py-3.5 whitespace-nowrap">
+                            <span class="text-xs font-semibold uppercase {{ match($ord->status) { 'production'=>'text-blue-600 dark:text-blue-400', 'ready_for_pickup'=>'text-emerald-600 dark:text-emerald-400', 'claimed'=>'text-indigo-600 dark:text-indigo-400', 'cancelled'=>'text-rose-600 dark:text-rose-400', default=>'text-cyber-muted' } }}">
                                 {{ $ord->status_label }}
                             </span>
                         </td>

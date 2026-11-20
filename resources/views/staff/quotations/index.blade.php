@@ -93,8 +93,8 @@
                     <td class="px-6 py-4 text-cyber-muted">{{ $q->printRequest->service ?? '—' }}</td>
                     <td class="px-6 py-4 font-bold text-cyber-main tabular-nums text-sm">₱{{ number_format($q->total_price, 2) }}</td>
                     <td class="px-6 py-4 text-cyber-muted tabular-nums">{{ $q->valid_until?->format('M d, Y') ?? '—' }}</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold {{ $q->status_badge_class }}">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-xs font-semibold uppercase {{ match($q->status) { 'pending'=>'text-amber-600 dark:text-amber-400', 'confirmed'=>'text-emerald-600 dark:text-emerald-400', 'declined'=>'text-rose-600 dark:text-rose-400', default=>'text-cyber-muted' } }}">
                             {{ $q->status_label }}
                         </span>
                     </td>

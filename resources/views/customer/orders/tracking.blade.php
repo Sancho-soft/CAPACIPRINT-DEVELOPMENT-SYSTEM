@@ -7,7 +7,7 @@
 
     <div class="flex items-center justify-between gap-4">
         <div>
-            <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Production Telemetry</span>
+            <span class="text-[11px] font-sans tabular-nums font-semibold text-cyber-sub block mb-1">Production Telemetry</span>
             <h2 class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight">Live Order Tracking</h2>
             <p class="text-xs text-cyber-muted mt-0.5 font-sans tabular-nums">Order Reference #{{ $order->order_number }}</p>
         </div>
@@ -19,10 +19,10 @@
     </div>
 
     {{-- Order Summary Banner --}}
-    <div class="bg-cyber-card border border-cyber border-l-2 border-l-brand-600 dark:border-l-blue-500 rounded-xl p-5 sm:p-6">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-                <p class="text-[11px] text-cyber-muted font-sans tabular-nums font-semibold uppercase tracking-wider mb-1">Print Service</p>
+                <p class="text-[11px] text-cyber-muted font-sans tabular-nums font-semibold mb-1">Print Service</p>
                 <h3 class="text-lg font-bold text-cyber-main font-display">{{ $order->printRequest->service ?? 'Print Order' }}</h3>
                 <p class="text-xs font-sans tabular-nums text-cyber-muted mt-1 tabular-nums">
                     {{ $order->printRequest->quantity ?? '' }} copies &middot;
@@ -31,7 +31,7 @@
                 </p>
             </div>
             <div class="sm:text-right border-t sm:border-t-0 border-cyber-sub pt-3 sm:pt-0">
-                <p class="text-[11px] text-cyber-muted font-sans tabular-nums font-semibold uppercase tracking-wider mb-1">Assigned Branch</p>
+                <p class="text-[11px] text-cyber-muted font-sans tabular-nums font-semibold mb-1">Assigned Branch</p>
                 <p class="font-semibold text-brand-600 dark:text-blue-400">{{ $order->assigned_branch ?? 'Branch routing in progress...' }}</p>
                 @if($order->estimated_completion)
                     <p class="text-xs text-cyber-muted mt-1 font-sans tabular-nums">Est. Completion: {{ $order->estimated_completion->format('M d, Y') }}</p>
@@ -41,12 +41,12 @@
     </div>
 
     {{-- Status Timeline --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl p-5 sm:p-7">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-7">
         <div class="flex items-center justify-between mb-7 border-b border-cyber-sub pb-4">
             <h3 class="font-bold text-cyber-main text-base font-display flex items-center gap-2">
                 <i class="fa-solid fa-timeline text-brand-600 dark:text-blue-400"></i> Production &amp; Handover Timeline
             </h3>
-            <span class="px-2.5 py-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider bg-brand-600/10 dark:bg-blue-500/15 text-brand-700 dark:text-blue-300 border border-brand-600/25 dark:border-blue-500/30">
+            <span class="px-2.5 py-1 rounded text-[11px] font-sans tabular-nums font-semibold bg-brand-600/10 dark:bg-blue-500/15 text-brand-700 dark:text-blue-300 border border-brand-600/25 dark:border-blue-500/30">
                 {{ $order->status_label }}
             </span>
         </div>
