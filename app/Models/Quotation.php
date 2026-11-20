@@ -56,11 +56,11 @@ class Quotation extends Model
     public function getStatusBadgeClassAttribute(): string
     {
         return match ($this->status) {
-            'pending'   => 'bg-amber-100 text-amber-800',
-            'confirmed' => 'bg-green-100 text-green-800',
-            'declined'  => 'bg-red-100 text-red-800',
-            'expired'   => 'bg-slate-100 text-slate-600',
-            default     => 'bg-slate-100 text-slate-600',
+            'pending'   => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            'confirmed' => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'declined'  => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30',
+            'expired'   => 'bg-cyber-sub text-cyber-muted border border-cyber',
+            default     => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 

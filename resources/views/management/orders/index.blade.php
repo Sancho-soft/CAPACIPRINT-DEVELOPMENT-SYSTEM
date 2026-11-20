@@ -17,14 +17,14 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {{-- Card 1: Pipeline Revenue --}}
-        <div class="bg-cyber-card border border-cyber border-l-2 border-l-brand-600 dark:border-l-blue-500 rounded-xl p-4 sm:p-5 flex items-center justify-between gap-3">
-            <div class="min-w-0 flex-1 space-y-1">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-sack-dollar text-xs text-brand-600 dark:text-blue-400 shrink-0"></i>
-                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block truncate">
-                        Pipeline Revenue
-                    </span>
+        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="h-10 w-10 rounded-xl bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm shrink-0">
+                    <i class="fa-solid fa-sack-dollar"></i>
                 </div>
+                <span class="text-xs font-semibold text-cyber-muted truncate">
+                    Pipeline Revenue
+                </span>
             </div>
             <div class="text-right shrink-0 tabular-nums">
                 <span class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight leading-none whitespace-nowrap">
@@ -35,14 +35,14 @@
 
         {{-- Card 2: Total Active Orders --}}
         <a href="{{ route('management.orders.index') }}" 
-           class="bg-cyber-card border border-cyber border-l-2 border-l-indigo-600 dark:border-l-indigo-400 rounded-xl p-4 sm:p-5 flex items-center justify-between gap-3 hover:border-brand-600/40 transition-colors cursor-pointer">
-            <div class="min-w-0 flex-1 space-y-1">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-boxes-stacked text-xs text-indigo-600 dark:text-indigo-400 shrink-0"></i>
-                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block truncate">
-                        Total System Orders
-                    </span>
+           class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 flex items-center justify-between gap-3 hover:border-blue-500/40 transition-colors cursor-pointer">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="h-10 w-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm shrink-0">
+                    <i class="fa-solid fa-boxes-stacked"></i>
                 </div>
+                <span class="text-xs font-semibold text-cyber-muted truncate">
+                    Total System Orders
+                </span>
             </div>
             <div class="text-right shrink-0 tabular-nums">
                 <span class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight leading-none whitespace-nowrap">
@@ -53,14 +53,14 @@
 
         {{-- Card 3: In Production --}}
         <a href="{{ route('management.orders.index', ['status' => 'in_production']) }}" 
-           class="bg-cyber-card border border-cyber border-l-2 border-l-amber-600 dark:border-l-amber-500 rounded-xl p-4 sm:p-5 flex items-center justify-between gap-3 hover:border-brand-600/40 transition-colors cursor-pointer">
-            <div class="min-w-0 flex-1 space-y-1">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-gears text-xs text-amber-600 dark:text-amber-400 shrink-0"></i>
-                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block truncate">
-                        In Production (Floor)
-                    </span>
+           class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 flex items-center justify-between gap-3 hover:border-blue-500/40 transition-colors cursor-pointer">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="h-10 w-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm shrink-0">
+                    <i class="fa-solid fa-gears"></i>
                 </div>
+                <span class="text-xs font-semibold text-cyber-muted truncate">
+                    In Production (Floor)
+                </span>
             </div>
             <div class="text-right shrink-0 tabular-nums">
                 <span class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight leading-none whitespace-nowrap">
@@ -71,14 +71,14 @@
 
         {{-- Card 4: Ready for Pickup --}}
         <a href="{{ route('management.orders.index', ['status' => 'ready_for_pickup']) }}" 
-           class="bg-cyber-card border border-cyber border-l-2 border-l-emerald-600 dark:border-l-emerald-500 rounded-xl p-4 sm:p-5 flex items-center justify-between gap-3 hover:border-brand-600/40 transition-colors cursor-pointer">
-            <div class="min-w-0 flex-1 space-y-1">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-xs text-emerald-600 dark:text-emerald-400 shrink-0"></i>
-                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block truncate">
-                        Ready for Pickup
-                    </span>
+           class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 flex items-center justify-between gap-3 hover:border-blue-500/40 transition-colors cursor-pointer">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="h-10 w-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm shrink-0">
+                    <i class="fa-solid fa-circle-check"></i>
                 </div>
+                <span class="text-xs font-semibold text-cyber-muted truncate">
+                    Ready for Pickup
+                </span>
             </div>
             <div class="text-right shrink-0 tabular-nums">
                 <span class="text-xl sm:text-2xl font-bold text-cyber-main font-display tracking-tight leading-none whitespace-nowrap">
@@ -90,7 +90,7 @@
     </div>
 
     {{-- 2. SMART SEARCH & MULTI-FILTER BAR --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl p-4 sm:p-5 space-y-3">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-4 sm:p-5 space-y-3">
         <form method="GET" action="{{ route('management.orders.index') }}" class="space-y-3 text-xs">
             
             <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
@@ -104,12 +104,12 @@
                            name="search" 
                            value="{{ request('search') }}" 
                            placeholder="Search Order #, customer name, service..." 
-                           class="w-full pl-9 pr-3.5 py-2 bg-cyber-sub border border-cyber text-cyber-main placeholder-cyber-muted rounded-lg focus:outline-none focus:border-brand-600 text-xs">
+                           class="w-full pl-9 pr-3.5 py-2.5 bg-cyber-sub border border-cyber text-cyber-main placeholder-cyber-muted rounded-xl focus:outline-none focus:border-blue-600 text-xs">
                 </div>
 
                 {{-- Facility Filter --}}
                 <div class="sm:col-span-3">
-                    <select name="branch" class="w-full px-3 py-2 bg-cyber-sub border border-cyber text-cyber-main rounded-lg focus:outline-none focus:border-brand-600 text-xs">
+                    <select name="branch" class="w-full px-3 py-2.5 bg-cyber-sub border border-cyber text-cyber-main rounded-xl focus:outline-none focus:border-blue-600 text-xs">
                         <option value="">All Facilities</option>
                         @foreach($branches as $b)
                             <option value="{{ $b->name }}" {{ request('branch') == $b->name ? 'selected' : '' }}>
@@ -121,7 +121,7 @@
 
                 {{-- Status Dropdown --}}
                 <div class="sm:col-span-3">
-                    <select name="status" class="w-full px-3 py-2 bg-cyber-sub border border-cyber text-cyber-main rounded-lg focus:outline-none focus:border-brand-600 text-xs">
+                    <select name="status" class="w-full px-3 py-2.5 bg-cyber-sub border border-cyber text-cyber-main rounded-xl focus:outline-none focus:border-blue-600 text-xs">
                         <option value="">All Statuses</option>
                         <option value="in_production" {{ request('status') == 'in_production' ? 'selected' : '' }}>In Production</option>
                         <option value="ready_for_pickup" {{ request('status') == 'ready_for_pickup' ? 'selected' : '' }}>Ready for Pickup</option>
@@ -132,7 +132,7 @@
 
                 {{-- Date Filter & Submit --}}
                 <div class="sm:col-span-2 flex items-center gap-2">
-                    <select name="date" class="w-full px-2.5 py-2 bg-cyber-sub border border-cyber text-cyber-main rounded-lg focus:outline-none focus:border-brand-600 text-xs">
+                    <select name="date" class="w-full px-2.5 py-2.5 bg-cyber-sub border border-cyber text-cyber-main rounded-xl focus:outline-none focus:border-blue-600 text-xs">
                         <option value="">All Time</option>
                         <option value="today" {{ request('date') == 'today' ? 'selected' : '' }}>Today</option>
                         <option value="week" {{ request('date') == 'week' ? 'selected' : '' }}>This Week</option>
@@ -141,7 +141,7 @@
 
                     <button type="submit" 
                             aria-label="Apply filters"
-                            class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold transition shrink-0 cursor-pointer"
+                            class="px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shrink-0 cursor-pointer"
                             title="Apply Filters">
                         <i class="fa-solid fa-filter text-xs"></i>
                     </button>
@@ -151,11 +151,11 @@
 
             {{-- Filter Status Summary & Reset --}}
             @if(request()->hasAny(['search', 'branch', 'status', 'date']))
-            <div class="flex items-center justify-between pt-2 border-t border-cyber-sub text-[11px]">
+            <div class="flex items-center justify-between pt-2 border-t border-cyber-sub text-xs">
                 <span class="text-cyber-muted">
                     Filtered results active:
                     @if(request('search')) <span class="font-semibold text-cyber-main">"{{ request('search') }}"</span> @endif
-                    @if(request('branch')) &bull; <span class="font-semibold text-brand-600 dark:text-blue-400">{{ request('branch') }}</span> @endif
+                    @if(request('branch')) &bull; <span class="font-semibold text-blue-600 dark:text-blue-400">{{ request('branch') }}</span> @endif
                     @if(request('status')) &bull; <span class="font-semibold text-cyber-main">{{ ucfirst(request('status')) }}</span> @endif
                     @if(request('date')) &bull; <span class="font-semibold text-cyber-main">{{ ucfirst(request('date')) }}</span> @endif
                 </span>
@@ -169,10 +169,10 @@
     </div>
 
     {{-- 3. ENHANCED EXECUTIVE ORDERS TABLE --}}
-    <div id="management-orders-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col">
+    <div id="management-orders-table-card" class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col">
         <div class="overflow-x-auto font-sans">
             <table class="w-full text-left text-xs tabular-nums">
-                <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px]">
+                <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-xs">
                     <tr>
                         <th class="px-5 py-3">Order # &amp; Date</th>
                         <th class="px-5 py-3">Customer</th>
@@ -257,10 +257,10 @@
                                 <span class="font-bold text-cyber-main text-xs block font-sans tabular-nums">
                                     ₱{{ number_format($orderValue, 2) }}
                                 </span>
-                                <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider block mt-0.5 {{ match($o->payment_status) {
+                                <span class="text-[11px] font-sans tabular-nums font-semibold block mt-0.5 {{ match($o->payment_status) {
                                     'confirmed', 'paid' => 'text-emerald-600 dark:text-emerald-400',
                                     'submitted'         => 'text-amber-600 dark:text-amber-400',
-                                    default             => 'text-cyber-sub'
+                                    default             => 'text-cyber-muted'
                                 } }}">
                                     {{ $o->payment_status_label ?? ucfirst($o->payment_status ?? 'Pending') }}
                                 </span>
@@ -290,7 +290,7 @@
 
                             <td class="px-5 py-3.5 text-right whitespace-nowrap">
                                 <a href="{{ route('management.orders.show', $o) }}" 
-                                   class="text-brand-600 hover:text-brand-700 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-flex items-center justify-center"
+                                   class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1 inline-flex items-center justify-center"
                                    title="View Order Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
@@ -299,10 +299,10 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="px-6 py-12 text-center text-slate-400">
-                                <i class="fa-solid fa-box-open text-3xl mb-2 text-slate-300 dark:text-slate-600 block"></i>
-                                <span class="font-bold text-sm block">No Orders Found</span>
-                                <span class="text-xs text-slate-500 mt-1 block">Try adjusting your search terms or clearing your active filters.</span>
+                            <td colspan="8" class="px-6 py-12 text-center text-cyber-muted">
+                                <i class="fa-solid fa-box-open text-3xl mb-2 opacity-60 block"></i>
+                                <span class="font-bold text-sm text-cyber-main block">No Orders Found</span>
+                                <span class="text-xs text-cyber-muted mt-1 block">Try adjusting your search terms or clearing your active filters.</span>
                             </td>
                         </tr>
                     @endforelse
@@ -312,9 +312,9 @@
 
         {{-- Pagination Bar --}}
         @if($orders->hasPages())
-        <div class="px-6 py-4 border-t border-cyber/60 bg-cyber-sub/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <span class="text-slate-500 dark:text-slate-400 font-medium">
-                Showing <span class="font-bold text-slate-900 dark:text-white">{{ $orders->firstItem() }}</span> to <span class="font-bold text-slate-900 dark:text-white">{{ $orders->lastItem() }}</span> of <span class="font-bold text-slate-900 dark:text-white">{{ $orders->total() }}</span> orders
+        <div class="px-6 py-4 border-t border-cyber bg-cyber-sub/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <span class="text-cyber-muted font-medium tabular-nums">
+                Showing <span class="font-bold text-cyber-main">{{ $orders->firstItem() }}</span> to <span class="font-bold text-cyber-main">{{ $orders->lastItem() }}</span> of <span class="font-bold text-cyber-main">{{ $orders->total() }}</span> orders
             </span>
             <div>
                 {{ $orders->links() }}

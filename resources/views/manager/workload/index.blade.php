@@ -64,7 +64,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         {{-- LEFT 2 COLS: MULTI-BRANCH WORKLOAD VS CAPACITY BAR GRAPH --}}
-        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-xl p-5 sm:p-6 flex flex-col justify-between h-full">
+        <div class="lg:col-span-2 bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-6 flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-sub pb-4">
                     <div>
@@ -101,7 +101,7 @@
         </div>
 
         {{-- RIGHT 1 COL: QUEUE PRIORITY DISTRIBUTION DONUT CHART --}}
-        <div class="bg-cyber-card border border-cyber rounded-xl p-5 sm:p-6 flex flex-col justify-between h-full">
+        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 sm:p-6 flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
                 <div class="flex items-center justify-between border-b border-cyber-sub pb-3">
                     <div>
@@ -136,7 +136,7 @@
                     <canvas id="queuePriorityDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPJobs }}</span>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider text-cyber-muted">Floor Runs</span>
+                        <span class="text-[11px] font-semibold text-cyber-muted">Floor Runs</span>
                     </div>
                 </div>
 
@@ -216,7 +216,7 @@
                         <div class="flex items-center gap-2 flex-wrap">
                             <h3 class="font-bold text-cyber-main font-display text-base tracking-tight truncate group-hover:text-brand-600 dark:group-hover:text-blue-400 transition-colors">{{ $b->name }}</h3>
                             @if($b->rush_count > 0)
-                                <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1">
+                                <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1">
                                     <i class="fa-solid fa-triangle-exclamation text-[11px]"></i> {{ $b->rush_count }} RUSH
                                 </span>
                             @endif
@@ -227,7 +227,7 @@
                     </div>
 
                     @if($isBranchSelected)
-                        <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider bg-brand-600/10 text-brand-700 dark:text-blue-400 border border-brand-600/25 shrink-0">
+                        <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold bg-brand-600/10 text-brand-700 dark:text-blue-400 border border-brand-600/25 shrink-0">
                             Selected
                         </span>
                     @endif
@@ -256,7 +256,7 @@
             {{-- Utilization Gauge Bar --}}
             <div class="space-y-2 pt-2">
                 <div class="flex items-center justify-between text-xs tabular-nums">
-                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted">UTILIZATION</span>
+                    <span class="text-[11px] font-sans tabular-nums font-semibold text-cyber-muted">UTILIZATION</span>
                     <strong class="font-sans tabular-nums font-bold {{ $b->active_job_count == 0 ? 'text-brand-600 dark:text-blue-400' : ($util >= 80 ? 'text-rose-600 dark:text-rose-400' : ($util >= 50 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400')) }}">
                         {{ number_format($util, 1) }}%
                     </strong>
@@ -278,7 +278,7 @@
 
             {{-- Sparkline Load Trend Wave --}}
             <div class="pt-2">
-                <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block mb-2">TODAY'S LOAD TREND</span>
+                <span class="text-[11px] font-sans tabular-nums font-semibold text-cyber-muted block mb-2">TODAY'S LOAD TREND</span>
                 <div class="w-full h-12 relative overflow-hidden rounded-lg bg-cyber-sub border border-cyber flex items-end">
                     <svg class="w-full h-full" viewBox="0 0 320 40" preserveAspectRatio="none">
                         <defs>
@@ -298,7 +298,7 @@
     </div>
 
     {{-- LIVE ACTIVE PRODUCTION QUEUE TABLE --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col mt-6">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col mt-6">
         <div class="px-5 py-4 border-b border-cyber bg-cyber-sub flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
                 <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">Active Production Queue</h3>
@@ -369,7 +369,7 @@
                                     'in_production', 'running' => 'text-blue-600 dark:text-blue-400',
                                     'delayed'                  => 'text-rose-600 dark:text-rose-400',
                                     'quality_checking'         => 'text-indigo-600 dark:text-indigo-400',
-                                    default                    => 'text-slate-600 dark:text-slate-400',
+                                    default                    => 'text-cyber-muted',
                                 };
                             @endphp
                             <span class="text-xs font-semibold {{ $statusTextColor }}">

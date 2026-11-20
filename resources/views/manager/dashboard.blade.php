@@ -5,108 +5,94 @@
 @section('content')
 <div class="space-y-6 w-full max-w-7xl mx-auto">
 
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- PAGE HEADER: BRANCH & CAPACITY OPERATIONS HUB --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    {{-- PAGE HEADER --}}
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-            <h2 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Branch &amp; Capacity Operations Hub</h2>
+            <h1 class="text-2xl sm:text-[1.75rem] font-bold font-display tracking-tight text-cyber-main">Branch &amp; Capacity Hub</h1>
+            <p class="text-sm text-cyber-muted mt-1">Press load distribution, schedule deadlines, and shop-floor machine readiness.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <a href="{{ route('manager.capacity.index') }}" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm transition flex items-center gap-2">
-                <i class="fa-solid fa-calculator text-xs"></i> Evaluate Capacity
+            <a href="{{ route('manager.capacity.index') }}" class="px-4 py-2 rounded-lg bg-[#2F7BFF] hover:bg-[#1F68EB] text-white font-semibold text-xs transition inline-flex items-center gap-2">
+                <i class="fa-solid fa-calculator text-xs"></i>
+                <span>Evaluate Capacity</span>
             </a>
-            <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub text-cyber-main font-semibold text-xs border border-cyber transition flex items-center gap-2">
-                <i class="fa-solid fa-calendar-days text-xs text-blue-600 dark:text-blue-400"></i> Plan Schedule
+            <a href="{{ route('manager.production-planning.index') }}" class="px-3.5 py-2 rounded-lg bg-cyber-card hover:bg-cyber-sub text-cyber-main font-semibold text-xs border border-cyber transition inline-flex items-center gap-2">
+                <i class="fa-solid fa-calendar-days text-xs text-[#2F7BFF]"></i>
+                <span>Plan Schedule</span>
             </a>
-            <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-card hover:bg-cyber-sub text-cyber-main font-semibold text-xs border border-cyber transition flex items-center gap-2">
-                <i class="fa-solid fa-boxes-packing text-xs text-amber-600 dark:text-amber-400"></i> Material Reorders
+            <a href="{{ route('manager.purchasing.index') }}" class="px-3.5 py-2 rounded-lg bg-cyber-card hover:bg-cyber-sub text-cyber-main font-semibold text-xs border border-cyber transition inline-flex items-center gap-2">
+                <i class="fa-solid fa-boxes-packing text-xs text-[#FFC531]"></i>
+                <span>Material Reorders</span>
             </a>
         </div>
     </div>
 
-    {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- 5 OPERATIONAL PRODUCTION METRICS --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <x-dashboard.kpi-card 
-            title="ACTIVE JOBS ON FLOOR"
+            title="Active Floor Jobs"
             :value="$totalActiveJobs"
-            icon="fa-solid fa-gears"
-            accent="cyan"
+            accent="blue"
             :link="route('manager.production-planning.index')"
         />
 
         <x-dashboard.kpi-card 
-            title="DUE TODAY (DEADLINE)"
+            title="Due Today"
             :value="$jobsDueToday"
-            icon="fa-solid fa-clock"
             accent="emerald"
             :link="route('manager.production-planning.index')"
         />
 
         <x-dashboard.kpi-card 
-            title="RUSH & URGENT RUNS"
+            title="Rush &amp; Urgent Runs"
             :value="$rushJobs"
-            icon="fa-solid fa-bolt"
             accent="amber"
             :link="route('manager.production-planning.index', ['priority' => 'rush_urgent'])"
         />
 
         <x-dashboard.kpi-card 
-            title="PRESS RUN DELAYS"
+            title="Press Run Delays"
             :value="$delayedJobs"
-            icon="fa-solid fa-triangle-exclamation"
-            accent="rose"
+            accent="amber"
             :link="route('manager.production-planning.index', ['status' => 'delayed'])"
         />
 
         <x-dashboard.kpi-card 
-            title="PRESS FLEET READY"
+            title="Press Fleet Ready"
             :value="$availableMachines . '/' . $totalMachines"
-            icon="fa-solid fa-print"
-            accent="indigo"
+            accent="blue"
             :link="route('manager.capacity.index')"
         />
     </div>
 
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 2: COMMERCIAL PRINTING WORKFLOW PIPELINE --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- COMMERCIAL PRINTING WORKFLOW PIPELINE --}}
     <x-dashboard.workflow-pipeline 
         :stages="$pipeline"
         title="Commercial Printing Production Lifecycle"
         subtitle=""
     />
 
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 2 & 3: MULTI-BRANCH WORKLOAD & PRODUCTION FLOOR STATUS DONUT CHART --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- MULTI-BRANCH WORKLOAD & FLOOR STATUS DONUT --}}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         {{-- LEFT 2 COLS: MULTI-BRANCH CAPACITY --}}
         <div class="lg:col-span-2 flex flex-col h-full">
             <x-dashboard.branch-workload-card 
                 :branches="$branches"
-                title="Branch Capacity Utilization & Machine Workload"
+                title="Branch Capacity Utilization &amp; Machine Workload"
                 subtitle=""
                 :actionUrl="route('manager.capacity.index')"
                 actionLabel="Capacity Evaluation Matrix"
             />
         </div>
 
-        {{-- RIGHT 1 COL: PRODUCTION FLOOR STATUS DONUT CHART --}}
-        <div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full shadow-sm">
+        {{-- RIGHT 1 COL: FLOOR STATUS DONUT CHART --}}
+        <div class="bg-cyber-card border border-cyber rounded-xl p-5 sm:p-6 flex flex-col justify-between h-full">
             <div class="flex flex-col flex-1">
-                <div class="flex items-center justify-between border-b border-cyber-sub pb-3">
-                    <div>
-                        <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">Floor Status Health</h3>
-                        <p class="text-xs text-cyber-muted mt-0.5">Active shop-floor job distribution</p>
-                    </div>
-                    <div class="h-8 w-8 rounded-xl bg-blue-600/10 dark:bg-blue-500/15 border border-blue-600/20 dark:border-blue-500/25 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs shrink-0">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
+                <div class="border-b border-cyber pb-3">
+                    <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display">Floor Status Health</h3>
+                    <p class="text-xs text-cyber-muted mt-0.5">Active shop-floor job distribution</p>
                 </div>
 
                 @php
@@ -120,45 +106,36 @@
                     $totalStatusJobs = max(1, array_sum($statusList));
                     $statusLabels = array_keys($statusList);
                     $statusValues = array_values($statusList);
-                    $statusColors = [
-                        '#2563EB', // Primary Blue for In Production
-                        '#6366F1', // Indigo for Quality Checking
-                        '#D97706', // Press Amber for Assigned / Queue
-                        '#DC2626', // Crimson for Delayed Runs
-                        '#059669', // Process Emerald for Completed Today
-                    ];
-                    $statusDotClasses = [
-                        'bg-[#2563EB]',
-                        'bg-indigo-500',
-                        'bg-amber-600',
-                        'bg-rose-600',
-                        'bg-emerald-600',
+                    $statusHexPalette = [
+                        '#2F7BFF', // Primary Blue (In Production)
+                        '#60A5FA', // Light Cyan Blue (Quality Checking)
+                        '#FFC531', // Warm Yellow (Assigned / Queue)
+                        '#E5337A', // CMYK Magenta (Delayed Runs)
+                        '#10B981', // Live Green (Completed Today)
                     ];
                 @endphp
 
-                {{-- Chart Canvas Container with Centered Metric --}}
-                <div class="relative flex items-center justify-center my-2 h-44 w-full">
+                <div class="relative flex items-center justify-center my-3 h-44 w-full">
                     <canvas id="jobStatusDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                        <span class="text-2xl font-bold font-display text-cyber-main leading-tight tabular-nums">{{ $totalStatusJobs }}</span>
-                        <span class="text-[11px] font-sans font-semibold text-cyber-sub">Total Jobs</span>
+                        <span class="text-2xl font-bold font-mono text-cyber-main leading-tight tabular-nums">{{ $totalStatusJobs }}</span>
+                        <span class="text-xs font-sans font-medium text-cyber-muted">Total Jobs</span>
                     </div>
                 </div>
 
-                {{-- Clean Status Legend --}}
-                <div class="space-y-1 pt-2 border-t border-cyber-sub flex-1 overflow-y-auto pr-1 tabular-nums">
+                <div class="divide-y divide-cyber-sub pt-2 border-t border-cyber flex-1 overflow-y-auto tabular-nums">
                     @foreach($statusList as $stName => $stCount)
                         @php
                             $stPct = round(($stCount / $totalStatusJobs) * 100);
-                            $dotClass = $statusDotClasses[$loop->index % count($statusDotClasses)];
+                            $dotHex = $statusHexPalette[$loop->index % count($statusHexPalette)];
                         @endphp
-                        <div class="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition hover:bg-black/[0.025] dark:hover:bg-white/[0.03]">
+                        <div class="flex items-center justify-between text-xs py-2 px-1">
                             <div class="flex items-center gap-2 min-w-0">
-                                <span class="h-2.5 w-2.5 rounded-sm shrink-0 {{ $dotClass }}"></span>
-                                <span class="text-cyber-main font-medium truncate text-[11px]">{{ $stName }}</span>
+                                <span class="h-2.5 w-2.5 rounded-sm shrink-0" style="background-color: {{ $dotHex }}"></span>
+                                <span class="text-cyber-main font-medium truncate">{{ $stName }}</span>
                             </div>
-                            <span class="font-sans text-[11px] text-cyber-muted shrink-0 ml-2 font-semibold tabular-nums">
-                                {{ $stCount }} <span class="text-[11px] font-normal text-cyber-sub">({{ $stPct }}%)</span>
+                            <span class="font-mono text-xs text-cyber-muted shrink-0 ml-2 font-semibold tabular-nums">
+                                {{ $stCount }} <span class="font-normal text-cyber-sub">({{ $stPct }}%)</span>
                             </span>
                         </div>
                     @endforeach
@@ -168,75 +145,54 @@
 
     </div>
 
-    {{-- ══════════════════════════════════════════════════════════ --}}
-    {{-- LEVEL 2 & 4: LIVE PRODUCTION JOBS DATA TABLE --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
+    {{-- LIVE PRODUCTION JOBS TABLE --}}
     <x-dashboard.production-table 
         :jobs="$recentJobs"
-        title="Active Production Jobs & Press Allocation"
+        title="Active Production Jobs &amp; Press Allocation"
         subtitle=""
         :viewAllUrl="route('manager.production-planning.index')"
         viewAllLabel="Full Production Schedule"
     />
 
-    {{-- ══════════════════════════════════════════════════════════ --}}
     {{-- MACHINE MAINTENANCE SCHEDULE ALERTS --}}
-    {{-- ══════════════════════════════════════════════════════════ --}}
     @if($maintenanceAlerts->isNotEmpty())
-    <div class="bg-cyber-card border border-amber-500/40 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="h-9 w-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-wrench"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-cyber-main text-sm font-display">Machine Maintenance Alerts</h3>
-                    <p class="text-xs text-cyber-muted">{{ $maintenanceAlerts->count() }} machine(s) require attention</p>
-                </div>
+    <div class="bg-cyber-card border border-[#FFC531]/40 rounded-xl overflow-hidden">
+        <div class="px-5 sm:px-6 py-4 bg-cyber-sub border-b border-cyber flex items-center justify-between">
+            <div>
+                <h3 class="font-bold text-cyber-main text-sm font-display">Machine Maintenance Alerts</h3>
+                <p class="text-xs text-cyber-muted mt-0.5">{{ $maintenanceAlerts->count() }} machine(s) require attention</p>
             </div>
-            <a href="{{ route('production.machines.index') }}" class="px-3.5 py-1.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-main font-semibold text-xs transition">
+            <a href="{{ route('production.machines.index') }}" class="px-3.5 py-1.5 rounded-lg bg-cyber-card hover:border-[#2F7BFF] border border-cyber text-cyber-main font-semibold text-xs transition">
                 View Logs &rarr;
             </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-cyber">
             @foreach($maintenanceAlerts as $machine)
                 @php
-                    $isOverdue  = $machine->maintenance_overdue;
-                    $isDueSoon  = $machine->maintenance_due_soon;
-                    $isDown     = in_array($machine->status, ['maintenance', 'offline']);
-
-                    $borderClass = $isOverdue ? 'border-rose-500/40' : ($isDown ? 'border-amber-500/40' : 'border-blue-600/30 dark:border-blue-500/30');
-                    $iconColor   = $isOverdue ? 'text-rose-600 dark:text-rose-400' : ($isDown ? 'text-amber-600 dark:text-amber-400' : 'text-blue-600 dark:text-blue-400');
-                    $badgeClass  = $isOverdue ? 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/25' : ($isDown ? 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/25' : 'bg-blue-600/10 text-blue-700 dark:text-blue-400 border border-blue-600/25');
-                    $badgeLabel  = $isOverdue ? 'OVERDUE' : ($isDown ? strtoupper($machine->status) : 'DUE SOON');
+                    $isOverdue = $machine->maintenance_overdue;
+                    $isDown    = in_array($machine->status, ['maintenance', 'offline']);
+                    $toneText  = ($isOverdue || $isDown) ? 'text-amber-700 dark:text-[#FFC531]' : 'text-[#2F7BFF] dark:text-[#60A5FA]';
+                    $toneDot   = ($isOverdue || $isDown) ? 'bg-[#FFC531]' : 'bg-[#2F7BFF]';
+                    $badgeLabel = $isOverdue ? 'Overdue' : ($isDown ? ucfirst($machine->status) : 'Due Soon');
                 @endphp
-                <div class="rounded-xl border {{ $borderClass }} p-3.5 space-y-2 bg-cyber-sub">
+                <div class="p-4 sm:p-5 space-y-2">
                     <div class="flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-2 min-w-0">
-                            <i class="fa-solid fa-print {{ $iconColor }} text-xs"></i>
-                            <span class="font-semibold text-cyber-main text-xs truncate">{{ $machine->name }}</span>
-                        </div>
-                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-sans font-semibold uppercase tracking-wide {{ $badgeClass }} shrink-0">
+                        <span class="font-semibold text-cyber-main text-xs truncate">{{ $machine->name }}</span>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold {{ $toneText }} shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full {{ $toneDot }}"></span>
                             {{ $badgeLabel }}
                         </span>
                     </div>
-                    <p class="text-[11px] text-cyber-muted">
-                        <i class="fa-solid fa-location-dot mr-0.5"></i> {{ $machine->branch->name ?? 'Branch' }}
-                        &middot; {{ $machine->type }}
+                    <p class="text-xs text-cyber-muted">
+                        {{ $machine->branch->name ?? 'Branch' }} &middot; {{ $machine->type }}
                     </p>
                     @if($machine->next_maintenance_date)
-                        <p class="text-[11px] font-sans {{ $isOverdue ? 'text-rose-600 dark:text-rose-400' : 'text-cyber-muted' }} tabular-nums">
-                            <i class="fa-solid fa-calendar-day mr-0.5"></i>
-                            Next maintenance: {{ $machine->next_maintenance_date->format('M d, Y') }}
-                            @if($isOverdue)
-                                ({{ $machine->next_maintenance_date->diffForHumans() }})
-                            @endif
+                        <p class="text-xs font-mono tabular-nums {{ $isOverdue ? 'text-amber-700 dark:text-[#FFC531]' : 'text-cyber-muted' }}">
+                            Next: {{ $machine->next_maintenance_date->format('M d, Y') }}
                         </p>
                     @else
-                        <p class="text-[11px] text-amber-700 dark:text-amber-400 font-sans">
-                            <i class="fa-solid fa-triangle-exclamation mr-0.5"></i> No maintenance schedule set
-                        </p>
+                        <p class="text-xs text-amber-700 dark:text-[#FFC531]">No maintenance schedule set</p>
                     @endif
                 </div>
             @endforeach
@@ -265,11 +221,11 @@
 
         const isDark = document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('dark-theme');
         const colors = [
-            '#2563EB', // Primary Blue (In Production)
-            '#6366F1', // Indigo (Quality Checking)
-            '#D97706', // Press Amber (Assigned / Queue)
-            '#DC2626', // Crimson (Delayed Runs)
-            '#059669'  // Process Emerald (Completed Today)
+            '#2F7BFF',
+            '#60A5FA',
+            '#FFC531',
+            '#E5337A',
+            '#10B981'
         ];
 
         new Chart(canvas, {
@@ -280,26 +236,26 @@
                     data: data,
                     backgroundColor: colors.slice(0, labels.length),
                     borderWidth: 2,
-                    borderColor: isDark ? '#151922' : '#FFFFFF',
+                    borderColor: isDark ? '#111827' : '#FFFFFF',
                     hoverOffset: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '62%',
+                cutout: '64%',
                 plugins: {
                     legend: {
                         display: false
                     },
                     tooltip: {
-                        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-                        titleColor: isDark ? '#f8fafc' : '#0f172a',
-                        bodyColor: isDark ? '#94a3b8' : '#475569',
-                        borderColor: isDark ? '#334155' : '#e2e8f0',
+                        backgroundColor: isDark ? 'rgba(17, 24, 39, 0.96)' : 'rgba(255, 255, 255, 0.96)',
+                        titleColor: isDark ? '#F8FAFC' : '#0F172A',
+                        bodyColor: isDark ? '#94A3B8' : '#475569',
+                        borderColor: isDark ? '#1E293B' : '#E2E8F0',
                         borderWidth: 1,
                         padding: 10,
-                        cornerRadius: 12,
+                        cornerRadius: 8,
                         boxPadding: 4,
                         callbacks: {
                             label: function(context) {
@@ -314,8 +270,8 @@
                 animation: {
                     animateScale: true,
                     animateRotate: true,
-                    duration: 900,
-                    easing: 'easeInOutQuart'
+                    duration: 800,
+                    easing: 'easeOutQuart'
                 }
             }
         });

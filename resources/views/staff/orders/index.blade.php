@@ -29,7 +29,7 @@
         </form>
     </div>
 
-    <div id="orders-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div id="orders-table-card" class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs tabular-nums">
                 <thead class="bg-cyber-sub text-cyber-muted font-sans tabular-nums font-semibold border-b border-cyber text-[11px]">

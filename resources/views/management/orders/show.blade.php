@@ -14,17 +14,17 @@
             </a>
             <div>
                 <div class="flex items-center gap-3">
-                    <h2 class="text-xl font-black text-slate-900 dark:text-white font-display tracking-tight">Order #{{ $order->order_number }}</h2>
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider font-sans tabular-nums {{ match($order->status) {
+                    <h2 class="text-xl font-black text-cyber-main font-display tracking-tight">Order #{{ $order->order_number }}</h2>
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold font-sans tabular-nums {{ match($order->status) {
                         'production', 'in_production' => 'bg-blue-100 dark:bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30',
                         'ready_for_pickup'            => 'bg-teal-100 dark:bg-teal-500/20 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-500/30',
                         'completed', 'claimed'        => 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30',
-                        default                       => 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700',
+                        default                       => 'bg-cyber-sub text-cyber-main border border-cyber',
                     } }}">
                         {{ $order->status_label }}
                     </span>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p class="text-xs text-cyber-muted mt-0.5">
                     Placed {{ $order->created_at->format('M d, Y · h:i A') }} ({{ $order->created_at->diffForHumans() }})
                 </p>
             </div>
@@ -51,41 +51,41 @@
                         <i class="fa-solid fa-print"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-sm font-display">Print Specifications</h3>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Order item and production finishing requirements</p>
+                        <h3 class="font-bold text-cyber-main text-sm font-display">Print Specifications</h3>
+                        <p class="text-[11px] text-cyber-muted">Order item and production finishing requirements</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                     <div class="bg-cyber-sub/30 p-3.5 rounded-2xl border border-cyber/40">
-                        <span class="text-slate-400 dark:text-slate-500 text-[11px] uppercase font-sans tabular-nums block">Primary Service</span>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white block mt-0.5">{{ $order->printRequest->service ?? 'Commercial Printing' }}</span>
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Primary Service</span>
+                        <span class="text-sm font-bold text-cyber-main block mt-0.5">{{ $order->printRequest->service ?? 'Commercial Printing' }}</span>
                     </div>
 
                     <div class="bg-cyber-sub/30 p-3.5 rounded-2xl border border-cyber/40">
-                        <span class="text-slate-400 dark:text-slate-500 text-[11px] uppercase font-sans tabular-nums block">Volume / Quantity</span>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white font-sans tabular-nums block mt-0.5">
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Volume / Quantity</span>
+                        <span class="text-sm font-bold text-cyber-main font-sans tabular-nums block mt-0.5">
                             {{ number_format($order->printRequest->quantity ?? 1) }} copies / pcs
                         </span>
                     </div>
 
                     <div class="bg-cyber-sub/30 p-3.5 rounded-2xl border border-cyber/40">
-                        <span class="text-slate-400 dark:text-slate-500 text-[11px] uppercase font-sans tabular-nums block">Material & Paper Stock</span>
-                        <span class="text-xs font-semibold text-slate-900 dark:text-white block mt-0.5">
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Material & Paper Stock</span>
+                        <span class="text-xs font-semibold text-cyber-main block mt-0.5">
                             {{ $order->printRequest->paper_type ?? $order->printRequest->material ?? 'Standard Glossy 150gsm' }}
                         </span>
                     </div>
 
                     <div class="bg-cyber-sub/30 p-3.5 rounded-2xl border border-cyber/40">
-                        <span class="text-slate-400 dark:text-slate-500 text-[11px] uppercase font-sans tabular-nums block">Dimensions / Paper Size</span>
-                        <span class="text-xs font-semibold text-slate-900 dark:text-white block mt-0.5">
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Dimensions / Paper Size</span>
+                        <span class="text-xs font-semibold text-cyber-main block mt-0.5">
                             {{ $order->printRequest->size ?? 'Standard' }}
                         </span>
                     </div>
 
                     <div class="sm:col-span-2 bg-cyber-sub/30 p-3.5 rounded-2xl border border-cyber/40">
-                        <span class="text-slate-400 dark:text-slate-500 text-[11px] uppercase font-sans tabular-nums block">Finishing & Enhancements</span>
-                        <span class="text-xs font-semibold text-slate-900 dark:text-white block mt-0.5">
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Finishing & Enhancements</span>
+                        <span class="text-xs font-semibold text-cyber-main block mt-0.5">
                             {{ $order->printRequest->finishing ?? 'Matte Lamination / Standard Trim' }}
                         </span>
                     </div>
@@ -93,7 +93,7 @@
                     @if(!empty($order->printRequest->notes))
                     <div class="sm:col-span-2 bg-amber-500/5 p-3.5 rounded-2xl border border-amber-500/20">
                         <span class="text-amber-600 dark:text-amber-400 text-[11px] uppercase font-bold block">Customer Special Instructions</span>
-                        <p class="text-xs text-slate-700 dark:text-slate-300 mt-1">{{ $order->printRequest->notes }}</p>
+                        <p class="text-xs text-cyber-main mt-1">{{ $order->printRequest->notes }}</p>
                     </div>
                     @endif
                 </div>
@@ -106,29 +106,29 @@
                         <i class="fa-solid fa-network-wired"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-sm font-display">Facility Assignment & Production Route</h3>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Intelligent press line allocation and scheduling</p>
+                        <h3 class="font-bold text-cyber-main text-sm font-display">Facility Assignment & Production Route</h3>
+                        <p class="text-[11px] text-cyber-muted">Intelligent press line allocation and scheduling</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                     <div class="p-3.5 rounded-2xl bg-cyber-sub/20 border border-cyber/40">
-                        <span class="text-slate-400 text-[11px] uppercase font-sans tabular-nums block">Assigned Printing Facility</span>
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Assigned Printing Facility</span>
                         <span class="font-bold text-blue-600 dark:text-blue-400 text-xs block mt-1">
                             {{ $order->assigned_branch ?? ($order->productionJob->branch->name ?? 'Pending Allocation') }}
                         </span>
                     </div>
 
                     <div class="p-3.5 rounded-2xl bg-cyber-sub/20 border border-cyber/40">
-                        <span class="text-slate-400 text-[11px] uppercase font-sans tabular-nums block">Machine / Press Line</span>
-                        <span class="font-bold text-slate-900 dark:text-white text-xs block mt-1">
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Machine / Press Line</span>
+                        <span class="font-bold text-cyber-main text-xs block mt-1">
                             {{ $order->productionJob->machine->name ?? 'Standard Press Unit' }}
                         </span>
                     </div>
 
                     <div class="p-3.5 rounded-2xl bg-cyber-sub/20 border border-cyber/40">
-                        <span class="text-slate-400 text-[11px] uppercase font-sans tabular-nums block">Assigned Technician</span>
-                        <span class="font-bold text-slate-900 dark:text-white text-xs block mt-1">
+                        <span class="text-cyber-muted text-[11px] uppercase font-sans tabular-nums block">Assigned Technician</span>
+                        <span class="font-bold text-cyber-main text-xs block mt-1">
                             {{ $order->productionJob->assignedTo->name ?? 'Floor Queue' }}
                         </span>
                     </div>
@@ -147,26 +147,26 @@
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-sm font-display">Customer Information</h3>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Client details and contact</p>
+                        <h3 class="font-bold text-cyber-main text-sm font-display">Customer Information</h3>
+                        <p class="text-[11px] text-cyber-muted">Client details and contact</p>
                     </div>
                 </div>
 
                 <div class="space-y-3 text-xs">
                     <div>
-                        <span class="text-slate-400 text-[11px] uppercase block font-sans tabular-nums">Full Name</span>
-                        <span class="text-slate-900 dark:text-white font-bold text-sm">{{ $order->user->name ?? 'Direct Customer' }}</span>
+                        <span class="text-cyber-muted text-[11px] uppercase block font-sans tabular-nums">Full Name</span>
+                        <span class="text-cyber-main font-bold text-sm">{{ $order->user->name ?? 'Direct Customer' }}</span>
                     </div>
 
                     <div>
-                        <span class="text-slate-400 text-[11px] uppercase block font-sans tabular-nums">Email Address</span>
-                        <span class="text-slate-900 dark:text-white font-medium">{{ $order->user->email ?? '—' }}</span>
+                        <span class="text-cyber-muted text-[11px] uppercase block font-sans tabular-nums">Email Address</span>
+                        <span class="text-cyber-main font-medium">{{ $order->user->email ?? '—' }}</span>
                     </div>
 
                     @if(!empty($order->user->phone))
                     <div>
-                        <span class="text-slate-400 text-[11px] uppercase block font-sans tabular-nums">Phone</span>
-                        <span class="text-slate-900 dark:text-white font-sans tabular-nums">{{ $order->user->phone }}</span>
+                        <span class="text-cyber-muted text-[11px] uppercase block font-sans tabular-nums">Phone</span>
+                        <span class="text-cyber-main font-sans tabular-nums">{{ $order->user->phone }}</span>
                     </div>
                     @endif
                 </div>
@@ -179,8 +179,8 @@
                         <i class="fa-solid fa-receipt"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-sm font-display">Payment & Billing</h3>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Order invoice and settlement</p>
+                        <h3 class="font-bold text-cyber-main text-sm font-display">Payment & Billing</h3>
+                        <p class="text-[11px] text-cyber-muted">Order invoice and settlement</p>
                     </div>
                 </div>
 
@@ -189,27 +189,27 @@
                         $totalVal = $order->quotation->total_price ?? ($order->payment->amount ?? 1250);
                     @endphp
                     <div class="bg-emerald-500/5 p-4 rounded-2xl border border-emerald-500/20">
-                        <span class="text-slate-400 text-[11px] uppercase block font-sans tabular-nums">Total Order Amount</span>
-                        <span class="text-2xl font-black text-slate-900 dark:text-white font-display">
+                        <span class="text-cyber-muted text-[11px] uppercase block font-sans tabular-nums">Total Order Amount</span>
+                        <span class="text-2xl font-black text-cyber-main font-display">
                             ₱{{ number_format($totalVal, 2) }}
                         </span>
                     </div>
 
                     <div class="flex items-center justify-between py-2 border-b border-cyber/40">
-                        <span class="text-slate-400">Payment Status</span>
+                        <span class="text-cyber-muted">Payment Status</span>
                         <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase {{ match($order->payment_status) {
                             'confirmed', 'paid' => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300',
                             'submitted'         => 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300',
-                            default             => 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                            default             => 'bg-cyber-sub text-cyber-main dark:bg-slate-800 dark:text-slate-300'
                         } }}">
                             {{ $order->payment_status_label ?? ucfirst($order->payment_status ?? 'Pending') }}
                         </span>
                     </div>
 
                     @if($order->payment)
-                    <div class="flex items-center justify-between py-1 text-slate-400">
+                    <div class="flex items-center justify-between py-1 text-cyber-muted">
                         <span>Payment Reference</span>
-                        <span class="font-sans tabular-nums font-bold text-slate-900 dark:text-white">{{ $order->payment->display_reference ?? '—' }}</span>
+                        <span class="font-sans tabular-nums font-bold text-cyber-main">{{ $order->payment->display_reference ?? '—' }}</span>
                     </div>
                     @endif
                 </div>

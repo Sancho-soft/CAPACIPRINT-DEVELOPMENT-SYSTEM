@@ -1,14 +1,14 @@
 @props([
     'jobs' => [],
     'title' => 'Live Production Queue & Orders',
-    'subtitle' => 'Real-time job scheduling, priority flags, and press floor execution',
+    'subtitle' => null,
     'viewAllUrl' => null,
     'viewAllLabel' => 'View All Jobs',
     'emptyMessage' => 'No production jobs currently active in the queue.',
 ])
 
-<div id="press-line-queue" class="bg-cyber-card border border-cyber rounded-2xl overflow-hidden flex flex-col scroll-mt-6 shadow-sm">
-    <div class="px-5 sm:px-6 py-4 border-b border-cyber-sub flex items-center justify-between bg-cyber-sub">
+<div id="press-line-queue" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col scroll-mt-6">
+    <div class="px-5 sm:px-6 py-4 border-b border-cyber flex items-center justify-between bg-cyber-sub">
         <div>
             <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
             @if(!empty($subtitle))
@@ -16,15 +16,16 @@
             @endif
         </div>
         @if($viewAllUrl)
-            <a href="{{ $viewAllUrl }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1 shrink-0">
-                {{ $viewAllLabel }} <i class="fa-solid fa-arrow-right text-[11px]"></i>
+            <a href="{{ $viewAllUrl }}" class="text-xs font-semibold text-[#2F7BFF] dark:text-[#60A5FA] hover:underline flex items-center gap-1.5 shrink-0">
+                <span>{{ $viewAllLabel }}</span>
+                <i class="fa-solid fa-arrow-right text-[11px]"></i>
             </a>
         @endif
     </div>
 
     <div class="overflow-x-auto font-sans">
         <table class="w-full text-left text-xs tabular-nums">
-            <thead class="text-cyber-muted font-sans font-bold uppercase tracking-wide border-b border-cyber text-xs bg-cyber-sub select-none">
+            <thead class="text-cyber-muted font-sans font-semibold border-b border-cyber text-xs bg-cyber-sub select-none">
                 <tr>
                     <th class="px-4 sm:px-5 py-3">Job / Order</th>
                     <th class="px-4 sm:px-5 py-3">Customer</th>
@@ -49,22 +50,16 @@
                         $finishing = $job->order->printRequest->finishing ?? ($job->printRequest->finishing ?? null);
                         $branchName = $job->branch->name ?? ($job->assigned_branch ?? 'Branch Hub');
                         $machineName = $job->machine->name ?? 'Press Unit';
-                        
+
+                        // Strict 3-status colors: Warm Yellow (#FFC531), Brand Blue (#2F7BFF), Live Green (#10B981)
                         $priority = strtolower($job->priority ?? 'normal');
-                        $priorityColor = match($priority) {
-                            'urgent' => 'text-rose-600 dark:text-rose-400',
-                            'rush'   => 'text-amber-600 dark:text-amber-400',
-                            default  => 'text-cyber-muted',
-                        };
+                        $isHighPriority = in_array($priority, ['urgent', 'rush']);
 
                         $statusStr = strtolower($job->status ?? 'pending');
-                        $statusColor = match($statusStr) {
-                            'in_production', 'production' => 'text-blue-600 dark:text-blue-400',
-                            'completed', 'claimed'        => 'text-emerald-600 dark:text-emerald-400',
-                            'ready_for_pickup'            => 'text-teal-600 dark:text-teal-400',
-                            'delayed'                     => 'text-rose-600 dark:text-rose-400',
-                            'quality_checking'            => 'text-purple-600 dark:text-purple-400',
-                            default                       => 'text-indigo-600 dark:text-indigo-400',
+                        $statusTone = match($statusStr) {
+                            'completed', 'claimed', 'ready_for_pickup' => ['dot' => 'bg-[#10B981]', 'text' => 'text-emerald-700 dark:text-[#10B981]'],
+                            'delayed', 'cancelled', 'rejected'         => ['dot' => 'bg-[#FFC531]', 'text' => 'text-amber-700 dark:text-[#FFC531]'],
+                            default                                    => ['dot' => 'bg-[#2F7BFF]', 'text' => 'text-[#2F7BFF] dark:text-[#60A5FA]'],
                         };
 
                         $statusLabel = match($statusStr) {
@@ -86,8 +81,8 @@
                     <tr class="hover:bg-black/[0.02] dark:hover:bg-white/[0.025] transition-colors">
                         {{-- Job Number --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            <span class="font-sans tabular-nums font-semibold text-cyber-main text-xs block tracking-tight">{{ $jobNo }}</span>
-                            <span class="text-[11px] font-sans text-cyber-muted block mt-0.5">{{ $job->created_at ? $job->created_at->diffForHumans() : 'Active' }}</span>
+                            <span class="font-mono font-semibold text-[#2F7BFF] dark:text-[#60A5FA] text-xs block">{{ $jobNo }}</span>
+                            <span class="text-[12px] font-sans text-cyber-muted block mt-0.5">{{ $job->created_at ? $job->created_at->diffForHumans() : 'Active' }}</span>
                         </td>
 
                         {{-- Customer --}}
@@ -103,7 +98,7 @@
                         {{-- Material Specs --}}
                         <td class="px-4 sm:px-5 py-3.5 min-w-[150px]">
                             <span class="text-cyber-main font-medium block truncate max-w-[180px] text-xs">{{ $material }}</span>
-                            <span class="text-[11px] font-sans text-cyber-muted block mt-0.5 tabular-nums">
+                            <span class="text-[12px] font-sans text-cyber-muted block mt-0.5 tabular-nums">
                                 @if($quantity) {{ number_format($quantity) }} pcs @endif
                                 @if($size) &middot; {{ $size }} @endif
                                 @if($finishing) &middot; {{ $finishing }} @endif
@@ -113,23 +108,31 @@
                         {{-- Assigned Press & Branch --}}
                         <td class="px-4 sm:px-5 py-3.5 min-w-[150px]">
                             <span class="font-semibold text-cyber-main block leading-tight text-xs">{{ $branchName }}</span>
-                            <span class="text-[11px] font-sans text-cyber-muted block mt-0.5">{{ $machineName }}</span>
+                            <span class="text-[12px] font-sans text-cyber-muted block mt-0.5">{{ $machineName }}</span>
                         </td>
 
                         {{-- Priority --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            <span class="text-xs font-sans font-semibold capitalize {{ $priorityColor }}">
-                                {{ $priority }}
-                            </span>
+                            @if($isHighPriority)
+                                <span class="inline-flex items-center gap-1.5 text-xs font-semibold capitalize text-amber-700 dark:text-[#FFC531]">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#FFC531]"></span>
+                                    {{ $priority }}
+                                </span>
+                            @else
+                                <span class="text-xs font-medium capitalize text-cyber-muted">
+                                    {{ $priority }}
+                                </span>
+                            @endif
                         </td>
 
                         {{-- Status --}}
                         <td class="px-4 sm:px-5 py-3.5 whitespace-nowrap">
-                            <span class="text-xs font-sans font-semibold {{ $statusColor }}">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold {{ $statusTone['text'] }}">
+                                <span class="w-1.5 h-1.5 rounded-full {{ $statusTone['dot'] }}"></span>
                                 {{ $statusLabel }}
                             </span>
                             @if($statusStr === 'delayed' && !empty($job->delay_reason))
-                                <span class="text-[11px] text-rose-600 dark:text-rose-400 font-medium block mt-1 truncate max-w-[140px]" title="{{ $job->delay_reason }}">
+                                <span class="text-[12px] text-amber-700 dark:text-[#FFC531] font-medium block mt-0.5 truncate max-w-[150px]" title="{{ $job->delay_reason }}">
                                     {{ $job->delay_reason }}
                                 </span>
                             @endif
@@ -140,7 +143,7 @@
                             @if($detailRoute)
                                 <a href="{{ $detailRoute }}" 
                                    aria-label="View Details for {{ $jobNo }}"
-                                   class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition text-sm p-1.5 rounded-lg hover:bg-blue-600/10 dark:hover:bg-blue-500/15 inline-flex items-center justify-center"
+                                   class="h-8 w-8 rounded-lg bg-cyber-sub border border-cyber text-cyber-muted hover:text-cyber-main hover:border-[#2F7BFF] transition text-xs inline-flex items-center justify-center"
                                    title="View Details">
                                     <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                 </a>
@@ -162,7 +165,7 @@
     </div>
 
     @if(method_exists($jobs, 'hasPages') && $jobs->hasPages())
-        <div class="px-5 py-3 border-t border-cyber-sub bg-cyber-sub">
+        <div class="px-5 py-3 border-t border-cyber bg-cyber-sub">
             {{ $jobs->withQueryString()->fragment('press-line-queue')->links() }}
         </div>
     @endif

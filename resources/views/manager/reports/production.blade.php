@@ -14,8 +14,8 @@
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
             <div>
-                <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Production Performance &amp; Job Status Logs</h1>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Live tracking, completion velocity, and fulfillment records.</p>
+                <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">Production Performance &amp; Job Status Logs</h1>
+                <p class="text-xs text-cyber-muted mt-0.5">Live tracking, completion velocity, and fulfillment records.</p>
             </div>
         </div>
 
@@ -72,7 +72,7 @@
                 </button>
 
                 @if(request()->filled('search') || request()->filled('status') || request()->filled('from_date') || request()->filled('to_date'))
-                    <a href="{{ route('manager.reports.production') }}" class="px-3 py-2 text-xs bg-cyber-sub hover:bg-cyber-card border border-cyber rounded-xl text-cyber-muted hover:text-cyber-main transition">
+                    <a href="{{ route('manager.reports.production') }}" class="px-3 py-2 text-xs bg-cyber-sub hover:bg-cyber-card border border-cyber rounded-2xl shadow-sm text-cyber-muted hover:text-cyber-main transition">
                         Clear
                     </a>
                 @endif
@@ -118,7 +118,7 @@
                             $priorityBadge = match($priority) {
                                 'urgent' => 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
                                 'rush'   => 'bg-amber-500/15 text-amber-800 dark:text-amber-400',
-                                default  => 'bg-slate-500/15 text-slate-700 dark:text-slate-400',
+                                default  => 'bg-slate-500/15 text-cyber-muted',
                             };
 
                             $statusStr = strtolower($job->status ?? 'pending');
@@ -143,24 +143,24 @@
 
                             {{-- Customer & Service --}}
                             <td class="px-5 py-4 min-w-[160px]">
-                                <span class="font-bold text-slate-900 dark:text-white block truncate max-w-[180px] text-xs leading-snug">{{ $customerName }}</span>
-                                <span class="text-[11px] text-slate-900 dark:text-slate-200 font-semibold block truncate max-w-[180px] mt-0.5">{{ $service }}</span>
+                                <span class="font-bold text-cyber-main block truncate max-w-[180px] text-xs leading-snug">{{ $customerName }}</span>
+                                <span class="text-[11px] text-cyber-main dark:text-slate-200 font-semibold block truncate max-w-[180px] mt-0.5">{{ $service }}</span>
                             </td>
 
                             {{-- Branch & Machine --}}
                             <td class="px-5 py-4 min-w-[150px]">
-                                <span class="font-semibold text-slate-900 dark:text-white block truncate max-w-[160px] text-xs leading-tight">{{ $branchName }}</span>
-                                <span class="text-[11px] text-slate-500 dark:text-slate-400 block truncate max-w-[160px] font-sans tabular-nums mt-0.5">{{ $machineName }}</span>
+                                <span class="font-semibold text-cyber-main block truncate max-w-[160px] text-xs leading-tight">{{ $branchName }}</span>
+                                <span class="text-[11px] text-cyber-muted block truncate max-w-[160px] font-sans tabular-nums mt-0.5">{{ $machineName }}</span>
                             </td>
 
                             {{-- Priority --}}
                             <td class="px-5 py-4 whitespace-nowrap">
                                 @if(in_array($priority, ['normal', 'standard', 'low']))
-                                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-sans tabular-nums">
+                                    <span class="text-[11px] font-bold text-cyber-muted font-sans tabular-nums">
                                         {{ $priority }}
                                     </span>
                                 @else
-                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider {{ $priorityBadge }} font-sans tabular-nums">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold {{ $priorityBadge }} font-sans tabular-nums">
                                         @if($priority === 'urgent') <i class="fa-solid fa-bolt mr-0.5"></i> @endif
                                         {{ $priority }}
                                     </span>
@@ -169,7 +169,7 @@
 
                             {{-- Status --}}
                             <td class="px-5 py-4 whitespace-nowrap">
-                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider {{ $statusBadge }} font-sans tabular-nums">
+                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold {{ $statusBadge }} font-sans tabular-nums">
                                     {{ $job->status_label }}
                                 </span>
                                 @if($statusStr === 'delayed' && !empty($job->delay_reason))

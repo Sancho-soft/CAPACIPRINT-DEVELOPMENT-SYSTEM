@@ -24,11 +24,11 @@
     </div>
 
     {{-- Filter Form --}}
-    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+    <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm">
         <form method="GET" action="{{ route('management.reports.inventory') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs">
             <div class="sm:col-span-5">
-                <label class="block font-bold text-slate-600 mb-1">Filter Branch</label>
-                <select name="branch_id" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                <label class="block font-bold text-cyber-muted mb-1">Filter Branch</label>
+                <select name="branch_id" class="w-full px-3.5 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
                     <option value="">All Branches</option>
                     @foreach($byBranch as $b)
                         <option value="{{ $b->id }}" {{ request('branch_id') == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
@@ -37,8 +37,8 @@
             </div>
 
             <div class="sm:col-span-5">
-                <label class="block font-bold text-slate-600 mb-1">Stock Status</label>
-                <select name="status" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                <label class="block font-bold text-cyber-muted mb-1">Stock Status</label>
+                <select name="status" class="w-full px-3.5 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-teal-500 focus:outline-none">
                     <option value="">All Statuses</option>
                     <option value="in_stock" {{ request('status') === 'in_stock' ? 'selected' : '' }}>In Stock</option>
                     <option value="low_stock" {{ request('status') === 'low_stock' ? 'selected' : '' }}>Low Stock (Below Reorder)</option>
@@ -51,7 +51,7 @@
                     Filter
                 </button>
                 @if(request()->hasAny(['branch_id', 'status']))
-                    <a href="{{ route('management.reports.inventory') }}" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold transition" title="Reset Filters">
+                    <a href="{{ route('management.reports.inventory') }}" class="py-2 px-3 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-muted rounded-xl font-bold transition" title="Reset Filters">
                         <i class="fa-solid fa-rotate-left"></i>
                     </a>
                 @endif
@@ -60,10 +60,10 @@
     </div>
 
     {{-- Report Table --}}
-    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div class="bg-cyber-card rounded-2xl border border-cyber shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-600 tabular-nums">
-                <thead class="bg-slate-50/80 text-[11px] font-extrabold text-slate-400 border-b border-slate-100">
+            <table class="w-full text-left text-xs text-cyber-muted tabular-nums">
+                <thead class="bg-cyber-sub text-[11px] font-extrabold text-cyber-muted border-b border-cyber">
                     <tr>
                         <th class="py-3.5 px-5">Branch</th>
                         <th class="py-3.5 px-4">Material Name</th>
@@ -73,16 +73,16 @@
                         <th class="py-3.5 px-5 text-right">Stock Status</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-cyber-sub">
                     @forelse($inventory as $inv)
-                        <tr class="hover:bg-slate-50/50 transition">
+                        <tr class="hover:bg-cyber-sub/60 transition">
                             <td class="py-4 px-5 font-bold text-cyber-main font-display">{{ $inv->branch->name ?? '—' }}</td>
-                            <td class="py-4 px-4 font-semibold text-slate-800">{{ $inv->material->name ?? '—' }}</td>
-                            <td class="py-4 px-4 text-slate-500">{{ $inv->material->specification ?? 'Standard' }}</td>
-                            <td class="py-4 px-4 font-bold text-slate-900 text-sm">
+                            <td class="py-4 px-4 font-semibold text-cyber-main">{{ $inv->material->name ?? '—' }}</td>
+                            <td class="py-4 px-4 text-cyber-muted">{{ $inv->material->specification ?? 'Standard' }}</td>
+                            <td class="py-4 px-4 font-bold text-cyber-main text-sm">
                                 {{ number_format($inv->current_stock, 0) }} {{ $inv->material->unit ?? 'units' }}
                             </td>
-                            <td class="py-4 px-4 text-slate-500">
+                            <td class="py-4 px-4 text-cyber-muted">
                                 {{ $inv->reorder_level }} {{ $inv->material->unit ?? 'units' }}
                             </td>
                             <td class="py-4 px-5 text-right">
@@ -93,7 +93,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-12 text-center text-slate-400">
+                            <td colspan="6" class="py-12 text-center text-cyber-muted">
                                 <i class="fa-solid fa-boxes-stacked text-3xl mb-2 text-slate-300"></i>
                                 <p class="text-sm">No inventory records found for the selected criteria.</p>
                             </td>

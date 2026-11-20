@@ -10,8 +10,8 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Branch Network Performance</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time status, press lines, and telemetry across all print facilities.</p>
+            <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">Branch Network Performance</h1>
+            <p class="text-xs text-cyber-muted mt-1">Real-time status, press lines, and telemetry across all print facilities.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">
@@ -87,7 +87,7 @@
                             <span class="text-xs text-cyber-muted mt-0.5 flex items-center gap-1.5 truncate">
                                 <i class="fa-solid fa-location-dot text-blue-500 text-[11px]"></i>
                                 <span>{{ $b->location ?? 'Hub' }}</span>
-                                <span class="text-slate-300 dark:text-slate-700">&middot;</span>
+                                <span class="text-slate-300 dark:text-cyber-main">&middot;</span>
                                 <strong class="text-cyber-main font-semibold truncate">{{ $b->manager_name ?? 'Branch Manager' }}</strong>
                             </span>
                         </div>
@@ -103,22 +103,22 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span>Daily Quota:</span>
-                            <span class="font-sans tabular-nums font-bold text-slate-600 dark:text-slate-300">{{ $b->max_daily_jobs ?? 25 }} jobs/day</span>
+                            <span class="font-sans tabular-nums font-bold text-cyber-muted">{{ $b->max_daily_jobs ?? 25 }} jobs/day</span>
                         </div>
                     </div>
 
                     {{-- 3 High-Contrast Metric Chips --}}
                     <div class="grid grid-cols-3 gap-2 text-center text-xs pt-1">
                         <div class="bg-blue-500/10 dark:bg-blue-500/15 p-2.5 rounded-2xl border border-blue-500/25">
-                            <span class="text-blue-700 dark:text-blue-300 block text-[11px] font-bold uppercase tracking-wider font-sans">Active</span>
+                            <span class="text-blue-700 dark:text-blue-300 block text-[11px] font-bold font-sans">Active</span>
                             <strong class="text-blue-800 dark:text-blue-200 text-sm font-black font-sans tabular-nums mt-0.5 block">{{ $b->active_jobs }}</strong>
                         </div>
                         <div class="bg-emerald-500/10 dark:bg-emerald-500/15 p-2.5 rounded-2xl border border-emerald-500/25">
-                            <span class="text-emerald-700 dark:text-emerald-300 block text-[11px] font-bold uppercase tracking-wider font-sans">Done</span>
+                            <span class="text-emerald-700 dark:text-emerald-300 block text-[11px] font-bold font-sans">Done</span>
                             <strong class="text-emerald-800 dark:text-emerald-200 text-sm font-black font-sans tabular-nums mt-0.5 block">{{ $b->completed_jobs }}</strong>
                         </div>
                         <div class="bg-rose-500/10 dark:bg-rose-500/15 p-2.5 rounded-2xl border border-rose-500/25">
-                            <span class="text-rose-700 dark:text-rose-300 block text-[11px] font-bold uppercase tracking-wider font-sans">Delayed</span>
+                            <span class="text-rose-700 dark:text-rose-300 block text-[11px] font-bold font-sans">Delayed</span>
                             <strong class="text-rose-800 dark:text-rose-200 text-sm font-black font-sans tabular-nums mt-0.5 block">{{ $b->delayed_jobs }}</strong>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                 {{-- Capacity Load Progress Bar --}}
                 <div class="space-y-3 pt-2">
                     <div class="space-y-1.5 border-t border-cyber/60 pt-3">
-                        <div class="flex justify-between items-center text-[11px] font-semibold uppercase tracking-wider">
+                        <div class="flex justify-between items-center text-[11px] font-semibold">
                             <span class="text-cyber-muted">Capacity Load</span>
                             <span class="{{ $pct >= 80 ? 'text-rose-600 dark:text-rose-400' : ($pct >= 50 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400') }} font-sans tabular-nums text-xs">
                                 {{ $pct }}%

@@ -31,7 +31,7 @@
         </a>
     </div>
 
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         @if($orders->isEmpty())
         <div class="p-14 text-center">
             <div class="h-14 w-14 mx-auto rounded-xl bg-cyber-sub text-cyber-muted border border-cyber flex items-center justify-center text-xl mb-4">

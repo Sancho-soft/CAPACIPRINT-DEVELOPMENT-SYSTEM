@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between">
         <div>
             <h2 class="text-2xl font-bold text-cyber-main font-display">Order #{{ $order->order_number }}</h2>
-            <p class="text-sm text-slate-500 mt-1">Created {{ $order->created_at->format('F d, Y') }}</p>
+            <p class="text-sm text-cyber-muted mt-1">Created {{ $order->created_at->format('F d, Y') }}</p>
         </div>
         <a href="{{ route('customer.orders.tracking', $order) }}"
            class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-4 py-2 rounded-lg text-sm transition flex items-center gap-2">
@@ -28,28 +28,28 @@
                 <span class="text-2xl font-bold font-sans tabular-nums tracking-wide text-blue-600 dark:text-blue-400">{{ $order->claimReference->claim_code ?? ('CLM-' . strtoupper(substr($order->order_number, -6))) }}</span>
             </div>
         </div>
-        <div class="bg-white p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm shrink-0 text-center">
+        <div class="bg-white p-3.5 rounded-2xl border border-cyber shadow-sm shrink-0 text-center">
             <canvas id="qr-code-order" class="h-32 w-32"></canvas>
-            <span class="text-[11px] font-semibold text-slate-600 block mt-1.5">Scan at Counter</span>
+            <span class="text-[11px] font-semibold text-cyber-muted block mt-1.5">Scan at Counter</span>
         </div>
     </div>
     @endif
 
     {{-- Status + Payment --}}
     <div class="grid grid-cols-2 gap-4">
-        <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Order Status</p>
+        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 shadow-sm">
+            <p class="text-xs font-semibold text-cyber-muted">Order Status</p>
             <span class="inline-block mt-2 text-xs font-bold uppercase
                 {{ match($order->status) {
                     'submitted'   => 'text-blue-600 dark:text-blue-400',
                     'quotation'   => 'text-amber-600 dark:text-amber-400',
                     'production'  => 'text-blue-600 dark:text-blue-400',
                     'completed'   => 'text-emerald-600 dark:text-emerald-400',
-                    default       => 'text-slate-500 dark:text-slate-400',
+                    default       => 'text-cyber-muted',
                 } }}">{{ $order->status_label }}</span>
         </div>
-        <div class="bg-white border border-slate-100 rounded-xl p-5 shadow-sm">
-            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Payment Status</p>
+        <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-5 shadow-sm">
+            <p class="text-xs font-semibold text-cyber-muted">Payment Status</p>
             <span class="inline-block mt-2 px-3 py-1 text-xs font-bold rounded-full uppercase
                 {{ match($order->payment_status) {
                     'confirmed' => 'bg-green-100 text-green-800',
@@ -62,19 +62,19 @@
 
     {{-- Print Job Info --}}
     @if($order->printRequest)
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
-        <div class="px-6 py-4 bg-slate-50 border-b border-slate-100">
+    <div class="bg-cyber-card border border-cyber rounded-xl shadow-sm overflow-hidden">
+        <div class="px-6 py-4 bg-cyber-sub border-b border-cyber">
             <h3 class="font-bold text-cyber-main">Print Job Details</h3>
         </div>
-        <table class="min-w-full divide-y divide-slate-100 text-sm tabular-nums">
-            <tbody class="bg-white divide-y divide-slate-100">
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50 w-1/3">Service</td><td class="px-6 py-3 font-bold text-cyber-main">{{ $order->printRequest->service }}</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Quantity</td><td class="px-6 py-3">{{ $order->printRequest->quantity }} copies</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Size / Material</td><td class="px-6 py-3">{{ $order->printRequest->size }} &middot; {{ $order->printRequest->material }}</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Finishing</td><td class="px-6 py-3">{{ $order->printRequest->finishing }}</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Deadline</td><td class="px-6 py-3">{{ $order->printRequest->deadline?->format('F d, Y') ?? '—' }}</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Assigned Branch</td><td class="px-6 py-3 font-semibold text-brand-700">{{ $order->assigned_branch ?? 'Pending routing...' }}</td></tr>
-                <tr><td class="px-6 py-3 font-semibold text-slate-500 bg-slate-50/50">Est. Completion</td><td class="px-6 py-3">{{ $order->estimated_completion?->format('F d, Y') ?? '—' }}</td></tr>
+        <table class="min-w-full divide-y divide-cyber-sub text-sm tabular-nums">
+            <tbody class="bg-cyber-card divide-y divide-cyber-sub">
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60 w-1/3">Service</td><td class="px-6 py-3 font-bold text-cyber-main">{{ $order->printRequest->service }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60">Quantity</td><td class="px-6 py-3">{{ $order->printRequest->quantity }} copies</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60">Size / Material</td><td class="px-6 py-3">{{ $order->printRequest->size }} &middot; {{ $order->printRequest->material }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60">Finishing</td><td class="px-6 py-3">{{ $order->printRequest->finishing }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60">Deadline</td><td class="px-6 py-3">{{ $order->printRequest->deadline?->format('F d, Y') ?? '—' }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60">Assigned Branch</td><td class="px-6 py-3 font-semibold text-brand-700">{{ $order->assigned_branch ?? 'Pending routing...' }}</td></tr>
+                <tr><td class="px-6 py-3 font-semibold text-cyber-muted bg-cyber-sub/60">Est. Completion</td><td class="px-6 py-3">{{ $order->estimated_completion?->format('F d, Y') ?? '—' }}</td></tr>
             </tbody>
         </table>
     </div>
@@ -82,10 +82,10 @@
 
     {{-- Quotation Summary --}}
     @if($order->quotation)
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm p-5">
+    <div class="bg-cyber-card border border-cyber rounded-xl shadow-sm p-5">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Quotation</p>
+                <p class="text-xs font-semibold text-cyber-muted">Quotation</p>
                 <p class="font-bold text-cyber-main mt-0.5">#{{ $order->quotation->formatted_number }}</p>
             </div>
             <div class="text-right">
@@ -93,7 +93,7 @@
                 <span class="text-[11px] font-bold px-2 py-0.5 rounded {{ $order->quotation->status_badge_class }}">{{ $order->quotation->status_label }}</span>
             </div>
         </div>
-        <div class="mt-3 pt-3 border-t border-slate-100">
+        <div class="mt-3 pt-3 border-t border-cyber">
             <a href="{{ route('customer.quotations.show', $order->quotation) }}"
                class="text-sm text-brand-500 hover:text-brand-700 font-semibold">View Quotation &rarr;</a>
         </div>
@@ -102,10 +102,10 @@
 
     {{-- Payment Summary --}}
     @if($order->payment)
-    <div class="bg-white border border-slate-100 rounded-xl shadow-sm p-5">
+    <div class="bg-cyber-card border border-cyber rounded-xl shadow-sm p-5">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Payment</p>
+                <p class="text-xs font-semibold text-cyber-muted">Payment</p>
                 <p class="font-bold text-cyber-main mt-0.5">
                     {{ str_replace([' (Over-the-Counter)', ' on Pickup'], '', $order->payment->payment_method ?? 'Cash') }}
                     @if($order->payment->display_reference !== '—')
@@ -118,7 +118,7 @@
                 <span class="text-[11px] font-bold px-2 py-0.5 rounded {{ $order->payment->status_badge_class }}">{{ $order->payment->status_label }}</span>
             </div>
         </div>
-        <div class="mt-3 pt-3 border-t border-slate-100">
+        <div class="mt-3 pt-3 border-t border-cyber">
             <a href="{{ route('customer.payments.show', $order->payment) }}"
                class="text-sm text-brand-500 hover:text-brand-700 font-semibold">View Payment &rarr;</a>
         </div>
@@ -126,7 +126,7 @@
     @endif
 
     <a href="{{ route('customer.orders.index') }}"
-       class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-cyber-main font-medium">
+       class="inline-flex items-center gap-2 text-sm text-cyber-muted hover:text-cyber-main font-medium">
         <i class="fa-solid fa-arrow-left text-xs"></i> Back to My Orders
     </a>
 </div>

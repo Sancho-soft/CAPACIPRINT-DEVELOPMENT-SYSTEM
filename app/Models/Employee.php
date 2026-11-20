@@ -33,10 +33,10 @@ class Employee extends Model
     public function getAvailabilityBadgeClassAttribute(): string
     {
         return match ($this->availability_status) {
-            'available' => 'bg-green-100 text-green-800',
-            'on_leave'  => 'bg-amber-100 text-amber-800',
-            'off_duty'  => 'bg-slate-100 text-slate-600',
-            default     => 'bg-slate-100 text-slate-600',
+            'available' => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'on_leave'  => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            'off_duty'  => 'bg-cyber-sub text-cyber-muted border border-cyber',
+            default     => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 }

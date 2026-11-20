@@ -12,7 +12,7 @@
             <div class="flex items-center gap-3.5">
                 <img src="{{ asset('images/morning-star-logo.png') }}" 
                      alt="Morning Star Logo" 
-                     class="h-12 w-12 object-contain bg-white p-1 rounded-xl border border-slate-200/80 shrink-0">
+                     class="h-12 w-12 object-contain bg-white p-1 rounded-xl border border-cyber shrink-0">
                 <div>
                     <h2 class="text-base sm:text-lg font-bold text-cyber-main font-display tracking-tight">
                         Morning Star Printing Press Co.
@@ -162,7 +162,7 @@
                 </span>
 
                 <div class="flex items-center gap-2.5">
-                    <a href="{{ route('staff.quotations.index') }}" class="px-4 py-2.5 bg-cyber-sub hover:bg-cyber-card border border-cyber rounded-xl text-cyber-main font-semibold transition">
+                    <a href="{{ route('staff.quotations.index') }}" class="px-4 py-2.5 bg-cyber-sub hover:bg-cyber-card border border-cyber rounded-2xl shadow-sm text-cyber-main font-semibold transition">
                         Cancel
                     </a>
                     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-sm transition flex items-center gap-2 cursor-pointer">

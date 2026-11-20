@@ -11,8 +11,8 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Executive Procurement &amp; Purchase Approvals</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Review replenishment requests, approve purchase orders, and monitor budget spend.</p>
+            <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">Executive Procurement &amp; Purchase Approvals</h1>
+            <p class="text-xs text-cyber-muted mt-1">Review replenishment requests, approve purchase orders, and monitor budget spend.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">

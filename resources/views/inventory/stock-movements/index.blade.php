@@ -19,7 +19,7 @@
         </a>
     </div>
 
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         {{-- Filters & Meta Bar --}}
         <form method="GET" action="{{ route('inventory.stock-movements.index') }}" class="px-5 py-3.5 border-b border-cyber flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-sub">
             <div class="flex flex-wrap items-center gap-2.5">
@@ -71,12 +71,7 @@
                             <span class="font-semibold text-cyber-main block text-xs leading-snug">{{ $m->material->name ?? '—' }}</span>
                             @php
                                 $matType = strtolower($m->material->type ?? 'media');
-                                $typeBadge = match($matType) {
-                                    'paper' => 'bg-blue-500/10 text-brand-700 dark:text-blue-400 border-blue-500/25',
-                                    'ink'   => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/25',
-                                    'media' => 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/25',
-                                    default => 'bg-cyber-sub text-cyber-muted border-cyber',
-                                };
+                            @endphp
                             <span class="text-xs font-semibold uppercase tracking-wider block mt-0.5 {{ match($matType) {
                                 'paper' => 'text-blue-600 dark:text-blue-400',
                                 'ink'   => 'text-indigo-600 dark:text-indigo-400',

@@ -24,11 +24,11 @@
     </div>
 
     {{-- Filter Form --}}
-    <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+    <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm">
         <form method="GET" action="{{ route('management.reports.production') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-xs">
             <div class="sm:col-span-3">
-                <label class="block font-bold text-slate-600 mb-1">Branch</label>
-                <select name="branch_id" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                <label class="block font-bold text-cyber-muted mb-1">Branch</label>
+                <select name="branch_id" class="w-full px-3.5 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none">
                     <option value="">All Branches</option>
                     @foreach($branches as $b)
                         <option value="{{ $b->id }}" {{ request('branch_id') == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="sm:col-span-3">
-                <label class="block font-bold text-slate-600 mb-1">Priority</label>
+                <label class="block font-bold text-cyber-muted mb-1">Priority</label>
                 <select name="priority" class="w-full px-3.5 py-2 bg-cyber-sub border border-cyber rounded-lg focus:ring-2 focus:ring-brand-600 focus:outline-none">
                     <option value="">All Priorities</option>
                     <option value="urgent" {{ request('priority') === 'urgent' ? 'selected' : '' }}>Urgent</option>
@@ -47,15 +47,15 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label class="block font-bold text-slate-600 mb-1">From Date</label>
+                <label class="block font-bold text-cyber-muted mb-1">From Date</label>
                 <input type="date" name="from_date" value="{{ request('from_date') }}" 
-                       class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                       class="w-full px-3 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none">
             </div>
 
             <div class="sm:col-span-2">
-                <label class="block font-bold text-slate-600 mb-1">To Date</label>
+                <label class="block font-bold text-cyber-muted mb-1">To Date</label>
                 <input type="date" name="to_date" value="{{ request('to_date') }}" 
-                       class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                       class="w-full px-3 py-2 bg-cyber-sub border border-cyber rounded-xl focus:ring-2 focus:ring-amber-500 focus:outline-none">
             </div>
 
             <div class="sm:col-span-2 flex items-end gap-2">
@@ -63,7 +63,7 @@
                     Filter
                 </button>
                 @if(request()->hasAny(['branch_id', 'priority', 'from_date', 'to_date']))
-                    <a href="{{ route('management.reports.production') }}" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold transition" title="Reset Filters">
+                    <a href="{{ route('management.reports.production') }}" class="py-2 px-3 bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-muted rounded-xl font-bold transition" title="Reset Filters">
                         <i class="fa-solid fa-rotate-left"></i>
                     </a>
                 @endif
@@ -72,10 +72,10 @@
     </div>
 
     {{-- Report Table --}}
-    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div class="bg-cyber-card rounded-2xl border border-cyber shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-600 tabular-nums">
-                <thead class="bg-slate-50/80 text-[11px] font-extrabold text-slate-400 border-b border-slate-100">
+            <table class="w-full text-left text-xs text-cyber-muted tabular-nums">
+                <thead class="bg-cyber-sub text-[11px] font-extrabold text-cyber-muted border-b border-cyber">
                     <tr>
                         <th class="py-3.5 px-5">Job #</th>
                         <th class="py-3.5 px-4">Service &amp; Qty</th>
@@ -87,21 +87,21 @@
                         <th class="py-3.5 px-5 text-right">Status</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-cyber-sub">
                     @forelse($jobs as $j)
-                        <tr class="hover:bg-slate-50/50 transition">
+                        <tr class="hover:bg-cyber-sub/60 transition">
                             <td class="py-4 px-5 font-bold text-cyber-main font-display">#{{ $j->job_number }}</td>
                             <td class="py-4 px-4">
                                 <span class="font-bold text-cyber-main">{{ $j->order->printRequest->service ?? 'Print Service' }}</span>
-                                <div class="text-[11px] text-slate-400">{{ $j->order->printRequest->quantity ?? 1 }} copies</div>
+                                <div class="text-[11px] text-cyber-muted">{{ $j->order->printRequest->quantity ?? 1 }} copies</div>
                             </td>
                             <td class="py-4 px-4 font-bold text-navy-800">
                                 {{ $j->branch->name ?? '—' }}
                             </td>
-                            <td class="py-4 px-4 text-slate-700">
+                            <td class="py-4 px-4 text-cyber-main">
                                 {{ $j->machine->name ?? 'Unassigned' }}
                             </td>
-                            <td class="py-4 px-4 text-slate-700">
+                            <td class="py-4 px-4 text-cyber-main">
                                 {{ $j->assignedTo->name ?? 'Unassigned' }}
                             </td>
                             <td class="py-4 px-4">
@@ -109,9 +109,9 @@
                                     {{ $j->priority }}
                                 </span>
                             </td>
-                            <td class="py-4 px-4 text-slate-500 text-[11px]">
-                                <div><span class="text-slate-400">Started:</span> {{ $j->started_at ? $j->started_at->format('M d, H:i') : '—' }}</div>
-                                <div><span class="text-slate-400">Done:</span> {{ $j->completed_at ? $j->completed_at->format('M d, H:i') : 'Pending' }}</div>
+                            <td class="py-4 px-4 text-cyber-muted text-[11px]">
+                                <div><span class="text-cyber-muted">Started:</span> {{ $j->started_at ? $j->started_at->format('M d, H:i') : '—' }}</div>
+                                <div><span class="text-cyber-muted">Done:</span> {{ $j->completed_at ? $j->completed_at->format('M d, H:i') : 'Pending' }}</div>
                             </td>
                             <td class="py-4 px-5 text-right">
                                 <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase {{ $j->status_badge_class }}">
@@ -121,7 +121,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="py-12 text-center text-slate-400">
+                            <td colspan="8" class="py-12 text-center text-cyber-muted">
                                 <i class="fa-solid fa-industry text-3xl mb-2 text-slate-300"></i>
                                 <p class="text-sm">No production jobs found for the selected criteria.</p>
                             </td>
@@ -132,7 +132,7 @@
         </div>
 
         @if($jobs->hasPages())
-            <div class="p-4 border-t border-slate-100">
+            <div class="p-4 border-t border-cyber">
                 {{ $jobs->links() }}
             </div>
         @endif

@@ -8,10 +8,10 @@
     <title>@yield('title', 'CAPACIPRINT') — Intelligent Print Routing</title>
     <meta name="description" content="@yield('meta_description', 'CAPACIPRINT – Intelligent capacity-based print routing system.')">
 
-    {{-- Fonts: Plus Jakarta Sans everywhere across the entire system --}}
+    {{-- Fonts: Bricolage Grotesque (Display), Plus Jakarta Sans (Body/UI), IBM Plex Mono (Tickets/IDs) --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}';">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" onerror="this.onerror=null; this.href='{{ asset('assets/fontsource/inter/index.css') }}';">
 
     {{-- FontAwesome (CDN with Local Fallback) --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onerror="this.onerror=null; this.href='{{ asset('assets/fontawesome/css/all.min.css') }}';">
@@ -21,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="this.onerror=null; this.src='{{ asset('assets/js/chart.min.js') }}';"></script>
     <script>
         (function () {
-            const family = "'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif";
+            const family = "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
             if (window.Chart) {
                 Chart.defaults.font.family = family;
             }
@@ -39,37 +39,37 @@
                 extend: {
                     colors: {
                         cyber: {
-                            base: '#0C0E12',
-                            dark: '#101319',
-                            card: '#151922',
-                            border: '#262C38',
-                            hover: '#1D222D',
-                            muted: '#8B949E',
+                            base: '#0A0F1C',
+                            dark: '#0D1322',
+                            card: '#111827',
+                            border: '#1E293B',
+                            hover: '#161F33',
+                            muted: '#94A3B8',
                         },
                         navy: {
                             50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
                             400: '#94a3b8', 500: '#64748b', 600: '#475569',
-                            700: '#262c38', 800: '#151922', 900: '#101319', 950: '#0b0f17',
+                            700: '#1E293B', 800: '#111827', 900: '#0D1322', 950: '#0A0F1C',
                         },
                         brand: {
                             50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
-                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb',
-                            700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                            400: '#60a5fa', 500: '#2F7BFF', 600: '#2F7BFF',
+                            700: '#1F68EB', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
                         },
                         cubs: {
-                            DEFAULT: '#2563EB',
+                            DEFAULT: '#2F7BFF',
                             50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
-                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb',
-                            700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                            400: '#60a5fa', 500: '#2F7BFF', 600: '#2F7BFF',
+                            700: '#1F68EB', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
                         },
                         cyan: {
-                            400: '#3b82f6', 500: '#2563eb', 600: '#1d4ed8'
+                            400: '#60a5fa', 500: '#2F7BFF', 600: '#2F7BFF'
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-                        display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        display: ['"Bricolage Grotesque"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
                     }
                 }
             }
@@ -82,7 +82,7 @@
             if (localStorage.theme === 'dark') {
                 document.documentElement.classList.add('dark', 'dark-theme');
                 document.documentElement.classList.remove('light-theme');
-                if (meta) meta.setAttribute('content', '#0B0F17');
+                if (meta) meta.setAttribute('content', '#0A0F1C');
             } else {
                 document.documentElement.classList.add('light-theme');
                 document.documentElement.classList.remove('dark', 'dark-theme');
@@ -93,14 +93,22 @@
     <style>
         [x-cloak] { display: none !important; }
         html, body {
-            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+            letter-spacing: 0.005em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
         }
-        .font-display { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; letter-spacing: -0.025em; }
-        .font-sans { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; }
-        .font-mono { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important; font-variant-numeric: tabular-nums; }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif !important;
+            line-height: 1.14 !important;
+            letter-spacing: -0.012em;
+        }
+        .font-sans { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important; letter-spacing: 0.005em; }
+        .font-mono, .font-ticket {
+            font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace !important;
+            font-variant-numeric: tabular-nums;
+        }
         .tabular-nums { font-variant-numeric: tabular-nums; }
 
         /* Web Interface Guidelines & Baseline UI Ergonomics */
@@ -108,28 +116,28 @@
         p { text-wrap: pretty; }
         [id] { scroll-margin-top: 5rem; }
         a, button, input, select, textarea { touch-action: manipulation; }
-        :focus-visible { outline: 2px solid #2563EB; outline-offset: 2px; }
-        html.dark :focus-visible, html.dark-theme :focus-visible { outline-color: #3B82F6; }
+        :focus-visible { outline: 2px solid #2F7BFF; outline-offset: 2px; }
+        html.dark :focus-visible, html.dark-theme :focus-visible { outline-color: #2F7BFF; }
 
         :root {
-            --brand-dark: #151922;
+            --brand-dark: #111827;
             --brand-mid:  #3f4652;
-            --brand-blue: #2563EB;
-            --accent-primary: #2563EB;
+            --brand-blue: #2F7BFF;
+            --accent-primary: #2F7BFF;
         }
 
-        /* Dark Theme */
+        /* Dark Theme — Print-Company Palette */
         html.dark-theme, html.dark, :root {
             color-scheme: dark;
-            --bg-base: #0B0F17;
-            --bg-surface: #101319;
-            --bg-card: #151922;
-            --bg-card-sub: #1B202B;
-            --border-main: #262C38;
-            --border-sub: #1E232E;
-            --text-main: #F3F2EE;
-            --text-muted: #9BA3B0;
-            --text-sub: #6B7280;
+            --bg-base: #0A0F1C;
+            --bg-surface: #0D1322;
+            --bg-card: #111827;
+            --bg-card-sub: #0D1322;
+            --border-main: #1E293B;
+            --border-sub: #172033;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --text-sub: #64748B;
         }
 
         /* Clean Modern Light Theme (Default) */
@@ -179,47 +187,47 @@
         /* Card / container backgrounds */
         html.dark-theme main .bg-white,
         html.dark main .bg-white {
-            background-color: #151922 !important;
+            background-color: #111827 !important;
         }
         html.dark-theme main .bg-slate-50,
         html.dark main .bg-slate-50 {
-            background-color: #101319 !important;
+            background-color: #0A0F1C !important;
         }
         html.dark-theme main .bg-slate-100,
         html.dark main .bg-slate-100 {
-            background-color: #1B202B !important;
+            background-color: #0D1322 !important;
         }
 
-        /* Colored tint backgrounds (report category icons etc.) */
+        /* Colored tint backgrounds */
         html.dark-theme main .bg-blue-50,
-        html.dark main .bg-blue-50 { background-color: rgba(59,130,246,0.12) !important; }
+        html.dark main .bg-blue-50 { background-color: rgba(47,123,255,0.12) !important; }
         html.dark-theme main .bg-emerald-50,
         html.dark main .bg-emerald-50 { background-color: rgba(16,185,129,0.12) !important; }
         html.dark-theme main .bg-purple-50,
-        html.dark main .bg-purple-50 { background-color: rgba(168,85,247,0.12) !important; }
+        html.dark main .bg-purple-50 { background-color: rgba(47,123,255,0.12) !important; }
         html.dark-theme main .bg-amber-50,
-        html.dark main .bg-amber-50 { background-color: rgba(245,158,11,0.12) !important; }
+        html.dark main .bg-amber-50 { background-color: rgba(255,197,49,0.12) !important; }
         html.dark-theme main .bg-red-50,
-        html.dark main .bg-red-50 { background-color: rgba(239,68,68,0.12) !important; }
+        html.dark main .bg-red-50 { background-color: rgba(255,197,49,0.12) !important; }
         html.dark-theme main .bg-teal-50,
-        html.dark main .bg-teal-50 { background-color: rgba(20,184,166,0.12) !important; }
+        html.dark main .bg-teal-50 { background-color: rgba(16,185,129,0.12) !important; }
         html.dark-theme main .bg-cyan-50,
-        html.dark main .bg-cyan-50 { background-color: rgba(59,130,246,0.12) !important; }
+        html.dark main .bg-cyan-50 { background-color: rgba(47,123,255,0.12) !important; }
         html.dark-theme main .bg-indigo-50,
-        html.dark main .bg-indigo-50 { background-color: rgba(99,102,241,0.12) !important; }
+        html.dark main .bg-indigo-50 { background-color: rgba(47,123,255,0.12) !important; }
 
         /* Border colors */
         html.dark-theme main .border-slate-100,
         html.dark main .border-slate-100 {
-            border-color: #262C38 !important;
+            border-color: #1E293B !important;
         }
         html.dark-theme main .border-slate-200,
         html.dark main .border-slate-200 {
-            border-color: #262C38 !important;
+            border-color: #1E293B !important;
         }
         html.dark-theme main .border-slate-300,
         html.dark main .border-slate-300 {
-            border-color: #303746 !important;
+            border-color: #2B3A55 !important;
         }
 
         /* Dividers */
@@ -227,29 +235,29 @@
         html.dark main .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
         html.dark-theme main .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
         html.dark main .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
-            border-color: #1F2430 !important;
+            border-color: #172033 !important;
         }
 
         /* Text colors — dark headings become crisp paper-white */
         html.dark-theme main .text-navy-900,
         html.dark main .text-navy-900 {
-            color: #F3F2EE !important;
+            color: #F8FAFC !important;
         }
         html.dark-theme main .text-slate-900,
         html.dark main .text-slate-900 {
-            color: #F3F2EE !important;
+            color: #F8FAFC !important;
         }
         html.dark-theme main .text-slate-800,
         html.dark main .text-slate-800 {
-            color: #E2E4E9 !important;
+            color: #E2E8F0 !important;
         }
         html.dark-theme main .text-slate-700,
         html.dark main .text-slate-700 {
-            color: #C7CDD6 !important;
+            color: #CBD5E1 !important;
         }
         html.dark-theme main .text-slate-600,
         html.dark main .text-slate-600 {
-            color: #9BA3B0 !important;
+            color: #94A3B8 !important;
         }
 
         /* Hover states for dark mode */
@@ -259,32 +267,45 @@
         html.dark main .hover\:bg-slate-100:hover,
         html.dark-theme main .hover\:bg-slate-50\/50:hover,
         html.dark main .hover\:bg-slate-50\/50:hover {
-            background-color: #1D222D !important;
+            background-color: #161F33 !important;
         }
         html.dark-theme main .hover\:shadow-md:hover,
         html.dark main .hover\:shadow-md:hover {
             box-shadow: 0 2px 6px rgba(0,0,0,0.35) !important;
         }
 
-        /* Form inputs in dark mode */
-        html.dark-theme main input,
+        /* High-contrast form inputs in dark mode */
+        html.dark-theme main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]),
         html.dark-theme main select,
         html.dark-theme main textarea,
-        html.dark main input,
+        html.dark main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]),
         html.dark main select,
         html.dark main textarea {
-            background-color: #101319 !important;
-            border-color: #262C38 !important;
-            color: #F3F2EE !important;
+            background-color: #182235 !important;
+            border-color: #2B3A55 !important;
+            color: #F8FAFC !important;
+            font-size: 0.875rem !important;
+        }
+        html.dark-theme main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+        html.dark-theme main select:focus,
+        html.dark-theme main textarea:focus,
+        html.dark main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+        html.dark main select:focus,
+        html.dark main textarea:focus {
+            border-color: #2F7BFF !important;
+            box-shadow: 0 0 0 3px rgba(47, 123, 255, 0.16) !important;
+            outline: none !important;
         }
         html.dark-theme main select option,
         html.dark main select option {
-            background-color: #101319 !important;
-            color: #F3F2EE !important;
+            background-color: #182235 !important;
+            color: #F8FAFC !important;
         }
         html.dark-theme main input::placeholder,
-        html.dark main input::placeholder {
-            color: #6B7280 !important;
+        html.dark main input::placeholder,
+        html.dark-theme main textarea::placeholder,
+        html.dark main textarea::placeholder {
+            color: #8B9BB4 !important;
         }
 
         /* ══════════════════════════════════════════════════════════════
@@ -552,9 +573,9 @@
         }
         html.dark-theme main table thead,
         html.dark-theme main table thead th {
-            background-color: #101319 !important;
-            color: #9BA3B0 !important;
-            border-color: #262C38 !important;
+            background-color: #0D1322 !important;
+            color: #94A3B8 !important;
+            border-color: #1E293B !important;
         }
         html.light-theme main table thead,
         html.light-theme main table thead th {
@@ -568,18 +589,18 @@
         }
 
         /* Hover border accent colors */
-        html.light-theme .hover\:border-cyan-500\/40:hover { border-color: rgba(37,99,235,0.45) !important; }
-        html.light-theme .hover\:border-cyan-500\/30:hover { border-color: rgba(37,99,235,0.35) !important; }
-        html.light-theme .hover\:border-indigo-500\/40:hover { border-color: rgba(79,70,229,0.4) !important; }
-        html.light-theme .hover\:border-indigo-500\/30:hover { border-color: rgba(79,70,229,0.3) !important; }
-        html.light-theme .hover\:border-emerald-500\/40:hover { border-color: rgba(5,150,105,0.4) !important; }
-        html.light-theme .hover\:border-emerald-500\/30:hover { border-color: rgba(5,150,105,0.3) !important; }
+        html.light-theme .hover\:border-cyan-500\/40:hover { border-color: rgba(47,123,255,0.45) !important; }
+        html.light-theme .hover\:border-cyan-500\/30:hover { border-color: rgba(47,123,255,0.35) !important; }
+        html.light-theme .hover\:border-indigo-500\/40:hover { border-color: rgba(47,123,255,0.4) !important; }
+        html.light-theme .hover\:border-indigo-500\/30:hover { border-color: rgba(47,123,255,0.3) !important; }
+        html.light-theme .hover\:border-emerald-500\/40:hover { border-color: rgba(16,185,129,0.4) !important; }
+        html.light-theme .hover\:border-emerald-500\/30:hover { border-color: rgba(16,185,129,0.3) !important; }
         html.light-theme .hover\:border-amber-500\/30:hover { border-color: rgba(217,119,6,0.35) !important; }
-        html.light-theme .hover\:border-purple-500\/40:hover { border-color: rgba(147,51,234,0.4) !important; }
+        html.light-theme .hover\:border-purple-500\/40:hover { border-color: rgba(47,123,255,0.4) !important; }
 
         /* Selection color */
-        html.light-theme .selection\:bg-cyan-500\/30::selection { background-color: rgba(37,99,235,0.14) !important; }
-        html.light-theme .selection\:text-cyan-200::selection { color: #2563EB !important; }
+        html.light-theme .selection\:bg-cyan-500\/30::selection { background-color: rgba(47,123,255,0.14) !important; }
+        html.light-theme .selection\:text-cyan-200::selection { color: #2F7BFF !important; }
 
         /* Clean Modern Slate Light Theme Surfaces */
         html.light-theme,
@@ -606,28 +627,32 @@
             border-color: #F1F5F9 !important;
         }
 
-        /* Clean Modern Typography Normalization: Plus Jakarta Sans everywhere */
-        html, body, button, input, select, textarea,
-        .font-sans, .font-display, .font-mono,
-        aside .font-mono,
-        header .font-mono,
-        main th.font-mono,
-        main thead .font-mono,
-        main label.font-mono,
-        main button.font-mono,
-        main h1.font-mono,
-        main h2.font-mono,
-        main h3.font-mono,
-        main h4.font-mono {
-            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+        /* Print-Company Typography Hierarchy */
+        html, body, button, input, select, textarea, .font-sans {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+            letter-spacing: 0.005em;
         }
-        .font-mono, .tabular-nums {
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif !important;
+            line-height: 1.14 !important;
+            letter-spacing: -0.012em;
+        }
+        .font-mono, .font-ticket {
+            font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace !important;
+            font-variant-numeric: tabular-nums;
+        }
+        .tabular-nums {
             font-variant-numeric: tabular-nums;
         }
         main table thead th {
-            font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
             font-size: 0.75rem !important;
-            font-weight: 700 !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.015em !important;
+            text-transform: none !important;
+        }
+        main .uppercase.tracking-wider,
+        main .uppercase.tracking-widest {
             letter-spacing: 0.025em !important;
         }
 

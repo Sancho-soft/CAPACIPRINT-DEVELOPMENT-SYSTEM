@@ -55,7 +55,7 @@
     </div>
 
     {{-- Requests Table Container --}}
-    <div id="print-requests-table-card" class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col">
+    <div id="print-requests-table-card" class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden flex flex-col">
         @if($printRequests->isEmpty())
             <div class="p-8">
                 <x-dashboard.empty-state 
@@ -105,7 +105,7 @@
                                 {{ $req->deadline?->format('M d, Y') ?? '—' }}
                             </td>
                             <td class="px-5 py-3.5 whitespace-nowrap">
-                                <span class="text-xs font-semibold uppercase tracking-wider font-sans tabular-nums {{ match($req->status) {
+                                <span class="text-xs font-semibold font-sans tabular-nums {{ match($req->status) {
                                     'submitted' => 'text-amber-600 dark:text-amber-400',
                                     'quotation' => 'text-indigo-600 dark:text-indigo-400',
                                     'payment'   => 'text-orange-600 dark:text-orange-400',

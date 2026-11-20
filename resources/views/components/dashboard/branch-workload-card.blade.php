@@ -6,49 +6,48 @@
     'actionLabel' => 'Manage Branches',
 ])
 
-<div class="bg-cyber-card border border-cyber rounded-2xl p-5 sm:p-6 space-y-4 h-full flex flex-col justify-between shadow-sm">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-sub pb-4">
+<div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden flex flex-col h-full">
+    <div class="px-5 sm:px-6 py-4 border-b border-cyber flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-cyber-sub">
         <div>
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-network-wired text-blue-600 dark:text-blue-400 text-xs"></i>
-                <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
-            </div>
+            <h3 class="font-bold text-cyber-main text-sm sm:text-base font-display tracking-tight">{{ $title }}</h3>
             @if(!empty($subtitle))
                 <p class="text-xs text-cyber-muted mt-0.5">{{ $subtitle }}</p>
             @endif
         </div>
         @if($actionUrl)
-            <a href="{{ $actionUrl }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1 shrink-0">
-                {{ $actionLabel }} <i class="fa-solid fa-arrow-right text-[11px]"></i>
+            <a href="{{ $actionUrl }}" class="text-xs font-semibold text-[#2F7BFF] dark:text-[#60A5FA] hover:underline inline-flex items-center gap-1.5 shrink-0">
+                <span>{{ $actionLabel }}</span>
+                <i class="fa-solid fa-arrow-right text-[11px]"></i>
             </a>
         @endif
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1 flex-1">
+    <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-cyber flex-1">
         @forelse($branches as $b)
             @php
                 $activeJobs = $b->active_jobs_count ?? ($b->active_jobs ?? 0);
                 $maxJobs = max(1, $b->max_daily_jobs ?? 20);
                 $pct = min(100, round(($activeJobs / $maxJobs) * 100));
-                
+
+                // Strict 3-status color limit: Warm Yellow (High Load), Brand Blue (Active), Live Green (Optimal)
                 $statusColor = match(true) {
-                    $pct >= 85 => [
-                        'text'  => 'text-rose-700 dark:text-rose-400 font-semibold',
-                        'bar'   => 'bg-rose-600 dark:bg-rose-500',
-                        'dot'   => 'bg-rose-600',
-                        'label' => 'High Load',
+                    $pct >= 80 => [
+                        'text'  => 'text-amber-600 dark:text-[#FFC531] font-semibold',
+                        'bar'   => 'bg-[#FFC531]',
+                        'dot'   => 'bg-[#FFC531]',
+                        'label' => 'Near Capacity',
                     ],
-                    $pct >= 50 => [
-                        'text'  => 'text-amber-700 dark:text-amber-400 font-semibold',
-                        'bar'   => 'bg-amber-600 dark:bg-amber-500',
-                        'dot'   => 'bg-amber-500',
-                        'label' => 'Moderate',
+                    $pct >= 40 => [
+                        'text'  => 'text-[#2F7BFF] dark:text-[#60A5FA] font-semibold',
+                        'bar'   => 'bg-[#2F7BFF]',
+                        'dot'   => 'bg-[#2F7BFF]',
+                        'label' => 'Active Load',
                     ],
                     default => [
-                        'text'  => 'text-emerald-700 dark:text-emerald-400 font-semibold',
-                        'bar'   => 'bg-emerald-600 dark:bg-emerald-500',
-                        'dot'   => 'bg-emerald-500',
-                        'label' => 'Optimal',
+                        'text'  => 'text-emerald-600 dark:text-[#10B981] font-semibold',
+                        'bar'   => 'bg-[#10B981]',
+                        'dot'   => 'bg-[#10B981]',
+                        'label' => 'Available',
                     ],
                 };
 
@@ -56,56 +55,41 @@
                 $totalMachines = $b->machines_count ?? ($b->machines ? $b->machines->count() : 0);
             @endphp
 
-            <a href="{{ $actionUrl ?? route('management.branches.index') }}" class="p-4 rounded-xl border border-cyber bg-cyber-sub hover:border-blue-600/40 dark:hover:border-blue-500/40 transition-colors duration-150 flex flex-col justify-between space-y-3 group cursor-pointer block h-full">
-                {{-- Header --}}
-                <div class="flex items-start justify-between gap-2">
-                    <div class="min-w-0 flex-1">
-                        <h4 class="font-bold text-cyber-main text-xs sm:text-sm font-display group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex items-start gap-2 leading-snug min-h-[2.25rem]">
-                            <span class="w-2 h-2 rounded-full {{ $statusColor['dot'] }} inline-block shrink-0 mt-1.5"></span>
-                            <span class="line-clamp-2" title="{{ $b->name }}">{{ $b->name }}</span>
-                        </h4>
-                        <span class="text-xs text-cyber-muted flex items-center gap-1.5 mt-1 font-sans">
-                            <i class="fa-solid fa-location-dot text-[11px] text-blue-600 dark:text-blue-400"></i>
-                            {{ $b->location ?? 'Hub' }}
-                        </span>
+            <a href="{{ $actionUrl ?? route('management.branches.index') }}" class="p-5 flex flex-col justify-between gap-4 hover:bg-cyber-sub/50 transition-colors group block">
+                <div class="space-y-3">
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-cyber-main text-sm font-display group-hover:text-[#2F7BFF] dark:group-hover:text-[#60A5FA] transition-colors flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full {{ $statusColor['dot'] }} shrink-0"></span>
+                                <span class="truncate" title="{{ $b->name }}">{{ $b->name }}</span>
+                            </h4>
+                            <p class="text-xs text-cyber-muted mt-0.5 pl-4">{{ $b->location ?? 'Press Hub' }}</p>
+                        </div>
+                        <span class="font-mono text-xs tabular-nums {{ $statusColor['text'] }} shrink-0">{{ $pct }}%</span>
                     </div>
-                    <span class="text-[11px] font-sans font-semibold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0">
-                        Inspect <i class="fa-solid fa-arrow-right text-[11px]"></i>
-                    </span>
-                </div>
 
-                {{-- Key Spec Metrics --}}
-                <div class="text-xs text-cyber-muted bg-cyber-card rounded-xl border border-cyber divide-y divide-cyber-sub tabular-nums overflow-hidden">
-                    <div class="flex justify-between items-center text-xs px-3 py-2">
-                        <span class="text-cyber-muted font-sans">Press Fleet</span>
-                        <span class="font-sans font-semibold text-cyber-main text-right tabular-nums">
-                            <strong class="text-blue-600 dark:text-blue-400 font-bold">{{ $availMachines }}</strong> / {{ $totalMachines }} online
-                        </span>
-                    </div>
-                    <div class="flex justify-between items-center text-xs px-3 py-2">
-                        <span class="text-cyber-muted font-sans">Active Jobs</span>
-                        <span class="font-sans font-semibold text-cyber-main text-right tabular-nums">{{ $activeJobs }} jobs</span>
-                    </div>
-                    <div class="flex justify-between items-center text-xs px-3 py-2">
-                        <span class="text-cyber-muted font-sans">Rated Capacity</span>
-                        <span class="font-sans font-semibold text-cyber-main text-right tabular-nums">{{ $b->max_daily_jobs ?? 25 }}/day</span>
+                    <div class="w-full h-1.5 rounded-full overflow-hidden bg-black/10 dark:bg-white/10">
+                        <div class="h-full rounded-full transition-all duration-300 {{ $statusColor['bar'] }}" style="width: {{ $pct }}%"></div>
                     </div>
                 </div>
 
-                {{-- Utilization Progress Bar --}}
-                <div class="space-y-1.5 pt-1">
-                    <div class="flex justify-between items-center text-xs font-sans font-semibold">
-                        <span class="text-cyber-muted">Utilization</span>
-                        <span class="{{ $statusColor['text'] }} tabular-nums text-xs">{{ $pct }}%</span>
+                <div class="divide-y divide-cyber-sub border-t border-cyber text-xs tabular-nums pt-1">
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-cyber-muted">Press Fleet</span>
+                        <span class="font-mono font-semibold text-cyber-main">{{ $availMachines }}/{{ $totalMachines }} online</span>
                     </div>
-                    <div class="w-full h-2 rounded-full overflow-hidden bg-black/10 dark:bg-white/10">
-                        <div class="h-full rounded-full transition-all duration-300 ease-out {{ $statusColor['bar'] }}"
-                             style="width: {{ $pct }}%"></div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-cyber-muted">Active Jobs</span>
+                        <span class="font-mono font-semibold text-cyber-main">{{ $activeJobs }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 pb-0">
+                        <span class="text-cyber-muted">Daily Capacity</span>
+                        <span class="font-mono font-semibold text-cyber-main">{{ $b->max_daily_jobs ?? 25 }}/day</span>
                     </div>
                 </div>
             </a>
         @empty
-            <div class="col-span-3 text-center py-6 text-cyber-muted text-xs">
+            <div class="col-span-3 text-center py-8 text-cyber-muted text-xs">
                 No active branches configured in the system.
             </div>
         @endforelse

@@ -60,22 +60,22 @@ class ProductionJob extends Model
     public function getStatusBadgeClassAttribute(): string
     {
         return match ($this->status) {
-            'assigned'         => 'bg-blue-100 text-blue-800',
-            'preparing'        => 'bg-indigo-100 text-indigo-800',
-            'in_production'    => 'bg-cyan-100 text-cyan-800',
-            'quality_checking' => 'bg-purple-100 text-purple-800',
-            'completed'        => 'bg-green-100 text-green-800',
-            'delayed'          => 'bg-red-100 text-red-800',
-            default            => 'bg-slate-100 text-slate-600',
+            'assigned'         => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30',
+            'preparing'        => 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400 border border-indigo-500/30',
+            'in_production'    => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30',
+            'quality_checking' => 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border border-purple-500/30',
+            'completed'        => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'delayed'          => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30',
+            default            => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 
     public function getPriorityBadgeClassAttribute(): string
     {
         return match ($this->priority) {
-            'urgent' => 'bg-red-100 text-red-800',
-            'rush'   => 'bg-orange-100 text-orange-800',
-            default  => 'bg-slate-100 text-slate-600',
+            'urgent' => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30',
+            'rush'   => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            default  => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 }

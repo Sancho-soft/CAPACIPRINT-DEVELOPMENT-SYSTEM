@@ -19,7 +19,7 @@
             <div class="relative z-50" x-data="{ exportOpen: false }" @click.outside="exportOpen = false">
                 <button @click="exportOpen = !exportOpen" 
                         type="button" 
-                        class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center gap-2 cursor-pointer">
+                        class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-file-csv text-sm"></i>
                     <span>Export CSV</span>
                     <i class="fa-solid fa-chevron-down text-[11px] transition-transform duration-200" :class="exportOpen ? 'rotate-180' : ''"></i>
@@ -32,11 +32,11 @@
                      x-transition:leave="transition ease-in duration-100"
                      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                      x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
-                     class="absolute right-0 mt-2 w-64 rounded-xl bg-cyber-card border border-cyber shadow-lg z-[100] p-1.5 space-y-1"
+                     class="absolute right-0 mt-2 w-64 rounded-2xl bg-cyber-card border border-cyber shadow-lg z-[100] p-1.5 space-y-1"
                      style="display: none;">
                     <a href="{{ request()->fullUrlWithQuery(['export' => 'stock_csv']) }}" 
-                       class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-cyber-main hover:bg-cyber-sub transition">
-                        <div class="h-7 w-7 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
+                       class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-cyber-main hover:bg-cyber-sub transition">
+                        <div class="h-8 w-8 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
                             <i class="fa-solid fa-boxes-stacked"></i>
                         </div>
                         <div>
@@ -45,8 +45,8 @@
                         </div>
                     </a>
                     <a href="{{ request()->fullUrlWithQuery(['export' => 'reorder_csv']) }}" 
-                       class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-cyber-main hover:bg-cyber-sub transition">
-                        <div class="h-7 w-7 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
+                       class="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-cyber-main hover:bg-cyber-sub transition">
+                        <div class="h-8 w-8 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 text-xs">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
                         <div>
@@ -61,12 +61,12 @@
 
     {{-- 4 CORE INVENTORY KPI METRIC CARDS --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-cyber-card p-5 rounded-xl border border-cyber flex items-center justify-between gap-3">
-            <div class="h-10 w-10 rounded-lg bg-cyber-sub border border-cyber text-cyber-muted flex items-center justify-center text-base shrink-0">
+        <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm flex items-center justify-between gap-3">
+            <div class="h-10 w-10 rounded-xl bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base shrink-0">
                 <i class="fa-solid fa-layer-group"></i>
             </div>
             <div class="flex-1 px-2 min-w-0">
-                <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block leading-tight">
+                <span class="text-xs font-sans tabular-nums font-semibold text-cyber-muted block leading-tight">
                     Active Catalog Substrates
                 </span>
             </div>
@@ -77,12 +77,12 @@
             </div>
         </div>
 
-        <div class="bg-cyber-card p-5 rounded-xl border border-cyber flex items-center justify-between gap-3">
-            <div class="h-10 w-10 rounded-lg bg-cyber-sub border border-cyber text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-base shrink-0">
+        <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm flex items-center justify-between gap-3">
+            <div class="h-10 w-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-base shrink-0">
                 <i class="fa-solid fa-shield-heart"></i>
             </div>
             <div class="flex-1 px-2 min-w-0">
-                <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block leading-tight">
+                <span class="text-xs font-sans tabular-nums font-semibold text-cyber-muted block leading-tight">
                     Stock Health Index
                 </span>
             </div>
@@ -93,12 +93,12 @@
             </div>
         </div>
 
-        <div class="bg-cyber-card p-5 rounded-xl border border-cyber flex items-center justify-between gap-3">
-            <div class="h-10 w-10 rounded-lg bg-cyber-sub border border-cyber text-amber-600 dark:text-amber-400 flex items-center justify-center text-base shrink-0">
+        <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm flex items-center justify-between gap-3">
+            <div class="h-10 w-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-base shrink-0">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <div class="flex-1 px-2 min-w-0">
-                <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block leading-tight">
+                <span class="text-xs font-sans tabular-nums font-semibold text-cyber-muted block leading-tight">
                     Low Stock Warnings
                 </span>
             </div>
@@ -109,12 +109,12 @@
             </div>
         </div>
 
-        <div class="bg-cyber-card p-5 rounded-xl border border-cyber flex items-center justify-between gap-3">
-            <div class="h-10 w-10 rounded-lg bg-cyber-sub border border-cyber {{ $outOfStockCount > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-cyber-muted' }} flex items-center justify-center text-base shrink-0">
+        <div class="bg-cyber-card p-5 rounded-2xl border border-cyber shadow-sm flex items-center justify-between gap-3">
+            <div class="h-10 w-10 rounded-xl {{ $outOfStockCount > 0 ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : 'bg-cyber-sub text-cyber-muted' }} flex items-center justify-center text-base shrink-0">
                 <i class="fa-solid fa-boxes-packing"></i>
             </div>
             <div class="flex-1 px-2 min-w-0">
-                <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted block leading-tight">
+                <span class="text-xs font-sans tabular-nums font-semibold text-cyber-muted block leading-tight">
                     Out of Stock Depleted
                 </span>
             </div>
@@ -127,10 +127,10 @@
     </div>
 
     {{-- INTERACTIVE REPORTING FILTER BAR --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl p-4 sm:p-5 print:hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm p-4 sm:p-5 print:hidden">
         <form method="GET" action="{{ route('inventory.reports.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end text-xs">
             <div class="lg:col-span-4">
-                <label class="block font-sans tabular-nums font-semibold text-cyber-muted text-[11px] mb-1">Search Specification</label>
+                <label class="block font-sans tabular-nums font-semibold text-cyber-main text-xs mb-1.5">Search Specification</label>
                 <div class="relative">
                     <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-cyber-muted">
                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
@@ -139,13 +139,13 @@
                            name="search" 
                            value="{{ request('search') }}" 
                            placeholder="e.g. Cyan Toner, Tarpaulin..." 
-                           class="w-full pl-9 pr-3.5 py-2 rounded-lg bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-brand-600 focus:outline-none placeholder-cyber-muted">
+                           class="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-blue-600 focus:outline-none placeholder-cyber-muted">
                 </div>
             </div>
 
             <div class="lg:col-span-3">
-                <label class="block font-sans tabular-nums font-semibold text-cyber-muted text-[11px] mb-1">Branch Facility</label>
-                <select name="branch_id" class="w-full px-3 py-2 rounded-lg bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-brand-600 focus:outline-none">
+                <label class="block font-sans tabular-nums font-semibold text-cyber-main text-xs mb-1.5">Branch Facility</label>
+                <select name="branch_id" class="w-full px-3 py-2.5 rounded-xl bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-blue-600 focus:outline-none">
                     <option value="">All Facilities (Network Wide)</option>
                     @foreach($branches as $b)
                         <option value="{{ $b->id }}" {{ request('branch_id') == $b->id ? 'selected' : '' }}>{{ $b->name }}</option>
@@ -154,8 +154,8 @@
             </div>
 
             <div class="lg:col-span-2">
-                <label class="block font-sans tabular-nums font-semibold text-cyber-muted text-[11px] mb-1">Category</label>
-                <select name="category" class="w-full px-3 py-2 rounded-lg bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-brand-600 focus:outline-none">
+                <label class="block font-sans tabular-nums font-semibold text-cyber-main text-xs mb-1.5">Category</label>
+                <select name="category" class="w-full px-3 py-2.5 rounded-xl bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-blue-600 focus:outline-none">
                     <option value="">All Categories</option>
                     <option value="paper" {{ request('category') === 'paper' ? 'selected' : '' }}>Paper / Media</option>
                     <option value="ink" {{ request('category') === 'ink' ? 'selected' : '' }}>Inks &amp; Toners</option>
@@ -166,8 +166,8 @@
             </div>
 
             <div class="lg:col-span-2">
-                <label class="block font-sans tabular-nums font-semibold text-cyber-muted text-[11px] mb-1">Stock Status</label>
-                <select name="status" class="w-full px-3 py-2 rounded-lg bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-brand-600 focus:outline-none">
+                <label class="block font-sans tabular-nums font-semibold text-cyber-main text-xs mb-1.5">Stock Status</label>
+                <select name="status" class="w-full px-3 py-2.5 rounded-xl bg-cyber-sub border border-cyber text-cyber-main text-xs focus:border-blue-600 focus:outline-none">
                     <option value="">All Statuses</option>
                     <option value="available" {{ request('status') === 'available' ? 'selected' : '' }}>In Stock / Optimal</option>
                     <option value="low_stock" {{ request('status') === 'low_stock' ? 'selected' : '' }}>Low Stock Warning</option>
@@ -176,11 +176,11 @@
             </div>
 
             <div class="lg:col-span-1 flex items-center gap-1.5">
-                <button type="submit" class="w-full py-2 px-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs transition flex items-center justify-center gap-1 cursor-pointer">
+                <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition flex items-center justify-center gap-1 cursor-pointer">
                     <i class="fa-solid fa-filter text-[11px]"></i> Filter
                 </button>
                 @if(request()->hasAny(['branch_id', 'category', 'status', 'search']))
-                    <a href="{{ route('inventory.reports.index') }}" class="py-2 px-2.5 rounded-lg bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-muted transition font-semibold" title="Reset Filters">
+                    <a href="{{ route('inventory.reports.index') }}" class="py-2.5 px-2.5 rounded-xl bg-cyber-sub hover:bg-cyber-card border border-cyber text-cyber-muted transition font-semibold" title="Reset Filters">
                         <i class="fa-solid fa-rotate-left text-xs"></i>
                     </a>
                 @endif
@@ -189,10 +189,10 @@
     </div>
 
     {{-- 4. CRITICAL REORDER & RESTOCK WARNINGS TABLE --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="px-5 py-4 border-b border-cyber flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-sub">
             <div class="flex items-center gap-3">
-                <div class="h-8 w-8 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs">
+                <div class="h-9 w-9 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <div>
@@ -202,7 +202,7 @@
             <div class="flex items-center gap-2.5 shrink-0 print:hidden">
                 @if($reorderItems->count() > 0)
                 <a href="{{ request()->fullUrlWithQuery(['export' => 'reorder_csv']) }}" 
-                   class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center gap-2 cursor-pointer"
+                   class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center gap-2 cursor-pointer"
                    title="Download Urgent Reorder List as CSV for purchasing">
                     <i class="fa-solid fa-file-csv text-sm"></i>
                     <span>Export CSV</span>
@@ -247,7 +247,7 @@
                             +{{ number_format($deficit, 2) }} <span class="text-xs font-normal text-cyber-muted">{{ $item->material->unit ?? 'units' }}</span>
                         </td>
                         <td class="px-5 py-3.5 text-center">
-                            <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase {{ $item->status_badge_class }}">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-sans tabular-nums font-semibold {{ $item->status_badge_class }}">
                                 {{ $item->status_label }}
                             </span>
                         </td>
@@ -258,7 +258,7 @@
         </div>
         @else
         <div class="p-8 text-center space-y-2">
-            <div class="h-12 w-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-xl">
+            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center text-xl">
                 <i class="fa-solid fa-circle-check"></i>
             </div>
             <p class="font-bold text-cyber-main font-display text-sm">All Inventory Levels are Healthy</p>
@@ -268,10 +268,10 @@
     </div>
 
     {{-- 5. COMPREHENSIVE STOCK INVENTORY & AUDIT LEDGER --}}
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="px-5 py-4 border-b border-cyber flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-sub">
             <div class="flex items-center gap-3">
-                <div class="h-8 w-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs">
+                <div class="h-9 w-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs">
                     <i class="fa-solid fa-boxes-stacked"></i>
                 </div>
                 <div>
@@ -280,7 +280,7 @@
             </div>
             <div class="flex items-center gap-2.5 shrink-0 print:hidden">
                 <a href="{{ request()->fullUrlWithQuery(['export' => 'stock_csv']) }}" 
-                   class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center gap-2 cursor-pointer"
+                   class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center gap-2 cursor-pointer"
                    title="Export all stock inventory items to CSV">
                     <i class="fa-solid fa-file-csv text-sm"></i>
                     <span>Export CSV</span>
@@ -291,7 +291,7 @@
         @if($inventory->count() > 0)
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs tabular-nums">
-                <thead class="bg-slate-50 dark:bg-cyber-dark text-slate-400 dark:text-slate-500 font-bold border-b border-slate-100 dark:border-cyber">
+                <thead class="bg-cyber-sub text-cyber-muted font-semibold border-b border-cyber text-xs">
                     <tr>
                         <th class="px-6 py-3.5">Branch Facility</th>
                         <th class="px-6 py-3.5">Material Specification</th>
@@ -302,33 +302,33 @@
                         <th class="px-6 py-3.5 text-right">Last Audit / Updated</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+                <tbody class="divide-y divide-cyber-sub text-cyber-main">
                     @foreach($inventory as $item)
-                    <tr class="hover:bg-slate-50/60 dark:hover:bg-cyber-hover/50 transition">
-                        <td class="px-6 py-4 font-bold text-cyber-main dark:text-white">
+                    <tr class="hover:bg-cyber-sub/50 transition">
+                        <td class="px-6 py-4 font-bold text-cyber-main">
                             {{ $item->branch->name ?? 'Unassigned' }}
                         </td>
                         <td class="px-6 py-4">
-                            <div class="font-bold text-cyber-main dark:text-white">{{ $item->material->name ?? 'Unknown Material' }}</div>
-                            <div class="text-[11px] text-slate-400 font-sans tabular-nums">{{ $item->material->description ? \Illuminate\Support\Str::limit($item->material->description, 35) : 'Standard substrate' }}</div>
+                            <div class="font-bold text-cyber-main">{{ $item->material->name ?? 'Unknown Material' }}</div>
+                            <div class="text-[11px] text-cyber-muted font-sans tabular-nums">{{ $item->material->description ? \Illuminate\Support\Str::limit($item->material->description, 35) : 'Standard substrate' }}</div>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-cyber-sub text-cyber-main border border-cyber">
                                 {{ $item->material->type_label ?? 'Consumable' }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 font-sans tabular-nums font-black text-sm text-right {{ $item->status === 'out_of_stock' ? 'text-rose-600 dark:text-rose-400' : ($item->status === 'low_stock' ? 'text-amber-600 dark:text-amber-400' : 'text-cyber-main dark:text-white') }}">
-                            {{ number_format($item->quantity, 2) }} <span class="text-xs font-normal text-slate-400">{{ $item->material->unit ?? 'units' }}</span>
+                        <td class="px-6 py-4 font-sans tabular-nums font-bold text-sm text-right {{ $item->status === 'out_of_stock' ? 'text-rose-600 dark:text-rose-400' : ($item->status === 'low_stock' ? 'text-amber-600 dark:text-amber-400' : 'text-cyber-main') }}">
+                            {{ number_format($item->quantity, 2) }} <span class="text-xs font-normal text-cyber-muted">{{ $item->material->unit ?? 'units' }}</span>
                         </td>
-                        <td class="px-6 py-4 font-sans tabular-nums font-bold text-right text-slate-700 dark:text-slate-300">
-                            {{ number_format($item->minimum_stock, 2) }} <span class="text-xs font-normal text-slate-400">{{ $item->material->unit ?? 'units' }}</span>
+                        <td class="px-6 py-4 font-sans tabular-nums font-semibold text-right text-cyber-main">
+                            {{ number_format($item->minimum_stock, 2) }} <span class="text-xs font-normal text-cyber-muted">{{ $item->material->unit ?? 'units' }}</span>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase {{ $item->status_badge_class }}">
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold {{ $item->status_badge_class }}">
                                 {{ $item->status_label }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-right font-sans tabular-nums text-slate-400 text-[11px]">
+                        <td class="px-6 py-4 text-right font-sans tabular-nums text-cyber-muted text-[11px]">
                             {{ $item->last_updated ? $item->last_updated->format('M d, Y h:i A') : ($item->updated_at ? $item->updated_at->format('M d, Y') : '—') }}
                         </td>
                     </tr>
@@ -339,20 +339,20 @@
 
         {{-- Pagination Controls (Every 7 Items Per Page) --}}
         @if($inventory->hasPages())
-        <div class="px-6 py-4 border-t border-slate-100 dark:border-cyber/80 bg-slate-50/40 dark:bg-cyber-dark/30">
+        <div class="px-6 py-4 border-t border-cyber bg-cyber-sub/50">
             {{ $inventory->links() }}
         </div>
         @endif
 
         @else
         <div class="p-8 text-center space-y-2">
-            <div class="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 mx-auto flex items-center justify-center text-xl">
+            <div class="h-12 w-12 rounded-2xl bg-cyber-sub border border-cyber text-cyber-muted mx-auto flex items-center justify-center text-xl">
                 <i class="fa-solid fa-boxes-stacked"></i>
             </div>
-            <p class="font-bold text-cyber-main dark:text-white text-sm">No Inventory Records Found</p>
-            <p class="text-xs text-slate-400">No stock items match your current filter parameters.</p>
+            <p class="font-bold text-cyber-main font-display text-sm">No Inventory Records Found</p>
+            <p class="text-xs text-cyber-muted">No stock items match your current filter parameters.</p>
             @if(request()->hasAny(['branch_id', 'category', 'status', 'search']))
-            <a href="{{ route('inventory.reports.index') }}" class="inline-flex items-center gap-1.5 mt-2 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition">
+            <a href="{{ route('inventory.reports.index') }}" class="inline-flex items-center gap-1.5 mt-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition">
                 <i class="fa-solid fa-rotate-left text-[11px]"></i> Reset Filters
             </a>
             @endif

@@ -9,8 +9,8 @@
     <!-- Header Actions -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-slate-800 dark:text-white font-display">Equipment Maintenance & Incident Logs</h1>
-            <p class="text-slate-500 dark:text-slate-400 text-sm">Report shop-floor machine breakdowns and log preventive maintenance logs.</p>
+            <h1 class="text-2xl font-bold text-cyber-main font-display">Equipment Maintenance & Incident Logs</h1>
+            <p class="text-cyber-muted text-sm">Report shop-floor machine breakdowns and log preventive maintenance logs.</p>
         </div>
 
         <button onclick="document.getElementById('report-issue-modal').classList.remove('hidden')" class="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-rose-500/20 transition">
@@ -20,10 +20,10 @@
     </div>
 
     <!-- Machine Logs Datatable -->
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300 tabular-nums">
-                <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 font-semibold text-xs border-b border-slate-200 dark:border-slate-800">
+            <table class="w-full text-left text-sm text-cyber-muted tabular-nums">
+                <thead class="bg-cyber-sub/60 text-cyber-muted font-semibold text-xs border-b border-cyber">
                     <tr>
                         <th class="px-6 py-4">Logged At</th>
                         <th class="px-6 py-4">Machine</th>
@@ -34,11 +34,11 @@
                         <th class="px-6 py-4">Status</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                <tbody class="divide-y divide-cyber-sub">
                     @forelse($logs as $log)
-                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition">
-                        <td class="px-6 py-4 font-sans tabular-nums text-xs text-slate-400">{{ $log->created_at->format('M d, Y H:i') }}</td>
-                        <td class="px-6 py-4 font-semibold text-slate-900 dark:text-white">{{ $log->machine->name ?? 'Machine #' . $log->machine_id }}</td>
+                    <tr class="hover:bg-cyber-sub/60 dark:hover:bg-slate-800/40 transition">
+                        <td class="px-6 py-4 font-sans tabular-nums text-xs text-cyber-muted">{{ $log->created_at->format('M d, Y H:i') }}</td>
+                        <td class="px-6 py-4 font-semibold text-cyber-main">{{ $log->machine->name ?? 'Machine #' . $log->machine_id }}</td>
                         <td class="px-6 py-4">{{ $log->machine->branch->name ?? 'Main Branch' }}</td>
                         <td class="px-6 py-4 font-bold uppercase text-xs">
                             @if($log->log_type === 'breakdown')
@@ -47,7 +47,7 @@
                                 <span class="text-amber-500">{{ ucfirst($log->log_type) }}</span>
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-slate-700 dark:text-slate-300 max-w-sm">{{ $log->issue_description }}</td>
+                        <td class="px-6 py-4 text-cyber-main max-w-sm">{{ $log->issue_description }}</td>
                         <td class="px-6 py-4 font-semibold">{{ $log->reporter->name ?? 'Operator' }}</td>
                         <td class="px-6 py-4">
                             @if($log->status === 'open')
@@ -59,13 +59,13 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-slate-400">No equipment incident logs recorded.</td>
+                        <td colspan="7" class="px-6 py-8 text-center text-cyber-muted">No equipment incident logs recorded.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800">
+        <div class="px-6 py-4 border-t border-cyber">
             {{ $logs->links() }}
         </div>
     </div>
@@ -73,32 +73,32 @@
 
 <!-- Report Issue Modal -->
 <div id="report-issue-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm overscroll-contain">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 w-full max-w-lg shadow-sm">
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white font-display mb-4">Report Machine Issue</h3>
+    <div class="bg-cyber-card border border-cyber rounded-2xl p-6 w-full max-w-lg shadow-sm">
+        <h3 class="text-xl font-bold text-cyber-main font-display mb-4">Report Machine Issue</h3>
         <form action="{{ route('production.machines.store') }}" method="POST" class="space-y-4">
             @csrf
             <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">Target Machine</label>
-                <select name="machine_id" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white">
+                <label class="block text-xs font-bold text-cyber-muted mb-1">Target Machine</label>
+                <select name="machine_id" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main">
                     @foreach($machines as $m)
                         <option value="{{ $m->id }}">{{ $m->name }} ({{ $m->machine_type }}) — {{ ucfirst($m->status) }}</option>
                     @endforeach
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">Incident Type</label>
-                <select name="log_type" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white">
+                <label class="block text-xs font-bold text-cyber-muted mb-1">Incident Type</label>
+                <select name="log_type" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main">
                     <option value="breakdown">Breakdown (Halts Production)</option>
                     <option value="maintenance">Preventive Maintenance</option>
                     <option value="inspection">Routine Inspection</option>
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">Description of Breakdown / Issue</label>
-                <textarea name="issue_description" rows="4" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white" placeholder="Describe error codes, paper jams, or mechanical fault details..."></textarea>
+                <label class="block text-xs font-bold text-cyber-muted mb-1">Description of Breakdown / Issue</label>
+                <textarea name="issue_description" rows="4" required class="w-full bg-cyber-sub border border-cyber rounded-xl px-4 py-2.5 text-cyber-main" placeholder="Describe error codes, paper jams, or mechanical fault details..."></textarea>
             </div>
             <div class="flex justify-end gap-3 pt-2">
-                <button type="button" onclick="document.getElementById('report-issue-modal').classList.add('hidden')" class="px-4 py-2 text-slate-500 hover:text-slate-700 font-semibold text-sm">Cancel</button>
+                <button type="button" onclick="document.getElementById('report-issue-modal').classList.add('hidden')" class="px-4 py-2 text-cyber-muted hover:text-cyber-main font-semibold text-sm">Cancel</button>
                 <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white font-semibold px-5 py-2 rounded-xl text-sm shadow-md">Submit Incident Report</button>
             </div>
         </form>

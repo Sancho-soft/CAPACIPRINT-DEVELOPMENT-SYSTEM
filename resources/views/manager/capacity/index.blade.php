@@ -8,15 +8,15 @@
     {{-- Page Header (Clean & Unboxed) --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Multi-Factor Capacity Evaluation Engine</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Multi-branch workload scoring, press availability, and intelligent routing allocation.</p>
+            <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">Multi-Factor Capacity Evaluation Engine</h1>
+            <p class="text-xs text-cyber-muted mt-1">Multi-branch workload scoring, press availability, and intelligent routing allocation.</p>
         </div>
 
         <div class="flex items-center gap-2.5 shrink-0">
-            <a href="{{ route('manager.recommendations.index') }}" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 font-bold text-xs transition flex items-center gap-2 shadow-sm">
+            <a href="{{ route('manager.recommendations.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub border border-cyber text-cyber-main hover:bg-cyber-sub font-bold text-xs transition flex items-center gap-2 shadow-sm">
                 <i class="fa-solid fa-building-circle-check text-blue-500 text-xs"></i> Saved Recommendations
             </a>
-            <a href="{{ route('manager.workload.index') }}" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 font-bold text-xs transition flex items-center gap-2 shadow-sm">
+            <a href="{{ route('manager.workload.index') }}" class="px-3.5 py-2 rounded-xl bg-cyber-sub border border-cyber text-cyber-main hover:bg-cyber-sub font-bold text-xs transition flex items-center gap-2 shadow-sm">
                 <i class="fa-solid fa-chart-line text-emerald-500 text-xs"></i> Workload Matrix
             </a>
         </div>

@@ -13,7 +13,7 @@
 
         <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <a href="{{ route('manager.capacity.index') }}" 
-               class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700 flex items-center gap-2 transition shadow-sm">
+               class="px-3.5 py-2 rounded-xl bg-cyber-sub hover:bg-cyber-sub dark:hover:bg-slate-700 text-cyber-main text-xs font-bold border border-cyber flex items-center gap-2 transition shadow-sm">
                 <i class="fa-solid fa-calculator text-blue-600 dark:text-blue-400"></i>
                 <span>Capacity Evaluation</span>
             </a>
@@ -162,7 +162,7 @@
                     <canvas id="planningPriorityDonutChart"></canvas>
                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                         <span class="text-2xl font-black font-display text-cyber-main leading-tight">{{ $totalPriorityCount }}</span>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider text-cyber-muted">Floor Runs</span>
+                        <span class="text-[11px] font-semibold text-cyber-muted">Floor Runs</span>
                     </div>
                 </div>
 

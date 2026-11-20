@@ -58,11 +58,11 @@ class Machine extends Model
     public function getStatusBadgeClassAttribute(): string
     {
         return match ($this->status) {
-            'available'   => 'bg-green-100 text-green-800',
-            'in_use'      => 'bg-blue-100 text-blue-800',
-            'maintenance' => 'bg-amber-100 text-amber-800',
-            'offline'     => 'bg-red-100 text-red-800',
-            default       => 'bg-slate-100 text-slate-600',
+            'available'   => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'in_use'      => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30',
+            'maintenance' => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            'offline'     => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30',
+            default       => 'bg-cyber-sub text-cyber-muted border border-cyber',
         };
     }
 }

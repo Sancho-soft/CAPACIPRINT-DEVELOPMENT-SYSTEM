@@ -7,7 +7,7 @@
 
     <div>
         <h2 class="text-2xl font-bold text-cyber-main font-display">Help &amp; Support</h2>
-        <p class="text-sm text-slate-500 mt-1">Find answers to common questions about the CAPACIPRINT customer portal.</p>
+        <p class="text-sm text-cyber-muted mt-1">Find answers to common questions about the CAPACIPRINT customer portal.</p>
     </div>
 
     @php
@@ -25,15 +25,15 @@
 
     <div class="space-y-3" x-data="{ open: null }">
         @foreach($faqs as $i => $faq)
-        <div class="bg-white border border-slate-100 rounded-xl shadow-sm overflow-hidden">
+        <div class="bg-cyber-card border border-cyber rounded-xl shadow-sm overflow-hidden">
             <button @click="open === {{ $i }} ? open = null : open = {{ $i }}"
-                    class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-slate-50 transition">
+                    class="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-cyber-sub/50 transition">
                 <span class="font-semibold text-cyber-main text-sm">{{ $faq['q'] }}</span>
-                <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"
+                <i class="fa-solid fa-chevron-down text-cyber-muted text-xs transition-transform duration-200"
                    :class="open === {{ $i }} ? 'rotate-180 text-brand-600' : ''"></i>
             </button>
             <div x-show="open === {{ $i }}" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pt-2 pb-5 border-t border-slate-50">
-                <p class="text-sm text-slate-600 leading-relaxed">{{ $faq['a'] }}</p>
+                <p class="text-sm text-cyber-muted leading-relaxed">{{ $faq['a'] }}</p>
             </div>
         </div>
         @endforeach

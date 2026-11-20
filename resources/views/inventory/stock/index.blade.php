@@ -19,7 +19,7 @@
         </a>
     </div>
 
-    <div class="bg-cyber-card border border-cyber rounded-xl overflow-hidden">
+    <div class="bg-cyber-card border border-cyber rounded-2xl shadow-sm overflow-hidden">
         {{-- Filters & Meta Bar --}}
         <form method="GET" action="{{ route('inventory.stock.index') }}" class="px-5 py-3.5 border-b border-cyber flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-cyber-sub">
             <div class="flex flex-wrap items-center gap-2.5">
@@ -67,6 +67,9 @@
                         </td>
                         <td class="px-5 py-3.5">
                             <span class="font-semibold text-cyber-main block text-xs leading-snug">{{ $inv->material->name ?? '—' }}</span>
+                            @php
+                                $matType = strtolower($inv->material->type ?? 'media');
+                            @endphp
                             <span class="text-xs font-semibold uppercase tracking-wider block mt-0.5 {{ match($matType) {
                                 'paper' => 'text-blue-600 dark:text-blue-400',
                                 'ink'   => 'text-indigo-600 dark:text-indigo-400',

@@ -5,11 +5,11 @@
 @section('content')
 <div class="space-y-6 max-w-7xl">
     <div class="flex items-center justify-between">
-        <a href="{{ route('designer.index') }}" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition">
+        <a href="{{ route('designer.index') }}" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-cyber-muted hover:text-cyber-main dark:text-cyber-muted dark:hover:text-white transition">
             <i class="fa-solid fa-arrow-left"></i> Back to Design Queue
         </a>
         <div class="flex items-center gap-2">
-            <span class="px-3 py-1 rounded-full text-xs font-sans tabular-nums font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+            <span class="px-3 py-1 rounded-full text-xs font-sans tabular-nums font-bold bg-cyber-sub text-cyber-main border border-cyber">
                 Job #REQ-{{ str_pad($printRequest->id, 5, '0', STR_PAD_LEFT) }}
             </span>
         </div>
@@ -49,7 +49,7 @@
 
                 @if($printRequest->additional_instructions)
                     <div class="p-3 bg-cyber-sub rounded-lg text-xs space-y-1 border border-cyber-sub">
-                        <div class="font-sans tabular-nums font-semibold text-cyber-muted uppercase tracking-wider text-[11px]">Client Instructions:</div>
+                        <div class="font-sans tabular-nums font-semibold text-cyber-muted text-[11px]">Client Instructions:</div>
                         <p class="text-cyber-main italic">{{ $printRequest->additional_instructions }}</p>
                     </div>
                 @endif
@@ -106,15 +106,15 @@
 
                 <div class="space-y-6">
                     @forelse($printRequest->designProofs->sortByDesc('version') as $proof)
-                        <div class="p-5 rounded-2xl border {{ $proof->status === 'approved' ? 'bg-emerald-500/5 border-emerald-500/30' : ($proof->status === 'revision_requested' ? 'bg-amber-500/5 border-amber-500/30' : 'bg-slate-50 dark:bg-[#101319] border-slate-200 dark:border-slate-800') }} space-y-4">
+                        <div class="p-5 rounded-2xl border {{ $proof->status === 'approved' ? 'bg-emerald-500/5 border-emerald-500/30' : ($proof->status === 'revision_requested' ? 'bg-amber-500/5 border-amber-500/30' : 'bg-cyber-sub border-cyber') }} space-y-4">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div class="flex items-center gap-3">
                                     <span class="h-8 w-8 rounded-xl bg-slate-900 dark:bg-slate-800 text-blue-400 font-black flex items-center justify-center text-xs font-sans tabular-nums">
                                         v{{ $proof->version }}
                                     </span>
                                     <div>
-                                        <div class="font-bold text-slate-900 dark:text-white text-sm">{{ $proof->proof_file_name }}</div>
-                                        <div class="text-[11px] text-slate-400">Uploaded by {{ $proof->designer->name ?? 'Layout Designer' }} &bull; {{ $proof->created_at->format('M d, Y h:i A') }}</div>
+                                        <div class="font-bold text-cyber-main text-sm">{{ $proof->proof_file_name }}</div>
+                                        <div class="text-[11px] text-cyber-muted">Uploaded by {{ $proof->designer->name ?? 'Layout Designer' }} &bull; {{ $proof->created_at->format('M d, Y h:i A') }}</div>
                                     </div>
                                 </div>
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold {{ $proof->status_badge_class }}">
@@ -123,28 +123,28 @@
                             </div>
 
                             @if($proof->designer_notes)
-                                <div class="bg-white dark:bg-[#151922] p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-                                    <span class="font-bold text-slate-400 uppercase tracking-wider text-[11px] block mb-0.5">Designer Comment:</span>
-                                    <p class="text-slate-700 dark:text-slate-300">{{ $proof->designer_notes }}</p>
+                                <div class="bg-cyber-card p-3 rounded-xl border border-cyber text-xs">
+                                    <span class="font-bold text-cyber-muted text-[11px] block mb-0.5">Designer Comment:</span>
+                                    <p class="text-cyber-main">{{ $proof->designer_notes }}</p>
                                 </div>
                             @endif
 
                             @if($proof->customer_feedback)
                                 <div class="bg-amber-500/10 dark:bg-amber-500/15 p-3.5 rounded-xl border border-amber-500/20 text-xs">
-                                    <span class="font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider text-[11px] block mb-0.5"><i class="fa-solid fa-comment-dots mr-1"></i> Customer Revision Feedback:</span>
+                                    <span class="font-bold text-amber-700 dark:text-amber-400 text-[11px] block mb-0.5"><i class="fa-solid fa-comment-dots mr-1"></i> Customer Revision Feedback:</span>
                                     <p class="text-amber-900 dark:text-amber-300">{{ $proof->customer_feedback }}</p>
                                 </div>
                             @endif
 
                             <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-                                <a href="{{ Storage::url($proof->proof_file_path) }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition">
+                                <a href="{{ Storage::url($proof->proof_file_path) }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyber-sub hover:bg-cyber-sub border border-cyber text-cyber-main font-bold text-xs transition">
                                     <i class="fa-solid fa-eye text-blue-500 dark:text-blue-400"></i> View Proof
                                 </a>
 
                                 @if($proof->status === 'approved' && !$proof->production_file_path)
                                     <form method="POST" action="{{ route('designer.uploadProductionFile', $proof) }}" enctype="multipart/form-data" class="flex items-center gap-2">
                                         @csrf
-                                        <input type="file" name="production_file" required accept=".pdf,.ai,.eps,.zip,.tiff,.tif" class="text-xs text-slate-500 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-emerald-500/15 file:text-emerald-700 dark:file:text-emerald-400">
+                                        <input type="file" name="production_file" required accept=".pdf,.ai,.eps,.zip,.tiff,.tif" class="text-xs text-cyber-muted file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:bg-emerald-500/15 file:text-emerald-700 dark:file:text-emerald-400">
                                         <button type="submit" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-sm">
                                             Upload Production File
                                         </button>
@@ -160,8 +160,8 @@
                             </div>
                         </div>
                     @empty
-                        <div class="py-12 text-center text-slate-400 dark:text-slate-500">
-                            <i class="fa-solid fa-image text-3xl mb-2 text-slate-300 dark:text-slate-600"></i>
+                        <div class="py-12 text-center text-cyber-muted">
+                            <i class="fa-solid fa-image text-3xl mb-2 text-cyber-muted"></i>
                             <p class="text-sm">No proofs uploaded yet. Upload version 1 using the form on the left.</p>
                         </div>
                     @endforelse

@@ -48,7 +48,7 @@
 
         {{-- QR Code (via QRious) --}}
         <div class="flex justify-center py-6 bg-cyber-sub/40 border-b border-cyber-sub">
-            <div class="p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-white shadow-sm">
+            <div class="p-4 border border-cyber rounded-xl bg-white shadow-sm">
                 <canvas id="qr-code-claim" class="w-44 h-44"></canvas>
             </div>
         </div>

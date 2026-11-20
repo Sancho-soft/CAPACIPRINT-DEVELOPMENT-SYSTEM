@@ -14,8 +14,8 @@
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
             <div>
-                <h1 class="text-2xl font-black font-display tracking-tight text-slate-900 dark:text-white">Branch Capacity Utilization &amp; Fleet Workload</h1>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Real-time telemetry and press utilization statistics across branch fleet.</p>
+                <h1 class="text-2xl font-black font-display tracking-tight text-cyber-main">Branch Capacity Utilization &amp; Fleet Workload</h1>
+                <p class="text-xs text-cyber-muted mt-0.5">Real-time telemetry and press utilization statistics across branch fleet.</p>
             </div>
         </div>
 
@@ -87,13 +87,13 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span>Daily Limit Capacity:</span>
-                            <span class="font-sans tabular-nums font-bold text-slate-600 dark:text-slate-300">{{ $b->max_daily_jobs ?? 25 }} jobs/day</span>
+                            <span class="font-sans tabular-nums font-bold text-cyber-muted">{{ $b->max_daily_jobs ?? 25 }} jobs/day</span>
                         </div>
                     </div>
 
                     {{-- Workload Utilization Bar --}}
                     <div class="space-y-1.5 pt-4">
-                        <div class="flex justify-between items-center text-[11px] font-semibold uppercase tracking-wider">
+                        <div class="flex justify-between items-center text-[11px] font-semibold">
                             <span class="text-cyber-muted">Capacity Utilization</span>
                             <span class="{{ $statusColor['text'] }} font-sans tabular-nums text-xs">{{ $pct }}%</span>
                         </div>

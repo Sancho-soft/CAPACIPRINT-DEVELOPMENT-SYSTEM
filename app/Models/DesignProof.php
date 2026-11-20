@@ -41,9 +41,9 @@ class DesignProof extends Model
     public function getStatusBadgeClassAttribute(): string
     {
         return match ($this->status) {
-            'approved'           => 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-            'revision_requested' => 'bg-amber-50 text-amber-700 border border-amber-200',
-            default              => 'bg-blue-50 text-blue-700 border border-blue-200',
+            'approved'           => 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30',
+            'revision_requested' => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border border-amber-500/30',
+            default              => 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30',
         };
     }
 
