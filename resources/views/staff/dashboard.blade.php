@@ -10,7 +10,6 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 block mb-1">Sales &amp; Client Intake</span>
             <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Dashboard Overview</h1>
             <p class="text-xs text-cyber-muted mt-1">Live customer intake, quotations, and fulfillment monitoring.</p>
         </div>

@@ -67,16 +67,12 @@
                         </td>
                         <td class="px-5 py-3.5">
                             <span class="font-semibold text-cyber-main block text-xs leading-snug">{{ $inv->material->name ?? '—' }}</span>
-                            @php
-                                $matType = strtolower($inv->material->type ?? 'media');
-                                $typeBadge = match($matType) {
-                                    'paper' => 'bg-blue-500/10 text-brand-700 dark:text-blue-400 border-blue-500/25',
-                                    'ink'   => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/25',
-                                    'media' => 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/25',
-                                    default => 'bg-cyber-sub text-cyber-muted border-cyber',
-                                };
-                            @endphp
-                            <span class="inline-flex items-center px-2 py-0.5 mt-1 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider border {{ $typeBadge }}">
+                            <span class="text-xs font-semibold uppercase tracking-wider block mt-0.5 {{ match($matType) {
+                                'paper' => 'text-blue-600 dark:text-blue-400',
+                                'ink'   => 'text-indigo-600 dark:text-indigo-400',
+                                'media' => 'text-amber-600 dark:text-amber-400',
+                                default => 'text-cyber-muted',
+                            } }}">
                                 {{ $matType }}
                             </span>
                         </td>

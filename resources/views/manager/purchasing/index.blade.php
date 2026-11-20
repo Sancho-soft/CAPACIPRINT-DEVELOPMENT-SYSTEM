@@ -21,7 +21,6 @@
     {{-- ══════════════════════════════════════════════════════════ --}}
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wide text-cyber-sub block mb-1">Procurement &amp; Replenishment</span>
             <h1 class="text-xl sm:text-2xl font-bold font-display tracking-tight text-cyber-main">Material Purchase Requests</h1>
             <p class="text-xs text-cyber-muted mt-1">Submit replenishment orders and manage material procurement for printing facilities.</p>
         </div>
@@ -108,23 +107,19 @@
                         {{-- Status (Clean, High-Res Plain Style) --}}
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($req->status === 'pending')
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-amber-700 dark:text-amber-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-amber-500"></i>
+                                <span class="font-semibold text-xs text-amber-600 dark:text-amber-400">
                                     Pending Approval
                                 </span>
                             @elseif($req->status === 'approved')
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-emerald-700 dark:text-emerald-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-emerald-500"></i>
+                                <span class="font-semibold text-xs text-emerald-600 dark:text-emerald-400">
                                     Approved
                                 </span>
                             @elseif($req->status === 'received')
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-brand-600 dark:text-blue-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-brand-600 dark:text-blue-400"></i>
+                                <span class="font-semibold text-xs text-brand-600 dark:text-blue-400">
                                     Received &amp; Stocked
                                 </span>
                             @else
-                                <span class="inline-flex items-center gap-1.5 font-semibold text-xs text-rose-700 dark:text-rose-400">
-                                    <i class="fa-solid fa-circle text-[7px] text-rose-500"></i>
+                                <span class="font-semibold text-xs text-rose-600 dark:text-rose-400">
                                     Rejected
                                 </span>
                             @endif

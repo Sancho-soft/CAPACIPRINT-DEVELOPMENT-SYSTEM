@@ -9,28 +9,19 @@
     {{-- ========================================================================= --}}
     <div class="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#0B0F17] py-12 px-4 transition-colors duration-200">
         <div class="w-full max-w-md animate-fade-in-up">
-            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-sm p-8 sm:p-10">
 
-                {{-- Brand Header panel --}}
-                <div class="flex flex-col items-center text-center pt-8 pb-6 px-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40">
-                    <a href="{{ route('landing') }}" class="flex items-center justify-center gap-3">
+                {{-- Brand & Header --}}
+                <div class="flex flex-col items-center text-center mb-6">
+                    <a href="{{ route('landing') }}" class="flex items-center justify-center gap-3 mb-5">
                         <img src="{{ asset('images/caplogo.png') }}" alt="CAPACIPRINT" class="h-11 w-auto object-contain">
                         <span class="font-display font-extrabold text-xl text-slate-900 dark:text-white tracking-tight">
                             CAPACI<span class="text-blue-600 dark:text-blue-400">PRINT</span>
                         </span>
                     </a>
-                    <span class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200/70 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-semibold">
-                        <i class="fa-solid fa-shield-halved text-[11px]"></i>
-                        Internal Operations Portal
-                    </span>
+                    <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight">Welcome back</h1>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Sign in to your staff operations account</p>
                 </div>
-
-                {{-- Form --}}
-                <div class="px-8 pb-8 pt-6">
-                    <div class="text-center mb-6">
-                        <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight">Welcome back</h1>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Sign in to your staff operations account</p>
-                    </div>
 
                     {{-- Validation errors --}}
                     @if(isset($errors) && $errors->any())
@@ -77,15 +68,12 @@
                             </div>
                         </div>
 
-                        {{-- Remember & Back Link --}}
-                        <div class="flex items-center justify-between mb-6">
+                        {{-- Remember me --}}
+                        <div class="flex items-center mb-6">
                             <label class="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
                                 <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500">
                                 Remember me
                             </label>
-                            <a href="{{ route('landing') }}" class="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline transition">
-                                Back to website
-                            </a>
                         </div>
 
                         <button type="submit" id="login-btn"
@@ -94,7 +82,6 @@
                             Sign In
                         </button>
                     </form>
-                </div>
             </div>
         </div>
     </div>

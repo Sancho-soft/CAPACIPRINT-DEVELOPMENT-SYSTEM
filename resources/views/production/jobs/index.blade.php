@@ -50,11 +50,20 @@
                             <span class="block text-[11px] text-slate-400 mt-0.5 font-medium">Cust: {{ $j->order->user->name ?? '—' }}</span>
                         </td>
                         <td class="px-6 py-4 text-slate-600 dark:text-slate-300 font-medium">{{ $j->machine->name ?? 'Not Set' }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase {{ $j->priority_badge_class }}">{{ $j->priority }}</span>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-xs font-semibold uppercase {{ match(strtolower($j->priority)) {
+                                'urgent', 'rush' => 'text-amber-600 dark:text-amber-400',
+                                default          => 'text-emerald-600 dark:text-emerald-400',
+                            } }}">{{ $j->priority }}</span>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase {{ $j->status_badge_class }}">{{ $j->status_label }}</span>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-xs font-semibold uppercase {{ match($j->status) {
+                                'in_production', 'production' => 'text-blue-600 dark:text-blue-400',
+                                'completed'                   => 'text-emerald-600 dark:text-emerald-400',
+                                'delayed'                     => 'text-rose-600 dark:text-rose-400',
+                                'quality_checking'            => 'text-indigo-600 dark:text-indigo-400',
+                                default                       => 'text-slate-500 dark:text-slate-400',
+                            } }}">{{ $j->status_label }}</span>
                         </td>
                         <td class="px-6 py-4 text-right whitespace-nowrap">
                             <div class="inline-flex items-center justify-end gap-2.5">

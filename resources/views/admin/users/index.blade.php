@@ -150,16 +150,25 @@
                         <td class="px-5 py-3.5 font-bold text-cyber-main">{{ $usr->name }}</td>
                         <td class="px-5 py-3.5 font-sans tabular-nums text-cyber-muted text-xs">{{ $usr->email }}</td>
                         <td class="px-5 py-3.5 whitespace-nowrap">
-                            <span class="px-2.5 py-1 rounded-md text-[11px] font-bold tracking-tight {{ $roleBadge }}">
+                            <span class="text-xs font-semibold {{ match($roleSlug) {
+                                'owner', 'management'     => 'text-amber-600 dark:text-amber-400',
+                                'admin', 'system_admin'   => 'text-rose-600 dark:text-rose-400',
+                                'manager'                 => 'text-blue-600 dark:text-blue-400',
+                                'production_officer'      => 'text-indigo-600 dark:text-indigo-400',
+                                'staff', 'designer'       => 'text-cyan-600 dark:text-cyan-400',
+                                'production'              => 'text-orange-600 dark:text-orange-400',
+                                'inventory'               => 'text-emerald-600 dark:text-emerald-400',
+                                default                   => 'text-slate-600 dark:text-slate-400',
+                            } }}">
                                 {{ $displayRole }}
                             </span>
                         </td>
                         <td class="px-5 py-3.5 font-semibold text-cyber-main">{{ $usr->branch->name ?? 'System-Wide / All' }}</td>
                         <td class="px-5 py-3.5 whitespace-nowrap">
                             @if($usr->is_archived)
-                                <span class="text-[11px] font-semibold uppercase text-amber-500 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">Archived</span>
+                                <span class="text-xs font-semibold uppercase text-amber-600 dark:text-amber-400">Archived</span>
                             @else
-                                <span class="text-[11px] font-semibold uppercase text-emerald-500 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Active</span>
+                                <span class="text-xs font-semibold uppercase text-emerald-600 dark:text-emerald-400">Active</span>
                             @endif
                         </td>
                         <td class="px-5 py-3.5 text-right whitespace-nowrap">

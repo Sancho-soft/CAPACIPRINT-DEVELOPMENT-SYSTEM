@@ -399,22 +399,6 @@
                         :title="sidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'">
                     <i class="fa-solid text-xs transition-transform duration-200" :class="sidebarCollapsed ? 'fa-indent text-blue-600 dark:text-blue-400' : 'fa-outdent'"></i>
                 </button>
-
-                {{-- Breadcrumb & Active Branch Plate --}}
-                <div class="flex items-center gap-2.5 min-w-0">
-                    <span class="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyber-sub border border-cyber text-xs font-sans font-semibold text-cyber-main shrink-0">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                        @if(auth()->user()->branch)
-                            {{ auth()->user()->branch->name }}
-                        @else
-                            Network Hub
-                        @endif
-                    </span>
-                    <span class="hidden lg:inline text-cyber-sub text-xs">/</span>
-                    <span class="text-xs sm:text-sm font-display font-bold text-cyber-main truncate tracking-tight">
-                        @yield('page-title', 'Operations Workspace')
-                    </span>
-                </div>
             </div>
 
             <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">

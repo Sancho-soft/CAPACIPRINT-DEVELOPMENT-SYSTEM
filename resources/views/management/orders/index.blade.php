@@ -259,23 +259,23 @@
                             </td>
 
                             <td class="px-5 py-3.5 whitespace-nowrap">
-                                @if(in_array($priority, ['normal', 'standard', 'low']))
-                                    <span class="text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider text-cyber-muted">
-                                        {{ $priority }}
-                                    </span>
-                                @else
-                                    <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase border {{ match($priority) {
-                                        'urgent' => 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
-                                        'rush'   => 'bg-amber-500/15 text-amber-800 dark:text-amber-400 border-amber-500/30',
-                                        default  => 'bg-cyber-sub text-cyber-muted border-cyber',
-                                    } }}">
-                                        {{ $priority }}
-                                    </span>
-                                @endif
+                                <span class="text-xs font-semibold uppercase tracking-wider {{ match($priority) {
+                                    'urgent' => 'text-rose-600 dark:text-rose-400',
+                                    'rush'   => 'text-amber-600 dark:text-amber-400',
+                                    default  => 'text-emerald-600 dark:text-emerald-400',
+                                } }}">
+                                    {{ $priority }}
+                                </span>
                             </td>
 
                             <td class="px-5 py-3.5 whitespace-nowrap">
-                                <span class="px-2 py-0.5 rounded text-[11px] font-sans tabular-nums font-semibold uppercase tracking-wider {{ $statusBadge }}">
+                                <span class="text-xs font-semibold uppercase tracking-wider {{ match($statusStr) {
+                                    'in_production', 'production' => 'text-blue-600 dark:text-blue-400',
+                                    'ready_for_pickup'            => 'text-teal-600 dark:text-teal-400',
+                                    'completed', 'claimed'        => 'text-emerald-600 dark:text-emerald-400',
+                                    'delayed'                     => 'text-rose-600 dark:text-rose-400',
+                                    default                       => 'text-cyber-muted',
+                                } }}">
                                     {{ $statusLabel }}
                                 </span>
                             </td>

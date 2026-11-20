@@ -22,8 +22,14 @@
                     <td class="px-6 py-4 font-semibold text-slate-800">{{ $j->order->printRequest->service ?? '—' }}</td>
                     <td class="px-6 py-4 font-bold text-brand-600">{{ $j->branch->name ?? '—' }}</td>
                     <td class="px-6 py-4 text-slate-600">{{ $j->assignedTo->name ?? 'Unassigned' }}</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase {{ $j->status_badge_class }}">{{ $j->status_label }}</span>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-xs font-semibold uppercase {{ match($j->status) {
+                            'in_production', 'production' => 'text-blue-600 dark:text-blue-400',
+                            'completed'                   => 'text-emerald-600 dark:text-emerald-400',
+                            'delayed'                     => 'text-rose-600 dark:text-rose-400',
+                            'quality_checking'            => 'text-purple-600 dark:text-purple-400',
+                            default                       => 'text-slate-500 dark:text-slate-400',
+                        } }}">{{ $j->status_label }}</span>
                     </td>
                 </tr>
                 @empty

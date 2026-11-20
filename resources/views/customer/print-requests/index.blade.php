@@ -85,8 +85,16 @@
                         <td class="px-6 py-4 text-slate-600 dark:text-slate-400 font-medium text-xs">{{ number_format($req->quantity) }}</td>
                         <td class="px-6 py-4 text-slate-600 dark:text-slate-400 text-xs">{{ $req->size ?? '—' }}</td>
                         <td class="px-6 py-4 text-slate-600 dark:text-slate-400 text-xs">{{ $req->deadline?->format('M d, Y') ?? '—' }}</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider border {{ $req->status_badge_class }}">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-xs font-semibold uppercase tracking-wider {{ match($req->status) {
+                                'submitted'  => 'text-amber-600 dark:text-amber-400',
+                                'quotation'  => 'text-indigo-600 dark:text-indigo-400',
+                                'payment'    => 'text-orange-600 dark:text-orange-400',
+                                'production' => 'text-blue-600 dark:text-blue-400',
+                                'completed'  => 'text-emerald-600 dark:text-emerald-400',
+                                'cancelled'  => 'text-rose-600 dark:text-rose-400',
+                                default      => 'text-slate-500 dark:text-slate-400',
+                            } }}">
                                 {{ $req->status_label }}
                             </span>
                         </td>

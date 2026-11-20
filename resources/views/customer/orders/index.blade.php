@@ -61,8 +61,12 @@
                         <td class="px-5 py-3.5 text-cyber-main font-medium">{{ $order->printRequest->service ?? '—' }}</td>
                         <td class="px-5 py-3.5 text-cyber-muted">{{ $order->assigned_branch ?? 'Routing...' }}</td>
                         <td class="px-5 py-3.5 font-sans tabular-nums text-cyber-muted tabular-nums">{{ $order->estimated_completion?->format('M d, Y') ?? '—' }}</td>
-                        <td class="px-5 py-3.5">
-                            <span class="px-2 py-0.5 text-[11px] font-sans tabular-nums font-semibold rounded uppercase {{ $order->payment_status === 'confirmed' ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20' : ($order->payment_status === 'submitted' ? 'bg-blue-500/10 text-brand-700 dark:text-blue-400 border border-blue-500/20' : 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20') }}">
+                        <td class="px-5 py-3.5 whitespace-nowrap">
+                            <span class="text-xs font-semibold uppercase {{ match($order->payment_status) {
+                                'confirmed' => 'text-emerald-600 dark:text-emerald-400',
+                                'submitted' => 'text-blue-600 dark:text-blue-400',
+                                default     => 'text-amber-600 dark:text-amber-400',
+                            } }}">
                                 {{ $order->payment_status_label }}
                             </span>
                         </td>

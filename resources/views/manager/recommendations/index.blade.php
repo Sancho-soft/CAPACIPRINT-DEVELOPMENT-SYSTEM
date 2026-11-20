@@ -27,8 +27,8 @@
                     <td class="px-6 py-4 font-semibold text-slate-800">{{ $rec->printRequest->user->name ?? '—' }}</td>
                     <td class="px-6 py-4 font-bold text-brand-600">{{ $rec->recommendedBranch->name ?? 'None' }}</td>
                     <td class="px-6 py-4 font-black text-cyber-main">{{ $rec->recommendation_score }}/100</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase {{ match($rec->status) { 'confirmed'=>'bg-emerald-100 text-emerald-800', 'overridden'=>'bg-amber-100 text-amber-800', default=>'bg-slate-100 text-slate-600' } }}">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-xs font-semibold uppercase {{ match($rec->status) { 'confirmed'=>'text-emerald-600 dark:text-emerald-400', 'overridden'=>'text-amber-600 dark:text-amber-400', default=>'text-cyber-muted' } }}">
                             {{ $rec->status_label }}
                         </span>
                     </td>
